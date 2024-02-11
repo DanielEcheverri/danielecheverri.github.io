@@ -75,121 +75,121 @@
         let isMovingDown = false;
 
         function setup() {
-          createCanvas(1000, 500);
-          potValues = new Array(numPotentiometers);
-          lineColors = new Array(numPotentiometers);
-          backgroundColors = new Array(numPotentiometers);
-          setupColors();
-          setupBackgroundColors();
+            createCanvas(1000, 500);
+            potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
+            lineColors = new Array(numPotentiometers);
+            backgroundColors = new Array(numPotentiometers);
+            setupColors();
+            setupBackgroundColors();
         }
 
         function draw() {
-          background(255);
+            background(255);
 
-          let lineHeight = height / numPotentiometers;
-          for (let i = 0; i < numPotentiometers; i++) {
-            let lineY = i * lineHeight + lineHeight / 2;
+            let lineHeight = height / numPotentiometers;
+            for (let i = 0; i < numPotentiometers; i++) {
+                let lineY = i * lineHeight + lineHeight / 2;
 
-            // Draw the background rectangle
-            noStroke();
-            fill(backgroundColors[i]);
-            rect(0, i * lineHeight, width, lineHeight);
+                // Draw the background rectangle
+                noStroke();
+                fill(backgroundColors[i]);
+                rect(0, i * lineHeight, width, lineHeight);
 
-            // Draw the line with different color for each
-            strokeWeight(50);
-            stroke(lineColors[i]);
-            line(0, lineY, map(potValues[i], 0, 4095, 0, width), lineY);
+                // Draw the line with different color for each
+                strokeWeight(50);
+                stroke(lineColors[i]);
+                line(0, lineY, map(potValues[i], 0, 4095, 0, width), lineY);
 
-            // Display the corresponding value to the left of the line
-            fill(255);
+                // Display the corresponding value to the left of the line
+                fill(255);
+                textAlign(RIGHT, CENTER);
+                textSize(16);
+                text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width) - 10, lineY);
+            }
+
+            // Draw vertical labels on the right side
             textAlign(RIGHT, CENTER);
-            textSize(16);
-            text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width) - 10, lineY);
-          }
+            textSize(32);
+            fill(255);
+            for (let i = 0; i < numPotentiometers; i++) {
+                text(labels[i], width - 10, i * lineHeight + lineHeight / 2 + 12);
+            }
 
-          // Draw vertical labels on the right side
-          textAlign(RIGHT, CENTER);
-          textSize(32);
-          fill(255);
-          for (let i = 0; i < numPotentiometers; i++) {
-            text(labels[i], width - 10, i * lineHeight + lineHeight / 2 + 12);
-          }
-
-          // Detect movement and display corresponding text
-          // checkMovement();
+            // Detect movement and display corresponding text
+            // checkMovement();
         }
 
         // Function to receive data from JavaScript
         function receiveData(data) {
-          let values = data.split(',');
-          if (values.length === numPotentiometers) {
-            for (let i = 0; i < numPotentiometers; i++) {
-              potValues[i] = parseFloat(values[i]);
+            let values = data.split(',');
+            if (values.length === numPotentiometers) {
+                for (let i = 0; i < numPotentiometers; i++) {
+                    potValues[i] = parseFloat(values[i]);
+                }
             }
-          }
         }
 
         function checkMovement() {
-          let sensitivity = 0.10; // 10%
+            let sensitivity = 0.10; // 10%
 
-          // Check for significant increase in left arm (potentiometer 1 increases and potentiometer 2 decreases)
-          if (potValues[0] > potValues[1] && (potValues[0] - potValues[1]) / potValues[0] > sensitivity) {
-            isMovingUp = true;
-            isMovingDown = false;
-            displayMovementText("UP", 0);
-          }
-          // Check for significant decrease in left arm (potentiometer 1 decreases and potentiometer 2 increases)
-          else if (potValues[0] < potValues[1] && (potValues[1] - potValues[0]) / potValues[1] > sensitivity) {
-            isMovingUp = false;
-            isMovingDown = true;
-            displayMovementText("DOWN", 0);
-          }
-          // Check for significant increase in right arm (potentiometer 4 increases and potentiometer 5 decreases)
-          else if (potValues[3] > potValues[4] && (potValues[3] - potValues[4]) / potValues[3] > sensitivity) {
-            isMovingUp = true;
-            isMovingDown = false;
-            displayMovementText("UP", 3);
-          }
-          // Check for significant decrease in right arm (potentiometer 4 decreases and potentiometer 5 increases)
-          else if (potValues[3] < potValues[4] && (potValues[4] - potValues[3]) / potValues[4] > sensitivity) {
-            isMovingUp = false;
-            isMovingDown = true;
-            displayMovementText("DOWN", 3);
-          } else {
-            // No significant movement
-            isMovingUp = false;
-            isMovingDown = false;
-            background(255); // Clear previous movement text
-          }
+            // Check for significant increase in left arm (potentiometer 1 increases and potentiometer 2 decreases)
+            if (potValues[0] > potValues[1] && (potValues[0] - potValues[1]) / potValues[0] > sensitivity) {
+                isMovingUp = true;
+                isMovingDown = false;
+                displayMovementText("UP", 0);
+            }
+            // Check for significant decrease in left arm (potentiometer 1 decreases and potentiometer 2 increases)
+            else if (potValues[0] < potValues[1] && (potValues[1] - potValues[0]) / potValues[1] > sensitivity) {
+                isMovingUp = false;
+                isMovingDown = true;
+                displayMovementText("DOWN", 0);
+            }
+            // Check for significant increase in right arm (potentiometer 4 increases and potentiometer 5 decreases)
+            else if (potValues[3] > potValues[4] && (potValues[3] - potValues[4]) / potValues[3] > sensitivity) {
+                isMovingUp = true;
+                isMovingDown = false;
+                displayMovementText("UP", 3);
+            }
+            // Check for significant decrease in right arm (potentiometer 4 decreases and potentiometer 5 increases)
+            else if (potValues[3] < potValues[4] && (potValues[4] - potValues[3]) / potValues[4] > sensitivity) {
+                isMovingUp = false;
+                isMovingDown = true;
+                displayMovementText("DOWN", 3);
+            } else {
+                // No significant movement
+                isMovingUp = false;
+                isMovingDown = false;
+                background(255); // Clear previous movement text
+            }
         }
 
         function displayMovementText(textToShow, potentiometerNumber) {
-          fill(0); // Black text
-          textAlign(CENTER, CENTER);
-          textSize(64);
-          text("Pot " + (potentiometerNumber + 1) + ": " + textToShow, width / 2, height / 2);
+            fill(0); // Black text
+            textAlign(CENTER, CENTER);
+            textSize(64);
+            text("Pot " + (potentiometerNumber + 1) + ": " + textToShow, width / 2, height / 2);
         }
 
         function setupColors() {
-          lineColors[0] = color(204, 204, 0);   // Dark Yellow
-          lineColors[1] = color(204, 204, 0);   // Dark Yellow
-          lineColors[2] = color(255, 0, 0);     // Red
-          lineColors[3] = color(204, 204, 0);   // Dark Yellow
-          lineColors[4] = color(204, 204, 0);   // Dark Yellow
-          lineColors[5] = color(0, 255, 0);     // Bright Green
-          lineColors[6] = color(0, 128, 0);     // Grass Green
-          lineColors[7] = color(0, 128, 0);     // Grass Green
+            lineColors[0] = color(204, 204, 0);   // Dark Yellow
+            lineColors[1] = color(204, 204, 0);   // Dark Yellow
+            lineColors[2] = color(255, 0, 0);     // Red
+            lineColors[3] = color(204, 204, 0);   // Dark Yellow
+            lineColors[4] = color(204, 204, 0);   // Dark Yellow
+            lineColors[5] = color(0, 255, 0);     // Bright Green
+            lineColors[6] = color(0, 128, 0);     // Grass Green
+            lineColors[7] = color(0, 128, 0);     // Grass Green
         }
 
         function setupBackgroundColors() {
-          backgroundColors[0] = color(0, 0, 0);         // 0% black
-          backgroundColors[1] = color(0, 0, 0);         // 0% black
-          backgroundColors[2] = color(0, 0, 0, 200);    // 90% black
-          backgroundColors[3] = color(0, 0, 0, 230);    // 75% black
-          backgroundColors[4] = color(0, 0, 0, 230);    // 60% black
-          backgroundColors[5] = color(0, 0, 0, 128);    // 60% black
-          backgroundColors[6] = color(0, 0, 0, 100);    // 60% black
-          backgroundColors[7] = color(0, 0, 0, 100);    // 60% black
+            backgroundColors[0] = color(0, 0, 0);         // 0% black
+            backgroundColors[1] = color(0, 0, 0);         // 0% black
+            backgroundColors[2] = color(0, 0, 0, 200);    // 90% black
+            backgroundColors[3] = color(0, 0, 0, 230);    // 75% black
+            backgroundColors[4] = color(0, 0, 0, 230);    // 60% black
+            backgroundColors[5] = color(0, 0, 0, 128);    // 60% black
+            backgroundColors[6] = color(0, 0, 0, 100);    // 60% black
+            backgroundColors[7] = color(0, 0, 0, 100);    // 60% black
         }
     </script>
 </body>
