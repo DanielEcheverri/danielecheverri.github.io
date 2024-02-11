@@ -110,22 +110,10 @@
 
                 // Display the corresponding value to the left of the line
                 fill(255);
-                textAlign(RIGHT, CENTER);
+                textAlign(LEFT, CENTER); // Align text to the left
                 textSize(labelSize);
-                text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width) - 10, lineY);
+                text(labels[i], width * 0.1, lineY); // Adjust position to left side
             }
-
-            // Draw vertical labels on the right side
-            textAlign(LEFT, CENTER);
-            let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
-            textSize(labelFontSize);
-            fill(255); // Set text color to white
-            for (let i = 0; i < numPotentiometers; i++) {
-                text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
-            }
-
-            // Detect movement and display corresponding text
-            // checkMovement();
         }
 
         // Function to receive data from JavaScript
