@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Bluetooth API Example</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        canvas {
+            width: 90vw;
+            height: 90vh;
+        }
+    </style>
 </head>
 <body>
     <h1>Web Bluetooth API Example</h1>
@@ -75,7 +81,7 @@
         let isMovingDown = false;
 
         function setup() {
-            createCanvas(1100, 1300);
+            createCanvas(windowWidth * 0.9, windowHeight * 0.9);
             potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
             lineColors = new Array(numPotentiometers);
             backgroundColors = new Array(numPotentiometers);
