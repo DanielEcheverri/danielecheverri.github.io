@@ -93,6 +93,8 @@
             background(255);
 
             let lineHeight = height / numPotentiometers;
+            let labelSize = min(width, height) * 0.03; // Responsive font size for labels
+
             for (let i = 0; i < numPotentiometers; i++) {
                 let lineY = i * lineHeight + lineHeight / 2;
 
@@ -109,13 +111,14 @@
                 // Display the corresponding value to the left of the line
                 fill(255);
                 textAlign(RIGHT, CENTER);
-                textSize(16);
+                textSize(labelSize);
                 text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width) - 10, lineY);
             }
 
             // Draw vertical labels on the right side
             textAlign(RIGHT, CENTER);
-            textSize(32);
+            let labelFontSize = min(width, height) * 0.04; // Responsive font size for labels
+            textSize(labelFontSize);
             fill(255);
             for (let i = 0; i < numPotentiometers; i++) {
                 text(labels[i], width - 10, i * lineHeight + lineHeight / 2 + 12);
@@ -172,7 +175,8 @@
         function displayMovementText(textToShow, potentiometerNumber) {
             fill(0); // Black text
             textAlign(CENTER, CENTER);
-            textSize(64);
+            let textSize = min(width, height) * 0.05; // Responsive text size
+            textSize(textSize);
             text("Pot " + (potentiometerNumber + 1) + ": " + textToShow, width / 2, height / 2);
         }
 
