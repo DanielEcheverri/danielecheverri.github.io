@@ -75,10 +75,10 @@
         let isMovingDown = false;
 
         function setup() {
-            let canvasWidth = windowWidth * 0.9; // 90% of window width
-            let canvasHeight = (canvasWidth / 1000) * 500; // Maintain original aspect ratio
+            let screenWidth = 375; // Width of iPhone screen in pixels
+            let screenHeight = screenWidth * 16 / 9; // Calculate height based on 16:9 aspect ratio
 
-            createCanvas(canvasWidth, canvasHeight);
+            createCanvas(screenWidth, screenHeight);
             potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
             lineColors = new Array(numPotentiometers);
             backgroundColors = new Array(numPotentiometers);
