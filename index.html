@@ -1,71 +1,69 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Bluetooth API Example</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+    <h1>Web Bluetooth API Example</h1>
+    <button id="connectButton">Connect to Bluetooth Device</button>
+
     <script>
-      let connectedDevice;
-      let characteristic;
+        // Function to handle button click
+        async function connect() {
+            try {
+                // Request Bluetooth device
+                const device = await navigator.bluetooth.requestDevice({
+                    filters: [{ services: ['battery_service'] }]
+                });
 
-      //
-      async function connectToDevice() {
-        try {
-          // Request the Bluetooth device
-          const device = await navigator.bluetooth.requestDevice({
-            filters: [{ services: ['your_service_uuid'] }]
-          });
+                // Connect to the selected device
+                const server = await device.gatt.connect();
 
-          // Connect to the GATT server of the device
-          const server = await device.gatt.connect();
+                // Get battery service
+                const service = await server.getPrimaryService('battery_service');
 
-          // Get the primary service
-          const service = await server.getPrimaryService('your_service_uuid');
+                // Get battery level characteristic
+                const characteristic = await service.getCharacteristic('battery_level');
 
-          // Get the characteristic you want to read/write from/to
-          characteristic = await service.getCharacteristic('your_characteristic_uuid');
+                // Read battery level value
+                const value = await characteristic.readValue();
 
-          // Set up event listeners for characteristic value changes
-          characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
+                // Convert value to percentage
+                const batteryLevel = value.getUint8(0);
 
-          // Start notifications for the characteristic
-          await characteristic.startNotifications();
-
-          connectedDevice = device;
-          console.log('Connected to device:', device.name);
-        } catch (error) {
-          console.error('Bluetooth error:', error);
+                // Display battery level
+                alert('Battery Level: ' + batteryLevel + '%');
+            } catch (error) {
+                console.error('Error: ' + error);
+            }
         }
-      }
 
-      function handleCharacteristicValueChanged(event) {
-        const value = event.target.value;
-        // Do something with the received value
-        console.log('Received value:', value);
-      }
-
-      function setup() {
-        createCanvas(400, 400);
-        
-        // Create a button to connect to the Bluetooth device
-        const connectButton = createButton('Connect to Bluetooth');
-        connectButton.position(10, 10);
-        connectButton.mousePressed(connectToDevice);
-      }
-
-      function draw() {
-        background(220);
-        // Your drawing logic here
-      }
-
-      // Example function to send data to the Bluetooth device
-      function sendData(data) {
-        if (connectedDevice && characteristic) {
-          const dataArray = new Uint8Array([data]); // Assuming data is a single byte
-          characteristic.writeValue(dataArray);
-          console.log('Sent data:', data);
-        }
-      }
+        // Attach click event listener to button
+        document.getElementById('connectButton').addEventListener('click', connect);
     </script>
-  </head>
-  <body>
-  </body>
+
+    <script>
+        // Processing 4 sketch
+        function setup() {
+            createCanvas(400, 400);
+            setInterval(changeBackgroundColor, 2000); // Change background color every 2 seconds
+        }
+
+        function draw() {
+            // Your drawing logic here
+        }
+
+        function changeBackgroundColor() {
+            // Generate random color values
+            let r = random(255);
+            let g = random(255);
+            let b = random(255);
+            // Set background color
+            background(r, g, b);
+        }
+    </script>
+</body>
 </html>
