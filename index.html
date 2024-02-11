@@ -11,8 +11,9 @@
     <button id="connectButton">Connect to Bluetooth Device</button>
 
     <script>
-        // Function to handle button click
-        async function connect() {
+        let characteristic;
+
+        async function connectToDevice() {
             try {
                 // Request Bluetooth device
                 const device = await navigator.bluetooth.requestDevice({
@@ -26,7 +27,7 @@
                 const service = await server.getPrimaryService('battery_service');
 
                 // Get battery level characteristic
-                const characteristic = await service.getCharacteristic('battery_level');
+                characteristic = await service.getCharacteristic('battery_level');
 
                 // Read battery level value
                 const value = await characteristic.readValue();
@@ -42,18 +43,54 @@
         }
 
         // Attach click event listener to button
-        document.getElementById('connectButton').addEventListener('click', connect);
+        document.getElementById('connectButton').addEventListener('click', connectToDevice);
+
+        // Function to send data to Processing sketch
+        function sendDataToSketch(data) {
+            if (window.sendToProcessing) {
+                window.sendToProcessing(data);
+            } else {
+                console.error('Processing sketch not initialized.');
+            }
+        }
+
+        // Function to handle incoming data from Bluetooth
+        function handleDataFromBluetooth(data) {
+            // Pass data to Processing sketch
+            sendDataToSketch(data);
+        }
     </script>
 
-    <script>
+    <script type="text/javascript">
         // Processing 4 sketch
+        let receivedData = "No data";
+        let lastChangeTime = 0;
+
         function setup() {
             createCanvas(400, 400);
-            setInterval(changeBackgroundColor, 2000); // Change background color every 2 seconds
+            fill(0);
+            textSize(20);
         }
 
         function draw() {
-            // Your drawing logic here
+            // Change background color every 2 seconds
+            if (millis() - lastChangeTime > 2000) {
+                changeBackgroundColor();
+                lastChangeTime = millis();
+            }
+
+            background(255);
+            text(receivedData, 50, 50);
+        }
+
+        // Function to receive data from JavaScript
+        function receiveData(data) {
+            receivedData = data;
+        }
+
+        // Function to send data to JavaScript
+        function sendToProcessing(data) {
+            receiveData(data);
         }
 
         function changeBackgroundColor() {
