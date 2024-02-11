@@ -66,29 +66,29 @@
 
     <script type="text/javascript">
         // Processing 4 sketch
-        int numPotentiometers = 8;
-        float[] potValues;
-        color[] lineColors;
-        color[] backgroundColors;
-        String[] labels = {"LEFT SHOULDER", "LEFT FOREARM", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"};
-        boolean isMovingUp = false;
-        boolean isMovingDown = false;
+        let numPotentiometers = 8;
+        let potValues;
+        let lineColors;
+        let backgroundColors;
+        let labels = ["LEFT SHOULDER", "LEFT FOREARM", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
+        let isMovingUp = false;
+        let isMovingDown = false;
 
-        void setup() {
-          size(1000, 500);
-          potValues = new float[numPotentiometers];
-          lineColors = new color[numPotentiometers];
-          backgroundColors = new color[numPotentiometers];
+        function setup() {
+          createCanvas(1000, 500);
+          potValues = new Array(numPotentiometers);
+          lineColors = new Array(numPotentiometers);
+          backgroundColors = new Array(numPotentiometers);
           setupColors();
           setupBackgroundColors();
         }
 
-        void draw() {
+        function draw() {
           background(255);
 
-          float lineHeight = height / (float)numPotentiometers;
-          for (int i = 0; i < numPotentiometers; i++) {
-            float lineY = i * lineHeight + lineHeight / 2;
+          let lineHeight = height / numPotentiometers;
+          for (let i = 0; i < numPotentiometers; i++) {
+            let lineY = i * lineHeight + lineHeight / 2;
 
             // Draw the background rectangle
             noStroke();
@@ -111,7 +111,7 @@
           textAlign(RIGHT, CENTER);
           textSize(32);
           fill(255);
-          for (int i = 0; i < numPotentiometers; i++) {
+          for (let i = 0; i < numPotentiometers; i++) {
             text(labels[i], width - 10, i * lineHeight + lineHeight / 2 + 12);
           }
 
@@ -120,17 +120,17 @@
         }
 
         // Function to receive data from JavaScript
-        void receiveData(String data) {
-          String[] values = split(data, ',');
-          if (values.length == numPotentiometers) {
-            for (int i = 0; i < numPotentiometers; i++) {
-              potValues[i] = float(values[i]);
+        function receiveData(data) {
+          let values = data.split(',');
+          if (values.length === numPotentiometers) {
+            for (let i = 0; i < numPotentiometers; i++) {
+              potValues[i] = parseFloat(values[i]);
             }
           }
         }
 
-        void checkMovement() {
-          float sensitivity = 0.10; // 10%
+        function checkMovement() {
+          let sensitivity = 0.10; // 10%
 
           // Check for significant increase in left arm (potentiometer 1 increases and potentiometer 2 decreases)
           if (potValues[0] > potValues[1] && (potValues[0] - potValues[1]) / potValues[0] > sensitivity) {
@@ -163,14 +163,14 @@
           }
         }
 
-        void displayMovementText(String textToShow, int potentiometerNumber) {
+        function displayMovementText(textToShow, potentiometerNumber) {
           fill(0); // Black text
           textAlign(CENTER, CENTER);
           textSize(64);
           text("Pot " + (potentiometerNumber + 1) + ": " + textToShow, width / 2, height / 2);
         }
 
-        void setupColors() {
+        function setupColors() {
           lineColors[0] = color(204, 204, 0);   // Dark Yellow
           lineColors[1] = color(204, 204, 0);   // Dark Yellow
           lineColors[2] = color(255, 0, 0);     // Red
@@ -180,7 +180,8 @@
           lineColors[6] = color(0, 128, 0);     // Grass Green
           lineColors[7] = color(0, 128, 0);     // Grass Green
         }
-        void setupBackgroundColors() {
+
+        function setupBackgroundColors() {
           backgroundColors[0] = color(0, 0, 0);         // 0% black
           backgroundColors[1] = color(0, 0, 0);         // 0% black
           backgroundColors[2] = color(0, 0, 0, 200);    // 90% black
