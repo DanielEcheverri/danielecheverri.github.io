@@ -12,6 +12,7 @@
 
     <script>
         let characteristic;
+        let lastColorChangeTime = 0;
 
         async function connectToDevice() {
             try {
@@ -75,8 +76,11 @@
         }
 
         function draw() {
-            // Change background color every frame
-            changeBackgroundColor();
+            // Change background color every 2 seconds
+            if (millis() - lastColorChangeTime >= 2000) {
+                changeBackgroundColor();
+                lastColorChangeTime = millis();
+            }
             // Display received data
             text(receivedData, 50, 50);
         }
