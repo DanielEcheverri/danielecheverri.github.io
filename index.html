@@ -6,8 +6,9 @@
     <title>Web Bluetooth API Example</title>
 </head>
 <body>
-    <h1>Web Bluetooth API Example</h1>
+    <h1>Web Bluetooth API & Location Example</h1>
     <button id="connectButton">Connect to Bluetooth Device</button>
+    <p id="location">Location: </p>
 
     <script>
         // Function to handle button click
@@ -40,8 +41,20 @@
             }
         }
 
+        // Function to update location
+        function updateLocation() {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                document.getElementById('location').innerText = `Location: Latitude ${latitude}, Longitude ${longitude}`;
+            });
+        }
+
         // Attach click event listener to button
         document.getElementById('connectButton').addEventListener('click', connect);
+
+        // Update location every second
+        setInterval(updateLocation, 1000);
     </script>
 </body>
 </html>
