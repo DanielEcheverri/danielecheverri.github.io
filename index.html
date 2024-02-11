@@ -8,7 +8,7 @@
     <style>
         canvas {
             width: 90vw;
-            height: 90vh;
+            height: 80vh;
         }
     </style>
 </head>
@@ -107,12 +107,12 @@
         strokeWeight(50);
         stroke(lineColors[i]);
         line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
+        strokeWeight(0);
         
         // Display the corresponding value to the left of the line
         fill(255);
         textAlign(RIGHT, CENTER);
         textSize(labelSize);
-        strokeWeight(0);
         text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width * 0.55) - 10, lineY);
     }
 
