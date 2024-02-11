@@ -1,7 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Bluetooth API Example</title>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages</p>
+    <h1>Web Bluetooth API Example</h1>
+    <button id="connectButton">Connect to Bluetooth Device</button>
+
+    <script>
+        // Function to handle button click
+        async function connect() {
+            try {
+                // Request Bluetooth device
+                const device = await navigator.bluetooth.requestDevice({
+                    filters: [{ services: ['battery_service'] }]
+                });
+
+                // Connect to the selected device
+                const server = await device.gatt.connect();
+
+                // Get battery service
+                const service = await server.getPrimaryService('battery_service');
+
+                // Get battery level characteristic
+                const characteristic = await service.getCharacteristic('battery_level');
+
+                // Read battery level value
+                const value = await characteristic.readValue();
+
+                // Convert value to percentage
+                const batteryLevel = value.getUint8(0);
+
+                // Display battery level
+                alert('Battery Level: ' + batteryLevel + '%');
+            } catch (error) {
+                console.error('Error: ' + error);
+            }
+        }
+
+        // Attach click event listener to button
+        document.getElementById('connectButton').addEventListener('click', connect);
+    </script>
 </body>
 </html>
