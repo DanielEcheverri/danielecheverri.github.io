@@ -43,7 +43,11 @@
 
       function setup() {
         createCanvas(400, 400);
-        connectToDevice();
+        
+        // Create a button to connect to the Bluetooth device
+        const connectButton = createButton('Connect to Bluetooth');
+        connectButton.position(10, 10);
+        connectButton.mousePressed(connectToDevice);
       }
 
       function draw() {
