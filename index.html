@@ -1,60 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Bluetooth API Example</title>
-</head>
-<body>
-    <h1>Web Bluetooth API & Location Example</h1>
-    <button id="connectButton">Connect to Bluetooth Device</button>
-    <p id="location">Location: </p>
-
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
-        // Function to handle button click
-        async function connect() {
-            try {
-                // Request Bluetooth device
-                const device = await navigator.bluetooth.requestDevice({
-                    filters: [{ services: ['battery_service'] }]
-                });
+      let connectedDevice;
+      let characteristic;
 
-                // Connect to the selected device
-                const server = await device.gatt.connect();
+      async function connectToDevice() {
+        try {
+          // Request the Bluetooth device
+          const device = await navigator.bluetooth.requestDevice({
+            filters: [{ services: ['your_service_uuid'] }]
+          });
 
-                // Get battery service
-                const service = await server.getPrimaryService('battery_service');
+          // Connect to the GATT server of the device
+          const server = await device.gatt.connect();
 
-                // Get battery level characteristic
-                const characteristic = await service.getCharacteristic('battery_level');
+          // Get the primary service
+          const service = await server.getPrimaryService('your_service_uuid');
 
-                // Read battery level value
-                const value = await characteristic.readValue();
+          // Get the characteristic you want to read/write from/to
+          characteristic = await service.getCharacteristic('your_characteristic_uuid');
 
-                // Convert value to percentage
-                const batteryLevel = value.getUint8(0);
+          // Set up event listeners for characteristic value changes
+          characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
 
-                // Display battery level
-                alert('Battery Level: ' + batteryLevel + '%');
-            } catch (error) {
-                console.error('Error: ' + error);
-            }
+          // Start notifications for the characteristic
+          await characteristic.startNotifications();
+
+          connectedDevice = device;
+          console.log('Connected to device:', device.name);
+        } catch (error) {
+          console.error('Bluetooth error:', error);
         }
+      }
 
-        // Function to update location
-        function updateLocation() {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                document.getElementById('location').innerText = `Location: Latitude ${latitude}, Longitude ${longitude}`;
-            });
+      function handleCharacteristicValueChanged(event) {
+        const value = event.target.value;
+        // Do something with the received value
+        console.log('Received value:', value);
+      }
+
+      function setup() {
+        createCanvas(400, 400);
+        connectToDevice();
+      }
+
+      function draw() {
+        background(220);
+        // Your drawing logic here
+      }
+
+      // Example function to send data to the Bluetooth device
+      function sendData(data) {
+        if (connectedDevice && characteristic) {
+          const dataArray = new Uint8Array([data]); // Assuming data is a single byte
+          characteristic.writeValue(dataArray);
+          console.log('Sent data:', data);
         }
-
-        // Attach click event listener to button
-        document.getElementById('connectButton').addEventListener('click', connect);
-
-        // Update location every second
-        setInterval(updateLocation, 1000);
+      }
     </script>
-</body>
+  </head>
+  <body>
+  </body>
 </html>
