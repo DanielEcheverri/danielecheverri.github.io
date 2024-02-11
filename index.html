@@ -17,17 +17,17 @@
             try {
                 // Request Bluetooth device
                 const device = await navigator.bluetooth.requestDevice({
-                    filters: [{ services: ['uart_service_uuid'] }]
+                    filters: [{ services: ['6E400001-B5A3-F393-E0A9-E50E24DCCA9E'] }]
                 });
 
                 // Connect to the selected device
                 const server = await device.gatt.connect();
 
                 // Get UART service
-                const service = await server.getPrimaryService('uart_service_uuid');
+                const service = await server.getPrimaryService('6E400001-B5A3-F393-E0A9-E50E24DCCA9E');
 
                 // Get UART characteristic
-                characteristic = await service.getCharacteristic('uart_characteristic_uuid');
+                characteristic = await service.getCharacteristic('6E400003-B5A3-F393-E0A9-E50E24DCCA9E');
 
                 // Start notifications for the characteristic
                 await characteristic.startNotifications();
