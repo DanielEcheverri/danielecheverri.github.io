@@ -17,26 +17,25 @@
             try {
                 // Request Bluetooth device
                 const device = await navigator.bluetooth.requestDevice({
-                    filters: [{ services: ['battery_service'] }]
+                    filters: [{ services: ['uart_service_uuid'] }]
                 });
 
                 // Connect to the selected device
                 const server = await device.gatt.connect();
 
-                // Get battery service
-                const service = await server.getPrimaryService('battery_service');
+                // Get UART service
+                const service = await server.getPrimaryService('uart_service_uuid');
 
-                // Get battery level characteristic
-                characteristic = await service.getCharacteristic('battery_level');
+                // Get UART characteristic
+                characteristic = await service.getCharacteristic('uart_characteristic_uuid');
 
-                // Read battery level value
-                const value = await characteristic.readValue();
+                // Start notifications for the characteristic
+                await characteristic.startNotifications();
 
-                // Convert value to percentage
-                const batteryLevel = value.getUint8(0);
+                // Listen for characteristic value changes
+                characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
 
-                // Display battery level
-                alert('Battery Level: ' + batteryLevel + '%');
+                alert('Connected to UART device.');
             } catch (error) {
                 console.error('Error: ' + error);
             }
@@ -45,6 +44,16 @@
         // Attach click event listener to button
         document.getElementById('connectButton').addEventListener('click', connectToDevice);
 
+        // Function to handle incoming data from UART
+        function handleCharacteristicValueChanged(event) {
+            const value = event.target.value;
+            // Convert the received data to a string
+            const textDecoder = new TextDecoder();
+            const decodedValue = textDecoder.decode(value);
+            // Pass the received data to Processing sketch
+            sendDataToSketch(decodedValue);
+        }
+
         // Function to send data to Processing sketch
         function sendDataToSketch(data) {
             if (window.sendToProcessing) {
@@ -52,12 +61,6 @@
             } else {
                 console.error('Processing sketch not initialized.');
             }
-        }
-
-        // Function to handle incoming data from Bluetooth
-        function handleDataFromBluetooth(data) {
-            // Pass data to Processing sketch
-            sendDataToSketch(data);
         }
     </script>
 
