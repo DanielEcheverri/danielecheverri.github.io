@@ -106,8 +106,7 @@
         // Draw the line with different color for each
         strokeWeight(50);
         stroke(lineColors[i]);
-        line(0, lineY, map(potValues[i], 0, 4095, 0, width), lineY);
-
+        line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.75), lineY);
         // Display the corresponding value to the left of the line
         fill(255);
         textAlign(RIGHT, CENTER);
