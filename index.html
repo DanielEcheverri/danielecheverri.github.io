@@ -10,15 +10,6 @@
             width: 90vw;
             height: 90vh;
         }
-        body {
-            background-color: #f0f0f0; /* Set body background color */
-        }
-        .label {
-            color: white; /* Set text color to white */
-            background-color: transparent; /* Set background color to transparent */
-            font-family: Arial, sans-serif; /* Set font family */
-            font-size: 14px; /* Set font size */
-        }
     </style>
 </head>
 <body>
@@ -99,44 +90,42 @@
         }
 
         function draw() {
-            background(255);
+    background(255);
 
-            let lineHeight = height / numPotentiometers;
-            let labelSize = min(width, height) * 0.03; // Responsive font size for labels
+    let lineHeight = height / numPotentiometers;
+    let labelSize = min(width, height) * 0.03; // Responsive font size for labels
 
-            for (let i = 0; i < numPotentiometers; i++) {
-                let lineY = i * lineHeight + lineHeight / 2;
+    for (let i = 0; i < numPotentiometers; i++) {
+        let lineY = i * lineHeight + lineHeight / 2;
 
-                // Draw the background rectangle
-                noStroke();
-                fill(backgroundColors[i]);
-                rect(0, i * lineHeight, width, lineHeight);
+        // Draw the background rectangle
+        noStroke();
+        fill(backgroundColors[i]);
+        rect(0, i * lineHeight, width, lineHeight);
 
-                // Draw the line with different color for each
-                strokeWeight(width * 0.55); // Set the width of the line
-                stroke(lineColors[i]);
-                line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
+        // Draw the line with different color for each
+        strokeWeight(50);
+        stroke(lineColors[i]);
+        line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
+        // Display the corresponding value to the left of the line
+        fill(255);
+        textAlign(RIGHT, CENTER);
+        textSize(labelSize);
+        text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width) - 10, lineY);
+    }
 
-                // Display the corresponding value to the left of the line
-                fill(255);
-                textAlign(RIGHT, CENTER);
-                textSize(labelSize);
-                text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width) - 10, lineY);
-            }
+    // Draw vertical labels on the right side
+    textAlign(LEFT, CENTER);
+    let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
+    textSize(labelFontSize);
+    fill(255); // Set text color to white
+    for (let i = 0; i < numPotentiometers; i++) {
+        text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
+    }
 
-            // Draw vertical labels on the right side
-            textAlign(LEFT, CENTER);
-            let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
-            textSize(labelFontSize);
-            fill(255); // Set text color to white
-            for (let i = 0; i < numPotentiometers; i++) {
-                text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
-            }
-
-            // Detect movement and display corresponding text
-            // checkMovement();
-        }
-
+    // Detect movement and display corresponding text
+    // checkMovement();
+}
         // Function to receive data from JavaScript
         function receiveData(data) {
             let values = data.split(',');
