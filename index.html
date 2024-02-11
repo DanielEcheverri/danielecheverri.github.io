@@ -116,12 +116,12 @@
             }
 
             // Draw vertical labels on the right side
-            textAlign(RIGHT, CENTER);
-            let labelFontSize = min(width, height) * 0.04; // Responsive font size for labels
+            textAlign(LEFT, CENTER);
+            let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
             textSize(labelFontSize);
-            fill(255);
+            fill(0); // Set text color to black
             for (let i = 0; i < numPotentiometers; i++) {
-                text(labels[i], width - 10, i * lineHeight + lineHeight / 2 + 12);
+                text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
             }
 
             // Detect movement and display corresponding text
