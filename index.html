@@ -13,8 +13,8 @@
     </style>
 </head>
 <body>
-    <h1>Web Bluetooth API Example</h1>
-    <button id="connectButton">Connect to Bluetooth Device</button>
+    <h1>Avatar BT Debug</h1>
+    <button id="connectButton">Connect to Avatar</button>
 
     <script>
         let characteristic;
@@ -41,7 +41,7 @@
                 // Listen for characteristic value changes
                 characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
 
-                alert('Connected to UART device.');
+                //alert('Connected to UART device.');
             } catch (error) {
                 console.error('Error: ' + error);
             }
@@ -107,9 +107,10 @@
         strokeWeight(50);
         stroke(lineColors[i]);
         line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
-        strokeWeight(0);
+        
         
         // Display the corresponding value to the left of the line
+        noStroke();
         fill(255);
         textAlign(RIGHT, CENTER);
         textSize(labelSize);
@@ -121,7 +122,6 @@
     let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
     textSize(labelFontSize);
     fill(255); // Set text color to white
-    strokeWeight(0);
     for (let i = 0; i < numPotentiometers; i++) {
         text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
     }
