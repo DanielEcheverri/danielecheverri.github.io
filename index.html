@@ -86,35 +86,36 @@
         }
 
         function findClosestShop() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
-                    var apiURL = "https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:2," + latitude + "," + longitude + ");out;";
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var radius = 5; // Change this value to adjust the radius
+            var apiURL = "https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:" + radius + "," + latitude + "," + longitude + ");out;";
 
-                    $.ajax({
-                        url: apiURL,
-                        type: "GET",
-                        success: function(data) {
-                            if (data.elements.length > 0) {
-                                var closestShop = data.elements[0].tags.name;
-                                var shopLocation = [data.elements[0].lat, data.elements[0].lon];
-                                var distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
+            $.ajax({
+                url: apiURL,
+                type: "GET",
+                success: function(data) {
+                    if (data.elements.length > 0) {
+                        var closestShop = data.elements[0].tags.name;
+                        var shopLocation = [data.elements[0].lat, data.elements[0].lon];
+                        var distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
 
-                                document.getElementById("closestShop").innerHTML = "Closest Shop: " + closestShop + "<br>Distance: " + distance.toFixed(2) + " meters";
-                            } else {
-                                document.getElementById("closestShop").innerHTML = "No shops found within 2 meters.";
-                            }
-                        },
-                        error: function() {
-                            document.getElementById("closestShop").innerHTML = "Error finding closest shop.";
-                        }
-                    });
-                });
-            } else {
-                document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
+                        document.getElementById("closestShop").innerHTML = "Closest Shop: " + closestShop + "<br>Distance: " + distance.toFixed(2) + " meters";
+                    } else {
+                        document.getElementById("closestShop").innerHTML = "No shops found within " + radius + " meters.";
+                    }
+                },
+                error: function() {
+                    document.getElementById("closestShop").innerHTML = "Error finding closest shop.";
+                }
+            });
+        });
+    } else {
+        document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
 
         function calculateDistance(lat1, lon1, lat2, lon2) {
             var R = 6371e3; // metres
