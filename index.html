@@ -209,6 +209,7 @@
                 // Display the corresponding value to the left of the line
                 noStroke();
                 fill(255);
+                textFont('Roboto');
                 textAlign(RIGHT, CENTER);
                 textSize(labelSize);
                 text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width * 0.55) - 10, lineY);
@@ -217,6 +218,7 @@
             // Draw vertical labels on the right side
             textAlign(RIGHT, CENTER);
             let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
+            textFont('Roboto');
             textSize(labelFontSize);
             fill(255); // Set text color to white
             for (let i = 0; i < numPotentiometers; i++) {
