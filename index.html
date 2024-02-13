@@ -41,10 +41,12 @@
 </head>
 <body>
     <h1>Avatar BT Debug</h1>
-    <button id="connectButton">Connect to Avatar</button>
-    <button onclick="findClosestShop()">Find Closest Shop</button>
+    <!-- Connect Button -->
+    <button id="connectButton" class="button">Connect to Avatar</button>
+    <!-- Find Closest Shop Button -->
+    <button id="findClosestShopButton" class="button">Find Closest Shop</button>
+    <!-- Div to display closest shop -->
     <div id="closestShop"></div>
-
     <script>
         let characteristic;
         let isConnected = false; // Track connection state
