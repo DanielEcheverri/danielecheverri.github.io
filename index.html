@@ -25,42 +25,44 @@
         let device; // Declare device variable
 
         async function connectToDevice() {
-            try {
-                if (!isConnected) {
-                    // Request Bluetooth device
-                    device = await navigator.bluetooth.requestDevice({
-                        filters: [{ services: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e'] }]
-                    });
+    try {
+        if (!isConnected) {
+            // Request Bluetooth device
+            device = await navigator.bluetooth.requestDevice({
+                filters: [{ services: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e'] }]
+            });
 
-                    // Connect to the selected device
-                    const server = await device.gatt.connect();
+            // Connect to the selected device
+            const server = await device.gatt.connect();
 
-                    // Get UART service
-                    const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
+            // Get UART service
+            const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
 
-                    // Get UART characteristic
-                    characteristic = await service.getCharacteristic('6e400003-b5a3-f393-e0a9-e50e24dcca9e');
+            // Get UART characteristic
+            characteristic = await service.getCharacteristic('6e400003-b5a3-f393-e0a9-e50e24dcca9e');
 
-                    // Start notifications for the characteristic
-                    await characteristic.startNotifications();
+            // Start notifications for the characteristic
+            await characteristic.startNotifications();
 
-                    // Listen for characteristic value changes
-                    characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
+            // Listen for characteristic value changes
+            characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
 
-                    // Update UI
-                    document.getElementById('connectButton').textContent = 'Disconnect Avatar';
-                    isConnected = true;
-                } else {
-                    // Disconnect from the device
-                    await characteristic.stopNotifications();
-                    await device.gatt.disconnect();
-                    isConnected = false;
-                    document.getElementById('connectButton').textContent = 'Connect to Avatar';
-                }
-            } catch (error) {
-                console.error('Error connecting/disconnecting: ' + error);
-            }
+            // Update UI
+            document.getElementById('connectButton').textContent = 'Disconnect Avatar';
+            isConnected = true;
+        } else {
+            // Disconnect from the device
+            await characteristic.stopNotifications();
+            await device.gatt.disconnect();
+            isConnected = false;
+            document.getElementById('connectButton').textContent = 'Connect to Avatar';
+            // Set all potValues to 0
+            potValues.fill(0);
         }
+    } catch (error) {
+        console.error('Error connecting/disconnecting: ' + error);
+    }
+}
 
         // Attach click event listener to button
         document.getElementById('connectButton').addEventListener('click', connectToDevice);
