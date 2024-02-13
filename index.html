@@ -137,7 +137,7 @@
                                 var shopLocation = [data.elements[0].lat, data.elements[0].lon];
                                 var distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
 
-                                document.getElementById("closestShop").innerHTML = "Closest Shop: " + closestShop + "<br>Distance: " + distance.toFixed(2) + " meters";
+                                document.getElementById("closestShop").innerHTML = "Closest Shop: " + closestShop + " Distance: " + distance.toFixed(2) + " meters";
                             } else {
                                 document.getElementById("closestShop").innerHTML = "No shops found within " + radius + " meters.";
                             }
