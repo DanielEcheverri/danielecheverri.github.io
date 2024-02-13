@@ -51,8 +51,18 @@
     <button id="connectButton" class="button">Connect to Avatar</button>
     <!-- Find Closest Shop Button -->
     <button id="findClosestShopButton" class="button" onclick="findClosestShop()">Find Closest Shop</button>    
-    <!-- Div to display closest shop -->
-    <!-- <div id="closestShop"></div>-->
+    <!-- Div to display closest shop 
+    <div id="closestShop"></div>-->
+
+        <!-- Container for Processing canvas and text -->
+    <div id="canvas-container">
+        <!-- Processing sketch canvas -->
+        <canvas></canvas>
+        
+        <!-- Div to display closest shop -->
+        <div id="closestShop"></div>
+    </div>
+    
     <script>
         let characteristic;
         let isConnected = false; // Track connection state
