@@ -119,7 +119,7 @@
         }
 
 // Function to continuously update the current location and direction
-
+/*
         let previousPosition;
 function getCurrentLocation() {
     if (navigator.geolocation) {
@@ -170,7 +170,87 @@ function getCurrentLocation() {
         console.error('Geolocation is not supported by this browser.');
     }
 }
+*/
 
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        const options = {
+            enableHighAccuracy: true
+        };
+        let previousPositions = []; // Array to store the last three positions
+        let threshold = 5; // Threshold for considering device movement (in degrees)
+
+        navigator.geolocation.watchPosition(function(position) {
+            // Calculate direction if previous positions are available
+            if (previousPositions.length >= 3) {
+                let averageDirection = calculateAverageDirection(previousPositions);
+
+                // Determine direction text based on average direction
+                let directionText;
+                if (averageDirection !== null) {
+                    directionText = determineDirection(averageDirection);
+                } else {
+                    directionText = "Not moving"; // If no significant change in direction
+                }
+
+                // Update the HTML element with the direction
+                document.getElementById("currentLocation").textContent = directionText;
+            }
+
+            // Update previous positions array
+            previousPositions.push(position);
+            if (previousPositions.length > 3) {
+                previousPositions.shift(); // Remove the oldest position if array length exceeds 3
+            }
+        }, function(error) {
+            console.error('Error getting current location: ', error);
+        }, options);
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+    }
+}
+
+// Function to calculate the average direction based on the last three positions
+function calculateAverageDirection(positions) {
+    let totalChange = 0;
+    for (let i = 1; i < positions.length; i++) {
+        let prevPosition = positions[i - 1];
+        let position = positions[i];
+
+        let prevLatitude = prevPosition.coords.latitude;
+        let prevLongitude = prevPosition.coords.longitude;
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+
+        let angle = Math.atan2(longitude - prevLongitude, latitude - prevLatitude) * (180 / Math.PI);
+        totalChange += angle;
+    }
+    let averageChange = totalChange / (positions.length - 1);
+    return averageChange;
+}
+
+// Function to determine the direction text based on the angle
+function determineDirection(angle) {
+    let directionText;
+    if (angle >= 337.5 || angle < 22.5) {
+        directionText = "Heading North";
+    } else if (angle >= 22.5 && angle < 67.5) {
+        directionText = "Heading Northeast";
+    } else if (angle >= 67.5 && angle < 112.5) {
+        directionText = "Heading East";
+    } else if (angle >= 112.5 && angle < 157.5) {
+        directionText = "Heading Southeast";
+    } else if (angle >= 157.5 && angle < 202.5) {
+        directionText = "Heading South";
+    } else if (angle >= 202.5 && angle < 247.5) {
+        directionText = "Heading Southwest";
+    } else if (angle >= 247.5 && angle < 292.5) {
+        directionText = "Heading West";
+    } else if (angle >= 292.5 && angle < 337.5) {
+        directionText = "Heading Northwest";
+    }
+    return directionText;
+}
 
 // Call the function to start watching the position
 getCurrentLocation();
