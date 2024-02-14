@@ -129,8 +129,8 @@
             }
         }
 
-        // Call getCurrentLocation function when the page loads
-        window.onload = getCurrentLocation;
+        // Call getCurrentLocation function
+        setInterval(getCurrentLocation, 1500); // Call repeatedly every 1.5 seconds
         
         async function findClosestShop() {
     if (navigator.geolocation) {
