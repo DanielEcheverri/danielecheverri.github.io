@@ -119,6 +119,7 @@
         }
 
 // Function to continuously update the current location and direction
+let previousPosition;
 function getCurrentLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.watchPosition(function(position) {
