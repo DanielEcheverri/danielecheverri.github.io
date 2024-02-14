@@ -51,13 +51,125 @@
     <button id="connectButton" class="button">Connect to Avatar</button>
     <!-- Find Closest Shop Button -->
     <button id="findClosestShopButton" class="button" onclick="findClosestShop()">Find Closest Shop</button>    
-    <!-- Div to display closest shop 
-    <div id="closestShop"></div>-->
+    <!-- Div to display closest shop -->
+    <div id="closestShop"></div>
+    <script>
+        let characteristic;
+        let isConnected = false; // Track connection state
+        let device; // Declare device variable
 
-        <!-- Container for Processing canvas and text -->
-    <div id="canvas-container"></div>
-        <!-- Processing sketch canvas -->
-        <script type="text/javascript">
+        async function connectToDevice() {
+    try {
+        if (!isConnected) {
+            // Request Bluetooth device
+            device = await navigator.bluetooth.requestDevice({
+                filters: [{ services: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e'] }]
+            });
+
+            // Connect to the selected device
+            const server = await device.gatt.connect();
+
+            // Get UART service
+            const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
+
+            // Get UART characteristic
+            characteristic = await service.getCharacteristic('6e400003-b5a3-f393-e0a9-e50e24dcca9e');
+
+            // Start notifications for the characteristic
+            await characteristic.startNotifications();
+
+            // Listen for characteristic value changes
+            characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
+
+            // Update UI
+            document.getElementById('connectButton').textContent = 'Disconnect Avatar';
+            isConnected = true;
+        } else {
+            // Disconnect from the device
+            await characteristic.stopNotifications();
+            await device.gatt.disconnect();
+            isConnected = false;
+            document.getElementById('connectButton').textContent = 'Connect to Avatar';
+            // Set all potValues to 0
+            potValues = [0, 0, 0, 0, 0, 0, 0, 0];
+        }
+    } catch (error) {
+        console.error('Error connecting/disconnecting: ' + error);
+    }
+}
+
+        // Attach click event listener to button
+        document.getElementById('connectButton').addEventListener('click', connectToDevice);
+
+        // Function to handle incoming data from UART
+        function handleCharacteristicValueChanged(event) {
+            const value = event.target.value;
+            // Convert the received data to a string
+            const textDecoder = new TextDecoder();
+            const decodedValue = textDecoder.decode(value);
+            // Pass the received data to Processing sketch
+            receiveData(decodedValue);
+        }
+
+        // Function to receive data from JavaScript
+        function receiveData(data) {
+            if (window.receiveDataFromSerial) {
+                window.receiveDataFromSerial(data);
+            } else {
+                console.error('Processing sketch not initialized.');
+            }
+        }
+
+        function findClosestShop() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    var radius = 5; // Change this value to adjust the radius
+                    var apiURL = "https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:" + radius + "," + latitude + "," + longitude + ");out;";
+
+                    $.ajax({
+                        url: apiURL,
+                        type: "GET",
+                        success: function(data) {
+                            if (data.elements.length > 0) {
+                                var closestShop = data.elements[0].tags.name;
+                                var shopLocation = [data.elements[0].lat, data.elements[0].lon];
+                                var distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
+
+                                document.getElementById("closestShop").innerHTML = "Closest Shop: " + closestShop + "<br>Distance: " + distance.toFixed(2) + " meters";
+                            } else {
+                                document.getElementById("closestShop").innerHTML = "No shops found within " + radius + " meters.";
+                            }
+                        },
+                        error: function() {
+                            document.getElementById("closestShop").innerHTML = "Error finding closest shop.";
+                        }
+                    });
+                });
+            } else {
+                document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            var R = 6371e3; // metres
+            var φ1 = lat1 * Math.PI / 180; // φ, λ in radians
+            var φ2 = lat2 * Math.PI / 180;
+            var Δφ = (lat2-lat1) * Math.PI / 180;
+            var Δλ = (lon2-lon1) * Math.PI / 180;
+
+            var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            var d = R * c; // in metres
+            return d;
+        }
+    </script>
+
+    <script type="text/javascript">
         // Processing 4 sketch
         let numPotentiometers = 8;
         let potValues;
@@ -193,121 +305,6 @@
         }
     </script>
         <!-- Div to display closest shop -->
-        <div id="closestShop"></div>
-    <script>
-        let characteristic;
-        let isConnected = false; // Track connection state
-        let device; // Declare device variable
-
-        async function connectToDevice() {
-    try {
-        if (!isConnected) {
-            // Request Bluetooth device
-            device = await navigator.bluetooth.requestDevice({
-                filters: [{ services: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e'] }]
-            });
-
-            // Connect to the selected device
-            const server = await device.gatt.connect();
-
-            // Get UART service
-            const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
-
-            // Get UART characteristic
-            characteristic = await service.getCharacteristic('6e400003-b5a3-f393-e0a9-e50e24dcca9e');
-
-            // Start notifications for the characteristic
-            await characteristic.startNotifications();
-
-            // Listen for characteristic value changes
-            characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
-
-            // Update UI
-            document.getElementById('connectButton').textContent = 'Disconnect Avatar';
-            isConnected = true;
-        } else {
-            // Disconnect from the device
-            await characteristic.stopNotifications();
-            await device.gatt.disconnect();
-            isConnected = false;
-            document.getElementById('connectButton').textContent = 'Connect to Avatar';
-            // Set all potValues to 0
-            potValues = [0, 0, 0, 0, 0, 0, 0, 0];
-        }
-    } catch (error) {
-        console.error('Error connecting/disconnecting: ' + error);
-    }
-}
-
-        // Attach click event listener to button
-        document.getElementById('connectButton').addEventListener('click', connectToDevice);
-
-        // Function to handle incoming data from UART
-        function handleCharacteristicValueChanged(event) {
-            const value = event.target.value;
-            // Convert the received data to a string
-            const textDecoder = new TextDecoder();
-            const decodedValue = textDecoder.decode(value);
-            // Pass the received data to Processing sketch
-            receiveData(decodedValue);
-        }
-
-        // Function to receive data from JavaScript
-        function receiveData(data) {
-            if (window.receiveDataFromSerial) {
-                window.receiveDataFromSerial(data);
-            } else {
-                console.error('Processing sketch not initialized.');
-            }
-        }
-
-        function findClosestShop() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
-                    var radius = 5; // Change this value to adjust the radius
-                    var apiURL = "https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:" + radius + "," + latitude + "," + longitude + ");out;";
-
-                    $.ajax({
-                        url: apiURL,
-                        type: "GET",
-                        success: function(data) {
-                            if (data.elements.length > 0) {
-                                var closestShop = data.elements[0].tags.name;
-                                var shopLocation = [data.elements[0].lat, data.elements[0].lon];
-                                var distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
-
-                                document.getElementById("closestShop").innerHTML = "Closest Shop: " + closestShop + " Distance: " + distance.toFixed(2) + " meters";
-                            } else {
-                                document.getElementById("closestShop").innerHTML = "No shops found within " + radius + " meters.";
-                            }
-                        },
-                        error: function() {
-                            document.getElementById("closestShop").innerHTML = "Error finding closest shop.";
-                        }
-                    });
-                });
-            } else {
-                document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            var R = 6371e3; // metres
-            var φ1 = lat1 * Math.PI / 180; // φ, λ in radians
-            var φ2 = lat2 * Math.PI / 180;
-            var Δφ = (lat2-lat1) * Math.PI / 180;
-            var Δλ = (lon2-lon1) * Math.PI / 180;
-
-            var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-                    Math.cos(φ1) * Math.cos(φ2) *
-                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
-            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-            var d = R * c; // in metres
-            return d;
-        }
-    </script>
+    <div id="closestShop"></div>
 </body>
 </html>
