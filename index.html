@@ -200,7 +200,7 @@ function getCurrentDirection() {
             }
         });
     } else {
-        console.error('DeviceOrientation API is not supported by this browser.');
+        document.getElementById("currentLocation").innerHTML = "DeviceOrientation API is not supported by this browser.";
     }
 }
 
