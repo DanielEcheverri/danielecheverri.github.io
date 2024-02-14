@@ -117,7 +117,47 @@
                 console.error('Processing sketch not initialized.');
             }
         }
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    document.getElementById("currentLocation").innerHTML = "Current Location: Latitude " + latitude.toFixed(6) + ", Longitude " + longitude.toFixed(6);
+                });
+            } else {
+                document.getElementById("currentLocation").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        
+        async function findClosestShop() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async function(position) {
+            const { latitude, longitude } = position.coords;
+            const radius = 5; // Change this value to adjust the radius
+            const apiURL = `https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:${radius},${latitude},${longitude});out;`;
 
+            try {
+                const response = await fetch(apiURL);
+                const data = await response.json();
+                if (data.elements.length > 0) {
+                    const closestShop = data.elements[0].tags.name;
+                    const shopLocation = [data.elements[0].lat, data.elements[0].lon];
+                    const distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
+
+                    document.getElementById("closestShop").innerHTML = `Closest Shop: ${closestShop} Distance: ${distance.toFixed(2)} meters`;
+                } else {
+                    document.getElementById("closestShop").innerHTML = `No shops found within ${radius} meters.`;
+                }
+            } catch (error) {
+                console.error('Error finding closest shop:', error);
+                document.getElementById("closestShop").innerHTML = "Error finding closest shop.";
+            }
+        });
+    } else {
+        document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+        /*
         function findClosestShop() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
@@ -149,7 +189,7 @@
                 document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
             }
         }
-
+        */
         function calculateDistance(lat1, lon1, lat2, lon2) {
             var R = 6371e3; // metres
             var φ1 = lat1 * Math.PI / 180; // φ, λ in radians
@@ -303,9 +343,11 @@
             backgroundColors[7] = color(0, 0, 0, 100);    // 60% black
         }
     </script>
-        <!-- Div to display closest shop -->
+    <!-- Div to display status of Avatar BT shop -->
     <div id="avatarBTdiv"></div>
-        <!-- Div to display closest shop -->
+    <!-- Div to display closest shop -->
     <div id="closestShop"></div>
+    <!-- Coordinates-->
+    <div id="currentLocation"></div>
 </body>
 </html>
