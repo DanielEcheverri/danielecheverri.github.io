@@ -137,7 +137,7 @@
                                 var shopLocation = [data.elements[0].lat, data.elements[0].lon];
                                 var distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
 
-                                document.getElementById("closestShop").innerHTML = "Closest Shop: " + closestShop + "<br>Distance: " + distance.toFixed(2) + " meters";
+                                document.getElementById("closestShop").innerHTML = "Closest Shop: " + closestShop + " Distance: " + distance.toFixed(2) + " meters";
                             } else {
                                 document.getElementById("closestShop").innerHTML = "No shops found within " + radius + " meters.";
                             }
@@ -180,7 +180,8 @@
         let isMovingDown = false;
 
         function setup() {
-            createCanvas(windowWidth * 0.95, windowHeight * 0.6);
+            var avatarBTCanvas = createCanvas(windowWidth * 0.95, windowHeight * 0.6);
+            avatarBTCanvas.parent("avaterBTdiv");
             potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
             lineColors = new Array(numPotentiometers);
             backgroundColors = new Array(numPotentiometers);
@@ -305,6 +306,6 @@
         }
     </script>
         <!-- Div to display closest shop -->
-    <div id="closestShop"></div>
+    <div id="avatarBTdiv"></div>
 </body>
 </html>
