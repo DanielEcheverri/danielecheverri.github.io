@@ -172,7 +172,7 @@ function getCurrentDirection() {
         window.addEventListener('deviceorientation', function(event) {
             // Get the direction alpha (in degrees)
             let alpha = event.alpha;
-            
+            document.getElementById("currentLocation").textContent = alpha;
             // Calculate direction based on alpha
             let directionText;
             if (alpha !== null) {
