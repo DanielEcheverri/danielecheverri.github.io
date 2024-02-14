@@ -118,28 +118,46 @@
             }
         }
 
-        /*
-        function getCurrentLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
-                    document.getElementById("currentLocation").innerHTML = "Current Location: Latitude " + latitude.toFixed(6) + ", Longitude " + longitude.toFixed(6);
-                });
-            } else {
-                document.getElementById("currentLocation").innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-        */
-let watchID; // Variable to store the ID of the watch position
-        
-        function getCurrentLocation() {
+// Function to continuously update the current location and direction
+function getCurrentLocation() {
     if (navigator.geolocation) {
-        watchID = navigator.geolocation.watchPosition(function(position) {
-            var latitud = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            document.getElementById("currentLocation").innerHTML = "Current Location: Latitude " + latitude.toFixed(6) + ", Longitude " + longitude.toFixed(6);
+        navigator.geolocation.watchPosition(function(position) {
+            // Calculate direction if previous position is available
+            if (previousPosition) {
+                let latitude = position.coords.latitude;
+                let longitude = position.coords.longitude;
+                let prevLatitude = previousPosition.coords.latitude;
+                let prevLongitude = previousPosition.coords.longitude;
+                
+                // Calculate the angle between previous and current positions
+                let angle = Math.atan2(longitude - prevLongitude, latitude - prevLatitude) * (180 / Math.PI);
 
+                // Convert angle to compass direction
+                let direction = angle < 0 ? angle + 360 : angle;
+                let directionText;
+                if (direction >= 337.5 || direction < 22.5) {
+                    directionText = "Heading North";
+                } else if (direction >= 22.5 && direction < 67.5) {
+                    directionText = "Heading Northeast";
+                } else if (direction >= 67.5 && direction < 112.5) {
+                    directionText = "Heading East";
+                } else if (direction >= 112.5 && direction < 157.5) {
+                    directionText = "Heading Southeast";
+                } else if (direction >= 157.5 && direction < 202.5) {
+                    directionText = "Heading South";
+                } else if (direction >= 202.5 && direction < 247.5) {
+                    directionText = "Heading Southwest";
+                } else if (direction >= 247.5 && direction < 292.5) {
+                    directionText = "Heading West";
+                } else if (direction >= 292.5 && direction < 337.5) {
+                    directionText = "Heading Northwest";
+                }
+
+                // Update the HTML element with the direction
+                document.getElementById("currentLocation").textContent = directionText;
+            }
+            // Update previous position
+            previousPosition = position;
         }, function(error) {
             console.error('Error getting current location: ', error);
         });
@@ -148,10 +166,8 @@ let watchID; // Variable to store the ID of the watch position
     }
 }
 
-        /* // Call getCurrentLocation function
-        setInterval(getCurrentLocation, 1500); // Call repeatedly every 1.5 seconds */
-
-        getCurrentLocation();
+// Call the function to start watching the position
+getCurrentLocation();
         
         async function findClosestShop() {
     if (navigator.geolocation) {
