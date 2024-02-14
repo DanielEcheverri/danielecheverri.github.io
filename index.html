@@ -117,6 +117,8 @@
                 console.error('Processing sketch not initialized.');
             }
         }
+
+        /*
         function getCurrentLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
@@ -128,9 +130,28 @@
                 document.getElementById("currentLocation").innerHTML = "Geolocation is not supported by this browser.";
             }
         }
+        */
+let watchID; // Variable to store the ID of the watch position
+        
+        function getCurrentLocation() {
+    if (navigator.geolocation) {
+        watchID = navigator.geolocation.watchPosition(function(position) {
+            var latitud = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            document.getElementById("currentLocation").innerHTML = "Current Location: Latitude " + latitude.toFixed(6) + ", Longitude " + longitude.toFixed(6);
 
-        // Call getCurrentLocation function
-        setInterval(getCurrentLocation, 1500); // Call repeatedly every 1.5 seconds
+        }, function(error) {
+            console.error('Error getting current location: ', error);
+        });
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+    }
+}
+
+        /* // Call getCurrentLocation function
+        setInterval(getCurrentLocation, 1500); // Call repeatedly every 1.5 seconds */
+
+        getCurrentLocation();
         
         async function findClosestShop() {
     if (navigator.geolocation) {
@@ -160,39 +181,7 @@
         document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
     }
 }
-        /*
-        function findClosestShop() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitude = position.coords.latitude;
-                    var longitude = position.coords.longitude;
-                    var radius = 5; // Change this value to adjust the radius
-                    var apiURL = "https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:" + radius + "," + latitude + "," + longitude + ");out;";
-
-                    $.ajax({
-                        url: apiURL,
-                        type: "GET",
-                        success: function(data) {
-                            if (data.elements.length > 0) {
-                                var closestShop = data.elements[0].tags.name;
-                                var shopLocation = [data.elements[0].lat, data.elements[0].lon];
-                                var distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
-
-                                document.getElementById("closestShop").innerHTML = "Closest Shop: " + closestShop + " Distance: " + distance.toFixed(2) + " meters";
-                            } else {
-                                document.getElementById("closestShop").innerHTML = "No shops found within " + radius + " meters.";
-                            }
-                        },
-                        error: function() {
-                            document.getElementById("closestShop").innerHTML = "Error finding closest shop.";
-                        }
-                    });
-                });
-            } else {
-                document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-        */
+        
         function calculateDistance(lat1, lon1, lat2, lon2) {
             var R = 6371e3; // metres
             var φ1 = lat1 * Math.PI / 180; // φ, λ in radians
