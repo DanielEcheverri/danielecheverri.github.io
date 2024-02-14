@@ -119,9 +119,13 @@
         }
 
 // Function to continuously update the current location and direction
-/* let previousPosition;
+
+        let previousPosition;
 function getCurrentLocation() {
     if (navigator.geolocation) {
+        const options = {
+            enableHighAccuracy: true
+        };
         navigator.geolocation.watchPosition(function(position) {
             // Calculate direction if previous position is available
             if (previousPosition) {
@@ -166,43 +170,7 @@ function getCurrentLocation() {
         console.error('Geolocation is not supported by this browser.');
     }
 }
-*/
-function getCurrentDirection() {
-    if (window.DeviceOrientationEvent) {
-        window.addEventListener('deviceorientation', function(event) {
-            // Get the direction alpha (in degrees)
-            let alpha = event.alpha;
-            document.getElementById("currentLocation").textContent = alpha;
-            // Calculate direction based on alpha
-            let directionText;
-            if (alpha !== null) {
-                // Convert alpha to compass direction
-                if (alpha >= 337.5 || alpha < 22.5) {
-                    directionText = "Heading North";
-                } else if (alpha >= 22.5 && alpha < 67.5) {
-                    directionText = "Heading Northeast";
-                } else if (alpha >= 67.5 && alpha < 112.5) {
-                    directionText = "Heading East";
-                } else if (alpha >= 112.5 && alpha < 157.5) {
-                    directionText = "Heading Southeast";
-                } else if (alpha >= 157.5 && alpha < 202.5) {
-                    directionText = "Heading South";
-                } else if (alpha >= 202.5 && alpha < 247.5) {
-                    directionText = "Heading Southwest";
-                } else if (alpha >= 247.5 && alpha < 292.5) {
-                    directionText = "Heading West";
-                } else if (alpha >= 292.5 && alpha < 337.5) {
-                    directionText = "Heading Northwest";
-                }
 
-                // Update the HTML element with the direction
-                document.getElementById("currentLocation").textContent = directionText;
-            }
-        });
-    } else {
-        document.getElementById("currentLocation").innerHTML = "DeviceOrientation API is not supported by this browser.";
-    }
-}
 
 // Call the function to start watching the position
 getCurrentLocation();
