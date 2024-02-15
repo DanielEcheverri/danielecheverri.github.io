@@ -346,49 +346,49 @@ getCurrentLocation();
       } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
         headMovingUp = false; // Head is moving down
       }
-    } else if (labels[i].equals("LEFT LEG")) {
+    } else if (labels[i]=="LEFT LEG") {
       // Movement detection for left leg (up and down movement)
       if (potValues[i] < previousPotValues[i] - movementThreshold) {
         leftLegMovingUp = false; // Left leg is moving down
       } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
         leftLegMovingUp = true; // Left leg is moving up
       }
-    } else if (labels[i].equals("RIGHT LEG")) {
+    } else if (labels[i]=="RIGHT LEG") {
       // Movement detection for right leg (up and down movement)
       if (potValues[i] < previousPotValues[i] - movementThreshold) {
         rightLegMovingUp = false; // Right leg is moving down
       } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
         rightLegMovingUp = true; // Right leg is moving up
       }
-    } else if (labels[i].equals("LEFT SHOULDER")) {
+    } else if (labels[i]=="LEFT SHOULDER") {
       // Movement detection for left shoulder (up and down movement)
       if (potValues[i] < previousPotValues[i] - movementThreshold) {
         leftShoulderMovingUp = false; // Left shoulder is moving up
       } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
         leftShoulderMovingUp = true; // Left shoulder is moving down
       }
-    } else if (labels[i].equals("RIGHT SHOULDER")) {
+    } else if (labels[i]=="RIGHT SHOULDER") {
       // Movement detection for right shoulder (up and down movement)
       if (potValues[i] < previousPotValues[i] - movementThreshold) {
         rightShoulderMovingUp = false; // Right shoulder is moving up
       } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
         rightShoulderMovingUp = true; // Right shoulder is moving down
       }
-    } else if (labels[i].equals("LEFT FOREARM")) {
+    } else if (labels[i]=="LEFT FOREARM") {
       // Movement detection for left forearm (up and down movement)
       if (potValues[i] < previousPotValues[i] - movementThreshold) {
         leftForearmMovingUp = true; // Left forearm is moving up
       } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
         leftForearmMovingUp = false; // Left forearm is moving down
       }
-    } else if (labels[i].equals("RIGHT FOREARM")) {
+    } else if (labels[i]=="RIGHT FOREARM") {
       // Movement detection for right forearm (up and down movement)
       if (potValues[i] < previousPotValues[i] - movementThreshold) {
         rightForearmMovingUp = true; // Right forearm is moving up
       } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
         rightForearmMovingUp = false; // Right forearm is moving down
       }
-    } else if (labels[i].equals("WAIST")) {
+    } else if (labels[i]=="WAIST") {
       // Movement detection for waist (left and right movement)
       if (potValues[i] < previousPotValues[i] - movementThreshold) {
         waistMoving = false; // Waist is moving left
