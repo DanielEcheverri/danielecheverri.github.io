@@ -119,58 +119,6 @@
         }
 
 // Function to continuously update the current location and direction
-/*
-        let previousPosition;
-function getCurrentLocation() {
-    if (navigator.geolocation) {
-        const options = {
-            enableHighAccuracy: true
-        };
-        navigator.geolocation.watchPosition(function(position) {
-            // Calculate direction if previous position is available
-            if (previousPosition) {
-                let latitude = position.coords.latitude;
-                let longitude = position.coords.longitude;
-                let prevLatitude = previousPosition.coords.latitude;
-                let prevLongitude = previousPosition.coords.longitude;
-                
-                // Calculate the angle between previous and current positions
-                let angle = Math.atan2(longitude - prevLongitude, latitude - prevLatitude) * (180 / Math.PI);
-
-                // Convert angle to compass direction
-                let direction = angle < 0 ? angle + 360 : angle;
-                let directionText;
-                if (direction >= 337.5 || direction < 22.5) {
-                    directionText = "Heading North";
-                } else if (direction >= 22.5 && direction < 67.5) {
-                    directionText = "Heading Northeast";
-                } else if (direction >= 67.5 && direction < 112.5) {
-                    directionText = "Heading East";
-                } else if (direction >= 112.5 && direction < 157.5) {
-                    directionText = "Heading Southeast";
-                } else if (direction >= 157.5 && direction < 202.5) {
-                    directionText = "Heading South";
-                } else if (direction >= 202.5 && direction < 247.5) {
-                    directionText = "Heading Southwest";
-                } else if (direction >= 247.5 && direction < 292.5) {
-                    directionText = "Heading West";
-                } else if (direction >= 292.5 && direction < 337.5) {
-                    directionText = "Heading Northwest";
-                }
-
-                // Update the HTML element with the direction
-                document.getElementById("currentLocation").textContent = directionText;
-            }
-            // Update previous position
-            previousPosition = position;
-        }, function(error) {
-            console.error('Error getting current location: ', error);
-        });
-    } else {
-        console.error('Geolocation is not supported by this browser.');
-    }
-}
-*/
 
 function getCurrentLocation() {
     if (navigator.geolocation) {
@@ -360,7 +308,7 @@ getCurrentLocation();
             }
 
             // Detect movement and display corresponding text
-            // checkMovement();
+            checkMovement();
         }
 
         // Function to receive data from JavaScript
@@ -374,37 +322,158 @@ getCurrentLocation();
         }
 
         function checkMovement() {
-            let sensitivity = 0.10; // 10%
+             // Define thresholds for movement detection
+  float movementThreshold = 10; // Adjust as needed
 
-            // Check for significant increase in left arm (potentiometer 1 increases and potentiometer 2 decreases)
-            if (potValues[0] > potValues[1] && (potValues[0] - potValues[1]) / potValues[0] > sensitivity) {
-                isMovingUp = true;
-                isMovingDown = false;
-                displayMovementText("UP", 0);
-            }
-            // Check for significant decrease in left arm (potentiometer 1 decreases and potentiometer 2 increases)
-            else if (potValues[0] < potValues[1] && (potValues[1] - potValues[0]) / potValues[1] > sensitivity) {
-                isMovingUp = false;
-                isMovingDown = true;
-                displayMovementText("DOWN", 0);
-            }
-            // Check for significant increase in right arm (potentiometer 4 increases and potentiometer 5 decreases)
-            else if (potValues[3] > potValues[4] && (potValues[3] - potValues[4]) / potValues[3] > sensitivity) {
-                isMovingUp = true;
-                isMovingDown = false;
-                displayMovementText("UP", 3);
-            }
-            // Check for significant decrease in right arm (potentiometer 4 decreases and potentiometer 5 increases)
-            else if (potValues[3] < potValues[4] && (potValues[4] - potValues[3]) / potValues[4] > sensitivity) {
-                isMovingUp = false;
-                isMovingDown = true;
-                displayMovementText("DOWN", 3);
-            } else {
-                // No significant movement
-                isMovingUp = false;
-                isMovingDown = false;
-                background(255); // Clear previous movement text
-            }
+  // Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
+  Boolean headMovingUp = null;
+  Boolean leftLegMovingUp = null;
+  Boolean rightLegMovingUp = null;
+  Boolean leftShoulderMovingUp = null;
+  Boolean rightShoulderMovingUp = null;
+  Boolean leftForearmMovingUp = null;
+  Boolean rightForearmMovingUp = null;
+  Boolean waistMoving = null;
+  Boolean bodyMoving = null;
+
+  // Check movement for each potentiometer
+  for (int i = 0; i < numPotentiometers; i++) {
+    // Check movement based on potentiometer position and its corresponding label
+    if (labels[i].equals("HEAD")) {
+      // Movement detection for head (up and down movement)
+      if (potValues[i] < previousPotValues[i] - movementThreshold) {
+        headMovingUp = true; // Head is moving up
+      } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+        headMovingUp = false; // Head is moving down
+      }
+    } else if (labels[i].equals("LEFT LEG")) {
+      // Movement detection for left leg (up and down movement)
+      if (potValues[i] < previousPotValues[i] - movementThreshold) {
+        leftLegMovingUp = false; // Left leg is moving down
+      } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+        leftLegMovingUp = true; // Left leg is moving up
+      }
+    } else if (labels[i].equals("RIGHT LEG")) {
+      // Movement detection for right leg (up and down movement)
+      if (potValues[i] < previousPotValues[i] - movementThreshold) {
+        rightLegMovingUp = false; // Right leg is moving down
+      } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+        rightLegMovingUp = true; // Right leg is moving up
+      }
+    } else if (labels[i].equals("LEFT SHOULDER")) {
+      // Movement detection for left shoulder (up and down movement)
+      if (potValues[i] < previousPotValues[i] - movementThreshold) {
+        leftShoulderMovingUp = false; // Left shoulder is moving up
+      } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+        leftShoulderMovingUp = true; // Left shoulder is moving down
+      }
+    } else if (labels[i].equals("RIGHT SHOULDER")) {
+      // Movement detection for right shoulder (up and down movement)
+      if (potValues[i] < previousPotValues[i] - movementThreshold) {
+        rightShoulderMovingUp = false; // Right shoulder is moving up
+      } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+        rightShoulderMovingUp = true; // Right shoulder is moving down
+      }
+    } else if (labels[i].equals("LEFT FOREARM")) {
+      // Movement detection for left forearm (up and down movement)
+      if (potValues[i] < previousPotValues[i] - movementThreshold) {
+        leftForearmMovingUp = true; // Left forearm is moving up
+      } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+        leftForearmMovingUp = false; // Left forearm is moving down
+      }
+    } else if (labels[i].equals("RIGHT FOREARM")) {
+      // Movement detection for right forearm (up and down movement)
+      if (potValues[i] < previousPotValues[i] - movementThreshold) {
+        rightForearmMovingUp = true; // Right forearm is moving up
+      } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+        rightForearmMovingUp = false; // Right forearm is moving down
+      }
+    } else if (labels[i].equals("WAIST")) {
+      // Movement detection for waist (left and right movement)
+      if (potValues[i] < previousPotValues[i] - movementThreshold) {
+        waistMoving = false; // Waist is moving left
+      } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+        waistMoving = true; // Waist is moving right
+      }
+    }
+  }
+
+  // Add your custom logic for displaying movement text based on detected head movement
+  if (headMovingUp != null) {
+    if (headMovingUp) {
+      displayMovementText("Head is looking up.", width / 2, height / 2);
+    } else {
+      displayMovementText("Head is looking down.", width / 2, height / 2);
+    }
+  }
+
+  // Add your custom logic for displaying movement text based on detected left leg movement
+  if (leftLegMovingUp != null && waistMoving == null && rightLegMovingUp == null && leftShoulderMovingUp == null && leftForearmMovingUp == null && rightShoulderMovingUp == null && rightForearmMovingUp == null) {
+    if (leftLegMovingUp) {
+      displayMovementText("Left leg is moving up.", width / 2, height / 2 + 40);
+    } else {
+      displayMovementText("Left leg is moving down.", width / 2, height / 2 + 40);
+    }
+  }
+
+  // Add your custom logic for displaying movement text based on detected right leg movement
+  if (rightLegMovingUp != null && waistMoving == null && leftLegMovingUp == null && leftShoulderMovingUp == null && leftForearmMovingUp == null && rightShoulderMovingUp == null && rightForearmMovingUp == null) {
+    if (rightLegMovingUp) {
+      displayMovementText("Right leg is moving up.", width / 2, height / 2 + 80);
+    } else {
+      displayMovementText("Right leg is moving down.", width / 2, height / 2 + 80);
+    }
+  }
+
+  // Add your custom logic for displaying movement text based on detected left arm movement
+  if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
+    if (leftShoulderMovingUp && leftForearmMovingUp) {
+      displayMovementText("Left arm is moving down.", width / 2, height / 2 + 120);
+    }
+    if (!leftShoulderMovingUp && !leftForearmMovingUp) {
+      displayMovementText("Left arm is moving up.", width / 2, height / 2 + 120);
+    }
+  }
+
+  // Add your custom logic for displaying movement text based on detected right arm movement
+  if (rightShoulderMovingUp != null && rightForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null ) {
+    if (rightShoulderMovingUp && !rightForearmMovingUp) {
+      displayMovementText("Right arm is moving up.", width / 2, height / 2 + 160);
+    }
+    if (!rightShoulderMovingUp && rightForearmMovingUp) {
+      displayMovementText("Right arm is moving down.", width / 2, height / 2 + 160);
+    }
+  }
+  
+    // Add your custom logic for displaying movement text based on detected waist movement
+  if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
+    if (waistMoving) {
+      displayMovementText("Waist is moving right.", width / 2, height / 2 + 200);
+    } else {
+      displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
+    }
+  }
+
+  // Add your custom logic for detecting body movement based on shoulders and legs
+  if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovingUp != null && rightLegMovingUp != null) {
+    if (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp) {
+      bodyMoving = true; // Body is moving up
+    } else if (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp) {
+      bodyMoving = false; // Body is moving down
+    }
+  }
+
+  // Add your custom logic for displaying movement text based on detected body movement
+  if (bodyMoving != null) {
+    if (bodyMoving) {
+      displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
+    } else {
+      displayMovementText("Body is moving down.", width / 2, height / 2 + 240);
+    }
+  }
+
+  // Update previous potentiometer values for the next iteration
+  System.arraycopy(potValues, 0, previousPotValues, 0, numPotentiometers);
         }
 
         function displayMovementText(textToShow, potentiometerNumber) {
