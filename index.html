@@ -339,7 +339,7 @@ getCurrentLocation();
   // Check movement for each potentiometer
   for (let i = 0; i < numPotentiometers; i++) {
     // Check movement based on potentiometer position and its corresponding label
-    if (labels[i].equals("HEAD")) {
+    if (labels[i]=="HEAD") {
       // Movement detection for head (up and down movement)
       if (potValues[i] < previousPotValues[i] - movementThreshold) {
         headMovingUp = true; // Head is moving up
