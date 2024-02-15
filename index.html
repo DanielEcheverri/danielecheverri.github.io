@@ -323,18 +323,18 @@ getCurrentLocation();
 
         function checkMovement() {
              // Define thresholds for movement detection
-  float movementThreshold = 10; // Adjust as needed
+  let movementThreshold = 10; // Adjust as needed
 
   // Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
-  Boolean headMovingUp = null;
-  Boolean leftLegMovingUp = null;
-  Boolean rightLegMovingUp = null;
-  Boolean leftShoulderMovingUp = null;
-  Boolean rightShoulderMovingUp = null;
-  Boolean leftForearmMovingUp = null;
-  Boolean rightForearmMovingUp = null;
-  Boolean waistMoving = null;
-  Boolean bodyMoving = null;
+  let headMovingUp = null;
+  let leftLegMovingUp = null;
+  let rightLegMovingUp = null;
+  let leftShoulderMovingUp = null;
+  let rightShoulderMovingUp = null;
+  let leftForearmMovingUp = null;
+  let rightForearmMovingUp = null;
+  let waistMoving = null;
+  let bodyMoving = null;
 
   // Check movement for each potentiometer
   for (int i = 0; i < numPotentiometers; i++) {
