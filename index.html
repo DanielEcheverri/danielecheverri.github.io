@@ -258,7 +258,8 @@ getCurrentLocation();
         let labels = ["LEFT SHOULDER", "LEFT FOREARM", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
         let isMovingUp = false;
         let isMovingDown = false;
-
+        var previousPotValues = new Array(numPotentiometers);
+        
         function setup() {
             var avatarBTCanvas = createCanvas(windowWidth * 0.95, windowHeight * 0.6);
             avatarBTCanvas.parent("avatarBTdiv");
