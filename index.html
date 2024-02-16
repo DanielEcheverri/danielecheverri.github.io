@@ -477,6 +477,8 @@ getCurrentLocation();
   previousPotValues = potValues.slice(0, numPotentiometers);
         }
 
+var timeoutID; // Variable to hold the timeout ID
+
 function displayMovementText(message, x, y) {
   // Target the existing <div> element with the id "gestureDiv"
   var gestureDiv = document.getElementById('gestureDiv');
@@ -485,8 +487,8 @@ function displayMovementText(message, x, y) {
     return;
   }
 
-  // Clear existing content of the "gestureDiv"
-  gestureDiv.innerHTML = '';
+  // Clear existing timeout
+  clearTimeout(timeoutID);
 
   // Create a new <div> element to contain the latest text
   var textDiv = document.createElement('div');
@@ -495,9 +497,14 @@ function displayMovementText(message, x, y) {
   textDiv.innerText = message;
 
   // Append the <div> element to the "gestureDiv"
+  gestureDiv.innerHTML = ''; // Clear existing content
   gestureDiv.appendChild(textDiv);
-}
 
+  // Set a timeout to clear the text after 3 seconds if there's no change
+  timeoutID = setTimeout(function() {
+    gestureDiv.innerHTML = ''; // Clear the text
+  }, 3000);
+}
 
         function setupColors() {
             lineColors[0] = color(204, 204, 0);   // Dark Yellow
