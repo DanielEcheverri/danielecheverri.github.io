@@ -483,9 +483,23 @@ function displayMovementText(message, x, y) {
   textAlign(CENTER, CENTER);
   textSize(80); // Adjust text size as needed
 
-  // Display text
-  text(message, x, y);
+  // Target the existing <div> element with the id "gestureDiv"
+  var gestureDiv = document.getElementById('gestureDiv');
+  if (!gestureDiv) {
+    console.error('Could not find div with id "gestureDiv". Make sure it exists in your HTML.');
+    return;
+  }
+
+  // Create a new <div> element to contain the text
+  var textDiv = document.createElement('div');
+  textDiv.style.color = '#fff'; // White text color
+  textDiv.style.fontSize = '80px'; // Adjust text size as needed
+  textDiv.innerText = message;
+
+  // Append the <div> element to the existing "gestureDiv"
+  gestureDiv.appendChild(textDiv);
 }
+
 
 
         function setupColors() {
@@ -516,5 +530,7 @@ function displayMovementText(message, x, y) {
     <div id="closestShop"></div>
     <!-- Coordinates-->
     <div id="currentLocation"></div>
+    <!-- Movement>-->
+    <div id="gestureDiv"></div>
 </body>
 </html>
