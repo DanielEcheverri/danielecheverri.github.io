@@ -234,11 +234,9 @@
             // Call the function to start watching the position
             getCurrentLocation();
 
-            async
-            function findClosestShop() {
+            async function findClosestShop() {
                 if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(async
-                    function(position) {
+                    navigator.geolocation.getCurrentPosition(async function(position) {
                         const {
                             latitude,
                             longitude
