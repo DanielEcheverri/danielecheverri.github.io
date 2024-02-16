@@ -477,13 +477,16 @@ getCurrentLocation();
   previousPotValues = potValues.slice(0, numPotentiometers);
         }
 
-        function displayMovementText(textToShow, potentiometerNumber) {
-            fill(0); // Black text
-            textAlign(CENTER, CENTER);
-            let textSize = min(width, height) * 0.05; // Responsive text size
-            textSize(textSize);
-            text("Pot " + (potentiometerNumber + 1) + ": " + textToShow, width / 2, height / 2);
-        }
+function displayMovementText(message, x, y) {
+  // Set text properties
+  fill(255); // White text color
+  textAlign(CENTER, CENTER);
+  textSize(80); // Adjust text size as needed
+
+  // Display text
+  text(message, x, y);
+}
+
 
         function setupColors() {
             lineColors[0] = color(204, 204, 0);   // Dark Yellow
