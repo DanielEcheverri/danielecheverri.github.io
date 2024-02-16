@@ -488,7 +488,7 @@ if (bodyMoving != null) {
     } else {
         displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
     }
-cooldownTimer = 60; // 1 second cooldown (assuming each iteration of checkMovement() is 1/60th of a second)
+cooldownTimer = 180; // 3 second cooldown (assuming each iteration of checkMovement() is 1/60th of a second)
 }
   // Update previous potentiometer values for the next iteration
   previousPotValues = potValues.slice(0, numPotentiometers);
@@ -513,7 +513,7 @@ function displayMovementText(message, x, y) {
   // Set a timeout to clear the text after 3 seconds if there's no change
   timeoutID = setTimeout(function() {
     gestureDiv.textContent = ''; // Clear the text
-  }, 3000);
+  }, 2000);
 }
 
 
