@@ -341,7 +341,15 @@ getCurrentLocation();
   let waistMoving = null;
   let bodyMoving = null;
 
-    let cooldownTimer = 0;
+   // Define a cooldown duration (in milliseconds) after detecting waist or body movements
+const cooldownDuration = 1000; // 1 second
+
+// Variable to track if the cooldown is active
+let cooldownActive = false;
+
+if (cooldownActive) {
+        return;
+}
 
   // Check movement for each potentiometer
   for (let i = 0; i < numPotentiometers; i++) {
@@ -465,7 +473,10 @@ getCurrentLocation();
     } else {
       displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
     }
-    cooldownTimer = 300; // 1 second cooldown (assuming each iteration of checkMovement() is 1/60th of a second)
+    cooldownActive = true;
+        setTimeout(() => {
+            cooldownActive = false;
+    }, cooldownDuration);
   }
             
   // Add your custom logic for detecting body movement based on shoulders and legs
@@ -488,7 +499,11 @@ if (bodyMoving != null) {
     } else {
         displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
     }
-cooldownTimer = 300; // 3 second cooldown (assuming each iteration of checkMovement() is 1/60th of a second)
+    cooldownActive = true;
+        setTimeout(() => {
+            cooldownActive = false;
+    }, cooldownDuration);
+    
 }
   // Update previous potentiometer values for the next iteration
   previousPotValues = potValues.slice(0, numPotentiometers);
