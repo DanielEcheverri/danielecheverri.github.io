@@ -80,7 +80,9 @@
     <div id="currentLocation"></div>
     <!-- Movement>-->
     <div id="gestureDiv"></div>
+        
         <script>
+            //Script for pairing with Avatar BT
             let characteristic;
         let isConnected = false; // Track connection state
         let device; // Declare device variable
@@ -139,9 +141,8 @@
     }
   </script>
 
-<script>
-            
-// Function to continuously update the current location and direction
+<script>        
+// Script to continuously update the current location and direction
 function getCurrentLocation() {
     if (navigator.geolocation) {
         const options = {
@@ -257,9 +258,10 @@ getCurrentLocation();
             return d;
         }
         </script>
-        
+
         <script type="text/javascript">
-            // Processing 4 sketch
+        // Processing 4 sketch to visualize movements of the Avatar
+
             let numPotentiometers = 8;
             let potValues;
             let lineColors;
