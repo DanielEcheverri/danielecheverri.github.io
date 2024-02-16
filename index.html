@@ -461,16 +461,12 @@ getCurrentLocation();
     if (waistMoving) {
       displayMovementText("Waist is moving right.", width / 2, height / 2 + 200);
          detectMovement = false;
-
-        // Set timeout to re-enable movement detection after cooldown
         setTimeout(() => {
             detectMovement = true;
         }, cooldownDuration);
     } else {
       displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
          detectMovement = false;
-
-        // Set timeout to re-enable movement detection after cooldown
         setTimeout(() => {
             detectMovement = true;
         }, cooldownDuration);
@@ -482,20 +478,8 @@ getCurrentLocation();
 if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovingUp != null && rightLegMovingUp != null) {
     if (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp) {
         bodyMoving = true; // Body is moving up
-         detectMovement = false;
-
-        // Set timeout to re-enable movement detection after cooldown
-        setTimeout(() => {
-            detectMovement = true;
-        }, cooldownDuration);
     } else if (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp) {
         bodyMoving = false; // Body is moving down
-         detectMovement = false;
-
-        // Set timeout to re-enable movement detection after cooldown
-        setTimeout(() => {
-            detectMovement = true;
-        }, cooldownDuration);
     } else {
         bodyMoving = null; // Body movement cannot be determined
     }
@@ -506,8 +490,16 @@ if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovi
 // Add your custom logic for displaying movement text based on detected body movement
 if (bodyMoving != null) {
     if (bodyMoving) {
+        detectMovement = false;
+        setTimeout(() => {
+            detectMovement = true;
+        }, cooldownDuration);
         displayMovementText("Body is moving down.", width / 2, height / 2 + 240);
     } else {
+        detectMovement = false;
+        setTimeout(() => {
+            detectMovement = true;
+        }, cooldownDuration);
         displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
     }
 }
