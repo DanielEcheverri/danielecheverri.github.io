@@ -524,17 +524,15 @@
                 if (bodyMoving != null) {
                     if (bodyMoving) {
                         detectMovement = false;
-                        setTimeout(() = >{
-                            detectMovement = true;
-                        },
-                        cooldownDuration);
+                        setTimeout(() => {
+                        detectMovement = true;
+                        }, cooldownDuration);
                         displayMovementText("Body is moving down.", width / 2, height / 2 + 240);
                     } else {
                         detectMovement = false;
-                        setTimeout(() = >{
-                            detectMovement = true;
-                        },
-                        cooldownDuration);
+                        setTimeout(() => {
+                        detectMovement = true;
+                        }, cooldownDuration);
                         displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
                     }
                 }
