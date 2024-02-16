@@ -479,9 +479,9 @@ getCurrentLocation();
 
 function displayMovementText(message, x, y) {
   // Set text properties
-  fill(0); // Black text color
+  fill(255); // White text color
   textAlign(CENTER, CENTER);
-  textSize(32); // Adjust text size as needed
+  textSize(80); // Adjust text size as needed
 
   // Target the existing <div> element with the id "gestureDiv"
   var gestureDiv = document.getElementById('gestureDiv');
@@ -490,16 +490,18 @@ function displayMovementText(message, x, y) {
     return;
   }
 
-  // Create a new <div> element to contain the text
+  // Clear existing content of the "gestureDiv"
+  gestureDiv.innerHTML = '';
+
+  // Create a new <div> element to contain the latest text
   var textDiv = document.createElement('div');
-  textDiv.style.color = '#0'; // White text color
-  textDiv.style.fontSize = '32px'; // Adjust text size as needed
+  textDiv.style.color = '#fff'; // White text color
+  textDiv.style.fontSize = '80px'; // Adjust text size as needed
   textDiv.innerText = message;
 
-  // Append the <div> element to the existing "gestureDiv"
+  // Append the <div> element to the "gestureDiv"
   gestureDiv.appendChild(textDiv);
 }
-
 
 
         function setupColors() {
