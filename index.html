@@ -42,7 +42,11 @@
         #findClosestShopButton {
             background-color: #6EB183; /* Blue */
         }
-        
+
+        #gestureDiv {
+            color: #000; /* Black text color */
+            font-size: 32px; /* Text size */
+        }
     </style>
 </head>
 <body>
@@ -490,21 +494,15 @@ function displayMovementText(message, x, y) {
   // Clear existing timeout
   clearTimeout(timeoutID);
 
-  // Create a new <div> element to contain the latest text
-  var textDiv = document.createElement('div');
-  textDiv.style.color = '#000'; // Black text color
-  textDiv.style.fontSize = '32px'; // Adjust text size as needed
-  textDiv.innerText = message;
-
-  // Append the <div> element to the "gestureDiv"
-  gestureDiv.innerHTML = ''; // Clear existing content
-  gestureDiv.appendChild(textDiv);
+  // Set the text content
+  gestureDiv.textContent = message;
 
   // Set a timeout to clear the text after 3 seconds if there's no change
   timeoutID = setTimeout(function() {
-    gestureDiv.innerHTML = ''; // Clear the text
+    gestureDiv.textContent = ''; // Clear the text
   }, 3000);
 }
+
 
 
         function setupColors() {
