@@ -494,17 +494,15 @@
                     if (waistMoving) {
                         displayMovementText("Waist is moving right.", width / 2, height / 2 + 200);
                         detectMovement = false;
-                        setTimeout(() = >{
-                            detectMovement = true;
-                        },
-                        cooldownDuration);
+                        setTimeout(() => {
+                        detectMovement = true;
+                        }, cooldownDuration);
                     } else {
                         displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
                         detectMovement = false;
-                        setTimeout(() = >{
-                            detectMovement = true;
-                        },
-                        cooldownDuration);
+                        setTimeout(() => {
+                        detectMovement = true;
+                        }, cooldownDuration);
                     }
 
                 }
