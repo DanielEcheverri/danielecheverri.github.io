@@ -403,6 +403,12 @@ getCurrentLocation();
     }
   }
 
+    if (cooldownTimer > 0) {
+        // Ignore movement detection for other body parts
+        cooldownTimer--;
+    return;
+    }
+
   // Add your custom logic for displaying movement text based on detected head movement
   if (headMovingUp != null) {
     if (headMovingUp) {
@@ -457,6 +463,7 @@ getCurrentLocation();
     } else {
       displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
     }
+    cooldownTimer = 60; // 1 second cooldown (assuming each iteration of checkMovement() is 1/60th of a second)
   }
             
   // Add your custom logic for detecting body movement based on shoulders and legs
@@ -479,6 +486,7 @@ if (bodyMoving != null) {
     } else {
         displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
     }
+cooldownTimer = 60; // 1 second cooldown (assuming each iteration of checkMovement() is 1/60th of a second)
 }
   // Update previous potentiometer values for the next iteration
   previousPotValues = potValues.slice(0, numPotentiometers);
