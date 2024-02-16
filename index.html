@@ -409,12 +409,6 @@ let cooldownActive = false;
     }
   }
 
-    if (cooldownTimer > 0) {
-        // Ignore movement detection for other body parts
-        cooldownTimer--;
-    return;
-    }
-
   // Add your custom logic for displaying movement text based on detected head movement
   if (headMovingUp != null) {
     if (headMovingUp) {
