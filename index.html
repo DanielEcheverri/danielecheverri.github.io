@@ -342,12 +342,13 @@ getCurrentLocation();
   let bodyMoving = null;
 
    // Define a cooldown duration (in milliseconds) after detecting waist or body movements
-const cooldownDuration = 3500; // 1 second            
+const cooldownDuration = 3500; // 1 second 
+let detectMovement = true;
             
-if (Date.now() < cooldownEndTime) {
-       // Cooldown period is still active, skip movement detection
-    return;
-}
+    if (!detectMovement) {
+        return;
+    }
+
   // Check movement for each potentiometer
   for (let i = 0; i < numPotentiometers; i++) {
     // Check movement based on potentiometer position and its corresponding label
