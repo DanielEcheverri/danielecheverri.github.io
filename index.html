@@ -263,6 +263,8 @@ getCurrentLocation();
         let isMovingUp = false;
         let isMovingDown = false;
         var previousPotValues = new Array(numPotentiometers);
+        const cooldownDuration = 3500; // 1 second 
+        let detectMovement = true;
         
         function setup() {
             var avatarBTCanvas = createCanvas(windowWidth * 0.95, windowHeight * 0.6);
