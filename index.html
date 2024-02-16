@@ -460,21 +460,34 @@ let cooldownActive = false;
   if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
     if (waistMoving) {
       displayMovementText("Waist is moving right.", width / 2, height / 2 + 200);
-    } else {
-      displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
-    }
-    cooldownActive = true;
+            cooldownActive = true;
         setTimeout(() => {
             cooldownActive = false;
     }, cooldownDuration);
+    } else {
+      displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
+            cooldownActive = true;
+        setTimeout(() => {
+            cooldownActive = false;
+    }, cooldownDuration);
+    }
+
   }
             
   // Add your custom logic for detecting body movement based on shoulders and legs
 if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovingUp != null && rightLegMovingUp != null) {
     if (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp) {
         bodyMoving = true; // Body is moving up
+        cooldownActive = true;
+        setTimeout(() => {
+            cooldownActive = false;
+        }, cooldownDuration);
     } else if (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp) {
         bodyMoving = false; // Body is moving down
+        cooldownActive = true;
+        setTimeout(() => {
+            cooldownActive = false;
+        }, cooldownDuration);
     } else {
         bodyMoving = null; // Body movement cannot be determined
     }
@@ -489,11 +502,6 @@ if (bodyMoving != null) {
     } else {
         displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
     }
-    cooldownActive = true;
-        setTimeout(() => {
-            cooldownActive = false;
-    }, cooldownDuration);
-    
 }
   // Update previous potentiometer values for the next iteration
   previousPotValues = potValues.slice(0, numPotentiometers);
