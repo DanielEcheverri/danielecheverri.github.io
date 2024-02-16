@@ -475,9 +475,9 @@ if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovi
 // Add your custom logic for displaying movement text based on detected body movement
 if (bodyMoving != null) {
     if (bodyMoving) {
-        displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
-    } else {
         displayMovementText("Body is moving down.", width / 2, height / 2 + 240);
+    } else {
+        displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
     }
 }
   // Update previous potentiometer values for the next iteration
