@@ -242,7 +242,7 @@
                             longitude
                         } = position.coords;
                         const radius = 5; // Change this value to adjust the radius
-                        const apiURL = `https: //overpass-api.de/api/interpreter?data=[out:json];node[shop](around:${radius},${latitude},${longitude});out;`;
+                        const apiURL = `https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:${radius},${latitude},${longitude});out;`;
                         try {
                             const response = await fetch(apiURL);
                             const data = await response.json();
