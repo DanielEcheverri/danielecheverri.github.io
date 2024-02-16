@@ -343,9 +343,6 @@ getCurrentLocation();
 
    // Define a cooldown duration (in milliseconds) after detecting waist or body movements
 const cooldownDuration = 3500; // 1 second            
-
-// Variable to track if the cooldown is active
-let cooldownEndTime = 0;
             
 if (Date.now() < cooldownEndTime) {
        // Cooldown period is still active, skip movement detection
@@ -464,10 +461,20 @@ if (Date.now() < cooldownEndTime) {
   if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
     if (waistMoving) {
       displayMovementText("Waist is moving right.", width / 2, height / 2 + 200);
-        cooldownEndTime = Date.now() + cooldownDuration;
+         detectMovement = false;
+
+        // Set timeout to re-enable movement detection after cooldown
+        setTimeout(() => {
+            detectMovement = true;
+        }, cooldownDuration);
     } else {
       displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
-        cooldownEndTime = Date.now() + cooldownDuration;
+         detectMovement = false;
+
+        // Set timeout to re-enable movement detection after cooldown
+        setTimeout(() => {
+            detectMovement = true;
+        }, cooldownDuration);
     }
 
   }
