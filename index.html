@@ -345,8 +345,8 @@ getCurrentLocation();
 const cooldownDuration = 3500; // 1 second            
 
 // Variable to track if the cooldown is active
-let cooldownActive = false;
-
+let cooldownEndTime = 0;
+            
 if (Date.now() < cooldownEndTime) {
        // Cooldown period is still active, skip movement detection
     return;
