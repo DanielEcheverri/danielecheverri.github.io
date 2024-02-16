@@ -474,7 +474,7 @@ getCurrentLocation();
   }
 
   // Update previous potentiometer values for the next iteration
-  System.arraycopy(potValues, 0, previousPotValues, 0, numPotentiometers);
+  previousPotValues = potValues.slice(0, numPotentiometers);
         }
 
         function displayMovementText(textToShow, potentiometerNumber) {
