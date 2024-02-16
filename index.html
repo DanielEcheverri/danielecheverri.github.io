@@ -482,8 +482,20 @@ getCurrentLocation();
 if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovingUp != null && rightLegMovingUp != null) {
     if (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp) {
         bodyMoving = true; // Body is moving up
+         detectMovement = false;
+
+        // Set timeout to re-enable movement detection after cooldown
+        setTimeout(() => {
+            detectMovement = true;
+        }, cooldownDuration);
     } else if (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp) {
         bodyMoving = false; // Body is moving down
+         detectMovement = false;
+
+        // Set timeout to re-enable movement detection after cooldown
+        setTimeout(() => {
+            detectMovement = true;
+        }, cooldownDuration);
     } else {
         bodyMoving = null; // Body movement cannot be determined
     }
