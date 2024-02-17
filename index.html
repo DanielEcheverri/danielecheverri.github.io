@@ -1,742 +1,577 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Avatar BT</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <style>
-      body {
-        font-family: "Roboto", sans-serif;
-        margin: 0; /* Remove default margin */
-        padding: 0; /* Remove default padding */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-      }
-      #avatarBTdiv {
-        margin-bottom: 20px;
-        position: relative;
-      }
-      #closestShop,
-      #currentLocation,
-      #gestureDiv,
-      #headingChange {
-        width: 100%;
-        text-align: center;
-        color: #000; /* Black text color */
-        font-size: 16px; /* Text size */
-      }
-      .button {
-        background-color: #4caf50; /* Green */
-        width: 45%; /* Adjust the width as needed */
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        font-family: "Roboto", sans-serif;
-      }
-      /* Disconnect button style */
-      #connectButton {
-        background-color: #0082fc; /* Red */
-      }
-      /* Find Closest Shop button style */
-      #findClosestShopButton {
-        background-color: #6eb183; /* Blue */
-      }
-    </style>
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Avatar BT</title>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<style>
+			body {
+				font-family: "Roboto", sans-serif;
+				margin: 0; /* Remove default margin */
+				padding: 0; /* Remove default padding */
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+			}
+			#avatarBTdiv {
+				margin-bottom: 20px;
+				position: relative;
+			}
+			#closestShop,
+			#currentLocation,
+			#gestureDiv,
+			#headingChange {
+				width: 100%;
+				text-align: center;
+				color: #000; /* Black text color */
+				font-size: 16px; /* Text size */
+			}
+			.button {
+				background-color: #4caf50; /* Green */
+				width: 45%; /* Adjust the width as needed */
+				border: none;
+				color: white;
+				padding: 15px 32px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				margin: 4px 2px;
+				cursor: pointer;
+				border-radius: 8px;
+				font-family: "Roboto", sans-serif;
+			}
+			/* Disconnect button style */
+			#connectButton {
+				background-color: #0082fc; /* Red */
+			}
+			/* Find Closest Shop button style */
+			#findClosestShopButton {
+				background-color: #6eb183; /* Blue */
+			}
+		</style>
+	</head>
 
-  <body>
-    <h1>Avatar BT Debug</h1>
-    <div id="avatarBTdiv">
-      <!-- Connect Button -->
-      <button id="connectButton" class="button">Connect to Avatar</button>
-      <!-- Find Closest Shop Button -->
-      <button
-        id="findClosestShopButton"
-        class="button"
-        onclick="findClosestShop()"
-      >
-        Find Closest Shop
-      </button>
-    </div>
-    <!-- Div to display status of Avatar BT shop -->
-    <div id="closestShop"></div>
-    <!-- Coordinates-->
-    <div id="currentLocation"></div>
-    <!-- Heading change>-->
-    <div id="headingChange"></div>
-    <!-- Movement>-->
-    <div id="gestureDiv"></div>
+	<body>
+		<h1>Avatar BT Debug</h1>
+		<div id="avatarBTdiv">
+			<!-- Connect Button -->
+			<button id="connectButton" class="button">Connect to Avatar</button>
+			<!-- Find Closest Shop Button -->
+			<button id="findClosestShopButton" class="button" onclick="findClosestShop()">Find Closest Shop</button>
+		</div>
+		<!-- Div to display status of Avatar BT shop -->
+		<div id="closestShop"></div>
+		<!-- Coordinates-->
+		<div id="currentLocation"></div>
+		<!-- Heading change>-->
+		<div id="headingChange"></div>
+		<!-- Movement>-->
+		<div id="gestureDiv"></div>
 
-    <script>
-      //Script for pairing with Avatar BT
-      let characteristic;
-      let isConnected = false; // Track connection state
-      let device; // Declare device variable
-      async function connectToDevice() {
-        try {
-          if (!isConnected) {
-            // Request Bluetooth device
-            device = await navigator.bluetooth.requestDevice({
-              filters: [{ services: ["6e400001-b5a3-f393-e0a9-e50e24dcca9e"] }],
-            });
-            // Connect to the selected device
-            const server = await device.gatt.connect();
-            // Get UART service
-            const service = await server.getPrimaryService(
-              "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
-            );
-            // Get UART characteristic
-            characteristic = await service.getCharacteristic(
-              "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
-            );
-            // Start notifications for the characteristic
-            await characteristic.startNotifications();
-            // Listen for characteristic value changes
-            characteristic.addEventListener(
-              "characteristicvaluechanged",
-              handleCharacteristicValueChanged
-            );
-            // Update UI
-            document.getElementById("connectButton").textContent =
-              "Disconnect Avatar";
-            isConnected = true;
-          } else {
-            // Disconnect from the device
-            await characteristic.stopNotifications();
-            await device.gatt.disconnect();
-            isConnected = false;
-            document.getElementById("connectButton").textContent =
-              "Connect to Avatar";
-            // Set all potValues to 0
-            potValues = [0, 0, 0, 0, 0, 0, 0, 0];
-          }
-        } catch (error) {
-          console.error("Error connecting/disconnecting: " + error);
-        }
-      }
-      // Attach click event listener to button
-      document
-        .getElementById("connectButton")
-        .addEventListener("click", connectToDevice);
-      // Function to handle incoming data from UART
-      function handleCharacteristicValueChanged(event) {
-        const value = event.target.value;
-        // Convert the received data to a string
-        const textDecoder = new TextDecoder();
-        const decodedValue = textDecoder.decode(value);
-        // Pass the received data to Processing sketch
-        receiveData(decodedValue);
-      }
-      // Function to receive data from JavaScript
-      function receiveData(data) {
-        if (window.receiveDataFromSerial) {
-          window.receiveDataFromSerial(data);
-        } else {
-          console.error("Processing sketch not initialized.");
-        }
-      }
-    </script>
+		<script>
+			//Script for pairing with Avatar BT
+			let characteristic;
+			let isConnected = false; // Track connection state
+			let device; // Declare device variable
+			async function connectToDevice() {
+				try {
+					if (!isConnected) {
+						// Request Bluetooth device
+						device = await navigator.bluetooth.requestDevice({
+							filters: [{ services: ["6e400001-b5a3-f393-e0a9-e50e24dcca9e"] }],
+						});
+						// Connect to the selected device
+						const server = await device.gatt.connect();
+						// Get UART service
+						const service = await server.getPrimaryService("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
+						// Get UART characteristic
+						characteristic = await service.getCharacteristic("6e400003-b5a3-f393-e0a9-e50e24dcca9e");
+						// Start notifications for the characteristic
+						await characteristic.startNotifications();
+						// Listen for characteristic value changes
+						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
+						// Update UI
+						document.getElementById("connectButton").textContent = "Disconnect Avatar";
+						isConnected = true;
+					} else {
+						// Disconnect from the device
+						await characteristic.stopNotifications();
+						await device.gatt.disconnect();
+						isConnected = false;
+						document.getElementById("connectButton").textContent = "Connect to Avatar";
+						// Set all potValues to 0
+						potValues = [0, 0, 0, 0, 0, 0, 0, 0];
+					}
+				} catch (error) {
+					console.error("Error connecting/disconnecting: " + error);
+				}
+			}
+			// Attach click event listener to button
+			document.getElementById("connectButton").addEventListener("click", connectToDevice);
+			// Function to handle incoming data from UART
+			function handleCharacteristicValueChanged(event) {
+				const value = event.target.value;
+				// Convert the received data to a string
+				const textDecoder = new TextDecoder();
+				const decodedValue = textDecoder.decode(value);
+				// Pass the received data to Processing sketch
+				receiveData(decodedValue);
+			}
+			// Function to receive data from JavaScript
+			function receiveData(data) {
+				if (window.receiveDataFromSerial) {
+					window.receiveDataFromSerial(data);
+				} else {
+					console.error("Processing sketch not initialized.");
+				}
+			}
+		</script>
 
-    <script>
-      function getCurrentLocation() {
-        if (navigator.geolocation) {
-          const options = {
-            enableHighAccuracy: true,
-          };
+		<script>
+			function getCurrentLocation() {
+				if (navigator.geolocation) {
+					const options = {
+						enableHighAccuracy: true,
+					};
 
-          let previousPosition = null;
-          let totalDistance = 0;
+					let previousPosition = null;
+					let totalDistance = 0;
 
-          navigator.geolocation.watchPosition(
-            function (position) {
-              const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
-              let speed = position.coords.speed || 0; // Speed in meters per second
+					navigator.geolocation.watchPosition(
+						function (position) {
+							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
+							let speed = position.coords.speed || 0; // Speed in meters per second
 
-              // Reset total distance if speed is less than threshold
-              if (speed < speedThreshold) {
-                totalDistance = 0;
-              } else if (previousPosition) {
-                const distance = calculateDistance(
-                  previousPosition.coords.latitude,
-                  previousPosition.coords.longitude,
-                  position.coords.latitude,
-                  position.coords.longitude
-                );
-                totalDistance += distance;
-              }
+							// Reset total distance if speed is less than threshold
+							if (speed < speedThreshold) {
+								totalDistance = 0;
+							} else if (previousPosition) {
+								const distance = calculateDistance(
+									previousPosition.coords.latitude,
+									previousPosition.coords.longitude,
+									position.coords.latitude,
+									position.coords.longitude
+								);
+								totalDistance += distance;
+							}
 
-              previousPosition = position;
+							previousPosition = position;
 
-              let heading = position.coords.heading || 0; // Heading in degrees
+							let heading = position.coords.heading || 0; // Heading in degrees
 
-              // Determine direction text based on heading
-              let directionText;
-              if (speed >= speedThreshold) {
-                if (heading >= 337.5 || heading < 22.5) {
-                  directionText = "Heading North";
-                } else if (heading >= 22.5 && heading < 67.5) {
-                  directionText = "Heading Northeast";
-                } else if (heading >= 67.5 && heading < 112.5) {
-                  directionText = "Heading East";
-                } else if (heading >= 112.5 && heading < 157.5) {
-                  directionText = "Heading Southeast";
-                } else if (heading >= 157.5 && heading < 202.5) {
-                  directionText = "Heading South";
-                } else if (heading >= 202.5 && heading < 247.5) {
-                  directionText = "Heading Southwest";
-                } else if (heading >= 247.5 && heading < 292.5) {
-                  directionText = "Heading West";
-                } else if (heading >= 292.5 && heading < 337.5) {
-                  directionText = "Heading Northwest";
-                }
-              } else {
-                directionText = "Not moving";
-              }
+							// Determine direction text based on heading
+							let directionText;
+							if (speed >= speedThreshold) {
+								if (heading >= 337.5 || heading < 22.5) {
+									directionText = "Heading North";
+								} else if (heading >= 22.5 && heading < 67.5) {
+									directionText = "Heading Northeast";
+								} else if (heading >= 67.5 && heading < 112.5) {
+									directionText = "Heading East";
+								} else if (heading >= 112.5 && heading < 157.5) {
+									directionText = "Heading Southeast";
+								} else if (heading >= 157.5 && heading < 202.5) {
+									directionText = "Heading South";
+								} else if (heading >= 202.5 && heading < 247.5) {
+									directionText = "Heading Southwest";
+								} else if (heading >= 247.5 && heading < 292.5) {
+									directionText = "Heading West";
+								} else if (heading >= 292.5 && heading < 337.5) {
+									directionText = "Heading Northwest";
+								}
+							} else {
+								directionText = "Not moving";
+							}
 
-              // Update the HTML element with the direction and distance walked
-              document.getElementById("currentLocation").textContent =
-                "Direction: " +
-                directionText +
-                ", Speed: " +
-                speed.toFixed(2) +
-                " m/s, Total Distance Walked: " +
-                totalDistance.toFixed(2) +
-                " meters";
-            },
-            function (error) {
-              console.error("Error getting current location: ", error);
-            },
-            options
-          );
-        } else {
-          console.error("Geolocation is not supported by this browser.");
-        }
-      }
+							// Update the HTML element with the direction and distance walked
+							document.getElementById("currentLocation").textContent =
+								"Direction: " +
+								directionText +
+								", Speed: " +
+								speed.toFixed(2) +
+								" m/s, Total Distance Walked: " +
+								totalDistance.toFixed(2) +
+								" meters";
+						},
+						function (error) {
+							console.error("Error getting current location: ", error);
+						},
+						options
+					);
+				} else {
+					console.error("Geolocation is not supported by this browser.");
+				}
+			}
 
-      // Function to calculate the distance between two coordinates using Haversine formula
-      function calculateDistance(lat1, lon1, lat2, lon2) {
-        const earthRadius = 6371e3; // Earth radius in meters
-        const phi1 = (lat1 * Math.PI) / 180; // Latitude in radians
-        const phi2 = (lat2 * Math.PI) / 180; // Latitude in radians
-        const deltaPhi = ((lat2 - lat1) * Math.PI) / 180;
-        const deltaLambda = ((lon2 - lon1) * Math.PI) / 180;
+			// Function to calculate the distance between two coordinates using Haversine formula
+			function calculateDistance(lat1, lon1, lat2, lon2) {
+				const earthRadius = 6371e3; // Earth radius in meters
+				const phi1 = (lat1 * Math.PI) / 180; // Latitude in radians
+				const phi2 = (lat2 * Math.PI) / 180; // Latitude in radians
+				const deltaPhi = ((lat2 - lat1) * Math.PI) / 180;
+				const deltaLambda = ((lon2 - lon1) * Math.PI) / 180;
 
-        const a =
-          Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
-          Math.cos(phi1) *
-            Math.cos(phi2) *
-            Math.sin(deltaLambda / 2) *
-            Math.sin(deltaLambda / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+				const a =
+					Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) + Math.cos(phi1) * Math.cos(phi2) * Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+				const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        const distance = earthRadius * c; // Distance in meters
-        return distance;
-      }
+				const distance = earthRadius * c; // Distance in meters
+				return distance;
+			}
 
-      getCurrentLocation();
+			getCurrentLocation();
 
-      async function findClosestShop() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(async function (position) {
-            const { latitude, longitude } = position.coords;
-            const radius = 5; // Change this value to adjust the radius
-            const apiURL = `https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:${radius},${latitude},${longitude});out;`;
-            try {
-              const response = await fetch(apiURL);
-              const data = await response.json();
-              if (data.elements.length > 0) {
-                const closestShop = data.elements[0].tags.name;
-                const shopLocation = [
-                  data.elements[0].lat,
-                  data.elements[0].lon,
-                ];
-                const distance = calculateDistance(
-                  latitude,
-                  longitude,
-                  shopLocation[0],
-                  shopLocation[1]
-                );
-                document.getElementById(
-                  "closestShop"
-                ).innerHTML = `Closest Shop: ${closestShop} Distance: ${distance.toFixed(
-                  2
-                )} meters`;
-              } else {
-                document.getElementById(
-                  "closestShop"
-                ).innerHTML = `No shops found within ${radius} meters.`;
-              }
-            } catch (error) {
-              console.error("Error finding closest shop:", error);
-              document.getElementById("closestShop").innerHTML =
-                "Error finding closest shop.";
-            }
-          });
-        } else {
-          document.getElementById("closestShop").innerHTML =
-            "Geolocation is not supported by this browser.";
-        }
-      }
-      function calculateDistance(lat1, lon1, lat2, lon2) {
-        var R = 6371e3; // metres
-        var φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
-        var φ2 = (lat2 * Math.PI) / 180;
-        var Δφ = ((lat2 - lat1) * Math.PI) / 180;
-        var Δλ = ((lon2 - lon1) * Math.PI) / 180;
-        var a =
-          Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-          Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c; // in metres
-        return d;
-      }
-    </script>
+			async function findClosestShop() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(async function (position) {
+						const { latitude, longitude } = position.coords;
+						const radius = 5; // Change this value to adjust the radius
+						const apiURL = `https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:${radius},${latitude},${longitude});out;`;
+						try {
+							const response = await fetch(apiURL);
+							const data = await response.json();
+							if (data.elements.length > 0) {
+								const closestShop = data.elements[0].tags.name;
+								const shopLocation = [data.elements[0].lat, data.elements[0].lon];
+								const distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
+								document.getElementById("closestShop").innerHTML = `Closest Shop: ${closestShop} Distance: ${distance.toFixed(2)} meters`;
+							} else {
+								document.getElementById("closestShop").innerHTML = `No shops found within ${radius} meters.`;
+							}
+						} catch (error) {
+							console.error("Error finding closest shop:", error);
+							document.getElementById("closestShop").innerHTML = "Error finding closest shop.";
+						}
+					});
+				} else {
+					document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
+				}
+			}
+			function calculateDistance(lat1, lon1, lat2, lon2) {
+				var R = 6371e3; // metres
+				var φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
+				var φ2 = (lat2 * Math.PI) / 180;
+				var Δφ = ((lat2 - lat1) * Math.PI) / 180;
+				var Δλ = ((lon2 - lon1) * Math.PI) / 180;
+				var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+				var d = R * c; // in metres
+				return d;
+			}
+		</script>
 
-    <script type="text/javascript">
-      // Processing 4 sketch to visualize movements of the Avatar
+		<script type="text/javascript">
+			// Processing 4 sketch to visualize movements of the Avatar
 
-      let numPotentiometers = 8;
-      let potValues;
-      let lineColors;
-      let backgroundColors;
-      let labels = [
-        "LEFT SHOULDER",
-        "LEFT FOREARM",
-        "HEAD",
-        "RIGHT SHOULDER",
-        "RIGHT FOREARM",
-        "WAIST",
-        "LEFT LEG",
-        "RIGHT LEG",
-      ];
-      let isMovingUp = false;
-      let isMovingDown = false;
-      var previousPotValues = new Array(numPotentiometers);
-      const cooldownDuration = 500; // 1 second
-      let detectMovement = true;
+			let numPotentiometers = 8;
+			let potValues;
+			let lineColors;
+			let backgroundColors;
+			let labels = ["LEFT SHOULDER", "LEFT FOREARM", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
+			let isMovingUp = false;
+			let isMovingDown = false;
+			var previousPotValues = new Array(numPotentiometers);
+			const cooldownDuration = 500; // 1 second
+			let detectMovement = true;
 
-      function setup() {
-        var avatarBTCanvas = createCanvas(
-          windowWidth * 0.95,
-          windowHeight * 0.6
-        );
-        avatarBTCanvas.parent("avatarBTdiv");
-        potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
-        lineColors = new Array(numPotentiometers);
-        backgroundColors = new Array(numPotentiometers);
-        setupColors();
-        setupBackgroundColors();
-      }
+			function setup() {
+				var avatarBTCanvas = createCanvas(windowWidth * 0.95, windowHeight * 0.6);
+				avatarBTCanvas.parent("avatarBTdiv");
+				potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
+				lineColors = new Array(numPotentiometers);
+				backgroundColors = new Array(numPotentiometers);
+				setupColors();
+				setupBackgroundColors();
+			}
 
-      function draw() {
-        background(255);
+			function draw() {
+				background(255);
 
-        let lineHeight = height / numPotentiometers;
-        let labelSize = min(width, height) * 0.03; // Responsive font size for labels
-        for (let i = 0; i < numPotentiometers; i++) {
-          let lineY = i * lineHeight + lineHeight / 2;
+				let lineHeight = height / numPotentiometers;
+				let labelSize = min(width, height) * 0.03; // Responsive font size for labels
+				for (let i = 0; i < numPotentiometers; i++) {
+					let lineY = i * lineHeight + lineHeight / 2;
 
-          // Draw the background rectangle
-          noStroke();
-          fill(backgroundColors[i]);
-          rect(0, i * lineHeight, width, lineHeight);
+					// Draw the background rectangle
+					noStroke();
+					fill(backgroundColors[i]);
+					rect(0, i * lineHeight, width, lineHeight);
 
-          // Draw the line with different color for each
-          strokeWeight(50);
-          stroke(lineColors[i]);
-          line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
+					// Draw the line with different color for each
+					strokeWeight(50);
+					stroke(lineColors[i]);
+					line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
 
-          // Display the corresponding value to the left of the line
-          noStroke();
-          fill(255);
-          textFont("Roboto");
-          textAlign(RIGHT, CENTER);
-          textSize(labelSize);
-          text(
-            int(potValues[i]),
-            map(potValues[i], 0, 4095, 0, width * 0.55) - 10,
-            lineY
-          );
-        }
+					// Display the corresponding value to the left of the line
+					noStroke();
+					fill(255);
+					textFont("Roboto");
+					textAlign(RIGHT, CENTER);
+					textSize(labelSize);
+					text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width * 0.55) - 10, lineY);
+				}
 
-        // Draw vertical labels on the right side
-        textAlign(RIGHT, CENTER);
-        let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
-        textFont("Roboto");
-        textSize(labelFontSize);
-        fill(255); // Set text color to white
-        for (let i = 0; i < numPotentiometers; i++) {
-          text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
-        }
+				// Draw vertical labels on the right side
+				textAlign(RIGHT, CENTER);
+				let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
+				textFont("Roboto");
+				textSize(labelFontSize);
+				fill(255); // Set text color to white
+				for (let i = 0; i < numPotentiometers; i++) {
+					text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
+				}
 
-        // Detect movement and display corresponding text
-        checkMovement();
-      }
+				// Detect movement and display corresponding text
+				checkMovement();
+			}
 
-      // Function to receive data from JavaScript
-      function receiveData(data) {
-        let values = data.split(",");
-        if (values.length === numPotentiometers) {
-          for (let i = 0; i < numPotentiometers; i++) {
-            potValues[i] = parseFloat(values[i]);
-          }
-        }
-      }
+			// Function to receive data from JavaScript
+			function receiveData(data) {
+				let values = data.split(",");
+				if (values.length === numPotentiometers) {
+					for (let i = 0; i < numPotentiometers; i++) {
+						potValues[i] = parseFloat(values[i]);
+					}
+				}
+			}
 
-      function checkMovement() {
-        // Define thresholds for movement detection
-        let movementThreshold = 10; // Adjust as needed
-        // Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
-        let headMovingUp = null;
-        let leftLegMovingUp = null;
-        let rightLegMovingUp = null;
-        let leftShoulderMovingUp = null;
-        let rightShoulderMovingUp = null;
-        let leftForearmMovingUp = null;
-        let rightForearmMovingUp = null;
-        let waistMoving = null;
-        let bodyMoving = null;
+			function checkMovement() {
+				// Define thresholds for movement detection
+				let movementThreshold = 10; // Adjust as needed
+				// Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
+				let headMovingUp = null;
+				let leftLegMovingUp = null;
+				let rightLegMovingUp = null;
+				let leftShoulderMovingUp = null;
+				let rightShoulderMovingUp = null;
+				let leftForearmMovingUp = null;
+				let rightForearmMovingUp = null;
+				let waistMoving = null;
+				let bodyMoving = null;
 
-        if (!detectMovement) {
-          return;
-        }
+				if (!detectMovement) {
+					return;
+				}
 
-        // Check movement for each potentiometer
-        for (let i = 0; i < numPotentiometers; i++) {
-          // Check movement based on potentiometer position and its corresponding label
-          if (labels[i] == "HEAD") {
-            // Movement detection for head (up and down movement)
-            if (potValues[i] < previousPotValues[i] - movementThreshold) {
-              headMovingUp = true; // Head is moving up
-            } else if (
-              potValues[i] >
-              previousPotValues[i] + movementThreshold
-            ) {
-              headMovingUp = false; // Head is moving down
-            }
-          } else if (labels[i] == "LEFT LEG") {
-            // Movement detection for left leg (up and down movement)
-            if (potValues[i] < previousPotValues[i] - movementThreshold) {
-              leftLegMovingUp = false; // Left leg is moving down
-            } else if (
-              potValues[i] >
-              previousPotValues[i] + movementThreshold
-            ) {
-              leftLegMovingUp = true; // Left leg is moving up
-            }
-          } else if (labels[i] == "RIGHT LEG") {
-            // Movement detection for right leg (up and down movement)
-            if (potValues[i] < previousPotValues[i] - movementThreshold) {
-              rightLegMovingUp = false; // Right leg is moving down
-            } else if (
-              potValues[i] >
-              previousPotValues[i] + movementThreshold
-            ) {
-              rightLegMovingUp = true; // Right leg is moving up
-            }
-          } else if (labels[i] == "LEFT SHOULDER") {
-            // Movement detection for left shoulder (up and down movement)
-            if (potValues[i] < previousPotValues[i] - movementThreshold) {
-              leftShoulderMovingUp = false; // Left shoulder is moving up
-            } else if (
-              potValues[i] >
-              previousPotValues[i] + movementThreshold
-            ) {
-              leftShoulderMovingUp = true; // Left shoulder is moving down
-            }
-          } else if (labels[i] == "RIGHT SHOULDER") {
-            // Movement detection for right shoulder (up and down movement)
-            if (potValues[i] < previousPotValues[i] - movementThreshold) {
-              rightShoulderMovingUp = false; // Right shoulder is moving up
-            } else if (
-              potValues[i] >
-              previousPotValues[i] + movementThreshold
-            ) {
-              rightShoulderMovingUp = true; // Right shoulder is moving down
-            }
-          } else if (labels[i] == "LEFT FOREARM") {
-            // Movement detection for left forearm (up and down movement)
-            if (potValues[i] < previousPotValues[i] - movementThreshold) {
-              leftForearmMovingUp = true; // Left forearm is moving up
-            } else if (
-              potValues[i] >
-              previousPotValues[i] + movementThreshold
-            ) {
-              leftForearmMovingUp = false; // Left forearm is moving down
-            }
-          } else if (labels[i] == "RIGHT FOREARM") {
-            // Movement detection for right forearm (up and down movement)
-            if (potValues[i] < previousPotValues[i] - movementThreshold) {
-              rightForearmMovingUp = true; // Right forearm is moving up
-            } else if (
-              potValues[i] >
-              previousPotValues[i] + movementThreshold
-            ) {
-              rightForearmMovingUp = false; // Right forearm is moving down
-            }
-          } else if (labels[i] == "WAIST") {
-            // Movement detection for waist (left and right movement)
-            if (potValues[i] < previousPotValues[i] - movementThreshold) {
-              waistMoving = false; // Waist is moving left
-            } else if (
-              potValues[i] >
-              previousPotValues[i] + movementThreshold
-            ) {
-              waistMoving = true; // Waist is moving right
-            }
-          }
-        }
+				// Check movement for each potentiometer
+				for (let i = 0; i < numPotentiometers; i++) {
+					// Check movement based on potentiometer position and its corresponding label
+					if (labels[i] == "HEAD") {
+						// Movement detection for head (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							headMovingUp = true; // Head is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							headMovingUp = false; // Head is moving down
+						}
+					} else if (labels[i] == "LEFT LEG") {
+						// Movement detection for left leg (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							leftLegMovingUp = false; // Left leg is moving down
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							leftLegMovingUp = true; // Left leg is moving up
+						}
+					} else if (labels[i] == "RIGHT LEG") {
+						// Movement detection for right leg (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							rightLegMovingUp = false; // Right leg is moving down
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							rightLegMovingUp = true; // Right leg is moving up
+						}
+					} else if (labels[i] == "LEFT SHOULDER") {
+						// Movement detection for left shoulder (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							leftShoulderMovingUp = false; // Left shoulder is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							leftShoulderMovingUp = true; // Left shoulder is moving down
+						}
+					} else if (labels[i] == "RIGHT SHOULDER") {
+						// Movement detection for right shoulder (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							rightShoulderMovingUp = false; // Right shoulder is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							rightShoulderMovingUp = true; // Right shoulder is moving down
+						}
+					} else if (labels[i] == "LEFT FOREARM") {
+						// Movement detection for left forearm (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							leftForearmMovingUp = true; // Left forearm is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							leftForearmMovingUp = false; // Left forearm is moving down
+						}
+					} else if (labels[i] == "RIGHT FOREARM") {
+						// Movement detection for right forearm (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							rightForearmMovingUp = true; // Right forearm is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							rightForearmMovingUp = false; // Right forearm is moving down
+						}
+					} else if (labels[i] == "WAIST") {
+						// Movement detection for waist (left and right movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							waistMoving = false; // Waist is moving left
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							waistMoving = true; // Waist is moving right
+						}
+					}
+				}
 
-        // Add your custom logic for displaying movement text based on detected head movement
-        if (headMovingUp != null) {
-          if (headMovingUp) {
-            displayMovementText("Head is looking up.", width / 2, height / 2);
-          } else {
-            displayMovementText("Head is looking down.", width / 2, height / 2);
-          }
-        }
+				// Displaying movement text based on detected head movement
+				if (headMovingUp != null) {
+					if (headMovingUp) {
+						displayMovementText("Head is looking up.", width / 2, height / 2);
+					} else {
+						displayMovementText("Head is looking down.", width / 2, height / 2);
+					}
+				}
 
-        // Add your custom logic for displaying movement text based on detected left leg movement
-        if (
-          leftLegMovingUp != null &&
-          waistMoving == null &&
-          rightLegMovingUp == null &&
-          leftShoulderMovingUp == null &&
-          leftForearmMovingUp == null &&
-          rightShoulderMovingUp == null &&
-          rightForearmMovingUp == null
-        ) {
-          if (leftLegMovingUp) {
-            displayMovementText(
-              "Left leg is moving up.",
-              width / 2,
-              height / 2 + 40
-            );
-          } else {
-            displayMovementText(
-              "Left leg is moving down.",
-              width / 2,
-              height / 2 + 40
-            );
-          }
-        }
+				// Displaying movement text based on detected left leg movement
+				if (
+					leftLegMovingUp != null &&
+					waistMoving == null &&
+					rightLegMovingUp == null &&
+					leftShoulderMovingUp == null &&
+					leftForearmMovingUp == null &&
+					rightShoulderMovingUp == null &&
+					rightForearmMovingUp == null
+				) {
+					if (leftLegMovingUp) {
+						displayMovementText("Left leg is moving up.", width / 2, height / 2 + 40);
+					} else {
+						displayMovementText("Left leg is moving down.", width / 2, height / 2 + 40);
+					}
+				}
 
-        // Add your custom logic for displaying movement text based on detected right leg movement
-        if (
-          rightLegMovingUp != null &&
-          waistMoving == null &&
-          leftLegMovingUp == null &&
-          leftShoulderMovingUp == null &&
-          leftForearmMovingUp == null &&
-          rightShoulderMovingUp == null &&
-          rightForearmMovingUp == null
-        ) {
-          if (rightLegMovingUp) {
-            displayMovementText(
-              "Right leg is moving up.",
-              width / 2,
-              height / 2 + 80
-            );
-          } else {
-            displayMovementText(
-              "Right leg is moving down.",
-              width / 2,
-              height / 2 + 80
-            );
-          }
-        }
+				// Displaying movement text based on detected right leg movement
+				if (
+					rightLegMovingUp != null &&
+					waistMoving == null &&
+					leftLegMovingUp == null &&
+					leftShoulderMovingUp == null &&
+					leftForearmMovingUp == null &&
+					rightShoulderMovingUp == null &&
+					rightForearmMovingUp == null
+				) {
+					if (rightLegMovingUp) {
+						displayMovementText("Right leg is moving up.", width / 2, height / 2 + 80);
+					} else {
+						displayMovementText("Right leg is moving down.", width / 2, height / 2 + 80);
+					}
+				}
 
-        // Add your custom logic for displaying movement text based on detected left arm movement
-        if (
-          leftShoulderMovingUp != null &&
-          leftForearmMovingUp != null &&
-          leftLegMovingUp == null &&
-          rightLegMovingUp == null
-        ) {
-          if (leftShoulderMovingUp && leftForearmMovingUp) {
-            displayMovementText(
-              "Left arm is moving up.",
-              width / 2,
-              height / 2 + 120
-            );
-          }
-          if (!leftShoulderMovingUp && !leftForearmMovingUp) {
-            displayMovementText(
-              "Left arm is moving down.",
-              width / 2,
-              height / 2 + 120
-            );
-          }
-        }
+				// Displaying movement text based on detected left arm movement
+				if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
+					if (leftShoulderMovingUp && leftForearmMovingUp) {
+						displayMovementText("Left arm is moving up.", width / 2, height / 2 + 120);
+					}
+					if (!leftShoulderMovingUp && !leftForearmMovingUp) {
+						displayMovementText("Left arm is moving down.", width / 2, height / 2 + 120);
+					}
+				}
 
-        // Add your custom logic for displaying movement text based on detected right arm movement
-        if (
-          rightShoulderMovingUp != null &&
-          rightForearmMovingUp != null &&
-          leftLegMovingUp == null &&
-          rightLegMovingUp == null
-        ) {
-          if (rightShoulderMovingUp && !rightForearmMovingUp) {
-            displayMovementText(
-              "Right arm is moving up.",
-              width / 2,
-              height / 2 + 160
-            );
-          }
-          if (!rightShoulderMovingUp && rightForearmMovingUp) {
-            displayMovementText(
-              "Right arm is moving down.",
-              width / 2,
-              height / 2 + 160
-            );
-          }
-        }
+				// Displaying movement text based on detected right arm movement
+				if (rightShoulderMovingUp != null && rightForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
+					if (rightShoulderMovingUp && !rightForearmMovingUp) {
+						displayMovementText("Right arm is moving up.", width / 2, height / 2 + 160);
+					}
+					if (!rightShoulderMovingUp && rightForearmMovingUp) {
+						displayMovementText("Right arm is moving down.", width / 2, height / 2 + 160);
+					}
+				}
 
-        // Add your custom logic for displaying movement text based on detected waist movement
-        if (
-          waistMoving != null &&
-          rightLegMovingUp != null &&
-          leftLegMovingUp != null
-        ) {
-          if (waistMoving) {
-            displayMovementText(
-              "Waist is moving right.",
-              width / 2,
-              height / 2 + 200
-            );
-            detectMovement = false;
-            setTimeout(() => {
-              detectMovement = true;
-            }, cooldownDuration);
-          } else {
-            displayMovementText(
-              "Waist is moving left.",
-              width / 2,
-              height / 2 + 200
-            );
-            detectMovement = false;
-            setTimeout(() => {
-              detectMovement = true;
-            }, cooldownDuration);
-          }
-        }
+				// Displaying movement text based on detected waist movement
+				if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
+					if (waistMoving) {
+						displayMovementText("Waist is moving right.", width / 2, height / 2 + 200);
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
+					} else {
+						displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
+					}
+				}
 
-        // Add your custom logic for detecting body movement based on shoulders and legs
-        if (
-          leftShoulderMovingUp != null &&
-          rightShoulderMovingUp != null &&
-          leftLegMovingUp != null &&
-          rightLegMovingUp != null
-        ) {
-          if (
-            leftShoulderMovingUp &&
-            rightShoulderMovingUp &&
-            leftLegMovingUp &&
-            rightLegMovingUp
-          ) {
-            bodyMoving = true; // Body is moving up
-          } else if (
-            !leftShoulderMovingUp &&
-            !rightShoulderMovingUp &&
-            !leftLegMovingUp &&
-            !rightLegMovingUp
-          ) {
-            bodyMoving = false; // Body is moving down
-          } else {
-            bodyMoving = null; // Body movement cannot be determined
-          }
-        } else {
-          bodyMoving = null; // Body movement cannot be determined
-        }
+				// Displaying body movement based on shoulders and legs
+				if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovingUp != null && rightLegMovingUp != null) {
+					if (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp) {
+						bodyMoving = true; // Body is moving up
+					} else if (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp) {
+						bodyMoving = false; // Body is moving down
+					} else {
+						bodyMoving = null; // Body movement cannot be determined
+					}
+				} else {
+					bodyMoving = null; // Body movement cannot be determined
+				}
 
-        // Add your custom logic for displaying movement text based on detected body movement
-        if (bodyMoving != null) {
-          if (bodyMoving) {
-            detectMovement = false;
-            setTimeout(() => {
-              detectMovement = true;
-            }, cooldownDuration);
-            displayMovementText(
-              "Body is moving down.",
-              width / 2,
-              height / 2 + 240
-            );
-          } else {
-            detectMovement = false;
-            setTimeout(() => {
-              detectMovement = true;
-            }, cooldownDuration);
-            displayMovementText(
-              "Body is moving up.",
-              width / 2,
-              height / 2 + 240
-            );
-          }
-        }
-        // Update previous potentiometer values for the next iteration
-        previousPotValues = potValues.slice(0, numPotentiometers);
-      }
+				// Displaying movement text based on detected body movement
+				if (bodyMoving != null) {
+					if (bodyMoving) {
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
+						displayMovementText("Body is moving down.", width / 2, height / 2 + 240);
+					} else {
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
+						displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
+					}
+				}
+				// Update previous potentiometer values for the next iteration
+				previousPotValues = potValues.slice(0, numPotentiometers);
+			}
 
-      var timeoutID; // Variable to hold the timeout ID
-      function displayMovementText(message, x, y) {
-        // Target the existing <div> element with the id "gestureDiv"
-        var gestureDiv = document.getElementById("gestureDiv");
-        if (!gestureDiv) {
-          console.error(
-            'Could not find div with id "gestureDiv". Make sure it exists in your HTML.'
-          );
-          return;
-        }
+			var timeoutID; // Variable to hold the timeout ID
+			function displayMovementText(message, x, y) {
+				// Target the existing <div> element with the id "gestureDiv"
+				var gestureDiv = document.getElementById("gestureDiv");
 
-        // Clear existing timeout
-        clearTimeout(timeoutID);
+				// Clear existing timeout
+				clearTimeout(timeoutID);
 
-        // Set the text content
-        gestureDiv.textContent = message;
+				// Set the text content
+				gestureDiv.textContent = message;
 
-        // Set a timeout to clear the text after 3 seconds if there's no change
-        timeoutID = setTimeout(function () {
-          gestureDiv.textContent = ""; // Clear the text
-        }, 2000);
-      }
+				// Set a timeout to clear the text after 3 seconds if there's no change
+				timeoutID = setTimeout(function () {
+					gestureDiv.textContent = ""; // Clear the text
+				}, 2000);
+			}
 
-      function setupColors() {
-        lineColors[0] = color(204, 204, 0); // Dark Yellow edited from VIsual Code
-        lineColors[1] = color(204, 204, 0); // Dark Yellow
-        lineColors[2] = color(255, 0, 0); // Red
-        lineColors[3] = color(204, 204, 0); // Dark Yellow
-        lineColors[4] = color(204, 204, 0); // Dark Yellow
-        lineColors[5] = color(0, 255, 0); // Bright Green
-        lineColors[6] = color(0, 128, 0); // Grass Green
-        lineColors[7] = color(0, 128, 0); // Grass Green
-      }
+			function setupColors() {
+				lineColors[0] = color(204, 204, 0); // Dark Yellow
+				lineColors[1] = color(204, 204, 0); // Dark Yellow
+				lineColors[2] = color(255, 0, 0); // Red
+				lineColors[3] = color(204, 204, 0); // Dark Yellow
+				lineColors[4] = color(204, 204, 0); // Dark Yellow
+				lineColors[5] = color(0, 255, 0); // Bright Green
+				lineColors[6] = color(0, 128, 0); // Grass Green
+				lineColors[7] = color(0, 128, 0); // Grass Green
+			}
 
-      function setupBackgroundColors() {
-        backgroundColors[0] = color(0, 0, 0); // 0% black
-        backgroundColors[1] = color(0, 0, 0); // 0% black
-        backgroundColors[2] = color(0, 0, 0, 200); // 90% black
-        backgroundColors[3] = color(0, 0, 0, 230); // 75% black
-        backgroundColors[4] = color(0, 0, 0, 230); // 60% black
-        backgroundColors[5] = color(0, 0, 0, 128); // 60% black
-        backgroundColors[6] = color(0, 0, 0, 100); // 60% black
-        backgroundColors[7] = color(0, 0, 0, 100); // 60% black
-      }
-    </script>
-  </body>
+			function setupBackgroundColors() {
+				backgroundColors[0] = color(0, 0, 0); // 0% black
+				backgroundColors[1] = color(0, 0, 0); // 0% black
+				backgroundColors[2] = color(0, 0, 0, 200); // 90% black
+				backgroundColors[3] = color(0, 0, 0, 230); // 75% black
+				backgroundColors[4] = color(0, 0, 0, 230); // 60% black
+				backgroundColors[5] = color(0, 0, 0, 128); // 60% black
+				backgroundColors[6] = color(0, 0, 0, 100); // 60% black
+				backgroundColors[7] = color(0, 0, 0, 100); // 60% black
+			}
+		</script>
+	</body>
 </html>
