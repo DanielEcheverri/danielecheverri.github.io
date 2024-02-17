@@ -134,25 +134,15 @@
 </script>
         
 <script>
-	// Script to continuously update the current location and direction
- // Script to continuously update the current location and direction
-    function getCurrentLocation() {
-        if (navigator.geolocation) {
-            let previousPositions = []; // Array to store the last three positions
-            let threshold = 1; // Threshold for considering slow movement (in meters/second)
-            let positionWatcher; // Identifier for the position watch
-
-            function updateOptions(speed) {
+     // Script to continuously update the current location and direction
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
                 const options = {
-                    enableHighAccuracy: true,
-                    maximumAge: speed < threshold ? 10000 : 1000, // Update interval based on speed
-                    timeout: 5000,
+                    enableHighAccuracy: true
                 };
-                return options;
-            }
-
-            positionWatcher = navigator.geolocation.watchPosition(
-                function (position) {
+                let previousPositions = []; // Array to store the last three positions
+                let threshold = 5; // Threshold for considering device movement (in degrees)
+                navigator.geolocation.watchPosition(function(position) {
                     // Calculate direction if previous positions are available
                     if (previousPositions.length >= 3) {
                         let averageDirection = calculateAverageDirection(previousPositions);
@@ -171,129 +161,149 @@
                     if (previousPositions.length > 3) {
                         previousPositions.shift(); // Remove the oldest position if array length exceeds 3
                     }
-                },
-                function (error) {
-                    console.error("Error getting current location: ", error);
-                },
-                updateOptions(0),
-            ); // Initial call with speed 0
+                }, function(error) {
+                    console.error('Error getting current location: ', error);
+                }, options);
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+            }
+    if (navigator.geolocation) {
+        let previousPositions = []; // Array to store the last three positions
+        let threshold = 1; // Threshold for considering slow movement (in meters/second)
 
-            // Update options when speed changes
-            navigator.geolocation.watchPosition(
-                function (position) {
-                    let speed = position.coords.speed || 0; // Speed in meters per second
-                    navigator.geolocation.clearWatch(positionWatcher); // Clear previous watchPosition
-                    positionWatcher = navigator.geolocation.watchPosition(
-                        function (position) {
-                            // Your existing logic here
-                        },
-                        function (error) {
-                            console.error("Error getting current location: ", error);
-                        },
-                        updateOptions(speed),
-                    );
-                },
-                function (error) {
-                    console.error("Error getting speed: ", error);
-                },
-                { enableHighAccuracy: true, timeout: 5000 },
-            );
-        } else {
-            console.error("Geolocation is not supported by this browser.");
-        }
-    }
-
-    // Function to calculate the average direction based on the last three positions
-    function calculateAverageDirection(positions) {
-        let totalChange = 0;
-        for (let i = 1; i < positions.length; i++) {
-            let prevPosition = positions[i - 1];
-            let position = positions[i];
-            let prevLatitude = prevPosition.coords.latitude;
-            let prevLongitude = prevPosition.coords.longitude;
-            let latitude = position.coords.latitude;
-            let longitude = position.coords.longitude;
-            let angle = Math.atan2(longitude - prevLongitude, latitude - prevLatitude) * (180 / Math.PI);
-            totalChange += angle;
+        function updateOptions(speed) {
+            const options = {
+                enableHighAccuracy: true,
+                maximumAge: speed < threshold ? 10000 : 1000, // Update interval based on speed
+                timeout: 5000
+            };
+            return options;
         }
 
-        let averageChange = totalChange / (positions.length - 1);
+        navigator.geolocation.watchPosition(function(position) {
+            // Calculate direction if previous positions are available
+            if (previousPositions.length >= 3) {
+                let averageDirection = calculateAverageDirection(previousPositions);
+                // Determine direction text based on average direction
+                let directionText;
+                if (averageDirection !== null) {
+                    directionText = determineDirection(averageDirection);
+                } else {
+                    directionText = "Not moving"; // If no significant change in direction
+                }
+                // Update the HTML element with the direction
+                document.getElementById("currentLocation").textContent = directionText;
+            }
+            // Update previous positions array
+            previousPositions.push(position);
+            if (previousPositions.length > 3) {
+                previousPositions.shift(); // Remove the oldest position if array length exceeds 3
+            }
+        }, function(error) {
+            console.error('Error getting current location: ', error);
+        }, updateOptions(0)); // Initial call with speed 0
 
-        // Display both totalChange and averageChange in the div element
-        document.getElementById("headingChange").innerHTML =
-            "Latitude: " + totalChange.toFixed(2) + "<br>Longitude: " + averageChange.toFixed(2);
-
-        return averageChange;
+        // Update options when speed changes
+        navigator.geolocation.watchPosition(function(position) {
+            let speed = position.coords.speed || 0; // Speed in meters per second
+            navigator.geolocation.clearWatch(); // Clear previous watchPosition
+            navigator.geolocation.watchPosition(function(position) {
+                // Your existing logic here
+            }, function(error) {
+                console.error('Error getting current location: ', error);
+            }, updateOptions(speed));
+        }, function(error) {
+            console.error('Error getting speed: ', error);
+        }, { enableHighAccuracy: true, timeout: 5000 });
+    } else {
+        console.error('Geolocation is not supported by this browser.');
     }
+}
 
-    // Function to determine the direction text based on the angle
-    function determineDirection(angle) {
-        let directionText;
-        if (angle >= 337.5 || angle < 22.5) {
-            directionText = "Heading North";
-        } else if (angle >= 22.5 && angle < 67.5) {
-            directionText = "Heading Northeast";
-        } else if (angle >= 67.5 && angle < 112.5) {
-            directionText = "Heading East";
-        } else if (angle >= 112.5 && angle < 157.5) {
-            directionText = "Heading Southeast";
-        } else if (angle >= 157.5 && angle < 202.5) {
-            directionText = "Heading South";
-        } else if (angle >= 202.5 && angle < 247.5) {
-            directionText = "Heading Southwest";
-        } else if (angle >= 247.5 && angle < 292.5) {
-            directionText = "Heading West";
-        } else if (angle >= 292.5 && angle < 337.5) {
-            directionText = "Heading Northwest";
-        } else {
-            directionText = "No significant movement";
+// Function to calculate the average direction based on the last three positions
+        function calculateAverageDirection(positions) {
+    let totalChange = 0;
+    for (let i = 1; i < positions.length; i++) {
+        let prevPosition = positions[i - 1];
+        let position = positions[i];
+        let prevLatitude = prevPosition.coords.latitude;
+        let prevLongitude = prevPosition.coords.longitude;
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        let angle = Math.atan2(longitude - prevLongitude, latitude - prevLatitude) * (180 / Math.PI);
+        totalChange += angle;
+    }
+    let averageChange = totalChange / (positions.length - 1);
+    // Display both totalChange and averageChange in the div element
+    document.getElementById("headingChange").innerHTML = 'Total change in angle: ' + totalChange.toFixed(2) + '<br>Average change in angle: ' + averageChange.toFixed(2);
+    return averageChange;
+}
+        // Function to determine the direction text based on the angle
+        function determineDirection(angle) {
+            let directionText;
+            if (angle >= 337.5 || angle < 22.5) {
+                directionText = "Heading North";
+            } else if (angle >= 22.5 && angle < 67.5) {
+                directionText = "Heading Northeast";
+            } else if (angle >= 67.5 && angle < 112.5) {
+                directionText = "Heading East";
+            } else if (angle >= 112.5 && angle < 157.5) {
+                directionText = "Heading Southeast";
+            } else if (angle >= 157.5 && angle < 202.5) {
+                directionText = "Heading South";
+            } else if (angle >= 202.5 && angle < 247.5) {
+                directionText = "Heading Southwest";
+            } else if (angle >= 247.5 && angle < 292.5) {
+                directionText = "Heading West";
+            } else if (angle >= 292.5 && angle < 337.5) {
+                directionText = "Heading Northwest";
+            } else {
+                directionText = "No significant movement";
+            }
+            return directionText;
         }
-        return directionText;
-    }
-
-    // Call the function to start watching the position
-    getCurrentLocation();
-
-	async function findClosestShop() {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(async function (position) {
-				const { latitude, longitude } = position.coords;
-				const radius = 5; // Change this value to adjust the radius
-				const apiURL = `https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:${radius},${latitude},${longitude});out;`;
-				try {
-					const response = await fetch(apiURL);
-					const data = await response.json();
-					if (data.elements.length > 0) {
-						const closestShop = data.elements[0].tags.name;
-						const shopLocation = [data.elements[0].lat, data.elements[0].lon];
-						const distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
-						document.getElementById("closestShop").innerHTML =
-							`Closest Shop: ${closestShop} Distance: ${distance.toFixed(2)} meters`;
-					} else {
-						document.getElementById("closestShop").innerHTML = `No shops found within ${radius} meters.`;
-					}
-				} catch (error) {
-					console.error("Error finding closest shop:", error);
-					document.getElementById("closestShop").innerHTML = "Error finding closest shop.";
-				}
-			});
-		} else {
-			document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
-		}
-	}
-
-	function calculateDistance(lat1, lon1, lat2, lon2) {
-		var R = 6371e3; // metres
-		var φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
-		var φ2 = (lat2 * Math.PI) / 180;
-		var Δφ = ((lat2 - lat1) * Math.PI) / 180;
-		var Δλ = ((lon2 - lon1) * Math.PI) / 180;
-		var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		var d = R * c; // in metres
-		return d;
-	}
-</script>
+        // Call the function to start watching the position
+        getCurrentLocation();
+        async function findClosestShop() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async function(position) {
+                    const { latitude, longitude } = position.coords;
+                    const radius = 5; // Change this value to adjust the radius
+                    const apiURL = `https://overpass-api.de/api/interpreter?data=[out:json];node[shop](around:${radius},${latitude},${longitude});out;`;
+                    try {
+                        const response = await fetch(apiURL);
+                        const data = await response.json();
+                        if (data.elements.length > 0) {
+                            const closestShop = data.elements[0].tags.name;
+                            const shopLocation = [data.elements[0].lat, data.elements[0].lon];
+                            const distance = calculateDistance(latitude, longitude, shopLocation[0], shopLocation[1]);
+                            document.getElementById("closestShop").innerHTML = `Closest Shop: ${closestShop} Distance: ${distance.toFixed(2)} meters`;
+                        } else {
+                            document.getElementById("closestShop").innerHTML = `No shops found within ${radius} meters.`;
+                        }
+                    } catch (error) {
+                        console.error('Error finding closest shop:', error);
+                        document.getElementById("closestShop").innerHTML = "Error finding closest shop.";
+                    }
+                });
+            } else {
+                document.getElementById("closestShop").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            var R = 6371e3; // metres
+            var φ1 = lat1 * Math.PI / 180; // φ, λ in radians
+            var φ2 = lat2 * Math.PI / 180;
+            var Δφ = (lat2-lat1) * Math.PI / 180;
+            var Δλ = (lon2-lon1) * Math.PI / 180;
+            var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            var d = R * c; // in metres
+            return d;
+        }
+    </script>
 
         <script type="text/javascript">
         // Processing 4 sketch to visualize movements of the Avatar
