@@ -148,6 +148,9 @@
 		</script>
 
 		<script>
+			let latitude;
+			let longitude;
+
 			function getCurrentLocation() {
 				if (navigator.geolocation) {
 					const options = {
@@ -159,6 +162,9 @@
 
 					navigator.geolocation.watchPosition(
 						function (position) {
+							latitude = position.coords.latitude; // Store latitude globally
+							longitude = position.coords.longitude; // Store longitude globally
+
 							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
 							let speed = position.coords.speed || 0; // Speed in meters per second
 
@@ -549,6 +555,7 @@
 			}
 
 			var timeoutID; // Variable to hold the timeout ID
+
 			function displayMovementText(message, x, y) {
 				// Target the existing <div> element with the id "gestureDiv"
 				var gestureDiv = document.getElementById("gestureDiv");
@@ -556,8 +563,11 @@
 				// Clear existing timeout
 				clearTimeout(timeoutID);
 
+				// Add "On a sunny day," to the beginning of the message
+				var fullMessage = "On a sunny day, the avatar " + message;
+
 				// Set the text content
-				gestureDiv.textContent = message;
+				gestureDiv.textContent = fullMessage;
 
 				// Set a timeout to clear the text after 3 seconds if there's no change
 				timeoutID = setTimeout(function () {
