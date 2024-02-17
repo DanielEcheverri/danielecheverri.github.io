@@ -559,7 +559,7 @@
 			// Function to fetch city name using Overpass API
 			function fetchCityName(lat, longi) {
 				// Construct Overpass API query
-				var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:1000," + ${latitude} + "," + ${latitude} + ");out;";
+				var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:1000," + latitude + "," + latitude + ");out;";
 
 				// Fetch data from Overpass API
 				fetch(overpassQuery)
