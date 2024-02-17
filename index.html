@@ -156,7 +156,7 @@
 									directionText = "Not moving"; // If no significant change in direction
 								}
 								// Update the HTML element with the direction
-								document.getElementById("currentLocation").textContent = directionText;
+								document.getElementById("currentLocation").textContent = directionText + " (Average Direction: " + averageDirection + ")";
 							}
 							// Update previous positions array
 							previousPositions.push(position);
@@ -214,8 +214,6 @@
 					directionText = "Heading West";
 				} else if (angle >= 292.5 && angle < 337.5) {
 					directionText = "Heading Northwest";
-				} else {
-					directionText = "No significant movement";
 				}
 				return directionText;
 			}
