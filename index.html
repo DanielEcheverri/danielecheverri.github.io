@@ -145,17 +145,20 @@ function getCurrentLocation() {
 
         navigator.geolocation.watchPosition(
             function (position) {
-                if (previousPosition) {
+                const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
+                let speed = position.coords.speed || 0; // Speed in meters per second
+
+                // Reset total distance if speed is less than threshold
+                if (speed < speedThreshold) {
+                    totalDistance = 0;
+                } else if (previousPosition) {
                     const distance = calculateDistance(previousPosition.coords.latitude, previousPosition.coords.longitude, position.coords.latitude, position.coords.longitude);
                     totalDistance += distance;
                 }
 
                 previousPosition = position;
 
-                const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
                 const headingThreshold = 10; // Threshold for considering a stable heading (in degrees)
-
-                let speed = position.coords.speed || 0; // Speed in meters per second
                 let heading = position.coords.heading || 0; // Heading in degrees
 
                 // Determine direction text based on heading
@@ -220,6 +223,8 @@ function determineDirection(heading) {
 }
 
 			getCurrentLocation();
+
+			
 			async function findClosestShop() {
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(async function (position) {
