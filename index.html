@@ -24,12 +24,25 @@
 			}
 			#closestShop,
 			#currentLocation,
-			#gestureDiv,
 			#headingChange {
 				width: 100%;
 				text-align: center;
 				color: #000; /* Black text color */
 				font-size: 16px; /* Text size */
+			}
+			#gestureDiv {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+				color: white;
+				font-size: 5em; /* Very big text size */
+				display: none; /* Initially hidden */
+				z-index: 9999; /* Ensure it appears above other content */
+				text-align: center; /* Center align the text */
+				padding-top: 40vh; /* Vertical padding to center the text */
 			}
 			.button {
 				background-color: #4caf50; /* Green */
@@ -549,6 +562,12 @@
 				timeoutID = setTimeout(function () {
 					gestureDiv.textContent = ""; // Clear the text
 				}, 2000);
+				if (message.trim() !== "") {
+					gestureDiv.textContent = message;
+					gestureDiv.style.display = "block";
+				} else {
+					gestureDiv.style.display = "none";
+				}
 			}
 
 			function setupColors() {
