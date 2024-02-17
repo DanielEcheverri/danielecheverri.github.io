@@ -31,6 +31,7 @@
 				font-size: 16px; /* Text size */
 			}
 			#gestureDiv {
+				font-weight: 700;
 				position: fixed;
 				top: 0;
 				left: 0;
@@ -562,7 +563,6 @@
 				timeoutID = setTimeout(function () {
 					gestureDiv.textContent = ""; // Clear the text
 					gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
-					console.log("Overlay visibility:", gestureDiv.style.display);
 				}, 2000);
 
 				// Check if message is not empty to show the overlay
