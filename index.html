@@ -135,14 +135,24 @@
 
 		<script>
 			// Script to continuously update the current location and direction
-			// Script to continuously update the current location and direction
-function getCurrentLocation() {
+	function getCurrentLocation() {
     if (navigator.geolocation) {
         const options = {
             enableHighAccuracy: true,
         };
+
+        let previousPosition = null;
+        let totalDistance = 0;
+
         navigator.geolocation.watchPosition(
             function (position) {
+                if (previousPosition) {
+                    const distance = calculateDistance(previousPosition.coords.latitude, previousPosition.coords.longitude, position.coords.latitude, position.coords.longitude);
+                    totalDistance += distance;
+                }
+
+                previousPosition = position;
+
                 const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
                 const headingThreshold = 10; // Threshold for considering a stable heading (in degrees)
 
@@ -157,8 +167,8 @@ function getCurrentLocation() {
                     directionText = "Not moving";
                 }
 
-                // Update the HTML element with the direction
-                document.getElementById("currentLocation").textContent = directionText + " (Speed: " + speed.toFixed(2) + " m/s)";
+                // Update the HTML element with the direction and distance walked
+                document.getElementById("currentLocation").textContent = "Direction: " + directionText + ", Speed: " + speed.toFixed(2) + " m/s, Total Distance Walked: " + totalDistance.toFixed(2) + " meters";
             },
             function (error) {
                 console.error("Error getting current location: ", error);
@@ -168,6 +178,23 @@ function getCurrentLocation() {
     } else {
         console.error("Geolocation is not supported by this browser.");
     }
+}
+
+// Function to calculate the distance between two coordinates using Haversine formula
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const earthRadius = 6371e3; // Earth radius in meters
+    const phi1 = lat1 * Math.PI / 180; // Latitude in radians
+    const phi2 = lat2 * Math.PI / 180; // Latitude in radians
+    const deltaPhi = (lat2 - lat1) * Math.PI / 180;
+    const deltaLambda = (lon2 - lon1) * Math.PI / 180;
+
+    const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+        Math.cos(phi1) * Math.cos(phi2) *
+        Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = earthRadius * c; // Distance in meters
+    return distance;
 }
 
 // Function to determine the direction text based on the heading
