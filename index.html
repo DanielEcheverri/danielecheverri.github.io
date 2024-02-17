@@ -557,7 +557,7 @@
 			var cityName;
 
 			// Function to fetch city name using Overpass API
-			function fetchCityName(lat, longi) {
+			function fetchCityName() {
 				// Construct Overpass API query
 				var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:1000," + latitude + "," + latitude + ");out;";
 
@@ -580,7 +580,7 @@
 			}
 
 			// Fetch city name based on user's coordinates
-			fetchCityName(latitude, longitude);
+			fetchCityName();
 
 			var timeoutID; // Variable to hold the timeout ID
 
