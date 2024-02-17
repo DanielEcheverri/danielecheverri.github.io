@@ -141,29 +141,24 @@ function getCurrentLocation() {
         const options = {
             enableHighAccuracy: true,
         };
-        let previousPositions = []; // Array to store the last three positions
-        let threshold = 10; // Threshold for considering device movement (in degrees), reduced for walking
         navigator.geolocation.watchPosition(
             function (position) {
-                // Update previous positions array
-                previousPositions.push(position);
-                if (previousPositions.length > 5) {
-                    previousPositions.shift(); // Remove the oldest position if array length exceeds 3
+                const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
+                const headingThreshold = 10; // Threshold for considering a stable heading (in degrees)
+
+                let speed = position.coords.speed || 0; // Speed in meters per second
+                let heading = position.coords.heading || 0; // Heading in degrees
+
+                // Determine direction text based on heading
+                let directionText;
+                if (speed >= speedThreshold) {
+                    directionText = determineDirection(heading);
+                } else {
+                    directionText = "Not moving";
                 }
 
-                // Calculate direction if enough previous positions are available
-                if (previousPositions.length >= 5) {
-                    let averageDirection = calculateAverageDirection(previousPositions);
-                    // Determine direction text based on average direction
-                    let directionText;
-                    if (Math.abs(averageDirection) >= threshold) {
-                        directionText = determineDirection(averageDirection);
-                    } else {
-                        directionText = "Not moving"; // If no significant change in direction
-                    }
-                    // Update the HTML element with the direction
-                    document.getElementById("currentLocation").textContent = directionText + " (Average Direction: " + averageDirection + ")";
-                }
+                // Update the HTML element with the direction
+                document.getElementById("currentLocation").textContent = directionText + " (Speed: " + speed.toFixed(2) + " m/s)";
             },
             function (error) {
                 console.error("Error getting current location: ", error);
@@ -174,53 +169,30 @@ function getCurrentLocation() {
         console.error("Geolocation is not supported by this browser.");
     }
 }
-// Function to calculate the average direction based on the last three positions
 
-			// Function to calculate the average direction based on the last three positions
-			function calculateAverageDirection(positions) {
-				let totalChange = 0;
-				for (let i = 1; i < positions.length; i++) {
-					let prevPosition = positions[i - 1];
-					let position = positions[i];
-					let prevLatitude = prevPosition.coords.latitude;
-					let prevLongitude = prevPosition.coords.longitude;
-					let latitude = position.coords.latitude;
-					let longitude = position.coords.longitude;
-					let angle = Math.atan2(longitude - prevLongitude, latitude - prevLatitude) * (180 / Math.PI);
-					totalChange += angle;
-				}
-				let averageChange = totalChange / (positions.length - 1);
-				// Display both totalChange and averageChange in the div element
-				document.getElementById("headingChange").innerHTML =
-					"Total change in angle: " +
-					totalChange.toFixed(2) +
-					"<br>Average change in angle: " +
-					averageChange.toFixed(2);
-				return averageChange;
-			}
-			// Function to determine the direction text based on the angle
-			function determineDirection(angle) {
-				let directionText;
-				if (angle >= 337.5 || angle < 22.5) {
-					directionText = "Heading North";
-				} else if (angle >= 22.5 && angle < 67.5) {
-					directionText = "Heading Northeast";
-				} else if (angle >= 67.5 && angle < 112.5) {
-					directionText = "Heading East";
-				} else if (angle >= 112.5 && angle < 157.5) {
-					directionText = "Heading Southeast";
-				} else if (angle >= 157.5 && angle < 202.5) {
-					directionText = "Heading South";
-				} else if (angle >= 202.5 && angle < 247.5) {
-					directionText = "Heading Southwest";
-				} else if (angle >= 247.5 && angle < 292.5) {
-					directionText = "Heading West";
-				} else if (angle >= 292.5 && angle < 337.5) {
-					directionText = "Heading Northwest";
-				}
-				return directionText;
-			}
-			// Call the function to start watching the position
+// Function to determine the direction text based on the heading
+function determineDirection(heading) {
+    let directionText;
+    if (heading >= 337.5 || heading < 22.5) {
+        directionText = "Heading North";
+    } else if (heading >= 22.5 && heading < 67.5) {
+        directionText = "Heading Northeast";
+    } else if (heading >= 67.5 && heading < 112.5) {
+        directionText = "Heading East";
+    } else if (heading >= 112.5 && heading < 157.5) {
+        directionText = "Heading Southeast";
+    } else if (heading >= 157.5 && heading < 202.5) {
+        directionText = "Heading South";
+    } else if (heading >= 202.5 && heading < 247.5) {
+        directionText = "Heading Southwest";
+    } else if (heading >= 247.5 && heading < 292.5) {
+        directionText = "Heading West";
+    } else if (heading >= 292.5 && heading < 337.5) {
+        directionText = "Heading Northwest";
+    }
+    return directionText;
+}
+
 			getCurrentLocation();
 			async function findClosestShop() {
 				if (navigator.geolocation) {
