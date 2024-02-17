@@ -147,12 +147,12 @@ function getCurrentLocation() {
             function (position) {
                 // Update previous positions array
                 previousPositions.push(position);
-                if (previousPositions.length > 3) {
+                if (previousPositions.length > 5) {
                     previousPositions.shift(); // Remove the oldest position if array length exceeds 3
                 }
 
                 // Calculate direction if enough previous positions are available
-                if (previousPositions.length >= 3) {
+                if (previousPositions.length >= 5) {
                     let averageDirection = calculateAverageDirection(previousPositions);
                     // Determine direction text based on average direction
                     let directionText;
