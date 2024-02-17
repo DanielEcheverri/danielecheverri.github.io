@@ -568,7 +568,7 @@
 						// Process the response to extract city name or other relevant information
 						if (data.elements && data.elements.length > 0) {
 							cityName = data.elements[0].tags["name"];
-							console.log("City:", lat, longi);
+							console.log("City:", latitude, longitude);
 							// You can do further processing with the city name here
 						} else {
 							console.log("City not found.");
