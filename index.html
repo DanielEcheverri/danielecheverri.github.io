@@ -150,7 +150,7 @@
 								let averageDirection = calculateAverageDirection(previousPositions);
 								// Determine direction text based on average direction
 								let directionText;
-								if (averageDirection !== null) {
+								if (averageDirection !== 0) {
 									directionText = determineDirection(averageDirection);
 								} else {
 									directionText = "Not moving"; // If no significant change in direction
