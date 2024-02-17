@@ -135,6 +135,7 @@
         
 <script>
      // Script to continuously update the current location and direction
+     // Script to continuously update the current location and direction
         function getCurrentLocation() {
             if (navigator.geolocation) {
                 const options = {
@@ -167,59 +168,7 @@
             } else {
                 console.error('Geolocation is not supported by this browser.');
             }
-    if (navigator.geolocation) {
-        let previousPositions = []; // Array to store the last three positions
-        let threshold = 1; // Threshold for considering slow movement (in meters/second)
-
-        function updateOptions(speed) {
-            const options = {
-                enableHighAccuracy: true,
-                maximumAge: speed < threshold ? 10000 : 1000, // Update interval based on speed
-                timeout: 5000
-            };
-            return options;
         }
-
-        navigator.geolocation.watchPosition(function(position) {
-            // Calculate direction if previous positions are available
-            if (previousPositions.length >= 3) {
-                let averageDirection = calculateAverageDirection(previousPositions);
-                // Determine direction text based on average direction
-                let directionText;
-                if (averageDirection !== null) {
-                    directionText = determineDirection(averageDirection);
-                } else {
-                    directionText = "Not moving"; // If no significant change in direction
-                }
-                // Update the HTML element with the direction
-                document.getElementById("currentLocation").textContent = directionText;
-            }
-            // Update previous positions array
-            previousPositions.push(position);
-            if (previousPositions.length > 3) {
-                previousPositions.shift(); // Remove the oldest position if array length exceeds 3
-            }
-        }, function(error) {
-            console.error('Error getting current location: ', error);
-        }, updateOptions(0)); // Initial call with speed 0
-
-        // Update options when speed changes
-        navigator.geolocation.watchPosition(function(position) {
-            let speed = position.coords.speed || 0; // Speed in meters per second
-            navigator.geolocation.clearWatch(); // Clear previous watchPosition
-            navigator.geolocation.watchPosition(function(position) {
-                // Your existing logic here
-            }, function(error) {
-                console.error('Error getting current location: ', error);
-            }, updateOptions(speed));
-        }, function(error) {
-            console.error('Error getting speed: ', error);
-        }, { enableHighAccuracy: true, timeout: 5000 });
-    } else {
-        console.error('Geolocation is not supported by this browser.');
-    }
-}
-
 // Function to calculate the average direction based on the last three positions
         function calculateAverageDirection(positions) {
     let totalChange = 0;
