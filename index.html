@@ -43,7 +43,7 @@
 				display: none; /* Initially hidden */
 				z-index: 9999; /* Ensure it appears above other content */
 				text-align: center; /* Center align the text */
-				padding-top: 40vh; /* Vertical padding to center the text */
+				padding-top: 0vh; /* Vertical padding to center the text */
 			}
 			.button {
 				background-color: #4caf50; /* Green */
@@ -444,9 +444,9 @@
 				// Displaying movement text based on detected head movement
 				if (headMovingUp != null) {
 					if (headMovingUp) {
-						displayMovementText("Head is looking up.", width / 2, height / 2);
+						displayMovementText("head is looking up.", width / 2, height / 2);
 					} else {
-						displayMovementText("Head is looking down.", width / 2, height / 2);
+						displayMovementText("head is looking down.", width / 2, height / 2);
 					}
 				}
 
@@ -461,9 +461,9 @@
 					rightForearmMovingUp == null
 				) {
 					if (leftLegMovingUp) {
-						displayMovementText("Left leg is moving up.", width / 2, height / 2 + 40);
+						displayMovementText("left leg is moving up.", width / 2, height / 2 + 40);
 					} else {
-						displayMovementText("Left leg is moving down.", width / 2, height / 2 + 40);
+						displayMovementText("left leg is moving down.", width / 2, height / 2 + 40);
 					}
 				}
 
@@ -478,42 +478,42 @@
 					rightForearmMovingUp == null
 				) {
 					if (rightLegMovingUp) {
-						displayMovementText("Right leg is moving up.", width / 2, height / 2 + 80);
+						displayMovementText("right leg is moving up.", width / 2, height / 2 + 80);
 					} else {
-						displayMovementText("Right leg is moving down.", width / 2, height / 2 + 80);
+						displayMovementText("right leg is moving down.", width / 2, height / 2 + 80);
 					}
 				}
 
 				// Displaying movement text based on detected left arm movement
 				if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
 					if (leftShoulderMovingUp && leftForearmMovingUp) {
-						displayMovementText("Left arm is moving up.", width / 2, height / 2 + 120);
+						displayMovementText("left arm is moving up.", width / 2, height / 2 + 120);
 					}
 					if (!leftShoulderMovingUp && !leftForearmMovingUp) {
-						displayMovementText("Left arm is moving down.", width / 2, height / 2 + 120);
+						displayMovementText("left arm is moving down.", width / 2, height / 2 + 120);
 					}
 				}
 
 				// Displaying movement text based on detected right arm movement
 				if (rightShoulderMovingUp != null && rightForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
 					if (rightShoulderMovingUp && !rightForearmMovingUp) {
-						displayMovementText("Right arm is moving up.", width / 2, height / 2 + 160);
+						displayMovementText("right arm is moving up.", width / 2, height / 2 + 160);
 					}
 					if (!rightShoulderMovingUp && rightForearmMovingUp) {
-						displayMovementText("Right arm is moving down.", width / 2, height / 2 + 160);
+						displayMovementText("right arm is moving down.", width / 2, height / 2 + 160);
 					}
 				}
 
 				// Displaying movement text based on detected waist movement
 				if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
 					if (waistMoving) {
-						displayMovementText("Waist is moving right.", width / 2, height / 2 + 200);
+						displayMovementText("waist is moving right.", width / 2, height / 2 + 200);
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 					} else {
-						displayMovementText("Waist is moving left.", width / 2, height / 2 + 200);
+						displayMovementText("waist is moving left.", width / 2, height / 2 + 200);
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
@@ -541,13 +541,13 @@
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
-						displayMovementText("Body is moving down.", width / 2, height / 2 + 240);
+						displayMovementText("body is moving down.", width / 2, height / 2 + 240);
 					} else {
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
-						displayMovementText("Body is moving up.", width / 2, height / 2 + 240);
+						displayMovementText("body is moving up.", width / 2, height / 2 + 240);
 					}
 				}
 				// Update previous potentiometer values for the next iteration
@@ -564,7 +564,7 @@
 				clearTimeout(timeoutID);
 
 				// Add "On a sunny day," to the beginning of the message
-				var fullMessage = "On a sunny day, the avatar " + message;
+				var fullMessage = "On a sunny day, the avatar's " + message;
 
 				// Set the text content
 				gestureDiv.textContent = fullMessage;
