@@ -596,6 +596,8 @@
 
 			var timeoutID; // Variable to hold the timeout ID
 
+			var previousMessage = ""; // Variable to store the previous message
+
 			function displayMovementText(message, x, y) {
 				// Target the existing <div> element with the id "gestureDiv"
 				var gestureDiv = document.getElementById("gestureDiv");
@@ -604,25 +606,32 @@
 				clearTimeout(timeoutID);
 				console.log(streetName);
 
-				// Add "On a sunny day," to the beginning of the message
-				var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName +" street." ;
+				// Check if the message has changed
+				if (message !== previousMessage) {
+					// Add "On a sunny day," to the beginning of the message
+					var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName + " street.";
 
-				// Set the text content
-				gestureDiv.textContent = fullMessage;
+					// Set the text content
+					gestureDiv.textContent = fullMessage;
 
-				// Set a timeout to clear the text after 3 seconds if there's no change
-				timeoutID = setTimeout(function () {
-					gestureDiv.textContent = ""; // Clear the text
-					gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
-				}, 2000);
+					// Set a timeout to clear the text after 3 seconds if there's no change
+					timeoutID = setTimeout(function () {
+						gestureDiv.textContent = ""; // Clear the text
+						gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
+					}, 2000);
 
-				// Check if message is not empty to show the overlay
-				if (message.trim() !== "") {
-					gestureDiv.style.display = "block";
-				} else {
-					gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
+					// Check if message is not empty to show the overlay
+					if (message.trim() !== "") {
+						gestureDiv.style.display = "block";
+					} else {
+						gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
+					}
+
+					// Update the previous message
+					previousMessage = message;
 				}
 			}
+
 
 			function setupColors() {
 				lineColors[0] = color(204, 204, 0); // Dark Yellow
