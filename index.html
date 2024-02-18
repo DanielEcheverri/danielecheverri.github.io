@@ -595,7 +595,7 @@
 			var previousLatitude;
 			var previousLongitude;
 
-			// Function to display movement text
+			// Function to display movement text.
 			function displayMovementText(message) {
 				// Target the existing <div> element with the id "gestureDiv"
 				var gestureDiv = document.getElementById("gestureDiv");
@@ -685,13 +685,9 @@
 				.then(data => {
 					// Extract relevant weather information
 					const weatherDescription = data.weather[0].description;
-					const temperature = data.main.temp;
-					const cityName = data.name;
 
 					const weatherData = {
 						description: weatherDescription,
-						temperature: temperature,
-						city: cityName
 					};
 
 					console.log("Weather Data:", weatherData);
