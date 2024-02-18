@@ -612,6 +612,7 @@
 						// Update previous latitude and longitude
 						previousLatitude = latitude;
 						previousLongitude = longitude;
+						console.log("new position");
 
 						// Call fetchStreetName and wait for it to resolve
 						fetchStreetName().then((name) => {
@@ -630,6 +631,7 @@
 						});
 					} else {
 						// Construct full message using the existing streetName value
+						console.log("old position");
 						var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName + " street.";
 
 						// Set the text content
