@@ -554,7 +554,7 @@
 				previousPotValues = potValues.slice(0, numPotentiometers);
 			}
 
-			var cityName;
+			var streetName;
 			// Function to fetch city name using Overpass API
 			function fetchStreetName() {
 				return new Promise((resolve, reject) => {
@@ -579,7 +579,7 @@
 					.then((data) => {
 						// Process the response to extract city name or other relevant information
 						if (data.elements && data.elements.length > 0) {
-							var streetName = data.elements[0].tags['addr:street'];
+							streetName = data.elements[0].tags['addr:street'];
 							console.log("Street:", latitude, longitude, streetName);
 						} else {
 							var streetName = "unknown";
@@ -590,8 +590,6 @@
 						console.error("Error fetching city data:", error);
 					});
 			}
-
-
 
 			var timeoutID; // Variable to hold the timeout ID
 
