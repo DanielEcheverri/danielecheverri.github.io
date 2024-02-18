@@ -580,7 +580,7 @@
 						// Process the response to extract city name or other relevant information
 						if (data.elements && data.elements.length > 0) {
 							streetName = data.elements[0].tags['addr:street'];
-							console.log("Street:", latitude, longitude, streetName);
+							console.log(streetName);
 						} else {
 							var streetName = "unknown";
 							console.log("City not found.");
@@ -602,6 +602,7 @@
 
 				// Fetch city name based on user's coordinates
 				fetchStreetName();
+				console.log(streetName);
 
 				// Add "On a sunny day," to the beginning of the message
 				var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName +" street." ;
