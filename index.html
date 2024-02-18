@@ -555,6 +555,7 @@
 			}
 
 			var streetName;
+
 			// Function to fetch city name using Overpass API
 			function fetchStreetName() {
 				return new Promise((resolve, reject) => {
@@ -657,36 +658,47 @@
 			// Define fetchWeather function
 			function fetchWeather() {
 				return new Promise((resolve, reject) => {
+					const checkCoordinates = () => {
+						if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
+							resolve();
+						} else {
+							setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
+						}
+					};
+
+					checkCoordinates();
+				})
+				.then(() => {
 					const apiKey = '21b99074efb73ba35f476f78f1b018ec';
 					const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
 
 					// Fetch data from OpenWeather API
-					fetch(apiUrl)
-						.then(response => {
-							if (!response.ok) {
-								throw new Error('Failed to fetch weather data');
-							}
-							return response.json();
-						})
-						.then(data => {
-							// Extract relevant weather information
-							const weatherDescription = data.weather[0].description;
-							const temperature = data.main.temp;
-							const cityName = data.name;
+					return fetch(apiUrl);
+				})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Failed to fetch weather data');
+					}
+					return response.json();
+				})
+				.then(data => {
+					// Extract relevant weather information
+					const weatherDescription = data.weather[0].description;
+					const temperature = data.main.temp;
+					const cityName = data.name;
 
-							const weatherData = {
-								description: weatherDescription,
-								temperature: temperature,
-								city: cityName
-							};
+					const weatherData = {
+						description: weatherDescription,
+						temperature: temperature,
+						city: cityName
+					};
 
-							resolve(weatherData);
-							console.log(weatherData);
-						})
-						.catch(error => {
-							console.error('Error fetching weather data:', error);
-							reject(error);
-						});
+					return weatherData;
+					console.log(weatherData);
+				})
+				.catch(error => {
+					console.error('Error fetching weather data:', error);
+					throw error; // Rethrow the error for further handling if needed
 				});
 			}
 
