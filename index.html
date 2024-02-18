@@ -664,7 +664,8 @@
 			          // Set the text content
 			          gestureDiv.textContent = fullMessage;
 			          // Update streetName
-			          streetName = name;
+			          weatherData = weatherData.description;
+					  //Update weatherData
 
 			          // Check if message is not empty to show the overlay
 			          if (message.trim() !== "") {
@@ -679,7 +680,7 @@
 			    } else {
 			      // Construct full message using the existing streetName value
 			      console.log("old position");
-			      var fullMessage = "On a " + weatherData.description + " the avatar's " + message + " while walking around " + streetName + " street.";
+			      var fullMessage = "On a " + weatherData + " the avatar's " + message + " while walking around " + streetName + " street.";
 
 			      // Set the text content
 			      gestureDiv.textContent = fullMessage;
