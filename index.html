@@ -287,453 +287,453 @@
 		</script>
 
 		<script type="text/javascript">
-				// Processing 4 sketch to visualize movements of the Avatar
+						// Processing 4 sketch to visualize movements of the Avatar
 
-				let numPotentiometers = 8;
-				let potValues;
-				let lineColors;
-				let backgroundColors;
-				let labels = ["LEFT SHOULDER", "LEFT FOREARM", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
-				let isMovingUp = false;
-				let isMovingDown = false;
-				var previousPotValues = new Array(numPotentiometers);
-				const cooldownDuration = 500; // 1 second
-				let detectMovement = true;
+						let numPotentiometers = 8;
+						let potValues;
+						let lineColors;
+						let backgroundColors;
+						let labels = ["LEFT SHOULDER", "LEFT FOREARM", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
+						let isMovingUp = false;
+						let isMovingDown = false;
+						var previousPotValues = new Array(numPotentiometers);
+						const cooldownDuration = 500; // 1 second
+						let detectMovement = true;
 
-				function setup() {
-					var avatarBTCanvas = createCanvas(windowWidth * 0.95, windowHeight * 0.6);
-					avatarBTCanvas.parent("avatarBTdiv");
-					potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
-					lineColors = new Array(numPotentiometers);
-					backgroundColors = new Array(numPotentiometers);
-					setupColors();
-					setupBackgroundColors();
-				}
-
-				function draw() {
-					background(255);
-
-					let lineHeight = height / numPotentiometers;
-					let labelSize = min(width, height) * 0.03; // Responsive font size for labels
-					for (let i = 0; i < numPotentiometers; i++) {
-						let lineY = i * lineHeight + lineHeight / 2;
-
-						// Draw the background rectangle
-						noStroke();
-						fill(backgroundColors[i]);
-						rect(0, i * lineHeight, width, lineHeight);
-
-						// Draw the line with different color for each
-						strokeWeight(50);
-						stroke(lineColors[i]);
-						line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
-
-						// Display the corresponding value to the left of the line
-						noStroke();
-						fill(255);
-						textFont("Roboto");
-						textAlign(RIGHT, CENTER);
-						textSize(labelSize);
-						text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width * 0.55) - 10, lineY);
-					}
-
-					// Draw vertical labels on the right side
-					textAlign(RIGHT, CENTER);
-					let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
-					textFont("Roboto");
-					textSize(labelFontSize);
-					fill(255); // Set text color to white
-					for (let i = 0; i < numPotentiometers; i++) {
-						text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
-					}
-
-					// Detect movement and display corresponding text
-					checkMovement();
-				}
-
-				// Function to receive data from JavaScript
-				function receiveData(data) {
-					let values = data.split(",");
-					if (values.length === numPotentiometers) {
-						for (let i = 0; i < numPotentiometers; i++) {
-							potValues[i] = parseFloat(values[i]);
+						function setup() {
+							var avatarBTCanvas = createCanvas(windowWidth * 0.95, windowHeight * 0.6);
+							avatarBTCanvas.parent("avatarBTdiv");
+							potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
+							lineColors = new Array(numPotentiometers);
+							backgroundColors = new Array(numPotentiometers);
+							setupColors();
+							setupBackgroundColors();
 						}
-					}
-				}
 
-				function checkMovement() {
-					// Define thresholds for movement detection
-					let movementThreshold = 10; // Adjust as needed
-					// Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
-					let headMovingUp = null;
-					let leftLegMovingUp = null;
-					let rightLegMovingUp = null;
-					let leftShoulderMovingUp = null;
-					let rightShoulderMovingUp = null;
-					let leftForearmMovingUp = null;
-					let rightForearmMovingUp = null;
-					let waistMoving = null;
-					let bodyMoving = null;
+						function draw() {
+							background(255);
 
-					if (!detectMovement) {
-						return;
-					}
+							let lineHeight = height / numPotentiometers;
+							let labelSize = min(width, height) * 0.03; // Responsive font size for labels
+							for (let i = 0; i < numPotentiometers; i++) {
+								let lineY = i * lineHeight + lineHeight / 2;
 
-					// Check movement for each potentiometer
-					for (let i = 0; i < numPotentiometers; i++) {
-						// Check movement based on potentiometer position and its corresponding label
-						if (labels[i] == "HEAD") {
-							// Movement detection for head (up and down movement)
-							if (potValues[i] < previousPotValues[i] - movementThreshold) {
-								headMovingUp = true; // Head is moving up
-							} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-								headMovingUp = false; // Head is moving down
+								// Draw the background rectangle
+								noStroke();
+								fill(backgroundColors[i]);
+								rect(0, i * lineHeight, width, lineHeight);
+
+								// Draw the line with different color for each
+								strokeWeight(50);
+								stroke(lineColors[i]);
+								line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
+
+								// Display the corresponding value to the left of the line
+								noStroke();
+								fill(255);
+								textFont("Roboto");
+								textAlign(RIGHT, CENTER);
+								textSize(labelSize);
+								text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width * 0.55) - 10, lineY);
 							}
-						} else if (labels[i] == "LEFT LEG") {
-							// Movement detection for left leg (up and down movement)
-							if (potValues[i] < previousPotValues[i] - movementThreshold) {
-								leftLegMovingUp = false; // Left leg is moving down
-							} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-								leftLegMovingUp = true; // Left leg is moving up
+
+							// Draw vertical labels on the right side
+							textAlign(RIGHT, CENTER);
+							let labelFontSize = min(width, height) * 0.03; // Responsive font size for labels
+							textFont("Roboto");
+							textSize(labelFontSize);
+							fill(255); // Set text color to white
+							for (let i = 0; i < numPotentiometers; i++) {
+								text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
 							}
-						} else if (labels[i] == "RIGHT LEG") {
-							// Movement detection for right leg (up and down movement)
-							if (potValues[i] < previousPotValues[i] - movementThreshold) {
-								rightLegMovingUp = false; // Right leg is moving down
-							} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-								rightLegMovingUp = true; // Right leg is moving up
-							}
-						} else if (labels[i] == "LEFT SHOULDER") {
-							// Movement detection for left shoulder (up and down movement)
-							if (potValues[i] < previousPotValues[i] - movementThreshold) {
-								leftShoulderMovingUp = false; // Left shoulder is moving up
-							} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-								leftShoulderMovingUp = true; // Left shoulder is moving down
-							}
-						} else if (labels[i] == "RIGHT SHOULDER") {
-							// Movement detection for right shoulder (up and down movement)
-							if (potValues[i] < previousPotValues[i] - movementThreshold) {
-								rightShoulderMovingUp = false; // Right shoulder is moving up
-							} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-								rightShoulderMovingUp = true; // Right shoulder is moving down
-							}
-						} else if (labels[i] == "LEFT FOREARM") {
-							// Movement detection for left forearm (up and down movement)
-							if (potValues[i] < previousPotValues[i] - movementThreshold) {
-								leftForearmMovingUp = true; // Left forearm is moving up
-							} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-								leftForearmMovingUp = false; // Left forearm is moving down
-							}
-						} else if (labels[i] == "RIGHT FOREARM") {
-							// Movement detection for right forearm (up and down movement)
-							if (potValues[i] < previousPotValues[i] - movementThreshold) {
-								rightForearmMovingUp = true; // Right forearm is moving up
-							} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-								rightForearmMovingUp = false; // Right forearm is moving down
-							}
-						} else if (labels[i] == "WAIST") {
-							// Movement detection for waist (left and right movement)
-							if (potValues[i] < previousPotValues[i] - movementThreshold) {
-								waistMoving = false; // Waist is moving left
-							} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-								waistMoving = true; // Waist is moving right
+
+							// Detect movement and display corresponding text
+							checkMovement();
+						}
+
+						// Function to receive data from JavaScript
+						function receiveData(data) {
+							let values = data.split(",");
+							if (values.length === numPotentiometers) {
+								for (let i = 0; i < numPotentiometers; i++) {
+									potValues[i] = parseFloat(values[i]);
+								}
 							}
 						}
-					}
 
-					// Displaying movement text based on detected head movement
-					if (headMovingUp != null) {
-						if (headMovingUp) {
-							displayMovementText("head is looking up", width / 2, height / 2);
-						} else {
-							displayMovementText("head is looking down", width / 2, height / 2);
-						}
-					}
+						function checkMovement() {
+							// Define thresholds for movement detection
+							let movementThreshold = 10; // Adjust as needed
+							// Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
+							let headMovingUp = null;
+							let leftLegMovingUp = null;
+							let rightLegMovingUp = null;
+							let leftShoulderMovingUp = null;
+							let rightShoulderMovingUp = null;
+							let leftForearmMovingUp = null;
+							let rightForearmMovingUp = null;
+							let waistMoving = null;
+							let bodyMoving = null;
 
-					// Displaying movement text based on detected left leg movement
-					if (
-						leftLegMovingUp != null &&
-						waistMoving == null &&
-						rightLegMovingUp == null &&
-						leftShoulderMovingUp == null &&
-						leftForearmMovingUp == null &&
-						rightShoulderMovingUp == null &&
-						rightForearmMovingUp == null
-					) {
-						if (leftLegMovingUp) {
-							displayMovementText("left leg is moving up", width / 2, height / 2 + 40);
-						} else {
-							displayMovementText("left leg is moving down", width / 2, height / 2 + 40);
-						}
-					}
+							if (!detectMovement) {
+								return;
+							}
 
-					// Displaying movement text based on detected right leg movement
-					if (
-						rightLegMovingUp != null &&
-						waistMoving == null &&
-						leftLegMovingUp == null &&
-						leftShoulderMovingUp == null &&
-						leftForearmMovingUp == null &&
-						rightShoulderMovingUp == null &&
-						rightForearmMovingUp == null
-					) {
-						if (rightLegMovingUp) {
-							displayMovementText("right leg is moving up", width / 2, height / 2 + 80);
-						} else {
-							displayMovementText("right leg is moving down", width / 2, height / 2 + 80);
-						}
-					}
+							// Check movement for each potentiometer
+							for (let i = 0; i < numPotentiometers; i++) {
+								// Check movement based on potentiometer position and its corresponding label
+								if (labels[i] == "HEAD") {
+									// Movement detection for head (up and down movement)
+									if (potValues[i] < previousPotValues[i] - movementThreshold) {
+										headMovingUp = true; // Head is moving up
+									} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+										headMovingUp = false; // Head is moving down
+									}
+								} else if (labels[i] == "LEFT LEG") {
+									// Movement detection for left leg (up and down movement)
+									if (potValues[i] < previousPotValues[i] - movementThreshold) {
+										leftLegMovingUp = false; // Left leg is moving down
+									} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+										leftLegMovingUp = true; // Left leg is moving up
+									}
+								} else if (labels[i] == "RIGHT LEG") {
+									// Movement detection for right leg (up and down movement)
+									if (potValues[i] < previousPotValues[i] - movementThreshold) {
+										rightLegMovingUp = false; // Right leg is moving down
+									} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+										rightLegMovingUp = true; // Right leg is moving up
+									}
+								} else if (labels[i] == "LEFT SHOULDER") {
+									// Movement detection for left shoulder (up and down movement)
+									if (potValues[i] < previousPotValues[i] - movementThreshold) {
+										leftShoulderMovingUp = false; // Left shoulder is moving up
+									} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+										leftShoulderMovingUp = true; // Left shoulder is moving down
+									}
+								} else if (labels[i] == "RIGHT SHOULDER") {
+									// Movement detection for right shoulder (up and down movement)
+									if (potValues[i] < previousPotValues[i] - movementThreshold) {
+										rightShoulderMovingUp = false; // Right shoulder is moving up
+									} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+										rightShoulderMovingUp = true; // Right shoulder is moving down
+									}
+								} else if (labels[i] == "LEFT FOREARM") {
+									// Movement detection for left forearm (up and down movement)
+									if (potValues[i] < previousPotValues[i] - movementThreshold) {
+										leftForearmMovingUp = true; // Left forearm is moving up
+									} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+										leftForearmMovingUp = false; // Left forearm is moving down
+									}
+								} else if (labels[i] == "RIGHT FOREARM") {
+									// Movement detection for right forearm (up and down movement)
+									if (potValues[i] < previousPotValues[i] - movementThreshold) {
+										rightForearmMovingUp = true; // Right forearm is moving up
+									} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+										rightForearmMovingUp = false; // Right forearm is moving down
+									}
+								} else if (labels[i] == "WAIST") {
+									// Movement detection for waist (left and right movement)
+									if (potValues[i] < previousPotValues[i] - movementThreshold) {
+										waistMoving = false; // Waist is moving left
+									} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+										waistMoving = true; // Waist is moving right
+									}
+								}
+							}
 
-					// Displaying movement text based on detected left arm movement
-					if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
-						if (leftShoulderMovingUp && leftForearmMovingUp) {
-							displayMovementText("left arm is moving up", width / 2, height / 2 + 120);
-						}
-						if (!leftShoulderMovingUp && !leftForearmMovingUp) {
-							displayMovementText("left arm is moving down", width / 2, height / 2 + 120);
-						}
-					}
+							// Displaying movement text based on detected head movement
+							if (headMovingUp != null) {
+								if (headMovingUp) {
+									displayMovementText("head is looking up", width / 2, height / 2);
+								} else {
+									displayMovementText("head is looking down", width / 2, height / 2);
+								}
+							}
 
-					// Displaying movement text based on detected right arm movement
-					if (rightShoulderMovingUp != null && rightForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
-						if (rightShoulderMovingUp && !rightForearmMovingUp) {
-							displayMovementText("right arm is moving up", width / 2, height / 2 + 160);
-						}
-						if (!rightShoulderMovingUp && rightForearmMovingUp) {
-							displayMovementText("right arm is moving down", width / 2, height / 2 + 160);
-						}
-					}
+							// Displaying movement text based on detected left leg movement
+							if (
+								leftLegMovingUp != null &&
+								waistMoving == null &&
+								rightLegMovingUp == null &&
+								leftShoulderMovingUp == null &&
+								leftForearmMovingUp == null &&
+								rightShoulderMovingUp == null &&
+								rightForearmMovingUp == null
+							) {
+								if (leftLegMovingUp) {
+									displayMovementText("left leg is moving up", width / 2, height / 2 + 40);
+								} else {
+									displayMovementText("left leg is moving down", width / 2, height / 2 + 40);
+								}
+							}
 
-					// Displaying movement text based on detected waist movement
-					if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
-						if (waistMoving) {
-							displayMovementText("waist is moving right", width / 2, height / 2 + 200);
-							detectMovement = false;
-							setTimeout(() => {
-								detectMovement = true;
-							}, cooldownDuration);
-						} else {
-							displayMovementText("waist is moving left", width / 2, height / 2 + 200);
-							detectMovement = false;
-							setTimeout(() => {
-								detectMovement = true;
-							}, cooldownDuration);
-						}
-					}
+							// Displaying movement text based on detected right leg movement
+							if (
+								rightLegMovingUp != null &&
+								waistMoving == null &&
+								leftLegMovingUp == null &&
+								leftShoulderMovingUp == null &&
+								leftForearmMovingUp == null &&
+								rightShoulderMovingUp == null &&
+								rightForearmMovingUp == null
+							) {
+								if (rightLegMovingUp) {
+									displayMovementText("right leg is moving up", width / 2, height / 2 + 80);
+								} else {
+									displayMovementText("right leg is moving down", width / 2, height / 2 + 80);
+								}
+							}
 
-					// Displaying body movement based on shoulders and legs
-					if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovingUp != null && rightLegMovingUp != null) {
-						if (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp) {
-							bodyMoving = true; // Body is moving up
-						} else if (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp) {
-							bodyMoving = false; // Body is moving down
-						} else {
-							bodyMoving = null; // Body movement cannot be determined
-						}
-					} else {
-						bodyMoving = null; // Body movement cannot be determined
-					}
+							// Displaying movement text based on detected left arm movement
+							if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
+								if (leftShoulderMovingUp && leftForearmMovingUp) {
+									displayMovementText("left arm is moving up", width / 2, height / 2 + 120);
+								}
+								if (!leftShoulderMovingUp && !leftForearmMovingUp) {
+									displayMovementText("left arm is moving down", width / 2, height / 2 + 120);
+								}
+							}
 
-					// Displaying movement text based on detected body movement
-					if (bodyMoving != null) {
-						if (bodyMoving) {
-							detectMovement = false;
-							setTimeout(() => {
-								detectMovement = true;
-							}, cooldownDuration);
-							displayMovementText("body is moving down", width / 2, height / 2 + 240);
-						} else {
-							detectMovement = false;
-							setTimeout(() => {
-								detectMovement = true;
-							}, cooldownDuration);
-							displayMovementText("body is moving up", width / 2, height / 2 + 240);
-						}
-					}
-					// Update previous potentiometer values for the next iteration
-					previousPotValues = potValues.slice(0, numPotentiometers);
-				}
+							// Displaying movement text based on detected right arm movement
+							if (rightShoulderMovingUp != null && rightForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
+								if (rightShoulderMovingUp && !rightForearmMovingUp) {
+									displayMovementText("right arm is moving up", width / 2, height / 2 + 160);
+								}
+								if (!rightShoulderMovingUp && rightForearmMovingUp) {
+									displayMovementText("right arm is moving down", width / 2, height / 2 + 160);
+								}
+							}
 
-				var streetName;
+							// Displaying movement text based on detected waist movement
+							if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
+								if (waistMoving) {
+									displayMovementText("waist is moving right", width / 2, height / 2 + 200);
+									detectMovement = false;
+									setTimeout(() => {
+										detectMovement = true;
+									}, cooldownDuration);
+								} else {
+									displayMovementText("waist is moving left", width / 2, height / 2 + 200);
+									detectMovement = false;
+									setTimeout(() => {
+										detectMovement = true;
+									}, cooldownDuration);
+								}
+							}
 
-				// Function to fetch city name using Overpass API
-				function fetchStreetName() {
-					return new Promise((resolve, reject) => {
-						const checkCoordinates = () => {
-							if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
-								resolve();
+							// Displaying body movement based on shoulders and legs
+							if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovingUp != null && rightLegMovingUp != null) {
+								if (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp) {
+									bodyMoving = true; // Body is moving up
+								} else if (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp) {
+									bodyMoving = false; // Body is moving down
+								} else {
+									bodyMoving = null; // Body movement cannot be determined
+								}
 							} else {
-								setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
+								bodyMoving = null; // Body movement cannot be determined
 							}
-						};
 
-						checkCoordinates();
-					})
-					.then(() => {
-						// Construct Overpass API query
-						var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:10," + latitude + "," + longitude + ");out;";
-						// Fetch data from Overpass API
-						return fetch(overpassQuery);
-					})
-					.then((response) => response.json())
-					.then((data) => {
-						// Process the response to extract city name or other relevant information
-						if (data.elements && data.elements.length > 0) {
-							return data.elements[0].tags['addr:street'];
-						} else {
-							return "unknown";
-						}
-					})
-					.catch((error) => {
-						console.error("Error fetching street name:", error);
-						throw error; // Rethrow the error for further handling if needed
-						return "unknown";
-					});
-				}
-				var timeoutID; // Variable to hold the timeout ID
-				var previousMessage = ""; // Variable to store the previous message
-				var previousLatitude;
-				var previousLongitude;
-
-				// Function to display movement text.
-				function displayMovementText(message) {
-				// Target the existing <div> element with the id "gestureDiv"
-				var gestureDiv = document.getElementById("gestureDiv");
-
-				// Clear existing timeout
-				clearTimeout(timeoutID);
-
-				// Check if the message has changed
-				if (message !== previousMessage) {
-					// Update the previous message
-					previousMessage = message;
-
-					// Check if latitude or longitude has changed
-					if (latitude !== previousLatitude || longitude !== previousLongitude) {
-						// Update previous latitude and longitude
-						previousLatitude = latitude;
-						previousLongitude = longitude;
-						console.log("new position");
-
-						// Call fetchStreetName and fetchWeather simultaneously
-						Promise.all([fetchStreetName(), fetchWeather()])
-						.then(([streetName, weatherData]) => {
-							// Construct full message including weather data
-							var fullMessage = "On a " + weatherData.description + " day with a temperature of " + weatherData.temperature + "°C, the avatar's " + message + " while walking around " + streetName + " street.";
-
-							// Set the text content
-							gestureDiv.textContent = fullMessage;
-							// Update streetName
-							streetName = name;
-
-							// Check if message is not empty to show the overlay
-							if (message.trim() !== "") {
-								gestureDiv.style.display = "block";
-							} else {
-								gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
+							// Displaying movement text based on detected body movement
+							if (bodyMoving != null) {
+								if (bodyMoving) {
+									detectMovement = false;
+									setTimeout(() => {
+										detectMovement = true;
+									}, cooldownDuration);
+									displayMovementText("body is moving down", width / 2, height / 2 + 240);
+								} else {
+									detectMovement = false;
+									setTimeout(() => {
+										detectMovement = true;
+									}, cooldownDuration);
+									displayMovementText("body is moving up", width / 2, height / 2 + 240);
+								}
 							}
-						})
-						.catch(error => {
-							console.error("Error fetching street name or weather data:", error);
-						});
-					} else {
-						// Construct full message using the existing streetName value
-						console.log("old position");
-						var fullMessage = "On a " + weatherData.description + " day with a temperature of " + weatherData.temperature + "°C, the avatar's " + message + " while walking around " + streetName + " street.";
-
-						// Set the text content
-						gestureDiv.textContent = fullMessage;
-
-						// Check if message is not empty to show the overlay
-						if (message.trim() !== "") {
-							gestureDiv.style.display = "block";
-						} else {
-							gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
+							// Update previous potentiometer values for the next iteration
+							previousPotValues = potValues.slice(0, numPotentiometers);
 						}
-					}
-				}
 
-				// Set a timeout to clear the text after 3 seconds if there's no change
-				timeoutID = setTimeout(function () {
-					gestureDiv.textContent = ""; // Clear the text
-					gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
-				}, 3000);
+						var streetName;
+
+						// Function to fetch city name using Overpass API
+						function fetchStreetName() {
+							return new Promise((resolve, reject) => {
+								const checkCoordinates = () => {
+									if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
+										resolve();
+									} else {
+										setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
+									}
+								};
+
+								checkCoordinates();
+							})
+							.then(() => {
+								// Construct Overpass API query
+								var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:10," + latitude + "," + longitude + ");out;";
+								// Fetch data from Overpass API
+								return fetch(overpassQuery);
+							})
+							.then((response) => response.json())
+							.then((data) => {
+								// Process the response to extract city name or other relevant information
+								if (data.elements && data.elements.length > 0) {
+									return data.elements[0].tags['addr:street'];
+								} else {
+									return "unknown";
+								}
+							})
+							.catch((error) => {
+								console.error("Error fetching street name:", error);
+								throw error; // Rethrow the error for further handling if needed
+								return "unknown";
+							});
+						}
+						var timeoutID; // Variable to hold the timeout ID
+						var previousMessage = ""; // Variable to store the previous message
+						var previousLatitude;
+						var previousLongitude;
+
+						// Function to display movement text
+			function displayMovementText(message) {
+			    // Target the existing <div> element with the id "gestureDiv"
+			    var gestureDiv = document.getElementById("gestureDiv");
+
+			    // Clear existing timeout
+			    clearTimeout(timeoutID);
+
+			    // Check if the message has changed
+			    if (message !== previousMessage) {
+			        // Update the previous message
+			        previousMessage = message;
+
+			        // Check if latitude or longitude has changed
+			        if (latitude !== previousLatitude || longitude !== previousLongitude) {
+			            // Update previous latitude and longitude
+			            previousLatitude = latitude;
+			            previousLongitude = longitude;
+			            console.log("new position");
+
+			            // Call fetchStreetName and fetchWeather simultaneously
+			            Promise.all([fetchStreetName(), fetchWeather()])
+			            .then(([streetName, weatherData]) => {
+			                // Construct full message including weather data
+			                var fullMessage = "On a " + weatherData.description + " day with a temperature of " + weatherData.temperature + "°C, the avatar's " + message + " while walking around " + streetName + " street.";
+
+			                // Set the text content
+			                gestureDiv.textContent = fullMessage;
+			                // Update streetName
+			                streetName = name;
+
+			                // Check if message is not empty to show the overlay
+			                if (message.trim() !== "") {
+			                    gestureDiv.style.display = "block";
+			                } else {
+			                    gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
+			                }
+			            })
+			            .catch(error => {
+			                console.error("Error fetching street name or weather data:", error);
+			            });
+			        } else {
+			            // Construct full message using the existing streetName value
+			            console.log("old position");
+			            var fullMessage = "On a " + weatherData.description + "the avatar's " + message + " while walking around " + streetName + " street.";
+
+			            // Set the text content
+			            gestureDiv.textContent = fullMessage;
+
+			            // Check if message is not empty to show the overlay
+			            if (message.trim() !== "") {
+			                gestureDiv.style.display = "block";
+			            } else {
+			                gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
+			            }
+			        }
+			    }
+
+			    // Set a timeout to clear the text after 3 seconds if there's no change
+			    timeoutID = setTimeout(function () {
+			        gestureDiv.textContent = ""; // Clear the text
+			        gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
+			    }, 3000);
 			}
 
+			var weatherData;
+						// Define fetchWeather function
+			function fetchWeather() {
+							// Define a promise to fetch weather data
+							const weatherPromise = new Promise((resolve, reject) => {
+								const checkCoordinates = () => {
+									if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
+										resolve();
+									} else {
+										setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
+									}
+								};
 
-				// Define fetchWeather function
-				function fetchWeather() {
-					// Define a promise to fetch weather data
-					const weatherPromise = new Promise((resolve, reject) => {
-						const checkCoordinates = () => {
-							if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
-								resolve();
-							} else {
-								setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
-							}
-						};
+								checkCoordinates();
+							})
+							.then(() => {
+								const apiKey = '21b99074efb73ba35f476f78f1b018ec';
+								const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
 
-						checkCoordinates();
-					})
-					.then(() => {
-						const apiKey = '21b99074efb73ba35f476f78f1b018ec';
-						const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+								// Fetch data from OpenWeather API
+								return fetch(apiUrl);
+							})
+							.then(response => {
+								if (!response.ok) {
+									throw new Error('Failed to fetch weather data');
+								}
+								return response.json();
+							})
+							.then(data => {
+								// Extract relevant weather information
+								const weatherDescription = data.weather[0].description;
 
-						// Fetch data from OpenWeather API
-						return fetch(apiUrl);
-					})
-					.then(response => {
-						if (!response.ok) {
-							throw new Error('Failed to fetch weather data');
+								weatherData = {
+									description: weatherDescription,
+								};
+
+								console.log("Weather Data:", weatherData);
+							})
+							.catch(error => {
+								console.error('Error fetching weather data:', error);
+							});
+
+							// Log the weather promise to the console
+							console.log("Fetching weather data...");
+
+							// Use the weather promise elsewhere in your code if needed
+							weatherPromise.then(() => {
+								console.log("Weather data has been fetched.");
+							});
 						}
-						return response.json();
-					})
-					.then(data => {
-						// Extract relevant weather information
-						const weatherDescription = data.weather[0].description;
 
-						const weatherData = {
-							description: weatherDescription,
-						};
+						fetchWeather();
 
-						console.log("Weather Data:", weatherData);
-					})
-					.catch(error => {
-						console.error('Error fetching weather data:', error);
-					});
+						function setupColors() {
+							lineColors[0] = color(204, 204, 0); // Dark Yellow
+							lineColors[1] = color(204, 204, 0); // Dark Yellow
+							lineColors[2] = color(255, 0, 0); // Red
+							lineColors[3] = color(204, 204, 0); // Dark Yellow
+							lineColors[4] = color(204, 204, 0); // Dark Yellow
+							lineColors[5] = color(0, 255, 0); // Bright Green
+							lineColors[6] = color(0, 128, 0); // Grass Green
+							lineColors[7] = color(0, 128, 0); // Grass Green
+						}
 
-					// Log the weather promise to the console
-					console.log("Fetching weather data...");
-
-					// Use the weather promise elsewhere in your code if needed
-					weatherPromise.then(() => {
-						console.log("Weather data has been fetched.");
-					});
-				}
-
-				fetchWeather();
-
-				function setupColors() {
-					lineColors[0] = color(204, 204, 0); // Dark Yellow
-					lineColors[1] = color(204, 204, 0); // Dark Yellow
-					lineColors[2] = color(255, 0, 0); // Red
-					lineColors[3] = color(204, 204, 0); // Dark Yellow
-					lineColors[4] = color(204, 204, 0); // Dark Yellow
-					lineColors[5] = color(0, 255, 0); // Bright Green
-					lineColors[6] = color(0, 128, 0); // Grass Green
-					lineColors[7] = color(0, 128, 0); // Grass Green
-				}
-
-				function setupBackgroundColors() {
-					backgroundColors[0] = color(0, 0, 0); // 0% black
-					backgroundColors[1] = color(0, 0, 0); // 0% black
-					backgroundColors[2] = color(0, 0, 0, 200); // 90% black
-					backgroundColors[3] = color(0, 0, 0, 230); // 75% black
-					backgroundColors[4] = color(0, 0, 0, 230); // 60% black
-					backgroundColors[5] = color(0, 0, 0, 128); // 60% black
-					backgroundColors[6] = color(0, 0, 0, 100); // 60% black
-					backgroundColors[7] = color(0, 0, 0, 100); // 60% black
-				}
+						function setupBackgroundColors() {
+							backgroundColors[0] = color(0, 0, 0); // 0% black
+							backgroundColors[1] = color(0, 0, 0); // 0% black
+							backgroundColors[2] = color(0, 0, 0, 200); // 90% black
+							backgroundColors[3] = color(0, 0, 0, 230); // 75% black
+							backgroundColors[4] = color(0, 0, 0, 230); // 60% black
+							backgroundColors[5] = color(0, 0, 0, 128); // 60% black
+							backgroundColors[6] = color(0, 0, 0, 100); // 60% black
+							backgroundColors[7] = color(0, 0, 0, 100); // 60% black
+						}
 		</script>
 	</body>
 </html>
