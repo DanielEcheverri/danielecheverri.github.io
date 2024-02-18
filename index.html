@@ -619,7 +619,7 @@
 			            Promise.all([fetchStreetName(), fetchWeather()])
 			            .then(([streetName, weatherData]) => {
 			                // Construct full message including weather data
-			                var fullMessage = "On a " + weatherData.description + " day with a temperature of " + weatherData.temperature + "°C, the avatar's " + message + " while walking around " + streetName + " street.";
+			                var fullMessage = "On a " + weatherData.description + ", the avatar's " + message + " while walking around " + streetName + " street.";
 
 			                // Set the text content
 			                gestureDiv.textContent = fullMessage;
@@ -639,7 +639,7 @@
 			        } else {
 			            // Construct full message using the existing streetName value
 			            console.log("old position");
-			            var fullMessage = "On a " + weatherData.description + "the avatar's " + message + " while walking around " + streetName + " street.";
+			            var fullMessage = "On a " + weatherData.description + " the avatar's " + message + " while walking around " + streetName + " street.";
 
 			            // Set the text content
 			            gestureDiv.textContent = fullMessage;
