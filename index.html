@@ -571,7 +571,7 @@
 					.then(() => {
 						// Construct Overpass API query
 						var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:10," + latitude + "," + longitude + ");out;";
-						console.log(overpassQuery);
+						//console.log(overpassQuery);
 						// Fetch data from Overpass API
 						return fetch(overpassQuery);
 					})
@@ -605,23 +605,29 @@
 
 				// Check if the message has changed
 				if (message !== previousMessage) {
-					// Add "On a sunny day," to the beginning of the message
-					fetchStreetName();
-					console.log(streetName);
-					var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName + " street.";
-
-					// Set the text content
-					gestureDiv.textContent = fullMessage;
-
-					// Check if message is not empty to show the overlay
-					if (message.trim() !== "") {
-						gestureDiv.style.display = "block";
-					} else {
-						gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
+					// Fetch street name if it's not already fetched
+					if (streetName === undefined) {
+						fetchStreetName();
 					}
 
-					// Update the previous message
-					previousMessage = message;
+					// Check if streetName is defined
+					if (streetName !== undefined) {
+						// Construct full message only if streetName is defined
+						var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName + " street.";
+
+						// Set the text content
+						gestureDiv.textContent = fullMessage;
+
+						// Check if message is not empty to show the overlay
+						if (message.trim() !== "") {
+							gestureDiv.style.display = "block";
+						} else {
+							gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
+						}
+
+						// Update the previous message
+						previousMessage = message;
+					}
 				}
 
 				// Set a timeout to clear the text after 3 seconds if there's no change
@@ -630,6 +636,7 @@
 					gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
 				}, 3000);
 			}
+
 
 			function setupColors() {
 				lineColors[0] = color(204, 204, 0); // Dark Yellow
