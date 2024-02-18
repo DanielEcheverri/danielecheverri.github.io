@@ -559,17 +559,30 @@
 			var long = longitude;
 			// Function to fetch city name using Overpass API
 			function fetchCityName() {
-				// Construct Overpass API query
-				var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:1000," + lat + "," + long + ");out;";
-				// Fetch data from Overpass API
-				fetch(overpassQuery)
+				return new Promise((resolve, reject) => {
+					const checkCoordinates = () => {
+						if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
+							resolve();
+						} else {
+							setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
+						}
+					};
+
+					checkCoordinates();
+				})
+					.then(() => {
+						// Construct Overpass API query
+						var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:1000," + latitude + "," + longitude + ");out;";
+
+						// Fetch data from Overpass API
+						return fetch(overpassQuery);
+					})
 					.then((response) => response.json())
 					.then((data) => {
 						// Process the response to extract city name or other relevant information
 						if (data.elements && data.elements.length > 0) {
-							cityName = data.elements[0].tags["name"];
-							console.log("City:", cityName, lat, long, latitude, longitude, overpassQuery);
-							// You can do further processing with the city name here
+							var cityName = data.elements[0].tags["name"];
+							console.log("City:", latitude, longitude);
 						} else {
 							console.log("City not found.");
 						}
