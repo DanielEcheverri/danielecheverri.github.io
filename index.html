@@ -600,8 +600,13 @@
 				// Clear existing timeout
 				clearTimeout(timeoutID);
 
-				// Fetch city name based on user's coordinates
-				fetchStreetName();
+				await fetchStreetName(); // Assuming fetchStreetName returns a Promise
+
+				// Wait for streetName to be defined
+				while (!streetName) {
+					await new Promise(resolve => setTimeout(resolve, 100)); // Wait for 100 milliseconds before checking again
+				}
+
 				console.log(streetName);
 
 				// Add "On a sunny day," to the beginning of the message
