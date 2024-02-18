@@ -602,11 +602,12 @@
 
 				// Clear existing timeout
 				clearTimeout(timeoutID);
-				console.log(streetName);
 
 				// Check if the message has changed
 				if (message !== previousMessage) {
 					// Add "On a sunny day," to the beginning of the message
+					fetchStreetName();
+					console.log(streetName);
 					var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName + " street.";
 
 					// Set the text content
