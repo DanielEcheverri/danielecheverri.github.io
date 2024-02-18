@@ -586,6 +586,7 @@
 				.catch((error) => {
 					console.error("Error fetching street name:", error);
 					throw error; // Rethrow the error for further handling if needed
+					return "unknown";
 				});
 			}
 			var timeoutID; // Variable to hold the timeout ID
@@ -602,7 +603,7 @@
 				if (message !== previousMessage) {
 					// Call fetchStreetName and wait for it to resolve
 					fetchStreetName().then((name) => {
-						console.log(streetName);
+						console.log(name);
 						// Construct full message
 						var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + name + " street.";
 
