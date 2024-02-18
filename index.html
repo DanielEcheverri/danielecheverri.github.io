@@ -591,7 +591,10 @@
 			}
 			var timeoutID; // Variable to hold the timeout ID
 			var previousMessage = ""; // Variable to store the previous message
+			var previousLatitude;
+			var previousLongitude;
 
+			// Function to display movement text
 			function displayMovementText(message) {
 				// Target the existing <div> element with the id "gestureDiv"
 				var gestureDiv = document.getElementById("gestureDiv");
@@ -601,11 +604,33 @@
 
 				// Check if the message has changed
 				if (message !== previousMessage) {
-					// Call fetchStreetName and wait for it to resolve
-					fetchStreetName().then((name) => {
-						console.log(name);
-						// Construct full message
-						var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + name + " street.";
+					// Update the previous message
+					previousMessage = message;
+
+					// Check if latitude or longitude has changed
+					if (latitude !== previousLatitude || longitude !== previousLongitude) {
+						// Update previous latitude and longitude
+						previousLatitude = latitude;
+						previousLongitude = longitude;
+
+						// Call fetchStreetName and wait for it to resolve
+						fetchStreetName().then((name) => {
+							// Construct full message
+							var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + name + " street.";
+
+							// Set the text content
+							gestureDiv.textContent = fullMessage;
+
+							// Check if message is not empty to show the overlay
+							if (message.trim() !== "") {
+								gestureDiv.style.display = "block";
+							} else {
+								gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
+							}
+						});
+					} else {
+						// Construct full message using the existing streetName value
+						var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName + " street.";
 
 						// Set the text content
 						gestureDiv.textContent = fullMessage;
@@ -616,10 +641,7 @@
 						} else {
 							gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
 						}
-
-						// Update the previous message
-						previousMessage = message;
-					});
+					}
 				}
 
 				// Set a timeout to clear the text after 3 seconds if there's no change
