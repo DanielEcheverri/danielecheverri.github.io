@@ -554,7 +554,6 @@
 			var previousLongitude;
 
 			// Function to display movement text
-			// Function to display movement text.
 			function displayMovementText(message) {
 				// Target the existing <div> element with the id "gestureDiv"
 				var gestureDiv = document.getElementById("gestureDiv");
@@ -605,8 +604,10 @@
 				}, 3000);
 			}
 			// Define fetchWeather function
+			let globalWeatherDescription = null;
+
 			function fetchWeather() {
-				// Define a promise to fetch weather data
+				// Define a promise to fetch weather description
 				const weatherPromise = new Promise((resolve, reject) => {
 					const checkCoordinates = () => {
 						if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
@@ -630,30 +631,28 @@
 					return response.json();
 				})
 				.then(data => {
-					// Extract relevant weather information
-					const weatherDescription = data.weather[0].description;
-					const temperature = data.main.temp;
-					const cityName = data.name;
-
-					const weatherData = {
-						description: weatherDescription,
-						temperature: temperature,
-						city: cityName
-					};
-
-					console.log("Weather Data:", weatherData);
+					// Extract the weather description and store it globally
+					globalWeatherDescription = data.weather[0].description;
+					return globalWeatherDescription;
 				})
 				.catch(error => {
 					console.error('Error fetching weather data:', error);
+					throw error; // Rethrow the error to be caught by the caller if needed
 				});
+
 				// Log the weather promise to the console
 				console.log("Fetching weather data...");
+
 				// Use the weather promise elsewhere in your code if needed
-				weatherPromise.then(() => {
-					console.log("Weather data has been fetched.");
+				weatherPromise.then((weatherDescription) => {
+					console.log("Weather description:", weatherDescription);
 				});
+
+				// Return the weather promise
+				return weatherPromise;
 			}
 			fetchWeather();
+
 			function setupColors() {
 				lineColors[0] = color(204, 204, 0); // Dark Yellow
 				lineColors[1] = color(204, 204, 0); // Dark Yellow
