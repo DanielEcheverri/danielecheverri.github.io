@@ -581,9 +581,10 @@
 					.then((data) => {
 						// Process the response to extract city name or other relevant information
 						if (data.elements && data.elements.length > 0) {
-							var cityName = data.elements[0].tags["name"];
-							console.log("City:", latitude, longitude, name);
+							var streetName = data.elements[0].tags["addr:street"];
+							console.log("City:", latitude, longitude, streetName);
 						} else {
+							var streetName = "unknown";
 							console.log("City not found.");
 						}
 					})
