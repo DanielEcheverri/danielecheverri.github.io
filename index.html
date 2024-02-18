@@ -602,6 +602,7 @@
 				if (message !== previousMessage) {
 					// Call fetchStreetName and wait for it to resolve
 					fetchStreetName().then((name) => {
+						console.log(streetName);
 						// Construct full message
 						var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + name + " street.";
 
