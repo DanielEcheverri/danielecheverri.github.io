@@ -591,23 +591,17 @@
 					});
 			}
 
+			// Fetch city name based on user's coordinates
+			fetchStreetName();
+
 			var timeoutID; // Variable to hold the timeout ID
 
-			async function displayMovementText(message, x, y) {
+			function displayMovementText(message, x, y) {
 				// Target the existing <div> element with the id "gestureDiv"
 				var gestureDiv = document.getElementById("gestureDiv");
 
 				// Clear existing timeout
 				clearTimeout(timeoutID);
-
-				await fetchStreetName(); // Assuming fetchStreetName returns a Promise
-
-				// Wait for streetName to be defined
-				while (!streetName) {
-					await new Promise(resolve => setTimeout(resolve, 100)); // Wait for 100 milliseconds before checking again
-				}
-
-				console.log(streetName);
 
 				// Add "On a sunny day," to the beginning of the message
 				var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName +" street." ;
