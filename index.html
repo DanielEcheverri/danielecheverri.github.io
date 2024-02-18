@@ -568,29 +568,26 @@
 
 					checkCoordinates();
 				})
-					.then(() => {
-						// Construct Overpass API query
-						var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:10," + latitude + "," + longitude + ");out;";
-						//console.log(overpassQuery);
-						// Fetch data from Overpass API
-						return fetch(overpassQuery);
-					})
-					.then((response) => response.json())
-					.then((data) => {
-						// Process the response to extract city name or other relevant information
-						if (data.elements && data.elements.length > 0) {
-							streetName = data.elements[0].tags['addr:street'];
-							console.log(streetName);
-						} else {
-							var streetName = "unknown";
-							console.log("City not found.");
-						}
-					})
-					.catch((error) => {
-						console.error("Error fetching city data:", error);
-					});
+				.then(() => {
+					// Construct Overpass API query
+					var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:10," + latitude + "," + longitude + ");out;";
+					// Fetch data from Overpass API
+					return fetch(overpassQuery);
+				})
+				.then((response) => response.json())
+				.then((data) => {
+					// Process the response to extract city name or other relevant information
+					if (data.elements && data.elements.length > 0) {
+						return data.elements[0].tags['addr:street'];
+					} else {
+						return "unknown";
+					}
+				})
+				.catch((error) => {
+					console.error("Error fetching street name:", error);
+					throw error; // Rethrow the error for further handling if needed
+				});
 			}
-
 			var timeoutID; // Variable to hold the timeout ID
 			var previousMessage = ""; // Variable to store the previous message
 
@@ -603,15 +600,10 @@
 
 				// Check if the message has changed
 				if (message !== previousMessage) {
-					// Fetch street name if it's not already fetched
-					if (streetName === undefined) {
-						fetchStreetName();
-					}
-
-					// Check if streetName is defined
-					if (streetName !== undefined) {
-						// Construct full message only if streetName is defined
-						var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName + " street.";
+					// Call fetchStreetName and wait for it to resolve
+					fetchStreetName().then((name) => {
+						// Construct full message
+						var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + name + " street.";
 
 						// Set the text content
 						gestureDiv.textContent = fullMessage;
@@ -625,7 +617,7 @@
 
 						// Update the previous message
 						previousMessage = message;
-					}
+					});
 				}
 
 				// Set a timeout to clear the text after 3 seconds if there's no change
