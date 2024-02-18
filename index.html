@@ -582,7 +582,7 @@
 						// Process the response to extract city name or other relevant information
 						if (data.elements && data.elements.length > 0) {
 							var streetName = data.elements[0].tags["addr:street"];
-							console.log("City:", latitude, longitude, streetName);
+							console.log("Street:", latitude, longitude, streetName);
 						} else {
 							var streetName = "unknown";
 							console.log("City not found.");
