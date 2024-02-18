@@ -573,7 +573,7 @@
 						// Call fetchStreetName and wait for it to resolve
 						fetchStreetName().then((name) => {
 							// Construct full message
-							var fullMessage = "On a " + weatherDescription + timeOfDay + ", the avatar's " + message + " while walking around " + name + " street.";
+							var fullMessage = "On a " + weatherDescription + " " + timeOfDay + ", the avatar's " + message + " while walking around " + name + " street.";
 							// Set the text content
 							gestureDiv.textContent = fullMessage;
 							streetName = name;
@@ -587,7 +587,7 @@
 					} else {
 						// Construct full message using the existing streetName value
 						console.log("old position");
-						var fullMessage = "On a " + weatherDescription +  timeOfDay + ", the avatar's " + message + " while walking around " + streetName + " street.";
+						var fullMessage = "On a " + weatherDescription + " " + timeOfDay + ", the avatar's " + message + " while walking around " + streetName + " street.";
 						// Set the text content
 						gestureDiv.textContent = fullMessage;
 						// Check if message is not empty to show the overlay
