@@ -556,7 +556,7 @@
 
 			var cityName;
 			// Function to fetch city name using Overpass API
-			function fetchCityName() {
+			function fetchStreetName() {
 				return new Promise((resolve, reject) => {
 					const checkCoordinates = () => {
 						if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
@@ -591,8 +591,7 @@
 					});
 			}
 
-			// Fetch city name based on user's coordinates
-			fetchCityName();
+
 
 			var timeoutID; // Variable to hold the timeout ID
 
@@ -602,6 +601,9 @@
 
 				// Clear existing timeout
 				clearTimeout(timeoutID);
+
+				// Fetch city name based on user's coordinates
+				fetchStreetName();
 
 				// Add "On a sunny day," to the beginning of the message
 				var fullMessage = "On a sunny day, the avatar's " + message + " while walking around " + streetName +" street." ;
