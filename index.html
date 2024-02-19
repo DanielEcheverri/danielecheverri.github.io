@@ -540,15 +540,15 @@
 					if (data.elements && data.elements.length > 0) {
 						return data.elements[0].tags['addr:street'];
 					} else {
-						const unknName = "an unknown";
-						return unknName;
+						name = "an unknown";
+						return name;
 					}
 				})
 				.catch((error) => {
 					console.error("Error fetching street name:", error);
 					throw error; // Rethrow the error for further handling if needed
-					const unknName = "an unknown";
-					return unknName;
+					name = "an unknown";
+					return name;
 				});
 			}
 			var timeoutID; // Variable to hold the timeout ID
