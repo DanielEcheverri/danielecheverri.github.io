@@ -530,6 +530,7 @@
 				.then(() => {
 					// Construct Overpass API query
 					var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:10," + latitude + "," + longitude + ");out;";
+					console.log(overpassQuery);
 					// Fetch data from Overpass API
 					return fetch(overpassQuery);
 				})
