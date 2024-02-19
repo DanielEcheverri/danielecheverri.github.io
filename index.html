@@ -526,6 +526,8 @@
 						}
 					};
 					checkCoordinates();
+					// Log the street promise to the console
+					console.log("Fetching street data...");
 				})
 				.then(() => {
 					// Construct Overpass API query
@@ -539,6 +541,7 @@
 					// Process the response to extract city name or other relevant information
 					if (data.elements && data.elements.length > 0) {
 						return data.elements[0].tags['addr:street'];
+						console.log("Street name:", data);
 					} else {
 						name = "an unknown";
 						return name;
