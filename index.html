@@ -118,7 +118,7 @@
 						isConnected = false;
 						document.getElementById("connectButton").textContent = "Connect to Avatar";
 						// Set all potValues to 0
-						potValues = [0, 0, 0, 0, 0, 0, 0, 0];
+						potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 					}
 				} catch (error) {
 					console.error("Error connecting/disconnecting: " + error);
@@ -134,6 +134,7 @@
 				const decodedValue = textDecoder.decode(value);
 				// Pass the received data to Processing sketch
 				receiveData(decodedValue);
+				console.log(decodedValue);
 			}
 			// Function to receive data from JavaScript
 			function receiveData(data) {
@@ -271,7 +272,7 @@
 		</script>
 		<script type="text/javascript">
 			// Processing 4 sketch to visualize movements of the Avatar
-			let numPotentiometers = 8;
+			let numPotentiometers = 9;
 			let potValues;
 			let lineColors;
 			let backgroundColors;
@@ -284,7 +285,7 @@
 			function setup() {
 				var avatarBTCanvas = createCanvas(windowWidth * 0.95, windowHeight * 0.6);
 				avatarBTCanvas.parent("avatarBTdiv");
-				potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
+				potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
 				lineColors = new Array(numPotentiometers);
 				backgroundColors = new Array(numPotentiometers);
 				setupColors();
