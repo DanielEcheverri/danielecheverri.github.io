@@ -338,7 +338,7 @@
 
 			function checkMovement() {
 				// Define thresholds for movement detection
-				let movementThreshold = 10; // Adjust as needed
+				let movementThreshold = 10;
 				// Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
 				let headMovingUp = null;
 				let leftLegMovingUp = null;
@@ -416,9 +416,9 @@
 				// Displaying movement text based on detected head movement
 				if (headMovingUp != null) {
 					if (headMovingUp) {
-						displayMovementText("head is looking up", width / 2, height / 2);
+						displayMovementText("head is moving up");
 					} else {
-						displayMovementText("head is looking down", width / 2, height / 2);
+						displayMovementText("head is moving down");
 					}
 				}
 				// Displaying movement text based on detected left leg movement
@@ -432,9 +432,9 @@
 					rightForearmMovingUp == null
 				) {
 					if (leftLegMovingUp) {
-						displayMovementText("left leg is moving up", width / 2, height / 2 + 40);
+						displayMovementText("left leg is moving up");
 					} else {
-						displayMovementText("left leg is moving down", width / 2, height / 2 + 40);
+						displayMovementText("left leg is moving down");
 					}
 				}
 				// Displaying movement text based on detected right leg movement
@@ -448,39 +448,39 @@
 					rightForearmMovingUp == null
 				) {
 					if (rightLegMovingUp) {
-						displayMovementText("right leg is moving up", width / 2, height / 2 + 80);
+						displayMovementText("right leg is moving up");
 					} else {
-						displayMovementText("right leg is moving down", width / 2, height / 2 + 80);
+						displayMovementText("right leg is moving down");
 					}
 				}
 				// Displaying movement text based on detected left arm movement
 				if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
 					if (leftShoulderMovingUp && leftForearmMovingUp) {
-						displayMovementText("left arm is moving up", width / 2, height / 2 + 120);
+						displayMovementText("left arm is moving up");
 					}
 					if (!leftShoulderMovingUp && !leftForearmMovingUp) {
-						displayMovementText("left arm is moving down", width / 2, height / 2 + 120);
+						displayMovementText("left arm is moving down");
 					}
 				}
 				// Displaying movement text based on detected right arm movement
 				if (rightShoulderMovingUp != null && rightForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
 					if (rightShoulderMovingUp && !rightForearmMovingUp) {
-						displayMovementText("right arm is moving up", width / 2, height / 2 + 160);
+						displayMovementText("right arm is moving up");
 					}
 					if (!rightShoulderMovingUp && rightForearmMovingUp) {
-						displayMovementText("right arm is moving down", width / 2, height / 2 + 160);
+						displayMovementText("right arm is moving down");
 					}
 				}
 				// Displaying movement text based on detected waist movement
 				if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
 					if (waistMoving) {
-						displayMovementText("waist is moving right", width / 2, height / 2 + 200);
+						displayMovementText("waist is moving right");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 					} else {
-						displayMovementText("waist is moving left", width / 2, height / 2 + 200);
+						displayMovementText("waist is moving left");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
@@ -506,13 +506,13 @@
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
-						displayMovementText("body is moving down", width / 2, height / 2 + 240);
+						displayMovementText("body is moving down");
 					} else {
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
-						displayMovementText("body is moving up", width / 2, height / 2 + 240);
+						displayMovementText("body is moving up");
 					}
 				}
 				// Update previous potentiometer values for the next iteration
