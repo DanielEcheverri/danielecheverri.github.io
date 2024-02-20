@@ -110,12 +110,20 @@
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
 						isConnected = true;
 						displayMovementText("presence is online");
 					} else {
 						// Disconnect from the device
 						await characteristic.stopNotifications();
 						await device.gatt.disconnect();
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
 						isConnected = false;
 						document.getElementById("connectButton").textContent = "Connect to Avatar";
 						// Set all potValues to 0
