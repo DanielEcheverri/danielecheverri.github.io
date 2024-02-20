@@ -335,6 +335,7 @@
 			function receiveData(data) {
 				let values = data.split(",");
 				tagID = values.pop(); // Remove and store the last element as tagID
+				readTag();
 				if (values.length === numPotentiometers) { // Check if the length of values is 8
 					for (let i = 0; i < values.length; i++) {
 						potValues[i] = parseFloat(values[i]);
@@ -679,7 +680,6 @@
 				console.log(tagID);
 			}
 
-			readTag();
 
 			function setupColors() {
 				lineColors[0] = color(204, 204, 0); // Dark Yellow
