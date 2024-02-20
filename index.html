@@ -677,7 +677,12 @@
 			}
 
 			function readTag() {
-				console.log(tagID);
+				if (tagID === 12) {
+					document.body.style.backgroundColor = 'deepblue';
+				} else {
+					document.body.style.backgroundColor = ''; // Reset to default background color
+				}
+					console.log(tagID);
 			}
 
 
