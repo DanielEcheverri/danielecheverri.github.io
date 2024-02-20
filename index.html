@@ -111,6 +111,7 @@
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
 						isConnected = true;
+						displayMovementText("the avatar is online");
 					} else {
 						// Disconnect from the device
 						await characteristic.stopNotifications();
@@ -119,6 +120,7 @@
 						document.getElementById("connectButton").textContent = "Connect to Avatar";
 						// Set all potValues to 0
 						potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+						displayMovementText("the avatar is offline");
 					}
 				} catch (error) {
 					console.error("Error connecting/disconnecting: " + error);
@@ -534,7 +536,6 @@
 				.then(() => {
 					// Construct Overpass API query
 					var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:50," + latitude + "," + longitude + ");out;";
-					console.log(overpassQuery);
 					// Fetch data from Overpass API
 					return fetch(overpassQuery);
 				})
@@ -581,7 +582,7 @@
 						// Call fetchStreetName and wait for it to resolve
 						fetchStreetName().then((name) => {
 							// Construct full message
-							var fullMessage = "On a " + weatherDescription + " " + timeOfDay + ", the avatar's " + message + " while walking around " + name + " street.";
+							var fullMessage = "On a " + weatherDescription + timeOfDay + ", the avatar's " + message + " while walking around " + name + " street.";
 							// Set the text content
 							gestureDiv.textContent = fullMessage;
 							streetName = name;
