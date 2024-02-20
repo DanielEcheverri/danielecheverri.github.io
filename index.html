@@ -330,7 +330,7 @@
 				console.log("Values:", values);
 				console.log("Tag ID:", tagID);
 
-				if (values.length === numPotentiometers - 1) { // Check if the length of values is 8
+				if (values.length === numPotentiometers) { // Check if the length of values is 8
 					for (let i = 0; i < values.length; i++) {
 						potValues[i] = parseFloat(values[i]);
 					}
