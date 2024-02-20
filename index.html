@@ -140,7 +140,6 @@
 			function receiveData(data) {
 				if (window.receiveDataFromSerial) {
 					window.receiveDataFromSerial(data);
-					console.log(data);
 				} else {
 					console.error("Processing sketch not initialized.");
 				}
