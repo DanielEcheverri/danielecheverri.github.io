@@ -39,7 +39,7 @@
 				height: 100vh;
 				background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
 				color: white;
-				font-size: 14vw; /* Very big text size */
+				font-size: 12vw; /* Very big text size */
 				display: none; /* Initially hidden */
 				z-index: 9999; /* Ensure it appears above other content */
 				text-align: center; /* Center align the text */
@@ -110,20 +110,12 @@
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
-						detectMovement = false;
-						setTimeout(() => {
-							detectMovement = true;
-						}, cooldownDuration);
 						isConnected = true;
 						displayMovementText("presence is online");
 					} else {
 						// Disconnect from the device
 						await characteristic.stopNotifications();
 						await device.gatt.disconnect();
-						detectMovement = false;
-						setTimeout(() => {
-							detectMovement = true;
-						}, cooldownDuration);
 						isConnected = false;
 						document.getElementById("connectButton").textContent = "Connect to Avatar";
 						// Set all potValues to 0
