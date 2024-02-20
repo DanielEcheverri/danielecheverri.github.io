@@ -286,6 +286,8 @@
 			var previousPotValues = new Array(numPotentiometers);
 			const cooldownDuration = 500; // 1 second
 			let detectMovement = true;
+			let tagID=0;
+
 			function setup() {
 				var avatarBTCanvas = createCanvas(windowWidth * 0.95, windowHeight * 0.6);
 				avatarBTCanvas.parent("avatarBTdiv");
@@ -332,7 +334,7 @@
 			// Function to receive data from JavaScript
 			function receiveData(data) {
 				let values = data.split(",");
-				let tagID = values.pop(); // Remove and store the last element as tagID
+				tagID = values.pop(); // Remove and store the last element as tagID
 				if (values.length === numPotentiometers) { // Check if the length of values is 8
 					for (let i = 0; i < values.length; i++) {
 						potValues[i] = parseFloat(values[i]);
