@@ -327,6 +327,7 @@
 			// Function to receive data from JavaScript
 			function receiveData(data) {
 				let values = data.split(",");
+				console.log(values);
 				if (values.length === numPotentiometers) {
 					for (let i = 0; i < numPotentiometers; i++) {
 						potValues[i] = parseFloat(values[i]);
