@@ -335,7 +335,6 @@
 			function receiveData(data) {
 				let values = data.split(",");
 				tagID = values.pop(); // Remove and store the last element as tagID
-				console.log(tagID);
 				if (values.length === numPotentiometers) { // Check if the length of values is 8
 					for (let i = 0; i < values.length; i++) {
 						potValues[i] = parseFloat(values[i]);
@@ -679,8 +678,10 @@
 			function readTag(tagID) {
 				if (tagID === 12) {
 					document.body.classList.add('tagID-12');
+					console.log("Tag is 12");
 				} else {
 					document.body.classList.remove('tagID-12');
+					console.log("Tag is not 12");
 				}
 			}
 
