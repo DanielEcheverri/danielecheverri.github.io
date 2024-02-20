@@ -116,6 +116,9 @@
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
 						isConnected = true;
 						displayMovementText("presence is online");
+						setTimeout(function() {
+							startDetectMovement = true;
+						}, 4000);
 					} else {
 						// Disconnect from the device
 						await characteristic.stopNotifications();
@@ -125,6 +128,9 @@
 						// Set all potValues to 0
 						potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 						displayMovementText("presence is offline");
+						setTimeout(function() {
+							startDetectMovement = false;
+						}, 4000);
 					}
 				} catch (error) {
 					console.error("Error connecting/disconnecting: " + error);
@@ -286,6 +292,7 @@
 			var previousPotValues = new Array(numPotentiometers);
 			const cooldownDuration = 500; // 1 second
 			let detectMovement = true;
+			let startDetectMovement = false;
 			let tagID;
 
 			function setup() {
@@ -329,7 +336,9 @@
 					text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
 				}
 				// Detect movement and display corresponding text
-				checkMovement();
+				if (startDetectMovement){
+					checkMovement();
+				}
 			}
 			// Function to receive data from JavaScript
 			function receiveData(data) {
