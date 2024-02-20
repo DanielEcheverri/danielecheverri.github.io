@@ -111,7 +111,7 @@
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
 						isConnected = true;
-						displayMovementText("the avatar is online");
+						displayMovementText("presence is online");
 					} else {
 						// Disconnect from the device
 						await characteristic.stopNotifications();
@@ -120,7 +120,7 @@
 						document.getElementById("connectButton").textContent = "Connect to Avatar";
 						// Set all potValues to 0
 						potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-						displayMovementText("the avatar is offline");
+						displayMovementText("presence is offline");
 					}
 				} catch (error) {
 					console.error("Error connecting/disconnecting: " + error);
