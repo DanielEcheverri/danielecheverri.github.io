@@ -641,9 +641,9 @@
 				return fullMessage;
 			}
 
-			function speakMessage(message) {
+			function speakMessage(fullMessage) {
 				// Create a new instance of SpeechSynthesisUtterance
-				const utterance = new SpeechSynthesisUtterance(message);
+				const utterance = new SpeechSynthesisUtterance(fullMessage);
 
 				// Filter available voices to find Karen's voice in Australian English
 				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
