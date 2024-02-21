@@ -580,12 +580,12 @@
 			var previousMessage = ""; // Variable to store the previous message
 			var previousLatitude;
 			var previousLongitude;
+			var timeOfDay = getTimeOfDay();
 
 			// Function to display a composed message
 			function displayText(message) {
 				// Target the existing <div> element with the id "gestureDiv"
 				var gestureDiv = document.getElementById("gestureDiv");
-				var timeOfDay = getTimeOfDay();
 				var fullMessage = message;
 
 				// Clear existing timeout
