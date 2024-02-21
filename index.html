@@ -118,7 +118,7 @@
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
 						isConnected = true;
-						displayText("On a ${weatherDescription} ${timeOfDay}, the avatar became online around ${name} street.");
+						displayText("On a ${weatherDescription}${timeOfDay}, the avatar became online around ${name} street.");
 						setTimeout(function() {
 							startDetectMovement = true;
 						}, 4000);
@@ -133,7 +133,7 @@
 						setTimeout(function() {
 							startDetectMovement = false;
 						}, 4000);
-						displayText("status is offline");
+						displayText("Around ${name} street, the avatar became offline.");
 					}
 				} catch (error) {
 					console.error("Error connecting/disconnecting: " + error);
@@ -696,7 +696,7 @@
 
 			function readTag() {
 				if (tagID === "12") {
-					displayText("world turned blue");
+					displayText("After some time walking up and down ${name} street, the ${timeOfDay} turned blue.");
 				}
 			}
 
