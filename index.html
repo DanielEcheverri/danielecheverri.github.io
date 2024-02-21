@@ -117,7 +117,8 @@
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
 						isConnected = true;
-						displayMovementText("status is online");
+						var message = `On a ${weatherDescription} ${timeOfDay}, the avatar became online around \${name} street.`;
+						displayText(message);
 						setTimeout(function() {
 							startDetectMovement = true;
 						}, 4000);
@@ -132,7 +133,7 @@
 						setTimeout(function() {
 							startDetectMovement = false;
 						}, 4000);
-						displayMovementText("status is offline");
+						displayText("status is offline");
 					}
 				} catch (error) {
 					console.error("Error connecting/disconnecting: " + error);
@@ -434,9 +435,9 @@
 				// Displaying movement text based on detected head movement
 				if (headMovingUp != null) {
 					if (headMovingUp) {
-						displayMovementText("head is moving up");
+						displayText("head is moving up");
 					} else {
-						displayMovementText("head is moving down");
+						displayText("head is moving down");
 					}
 				}
 				// Displaying movement text based on detected left leg movement
@@ -450,9 +451,9 @@
 					rightForearmMovingUp == null
 				) {
 					if (leftLegMovingUp) {
-						displayMovementText("left leg is moving up");
+						displayText("left leg is moving up");
 					} else {
-						displayMovementText("left leg is moving down");
+						displayText("left leg is moving down");
 					}
 				}
 				// Displaying movement text based on detected right leg movement
@@ -466,39 +467,39 @@
 					rightForearmMovingUp == null
 				) {
 					if (rightLegMovingUp) {
-						displayMovementText("right leg is moving up");
+						displayText("right leg is moving up");
 					} else {
-						displayMovementText("right leg is moving down");
+						displayText("right leg is moving down");
 					}
 				}
 				// Displaying movement text based on detected left arm movement
 				if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
 					if (leftShoulderMovingUp && leftForearmMovingUp) {
-						displayMovementText("left arm is moving up");
+						displayText("left arm is moving up");
 					}
 					if (!leftShoulderMovingUp && !leftForearmMovingUp) {
-						displayMovementText("left arm is moving down");
+						displayText("left arm is moving down");
 					}
 				}
 				// Displaying movement text based on detected right arm movement
 				if (rightShoulderMovingUp != null && rightForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
 					if (rightShoulderMovingUp && !rightForearmMovingUp) {
-						displayMovementText("right arm is moving up");
+						displayText("right arm is moving up");
 					}
 					if (!rightShoulderMovingUp && rightForearmMovingUp) {
-						displayMovementText("right arm is moving down");
+						displayText("right arm is moving down");
 					}
 				}
 				// Displaying movement text based on detected waist movement
 				if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
 					if (waistMoving) {
-						displayMovementText("waist is moving right");
+						displayText("waist is moving right");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 					} else {
-						displayMovementText("waist is moving left");
+						displayText("waist is moving left");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
@@ -524,13 +525,13 @@
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
-						displayMovementText("body is moving down");
+						displayText("body is moving down");
 					} else {
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
-						displayMovementText("body is moving up");
+						displayText("body is moving up");
 					}
 				}
 				// Update previous potentiometer values for the next iteration
@@ -580,56 +581,53 @@
 			var previousLatitude;
 			var previousLongitude;
 
-			// Function to display movement text
-			function displayMovementText(message) {
+			// Function to display a composed message
+			function displayText(message) {
 				// Target the existing <div> element with the id "gestureDiv"
 				var gestureDiv = document.getElementById("gestureDiv");
 				var timeOfDay = getTimeOfDay();
+				var fullMessage = message;
+
 				// Clear existing timeout
 				clearTimeout(timeoutID);
-				// Check if the message has changed
-				if (message !== previousMessage) {
-					// Update the previous message
-					previousMessage = message;
-					// Check if latitude or longitude has changed
-					if (latitude !== previousLatitude || longitude !== previousLongitude) {
-						// Update previous latitude and longitude
-						previousLatitude = latitude;
-						previousLongitude = longitude;
-						console.log("new position");
-						// Call fetchStreetName and wait for it to resolve
-						fetchStreetName().then((name) => {
-							// Construct full message
-							var fullMessage = "On a " + weatherDescription + timeOfDay + ", the avatar's " + message + " while walking around " + name + " street.";
-							// Set the text content
-							gestureDiv.textContent = fullMessage;
-							streetName = name;
-							// Check if message is not empty to show the overlay
-							if (message.trim() !== "") {
-								gestureDiv.style.display = "block";
-							} else {
-								gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
-							}
-						});
-					} else {
-						// Construct full message using the existing streetName value
-						console.log("old position");
-						var fullMessage = "On a " + weatherDescription + timeOfDay + ", the avatar's " + message + " while walking around " + streetName + " street.";
-						// Set the text content
-						gestureDiv.textContent = fullMessage;
-						// Check if message is not empty to show the overlay
-						if (message.trim() !== "") {
-							gestureDiv.style.display = "block";
-						} else {
-							gestureDiv.style.display = "none"; // Hide the overlay if the message is empty
-						}
-					}
+
+				// Check if the message contains ${name}
+				var includeName = message.includes("${name}");
+
+				// Check if latitude or longitude has changed
+				if ((latitude !== previousLatitude || longitude !== previousLongitude) && includeName) {
+					// Update previous latitude and longitude
+					previousLatitude = latitude;
+					previousLongitude = longitude;
+					console.log("new position");
+
+					// Call fetchStreetName and wait for it to resolve
+					fetchStreetName().then((name) => {
+						// Compose the full message with fetched name
+						fullMessage = composeMessage(message, weatherDescription, timeOfDay, name);
+						updateDisplay(fullMessage);
+					});
+				} else {
+					// Compose the full message using the existing streetName value
+					fullMessage = composeMessage(message, weatherDescription, timeOfDay, streetName);
+					updateDisplay(fullMessage);
 				}
-				// Set a timeout to clear the text after 3 seconds if there's no change
-				timeoutID = setTimeout(function () {
-					gestureDiv.textContent = ""; // Clear the text
-					gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
-				}, 3000);
+
+				// Update display
+				function updateDisplay(fullMessage) {
+					// Set the text content
+					gestureDiv.textContent = fullMessage;
+					streetName = name;
+
+					// Check if message is not empty to show the overlay
+					gestureDiv.style.display = message.trim() !== "" ? "block" : "none";
+
+					// Set a timeout to clear the text after 3 seconds if there's no change
+					timeoutID = setTimeout(function () {
+						gestureDiv.textContent = ""; // Clear the text
+						gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
+					}, 3000);
+				}
 			}
 
 			let weatherDescription = null;
@@ -689,7 +687,7 @@
 
 			function readTag() {
 				if (tagID === "12") {
-					displayMovementText("world turned blue");
+					displayText("world turned blue");
 				}
 			}
 
