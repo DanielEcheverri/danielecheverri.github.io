@@ -606,6 +606,7 @@
 						// Compose the full message with fetched name
 						fullMessage = composeMessage(message, weatherDescription, timeOfDay, name);
 						updateDisplay(fullMessage);
+						streetName = name;
 					});
 				} else {
 					// Compose the full message using the existing streetName value
@@ -617,7 +618,7 @@
 				function updateDisplay(fullMessage) {
 					// Set the text content
 					gestureDiv.textContent = fullMessage;
-					streetName = name;
+
 
 					// Check if message is not empty to show the overlay
 					gestureDiv.style.display = message.trim() !== "" ? "block" : "none";
