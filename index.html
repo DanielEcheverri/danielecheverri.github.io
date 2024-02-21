@@ -620,7 +620,7 @@
 				function updateDisplay(fullMessage) {
 					// Set the text content
 					gestureDiv.textContent = fullMessage;
-
+					speakMessage(fullMessage)
 
 					// Check if message is not empty to show the overlay
 					gestureDiv.style.display = message.trim() !== "" ? "block" : "none";
@@ -639,6 +639,20 @@
 										.replace(/\$\{timeOfDay\}/g, timeOfDay)
 										.replace(/\$\{name\}/g, name);
 				return fullMessage;
+			}
+
+			function speakMessage(message) {
+				// Create a new instance of SpeechSynthesisUtterance
+				const utterance = new SpeechSynthesisUtterance(message);
+
+				// Filter available voices to find Karen's voice in Australian English
+				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
+
+				// Set the voice to Karen's voice if found, otherwise use the default voice
+				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+
+				// Speak the message
+				speechSynthesis.speak(utterance);
 			}
 
 			let weatherDescription = null;
