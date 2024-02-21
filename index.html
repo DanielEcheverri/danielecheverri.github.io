@@ -97,6 +97,7 @@
 			let characteristic;
 			let isConnected = false; // Track connection state
 			let device; // Declare device variable
+			var message;
 			async function connectToDevice() {
 				try {
 					if (!isConnected) {
@@ -117,8 +118,7 @@
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
 						isConnected = true;
-						var message = `On a ${weatherDescription} ${timeOfDay}, the avatar became online around ${name} street.`;
-						displayText(message);
+						displayText("On a ${weatherDescription} ${timeOfDay}, the avatar became online around ${name} street.");
 						setTimeout(function() {
 							startDetectMovement = true;
 						}, 4000);
