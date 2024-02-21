@@ -117,7 +117,7 @@
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
 						isConnected = true;
-						var message = `On a ${weatherDescription} ${timeOfDay}, the avatar became online around \${name} street.`;
+						var message = `On a ${weatherDescription} ${timeOfDay}, the avatar became online around ${name} street.`;
 						displayText(message);
 						setTimeout(function() {
 							startDetectMovement = true;
@@ -628,6 +628,14 @@
 						gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
 					}, 3000);
 				}
+			}
+
+			// Function to compose the message
+			function composeMessage(template, weatherDescription, timeOfDay, name) {
+				let fullMessage = template.replace(/\$\{weatherDescription\}/g, weatherDescription)
+										.replace(/\$\{timeOfDay\}/g, timeOfDay)
+										.replace(/\$\{name\}/g, name);
+				return fullMessage;
 			}
 
 			let weatherDescription = null;
