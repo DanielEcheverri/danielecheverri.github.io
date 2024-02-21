@@ -133,8 +133,9 @@
 						displayText("Around ${name} street, the avatar became offline.");
 						setTimeout(function() {
 							startDetectMovement = false;
+							potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 						}, 4000);
-						potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 					}
 				} catch (error) {
 					console.error("Error connecting/disconnecting: " + error);
