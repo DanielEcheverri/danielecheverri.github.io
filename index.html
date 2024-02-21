@@ -53,7 +53,7 @@
 			}
 			.button {
 				background-color: #4caf50; /* Green */
-				width: 48%; /* Adjust the width as needed */
+				width: 45%; /* Adjust the width as needed */
 				border: none;
 				color: white;
 				padding: 15px 32px;
@@ -643,27 +643,41 @@
 
 			// Variable to store the last spoken message
 			let lastSpokenMessage = '';
+			let speaking = false;
 
 			function speakMessage(fullMessage) {
 			// Check if the message is the same as the last spoken message
-			if (fullMessage === lastSpokenMessage) {
-				return; // Exit the function without speaking again
-			}
+				if (fullMessage === lastSpokenMessage) {
+					console.log("Message already spoken.");
+					return; // Exit the function without speaking again
+				}
 
-			// Create a new instance of SpeechSynthesisUtterance
-			const utterance = new SpeechSynthesisUtterance(fullMessage);
+				// Check if currently speaking
+				if (speaking) {
+					console.log("Already speaking, new message ignored.");
+					return;
+				}
 
-			// Filter available voices to find Karen's voice in Australian English
-			const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
+				speaking = true;
 
-			// Set the voice to Karen's voice if found, otherwise use the default voice
-			utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+				// Create a new instance of SpeechSynthesisUtterance
+				const utterance = new SpeechSynthesisUtterance(fullMessage);
 
-			// Speak the message
-			speechSynthesis.speak(utterance);
+				// Filter available voices to find Karen's voice in Australian English
+				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
 
-			// Update the last spoken message
-			lastSpokenMessage = fullMessage;
+				// Set the voice to Karen's voice if found, otherwise use the default voice
+				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+
+				// Speak the message
+				speechSynthesis.speak(utterance);
+
+				utterance.onend = function() {
+					speaking = false;
+				}
+
+				// Update the last spoken message
+				lastSpokenMessage = fullMessage;
 			}
 
 
