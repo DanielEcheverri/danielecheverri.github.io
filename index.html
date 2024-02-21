@@ -129,11 +129,12 @@
 						isConnected = false;
 						document.getElementById("connectButton").textContent = "Connect to Avatar";
 						// Set all potValues to 0
-						potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 						displayText("Around ${name} street, the avatar became offline.");
 						setTimeout(function() {
 							startDetectMovement = false;
 						}, 4000);
+						potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 					}
 				} catch (error) {
 					console.error("Error connecting/disconnecting: " + error);
