@@ -13,7 +13,7 @@ function getCurrentLocation() {
 				longitude = position.coords.longitude; // Store longitude globally
 				const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
 				let speed = position.coords.speed || 0; // Speed in meters per second
-				// Reset total distance if speed is less than threshold
+				// Reset total distance if speed is less than threshold.
 				if (speed < speedThreshold) {
 					totalDistance = 0;
 				} else if (previousPosition) {
