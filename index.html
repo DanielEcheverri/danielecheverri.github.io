@@ -501,9 +501,11 @@
 				return new Promise((resolve, reject) => {
 					const checkCoordinates = () => {
 						if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
+							console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
 							resolve();
 						} else {
 							setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
+							console.log("Fetching location...");
 						}
 					};
 					checkCoordinates();
@@ -642,8 +644,10 @@
 				const weatherPromise = new Promise((resolve, reject) => {
 					const checkCoordinates = () => {
 						if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
+
 							resolve();
 						} else {
+							console.log("Fetching location");
 							setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
 						}
 					};
