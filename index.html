@@ -445,7 +445,30 @@
 						displayText("${partMoving} is ${directionMoving}");
 					}
 				}
-				// Displaying movement text based on detected waist movement
+
+				// Displaying movement text based on detected left forearm movement
+				if (leftForearmMovingUp != null && leftForearmMovingUp && !rightForearmMovingUp) {
+					partMoving = "left forearm";
+					directionMoving = "moving up";
+					displayText("${partMoving} is ${directionMoving}");
+				} else if (!leftForearmMovingUp && leftForearmMovingUp != null && !rightForearmMovingUp) {
+					partMoving = "left forearm";
+					directionMoving = "moving down";
+					displayText("${partMoving} is ${directionMoving}");
+				}
+
+				// Displaying movement text based on detected right forearm movement
+				if (rightForearmMovingUp != null && rightForearmMovingUp && !leftForearmMovingUp) {
+					partMoving = "right forearm";
+					directionMoving = "moving up";
+					displayText("${partMoving} is ${directionMoving}");
+				} else if (!rightForearmMovingUp && rightForearmMovingUp != null && !leftForearmMovingUp) {
+					partMoving = "right forearm";
+					directionMoving = "moving down";
+					displayText("${partMoving} is ${directionMoving}");
+				}
+
+				// Displaying movement based on detected waist movement
 				if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
 					partMoving = "waist";
 					if (waistMoving) {
@@ -498,6 +521,7 @@
 				// Update previous potentiometer values for the next iteration
 				previousPotValues = potValues.slice(0, numPotentiometers);
 			}
+
 			var streetName;
 			// Function to fetch city name using Overpass API
 			function fetchStreetName() {
