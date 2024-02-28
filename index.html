@@ -108,6 +108,7 @@
 						function (position) {
 							latitude = position.coords.latitude; // Store latitude globally
 							longitude = position.coords.longitude; // Store longitude globally
+							console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
 							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
 							let speed = position.coords.speed || 0; // Speed in meters per second
 							// Reset total distance if speed is less than threshold
@@ -501,7 +502,6 @@
 				return new Promise((resolve, reject) => {
 					const checkCoordinates = () => {
 						if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
-							console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
 							resolve();
 						} else {
 							setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
