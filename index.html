@@ -233,8 +233,6 @@
 			let detectMovement = true;
 			let startDetectMovement = false;
 			let tagID;
-			let partMoving = "none";
-			let directionMoving = "none";
 
 			function setup() {
 				var avatarBTCanvas = createCanvas(windowWidth, windowHeight * 0.6);
@@ -306,6 +304,8 @@
 				let rightForearmMovingUp = null;
 				let waistMoving = null;
 				let bodyMoving = null;
+				let partMoving = "";
+				let directionMoving = "";
 				if (!detectMovement) {
 					return;
 				}
