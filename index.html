@@ -425,11 +425,11 @@
 				if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
 					partMoving = "left arm";
 					if (leftShoulderMovingUp && leftForearmMovingUp) {
-						directionMoving = "moving up";
+						directionMoving = "moving down";
 						displayText("${partMoving} is ${directionMoving}");
 					}
 					if (!leftShoulderMovingUp && !leftForearmMovingUp) {
-						directionMoving = "moving down";
+						directionMoving = "moving up";
 						displayText("${partMoving} is ${directionMoving}");
 					}
 				}
