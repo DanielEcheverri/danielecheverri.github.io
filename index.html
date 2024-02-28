@@ -369,10 +369,13 @@
 				}
 				// Displaying movement text based on detected head movement
 				if (headMovingUp != null) {
+					partMoving = "head";
 					if (headMovingUp) {
+						directionMoving = "moving up";
 						displayText("head is moving up");
 					} else {
-						displayText("head is moving down");
+						directionMoving = "moving down";
+						displayText("${partMoving} is ${directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected left leg movement
@@ -385,10 +388,14 @@
 					rightShoulderMovingUp == null &&
 					rightForearmMovingUp == null
 				) {
+					partMoving = "left leg";
 					if (leftLegMovingUp) {
-						displayText("left leg is moving up");
+						directionMoving = "moving up";
+						displayText("${partMoving} is ${directionMoving}");
 					} else {
-						displayText("left leg is moving down");
+						partMoving = "left leg";
+						directionMoving = "moving down";
+						displayText("${partMoving} is ${directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected right leg movement
@@ -401,40 +408,53 @@
 					rightShoulderMovingUp == null &&
 					rightForearmMovingUp == null
 				) {
+					partMoving = "right leg";
 					if (rightLegMovingUp) {
-						displayText("right leg is moving up");
+						directionMoving = "moving up";
+						displayText("${partMoving} is ${directionMoving}");
 					} else {
-						displayText("right leg is moving down");
+
+						directionMoving = "moving down";
+						displayText("${partMoving} is ${directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected left arm movement
 				if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
+					partMoving = "left arm";
 					if (leftShoulderMovingUp && leftForearmMovingUp) {
-						displayText("left arm is moving up");
+						directionMoving = "moving up";
+						displayText("${partMoving} is ${directionMoving}");
 					}
 					if (!leftShoulderMovingUp && !leftForearmMovingUp) {
-						displayText("left arm is moving down");
+						directionMoving = "moving down";
+						displayText("${partMoving} is ${directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected right arm movement
 				if (rightShoulderMovingUp != null && rightForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
+					partMoving = "right arm";
 					if (rightShoulderMovingUp && !rightForearmMovingUp) {
-						displayText("right arm is moving up");
+						directionMoving = "moving up";
+						displayText("${partMoving} is ${directionMoving}");
 					}
 					if (!rightShoulderMovingUp && rightForearmMovingUp) {
-						displayText("right arm is moving down");
+						directionMoving = "moving down";
+						displayText("${partMoving} is ${directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected waist movement
 				if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
+					partMoving = "waist";
 					if (waistMoving) {
-						displayText("waist is moving right");
+						directionMoving = "moving right";
+						displayText("${partMoving} is ${directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 					} else {
-						displayText("waist is moving left");
+						directionMoving = "moving left";
+						displayText("${partMoving} is ${directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
@@ -455,18 +475,21 @@
 				}
 				// Displaying movement text based on detected body movement
 				if (bodyMoving != null) {
+					partMoving = "body";
 					if (bodyMoving) {
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
-						displayText("body is moving down");
+						directionMoving = "moving down";
+						displayText("${partMoving} is ${directionMoving}");
 					} else {
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
-						displayText("body is moving up");
+						directionMoving = "moving up";
+						displayText("${partMoving} is ${directionMoving}");
 					}
 				}
 				// Update previous potentiometer values for the next iteration
@@ -516,6 +539,8 @@
 			var previousLatitude;
 			var previousLongitude;
 			var timeOfDay = getTimeOfDay();
+			var partMoving = "";
+			var directionMoving = "";
 
 			// Function to display a composed message
 			function displayText(message) {
