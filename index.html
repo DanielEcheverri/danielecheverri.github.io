@@ -378,7 +378,7 @@
 						displayText("head is moving up");
 					} else {
 						directionMoving = "moving down";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText('${partMoving} is ${directionMoving}');
 					}
 				}
 				// Displaying movement text based on detected left leg movement
@@ -450,14 +450,14 @@
 					partMoving = "waist";
 					if (waistMoving) {
 						directionMoving = "moving right";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText('${partMoving} is ${directionMoving}');
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 					} else {
 						directionMoving = "moving left";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText('${partMoving} is ${directionMoving}');
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
