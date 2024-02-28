@@ -233,8 +233,8 @@
 			let detectMovement = true;
 			let startDetectMovement = false;
 			let tagID;
-			let partMoving = "";
-			let directionMoving = "";
+			let partMoving = "none";
+			let directionMoving = "none";
 
 			function setup() {
 				var avatarBTCanvas = createCanvas(windowWidth, windowHeight * 0.6);
@@ -378,7 +378,7 @@
 						displayText("head is moving up");
 					} else {
 						directionMoving = "moving down";
-						displayText('${partMoving} is ${directionMoving}');
+						displayText("${partMoving} is ${directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected left leg movement
@@ -450,14 +450,14 @@
 					partMoving = "waist";
 					if (waistMoving) {
 						directionMoving = "moving right";
-						displayText('${partMoving} is ${directionMoving}');
+						displayText("${partMoving} is ${directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 					} else {
 						directionMoving = "moving left";
-						displayText('${partMoving} is ${directionMoving}');
+						displayText("${partMoving} is ${directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
