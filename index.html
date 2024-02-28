@@ -290,7 +290,8 @@
 					}
 				}
 			}
-
+			var partMoving = "";
+			var directionMoving = "";
 			function checkMovement() {
 				// Define thresholds for movement detection
 				let movementThreshold = 10;
@@ -304,8 +305,6 @@
 				let rightForearmMovingUp = null;
 				let waistMoving = null;
 				let bodyMoving = null;
-				var partMoving = "";
-				var directionMoving = "";
 				if (!detectMovement) {
 					return;
 				}
