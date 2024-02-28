@@ -228,7 +228,7 @@
 			let potValues;
 			let lineColors;
 			let backgroundColors;
-			let labels = ["LEFT SHOULDER", "LEFT FOREARM", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
+			let labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
 			let isMovingUp = false;
 			let isMovingDown = false;
 			var previousPotValues = new Array(numPotentiometers);
@@ -333,7 +333,7 @@
 						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
 							rightLegMovingUp = true; // Right leg is moving up
 						}
-					} else if (labels[i] == "LEFT SHOULDER") {
+					} else if (labels[i] == "LEFT FOREARM") {
 						// Movement detection for left shoulder (up and down movement)
 						if (potValues[i] < previousPotValues[i] - movementThreshold) {
 							leftShoulderMovingUp = false; // Left shoulder is moving up
@@ -347,7 +347,7 @@
 						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
 							rightShoulderMovingUp = true; // Right shoulder is moving down
 						}
-					} else if (labels[i] == "LEFT FOREARM") {
+					} else if (labels[i] == "LEFT SHOULDER") {
 						// Movement detection for left forearm (up and down movement)
 						if (potValues[i] < previousPotValues[i] - movementThreshold) {
 							leftForearmMovingUp = true; // Left forearm is moving up
@@ -460,11 +460,11 @@
 				// Displaying movement text based on detected right forearm movement
 				if (rightForearmMovingUp != null && rightForearmMovingUp && !leftForearmMovingUp && rightShoulderMovingUp == null) {
 					partMoving = "right forearm";
-					directionMoving = "moving up";
+					directionMoving = "moving right";
 					displayText("${partMoving} is ${directionMoving}");
 				} else if (!rightForearmMovingUp && rightForearmMovingUp != null && !leftForearmMovingUp && rightShoulderMovingUp == null) {
 					partMoving = "right forearm";
-					directionMoving = "moving down";
+					directionMoving = "moving left";
 					displayText("${partMoving} is ${directionMoving}");
 				}
 
