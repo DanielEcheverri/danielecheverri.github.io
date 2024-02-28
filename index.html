@@ -449,11 +449,11 @@
 				// Displaying movement text based on detected left forearm movement
 				if (leftForearmMovingUp != null && leftForearmMovingUp && !rightForearmMovingUp && leftShoulderMovingUp == null) {
 					partMoving = "left forearm";
-					directionMoving = "moving up";
+					directionMoving = "moving left";
 					displayText("${partMoving} is ${directionMoving}");
 				} else if (!leftForearmMovingUp && leftForearmMovingUp != null && !rightForearmMovingUp && leftShoulderMovingUp == null) {
 					partMoving = "left forearm";
-					directionMoving = "moving down";
+					directionMoving = "moving right";
 					displayText("${partMoving} is ${directionMoving}");
 				}
 
