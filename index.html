@@ -31,6 +31,9 @@
 			let isConnected = false; // Track connection state
 			let device; // Declare device variable
 			var message;
+			var partMoving = "";
+			var directionMoving = "";
+
 			async function connectToDevice() {
 				try {
 					if (!isConnected) {
@@ -290,8 +293,6 @@
 					}
 				}
 			}
-			var partMoving = "";
-			var directionMoving = "";
 			function checkMovement() {
 				// Define thresholds for movement detection
 				let movementThreshold = 10;
