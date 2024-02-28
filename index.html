@@ -592,10 +592,12 @@
 			}
 
 			// Function to compose the message
-			function composeMessage(template, weatherDescription, timeOfDay, name) {
+			function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
 				let fullMessage = template.replace(/\$\{weatherDescription\}/g, weatherDescription)
 										.replace(/\$\{timeOfDay\}/g, timeOfDay)
-										.replace(/\$\{name\}/g, name);
+										.replace(/\$\{name\}/g, name)
+										.replace(/\$\{partMoving\}/g, partMoving)
+										.replace(/\$\{directionMoving\}/g, directionMoving);
 				return fullMessage;
 			}
 
