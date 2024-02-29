@@ -619,24 +619,29 @@
 			}
 
 			// Function to compose the message
-			const fs = require('fs');
+			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
+				try {
+					// Fetch JSON data
+					const response = await fetch('sentences.json');
+					const jsonData = await response.json();
 
-			function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
-				// Read the JSON file
-				const jsonData = JSON.parse(fs.readFileSync('sentences.json', 'utf8'));
+					// Select a random object from the JSON array
+					const randomIndex = Math.floor(Math.random() * jsonData.length);
+					const selectedSentence = jsonData[randomIndex].sentence;
 
-				// Select a random object from the JSON array
-				const randomIndex = Math.floor(Math.random() * jsonData.length);
-				const selectedSentence = jsonData[randomIndex].sentence;
+					// Add the word "street" after the {name} variable
+					const modifiedSentence = selectedSentence.replace(/\{name\}/g, name + " street");
 
-				// Replace placeholders with actual values
-				let fullMessage = selectedSentence.replace(/\{weatherDescription\}/g, weatherDescription)
-					.replace(/\{timeOfDay\}/g, timeOfDay)
-					.replace(/\{name\}/g, name)
-					.replace(/\{partMoving\}/g, partMoving)
-					.replace(/\{directionMoving\}/g, directionMoving);
+					// Replace other placeholders with actual values
+					let fullMessage = modifiedSentence.replace(/\{weatherDescription\}/g, weatherDescription)
+						.replace(/\{timeOfDay\}/g, timeOfDay)
+						.replace(/\{partMoving\}/g, partMoving)
+						.replace(/\{directionMoving\}/g, directionMoving);
 
-				return fullMessage;
+					return fullMessage;
+				} catch (error) {
+					console.error('Error fetching or parsing JSON:', error);
+				}
 			}
 
 			// Variable to store the last spoken message
