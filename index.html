@@ -630,7 +630,7 @@
 					const selectedSentence = jsonData[randomIndex].sentence;
 
 					// Replace other placeholders with actual values
-					let fullMessage = modifiedSentence.replace(/\{weatherDescription\}/g, weatherDescription)
+					let fullMessage = selectedSentence.replace(/\{weatherDescription\}/g, weatherDescription)
 						.replace(/\{timeOfDay\}/g, timeOfDay)
 						.replace(/\{partMoving\}/g, partMoving)
 						.replace(/\{directionMoving\}/g, directionMoving);
