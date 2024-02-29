@@ -629,9 +629,6 @@
 					const randomIndex = Math.floor(Math.random() * jsonData.length);
 					const selectedSentence = jsonData[randomIndex].sentence;
 
-					// Add the word "street" after the {name} variable
-					const modifiedSentence = selectedSentence.replace(/\{name\}/g, name + " street");
-
 					// Replace other placeholders with actual values
 					let fullMessage = modifiedSentence.replace(/\{weatherDescription\}/g, weatherDescription)
 						.replace(/\{timeOfDay\}/g, timeOfDay)
