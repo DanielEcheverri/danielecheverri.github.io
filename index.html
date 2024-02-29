@@ -619,26 +619,13 @@
 			}
 
 			// Function to compose the message
-			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
-				try {
-					// Fetch JSON data
-					const response = await fetch('sentences.json');
-					const jsonData = await response.json();
-
-					// Select a random object from the JSON array
-					const randomIndex = Math.floor(Math.random() * jsonData.length);
-					const selectedSentence = jsonData[randomIndex].sentence;
-
-					// Replace other placeholders with actual values
-					let fullMessage = selectedSentence.replace(/\{weatherDescription\}/g, weatherDescription)
-						.replace(/\{timeOfDay\}/g, timeOfDay)
-						.replace(/\{partMoving\}/g, partMoving)
-						.replace(/\{directionMoving\}/g, directionMoving);
-
-					return fullMessage;
-				} catch (error) {
-					console.error('Error fetching or parsing JSON:', error);
-				}
+			function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
+				let fullMessage = template.replace(/\$\{weatherDescription\}/g, weatherDescription)
+										.replace(/\$\{timeOfDay\}/g, timeOfDay)
+										.replace(/\$\{name\}/g, name)
+										.replace(/\$\{partMoving\}/g, partMoving)
+										.replace(/\$\{directionMoving\}/g, directionMoving);
+				return fullMessage;
 			}
 
 			// Variable to store the last spoken message
