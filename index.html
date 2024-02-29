@@ -619,12 +619,23 @@
 			}
 
 			// Function to compose the message
+			const fs = require('fs');
+
 			function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
-				let fullMessage = template.replace(/\$\{weatherDescription\}/g, weatherDescription)
-										.replace(/\$\{timeOfDay\}/g, timeOfDay)
-										.replace(/\$\{name\}/g, name)
-										.replace(/\$\{partMoving\}/g, partMoving)
-										.replace(/\$\{directionMoving\}/g, directionMoving);
+				// Read the JSON file
+				const jsonData = JSON.parse(fs.readFileSync('sentences.json', 'utf8'));
+
+				// Select a random object from the JSON array
+				const randomIndex = Math.floor(Math.random() * jsonData.length);
+				const selectedSentence = jsonData[randomIndex].sentence;
+
+				// Replace placeholders with actual values
+				let fullMessage = selectedSentence.replace(/\{weatherDescription\}/g, weatherDescription)
+					.replace(/\{timeOfDay\}/g, timeOfDay)
+					.replace(/\{name\}/g, name)
+					.replace(/\{partMoving\}/g, partMoving)
+					.replace(/\{directionMoving\}/g, directionMoving);
+
 				return fullMessage;
 			}
 
