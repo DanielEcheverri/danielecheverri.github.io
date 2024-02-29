@@ -427,10 +427,18 @@
 					if (leftShoulderMovingUp && leftForearmMovingUp) {
 						directionMoving = "moving down";
 						displayText("${partMoving} is ${directionMoving}");
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
 					}
 					if (!leftShoulderMovingUp && !leftForearmMovingUp) {
 						directionMoving = "moving up";
 						displayText("${partMoving} is ${directionMoving}");
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
 					}
 				}
 				// Displaying movement text based on detected right arm movement
@@ -439,10 +447,18 @@
 					if (rightShoulderMovingUp && !rightForearmMovingUp) {
 						directionMoving = "moving up";
 						displayText("${partMoving} is ${directionMoving}");
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
 					}
 					if (!rightShoulderMovingUp && rightForearmMovingUp) {
 						directionMoving = "moving down";
 						displayText("${partMoving} is ${directionMoving}");
+						detectMovement = false;
+						setTimeout(() => {
+							detectMovement = true;
+						}, cooldownDuration);
 					}
 				}
 
