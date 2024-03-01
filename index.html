@@ -682,7 +682,7 @@
 			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
 				try {
 					let sentenceTemplate;
-					if (!noNarrative) {
+					if (noNarrative) {
 						// Read sentences from JSON file
 						const sentences = await fetchJSONFile(sentencesFile);
 						if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
@@ -718,8 +718,6 @@
 					return null;
 				}
 			}
-
-
 
 			// Variable to store the last spoken message
 			let lastSpokenMessage = '';
