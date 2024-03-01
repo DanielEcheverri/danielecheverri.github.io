@@ -36,7 +36,6 @@
 			var message;
 			let partMoving = "";
 			let directionMoving = "";
-			displayText("Site on");
 			async function connectToDevice() {
 				try {
 					if (!isConnected) {
@@ -114,6 +113,7 @@
 						function (position) {
 							latitude = position.coords.latitude; // Store latitude globally
 							longitude = position.coords.longitude; // Store longitude globally
+							displayText("${longitude}");
 							console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
 							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
 							let speed = position.coords.speed || 0; // Speed in meters per second
