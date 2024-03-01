@@ -550,7 +550,7 @@
 						if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
 							resolve();
 						} else {
-							setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
+							setTimeout(checkCoordinates, 300); // Check again after 100 milliseconds
 							console.log("Fetching location...");
 						}
 					};
@@ -680,7 +680,7 @@
 				}
 			}
 
-			async function composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving, noNarrative = false) {
+			async function composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude) {
 				try {
 					let sentenceTemplate;
 					if (noNarrative) {
@@ -712,6 +712,8 @@
 						.replace(/\{name\}/g, name)
 						.replace(/\{partMoving\}/g, partMoving)
 						.replace(/\{directionMoving\}/g, directionMoving);
+						.replace(/\{latitude\}/g, latitude);
+						.replace(/\{longitude\}/g, longitude);
 
 					return fullMessage;
 				} catch (err) {
