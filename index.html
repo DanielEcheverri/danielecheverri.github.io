@@ -628,9 +628,7 @@
 						// Compose the full message using the existing streetName value
 						composeMessage(sentencesFile, weatherDescription, timeOfDay, streetName, partMoving, directionMoving)
 							.then((fullMessage) => {
-								updateDisplay(fullMessage);
-								streetName = name;
-							})
+								updateDisplay(fullMessage);							})
 							.catch(error => {
 								console.error(error);
 							});

@@ -1,6 +1,6 @@
 [
 	{
-		"sentence": "Under the {weatherDescription} sky of {timeOfDay}, along {name} street, a {partMoving} swung {directionMoving} at {speed} meters per second, as if dancing with the wind."
+		"sentence": "Under the {weatherDescription} sky of the {timeOfDay}, along {name} street, a {partMoving} swung {directionMoving} at {speed} meters per second, as if dancing with the wind."
 	},
 	{
 		"sentence": "In the tranquil morning mist on {name} street, a {partMoving} stretched {directionMoving} slowly, welcoming the day's gentle embrace."
