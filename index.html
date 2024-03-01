@@ -607,14 +607,26 @@
 					// Call fetchStreetName and wait for it to resolve
 					fetchStreetName().then((name) => {
 						// Compose the full message with fetched name
-						fullMessage = composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving );
+						composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving)
+								.then((fullMessage) => {
+									updateDisplay(fullMessage);
+									streetName = name;
+								})
+								.catch(error => {
+									console.error(error);
+								});
 						updateDisplay(fullMessage);
-						streetName = name;
 					});
 				} else {
 					// Compose the full message using the existing streetName value
-					fullMessage = composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving);
-					updateDisplay(fullMessage);
+						composeMessage(sentencesFile, weatherDescription, timeOfDay, streetName, partMoving, directionMoving)
+								.then((fullMessage) => {
+									updateDisplay(fullMessage);
+									streetName = name;
+								})
+								.catch(error => {
+									console.error(error);
+								});									updateDisplay(fullMessage);
 				}
 
 				// Update display
@@ -635,13 +647,34 @@
 			}
 
 			// Function to compose the message
-			function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
-				let fullMessage = template.replace(/\$\{weatherDescription\}/g, weatherDescription)
-										.replace(/\$\{timeOfDay\}/g, timeOfDay)
-										.replace(/\$\{name\}/g, name)
-										.replace(/\$\{partMoving\}/g, partMoving)
-										.replace(/\$\{directionMoving\}/g, directionMoving);
-				return fullMessage;
+			const sentencesFile = 'sentences.json';
+
+			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
+				try {
+					const response = await fetch(sentencesFile);
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					const sentences = await response.json();
+					if (!sentences || !Array.isArray(sentences)) {
+						return "Error: Unable to load sentences.";
+					}
+
+					// Select a random sentence from the array
+					const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
+
+					// Replace placeholders in the selected sentence
+					let fullMessage = randomSentence.replace(/\$\{weatherDescription\}/g, weatherDescription)
+						.replace(/\$\{timeOfDay\}/g, timeOfDay)
+						.replace(/\$\{name\}/g, name)
+						.replace(/\$\{partMoving\}/g, partMoving)
+						.replace(/\$\{directionMoving\}/g, directionMoving);
+
+					return fullMessage;
+				} catch (err) {
+					console.error('Error fetching or composing message:', err);
+					return null;
+				}
 			}
 
 			// Variable to store the last spoken message
