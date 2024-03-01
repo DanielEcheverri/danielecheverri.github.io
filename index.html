@@ -680,24 +680,30 @@
 				}
 			}
 
-			async function composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
+			async function composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving, noNarrative = false) {
 				try {
-					// Read sentences from JSON file
-					const sentences = await fetchJSONFile(sentencesFile);
-					if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
-						throw new Error("Error: Unable to load or empty sentences array.");
+					let sentenceTemplate;
+					if (!noNarrative) {
+						// Read sentences from JSON file
+						const sentences = await fetchJSONFile(sentencesFile);
+						if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
+							throw new Error("Error: Unable to load or empty sentences array.");
+						}
+
+						// Select a random sentence object from the array
+						const randomSentenceObject = sentences[Math.floor(Math.random() * sentences.length)];
+
+						// Ensure that the random sentence object has the "sentence" property and it's a string
+						if (!randomSentenceObject || typeof randomSentenceObject.sentence !== 'string') {
+							throw new Error("Error: Random sentence object is invalid.");
+						}
+
+						// Extract the sentence template from the random sentence object
+						sentenceTemplate = randomSentenceObject.sentence;
+					} else {
+						// If noNarrative is set to true, keep the original message template
+						sentenceTemplate = sentencesFile;
 					}
-
-					// Select a random sentence object from the array
-					const randomSentenceObject = sentences[Math.floor(Math.random() * sentences.length)];
-
-					// Ensure that the random sentence object has the "sentence" property and it's a string
-					if (!randomSentenceObject || typeof randomSentenceObject.sentence !== 'string') {
-						throw new Error("Error: Random sentence object is invalid.");
-					}
-
-					// Extract the sentence template from the random sentence object
-					const sentenceTemplate = randomSentenceObject.sentence;
 
 					// Replace placeholders in the sentence template
 					let fullMessage = sentenceTemplate
@@ -713,6 +719,7 @@
 					return null;
 				}
 			}
+
 
 
 			// Variable to store the last spoken message
@@ -818,9 +825,15 @@
 				}
 			}
 
+			var noNarrative = false;
 			function readTag() {
 				if (tagID === "12") {
-					displayText("After some time walking up and down ${name} street, the day turned blue.");
+					noNarrative = true;
+					displayText("No narrative");
+				}
+				if (tagID === "13") {
+					noNarrative = false;
+					displayText("What a delicious apple, it said while taking a bit out of it");
 				}
 			}
 
