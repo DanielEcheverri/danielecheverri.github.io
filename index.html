@@ -594,6 +594,11 @@
 				var gestureDiv = document.getElementById("gestureDiv");
 				var fullMessage = message;
 
+				// Check if speaking is true, if so, exit early
+				if (speaking) {
+					return;
+				}
+
 				clearTimeout(timeoutID);
 
 				// Check if partMoving or directionMoving has changed
