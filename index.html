@@ -652,26 +652,32 @@
 			// Function to compose the message
 			const sentencesFile = 'sentences.json';
 
-			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
+			async function composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
 				try {
-					const response = await fetch(sentencesFile);
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
-					}
-					const sentences = await response.json();
-					if (!sentences || !Array.isArray(sentences)) {
-						return "Error: Unable to load sentences.";
+					// Read sentences from JSON file
+					const sentences = await fetchJSONFile(sentencesFile);
+					if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
+						throw new Error("Error: Unable to load or empty sentences array.");
 					}
 
-					// Select a random sentence from the array
-					const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
+					// Select a random sentence object from the array
+					const randomSentenceObject = sentences[Math.floor(Math.random() * sentences.length)];
 
-					// Replace placeholders in the selected sentence
-					let fullMessage = randomSentence.replace(/\$\{weatherDescription\}/g, weatherDescription)
-						.replace(/\$\{timeOfDay\}/g, timeOfDay)
-						.replace(/\$\{name\}/g, name)
-						.replace(/\$\{partMoving\}/g, partMoving)
-						.replace(/\$\{directionMoving\}/g, directionMoving);
+					// Ensure that the random sentence object has the "sentence" property and it's a string
+					if (!randomSentenceObject || typeof randomSentenceObject.sentence !== 'string') {
+						throw new Error("Error: Random sentence object is invalid.");
+					}
+
+					// Extract the sentence template from the random sentence object
+					const sentenceTemplate = randomSentenceObject.sentence;
+
+					// Replace placeholders in the sentence template
+					let fullMessage = sentenceTemplate
+						.replace(/\{weatherDescription\}/g, weatherDescription)
+						.replace(/\{timeOfDay\}/g, timeOfDay)
+						.replace(/\{name\}/g, name)
+						.replace(/\{partMoving\}/g, partMoving)
+						.replace(/\{directionMoving\}/g, directionMoving);
 
 					return fullMessage;
 				} catch (err) {
@@ -679,6 +685,7 @@
 					return null;
 				}
 			}
+
 
 			// Variable to store the last spoken message
 			let lastSpokenMessage = '';
