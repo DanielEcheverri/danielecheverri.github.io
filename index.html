@@ -649,11 +649,17 @@
 					// Check if message is not empty to show the overlay
 					gestureDiv.style.display = message.trim() !== "" ? "block" : "none";
 
-					// Set a timeout to clear the text after 3 seconds if there's no change
-					timeoutID = setTimeout(function () {
-						gestureDiv.textContent = ""; // Clear the text
-						gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
-					}, 3000);
+					// Set a timeout to clear the text after 3 seconds or until speaking becomes false
+					var timeoutCallback = function () {
+						if (!speaking) {
+							gestureDiv.textContent = ""; // Clear the text
+							gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
+						} else {
+							timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
+						}
+					};
+
+					timeoutID = setTimeout(timeoutCallback, 3000);
 				}
 			}
 
