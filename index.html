@@ -620,7 +620,7 @@
 						// Call fetchStreetName and wait for it to resolve
 						fetchStreetName().then((name) => {
 							// Compose the full message with fetched name
-							composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving)
+							composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude)
 								.then((fullMessage) => {
 									updateDisplay(fullMessage);
 									streetName = name;
@@ -631,7 +631,7 @@
 						});
 					} else {
 						// Compose the full message using the existing streetName value
-						composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving)
+						composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude)
 							.then((fullMessage) => {
 								updateDisplay(fullMessage);							})
 							.catch(error => {
@@ -679,7 +679,7 @@
 				}
 			}
 
-			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
+			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude) {
 				try {
 					let sentenceTemplate;
 					if (!noNarrative) {
@@ -710,7 +710,9 @@
 						.replace(/\{timeOfDay\}/g, timeOfDay)
 						.replace(/\{name\}/g, name)
 						.replace(/\{partMoving\}/g, partMoving)
-						.replace(/\{directionMoving\}/g, directionMoving);
+						.replace(/\{directionMoving\}/g, directionMoving)
+						.replace(/\{latitude\}/g, latitude)
+						.replace(/\{longitude\}/g, longitude);
 
 					return fullMessage;
 				} catch (err) {
