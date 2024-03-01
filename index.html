@@ -651,6 +651,7 @@
 
 					// Set a timeout to clear the text after 3 seconds or until speaking becomes false
 					var timeoutCallback = function () {
+						console.log(speaking);
 						if (!speaking) {
 							gestureDiv.textContent = ""; // Clear the text
 							gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
