@@ -663,7 +663,6 @@
 				}
 			}
 
-
 			// Function to compose the message
 			const sentencesFile = 'sentences.json';
 
@@ -680,7 +679,7 @@
 				}
 			}
 
-			async function composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
+			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
 				try {
 					let sentenceTemplate;
 					if (!noNarrative) {
@@ -702,7 +701,7 @@
 						sentenceTemplate = randomSentenceObject.sentence;
 					} else {
 						// If noNarrative is set to true, keep the original message template
-						sentenceTemplate = "";
+						sentenceTemplate = template;
 					}
 
 					// Replace placeholders in the sentence template
