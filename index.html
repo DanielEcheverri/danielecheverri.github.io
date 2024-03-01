@@ -620,7 +620,7 @@
 						// Call fetchStreetName and wait for it to resolve
 						fetchStreetName().then((name) => {
 							// Compose the full message with fetched name
-							composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving)
+							composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving)
 								.then((fullMessage) => {
 									updateDisplay(fullMessage);
 									streetName = name;
@@ -631,7 +631,7 @@
 						});
 					} else {
 						// Compose the full message using the existing streetName value
-						composeMessage(sentencesFile, weatherDescription, timeOfDay, streetName, partMoving, directionMoving)
+						composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving)
 							.then((fullMessage) => {
 								updateDisplay(fullMessage);							})
 							.catch(error => {
