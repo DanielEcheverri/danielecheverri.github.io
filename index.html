@@ -113,7 +113,7 @@
 						function (position) {
 							latitude = position.coords.latitude; // Store latitude globally
 							longitude = position.coords.longitude; // Store longitude globally
-							displayText("${longitude}");
+							displayText("Location acquired");
 							console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
 							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
 							let speed = position.coords.speed || 0; // Speed in meters per second
@@ -680,7 +680,7 @@
 				}
 			}
 
-			async function composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude) {
+			async function composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving) {
 				try {
 					let sentenceTemplate;
 					if (noNarrative) {
@@ -712,8 +712,6 @@
 						.replace(/\{name\}/g, name)
 						.replace(/\{partMoving\}/g, partMoving)
 						.replace(/\{directionMoving\}/g, directionMoving);
-						.replace(/\{latitude\}/g, latitude);
-						.replace(/\{longitude\}/g, longitude);
 
 					return fullMessage;
 				} catch (err) {
