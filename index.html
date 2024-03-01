@@ -36,7 +36,7 @@
 			var message;
 			let partMoving = "";
 			let directionMoving = "";
-
+			displayText("Site on");
 			async function connectToDevice() {
 				try {
 					if (!isConnected) {
@@ -825,15 +825,15 @@
 				}
 			}
 
-			var noNarrative = false;
+			var noNarrative = true;
 			function readTag() {
 				if (tagID === "12") {
-					noNarrative = true;
-					displayText("No narrative");
+					noNarrative = false;
+					displayText("Non-narrative");
 				}
 				if (tagID === "13") {
-					noNarrative = false;
-					displayText("What a delicious apple, it said while taking a bit out of it");
+					noNarrative = true;
+					displayText("Narrative");
 				}
 			}
 
