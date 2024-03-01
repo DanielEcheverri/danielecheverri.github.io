@@ -588,29 +588,32 @@
 			var previousLongitude;
 			var timeOfDay = getTimeOfDay();
 
-			// Function to display a composed message
 			function displayText(message) {
-				// Target the existing <div> element with the id "gestureDiv"
 				var gestureDiv = document.getElementById("gestureDiv");
 				var fullMessage = message;
 
-				// Clear existing timeout
 				clearTimeout(timeoutID);
 
-				// Check if the message contains ${name}
-				var includeName = message.includes("${name}");
+				// Check if partMoving or directionMoving has changed
+				if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
+					// Update previous partMoving and directionMoving
+					previousPartMoving = partMoving;
+					previousDirectionMoving = directionMoving;
 
-				// Check if latitude or longitude has changed
-				if ((latitude !== previousLatitude || longitude !== previousLongitude) && includeName) {
-					// Update previous latitude and longitude
-					previousLatitude = latitude;
-					previousLongitude = longitude;
-					console.log("new position");
+					// Check if the message contains ${name}
+					var includeName = message.includes("${name}");
 
-					// Call fetchStreetName and wait for it to resolve
-					fetchStreetName().then((name) => {
-						// Compose the full message with fetched name
-						composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving)
+					// Check if latitude or longitude has changed
+					if ((latitude !== previousLatitude || longitude !== previousLongitude) && includeName) {
+						// Update previous latitude and longitude
+						previousLatitude = latitude;
+						previousLongitude = longitude;
+						console.log("new position");
+
+						// Call fetchStreetName and wait for it to resolve
+						fetchStreetName().then((name) => {
+							// Compose the full message with fetched name
+							composeMessage(sentencesFile, weatherDescription, timeOfDay, name, partMoving, directionMoving)
 								.then((fullMessage) => {
 									updateDisplay(fullMessage);
 									streetName = name;
@@ -618,18 +621,18 @@
 								.catch(error => {
 									console.error(error);
 								});
-						updateDisplay(fullMessage);
-					});
-				} else {
-					// Compose the full message using the existing streetName value
+						});
+					} else {
+						// Compose the full message using the existing streetName value
 						composeMessage(sentencesFile, weatherDescription, timeOfDay, streetName, partMoving, directionMoving)
-								.then((fullMessage) => {
-									updateDisplay(fullMessage);
-									streetName = name;
-								})
-								.catch(error => {
-									console.error(error);
-								});									updateDisplay(fullMessage);
+							.then((fullMessage) => {
+								updateDisplay(fullMessage);
+								streetName = name;
+							})
+							.catch(error => {
+								console.error(error);
+							});
+					}
 				}
 
 				// Update display
@@ -648,6 +651,7 @@
 					}, 3000);
 				}
 			}
+
 
 			// Function to compose the message
 			const sentencesFile = 'sentences.json';
