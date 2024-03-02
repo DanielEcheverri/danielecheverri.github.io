@@ -58,11 +58,17 @@ h1 {
 }
 /* Disconnect button style */
 #connectButton {
-	background-color: #0082fc; /* Red */
+	background-color: #0082fc; /* Blue */
 }
 
 /* Style for disabled */
-.button[disabled] {
+#connectButton[disabled] {
+	background-color: #dddddd; /* Light gray */
+	color: #aaaaaa; /* Dark gray */
+	cursor: not-allowed;
+}
+
+#findClosestShopButton[disabled] {
 	background-color: #dddddd; /* Light gray */
 	color: #aaaaaa; /* Dark gray */
 	cursor: not-allowed;
@@ -70,5 +76,5 @@ h1 {
 
 /* Find Closest Shop button style */
 #findClosestShopButton {
-	background-color: #6eb183; /* Blue */
+	background-color: #6eb183; /* Green */
 }
