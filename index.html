@@ -759,6 +759,11 @@
 				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
 				// Set the voice to Karen's voice if found, otherwise use the default voice
 				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+				// Event handler for speech synthesis error
+				utterance.onerror = function(event) {
+					console.error("Speech synthesis error:", event.error);
+					speaking = false; // Reset speaking flag
+				};
 				// Speak the message
 				speechSynthesis.speak(utterance);
 				utterance.onend = function() {
