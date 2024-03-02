@@ -60,6 +60,14 @@ h1 {
 #connectButton {
 	background-color: #0082fc; /* Red */
 }
+
+/* Style for disabled #connectButton */
+#connectButton[disabled] {
+	background-color: #dddddd; /* Light gray */
+	color: #aaaaaa; /* Dark gray */
+	cursor: not-allowed;
+}
+
 /* Find Closest Shop button style */
 #findClosestShopButton {
 	background-color: #6eb183; /* Blue */
