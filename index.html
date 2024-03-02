@@ -607,9 +607,10 @@
 			var previousDirectionMoving;
 			var timeOfDay = getTimeOfDay();
 
+			var fullMessage;
 			function displayText(message) {
 				var gestureDiv = document.getElementById("gestureDiv");
-				var fullMessage = message;
+				fullMessage = message;
 
 				// Check if speaking is true, if so, exit early
 				if (speaking) {
@@ -725,7 +726,7 @@
 					}
 
 					// Replace placeholders in the sentence template
-					let fullMessage = sentenceTemplate
+					fullMessage = sentenceTemplate
 						.replace(/\{weatherDescription\}/g, weatherDescription)
 						.replace(/\{timeOfDay\}/g, timeOfDay)
 						.replace(/\{name\}/g, name)
@@ -748,7 +749,6 @@
 
 			function speakMessage(fullMessage) {
 			// Check if the message is the same as the last spoken message
-			try{
 				if (fullMessage === lastSpokenMessage) {
 					console.log("Message already spoken.");
 					return; // Exit the function without speaking again
@@ -776,12 +776,8 @@
 				utterance.onend = function() {
 					speaking = false;
 				}
-
 				// Update the last spoken message
 				lastSpokenMessage = fullMessage;
-			} catch (err) {
-					console.error('Error fetching or composing message:', err);
-			}
 			}
 
 
