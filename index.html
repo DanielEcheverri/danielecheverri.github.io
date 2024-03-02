@@ -607,11 +607,8 @@
 					previousPartMoving = partMoving;
 					previousDirectionMoving = directionMoving;
 
-					// Check if the message contains ${name}
-					var includeName = message.includes("${name}");
-
 					// Check if latitude or longitude has changed
-					if ((latitude !== previousLatitude || longitude !== previousLongitude) && includeName) {
+					if (latitude !== previousLatitude || longitude !== previousLongitude) {
 						// Update previous latitude and longitude
 						previousLatitude = latitude;
 						previousLongitude = longitude;
