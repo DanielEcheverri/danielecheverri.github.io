@@ -727,33 +727,33 @@
 			let speaking = false;
 
 			function speakMessage(fullMessage) {
-			console.log("Starting speakingMessage");
-			// Check if the message is the same as the last spoken message
 				if (fullMessage === lastSpokenMessage) {
 					console.log("Message already spoken.");
-					return; // Exit the function without speaking again
+					return;
 				}
 
-				// Check if currently speaking
 				if (speaking) {
 					console.log("Already speaking, new message ignored.");
 					return;
 				}
-				speaking = true;
-				// Create a new instance of SpeechSynthesisUtterance.
-				const utterance = new SpeechSynthesisUtterance(fullMessage);
-				// Filter available voices to find Karen's voice in Australian English
-				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
-				// Set the voice to Karen's voice if found, otherwise use the default voice
-				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
-				// Speak the message
-				speechSynthesis.speak(utterance);
-				utterance.onend = function() {
-					speaking = false;
-				}
 
-				// Update the last spoken message
+				speaking = true;
+				const utterance = new SpeechSynthesisUtterance(fullMessage);
+				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
+				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+				speechSynthesis.speak(utterance);
+				utterance.onend = () => {
+					speaking = false;
+					// Once speech is finished, clear the message
+					clearMessage();
+				}
 				lastSpokenMessage = fullMessage;
+			}
+
+			function clearMessage() {
+				const gestureDiv = document.getElementById("gestureDiv");
+				gestureDiv.textContent = "";
+				gestureDiv.style.display = "none";
 			}
 
 
