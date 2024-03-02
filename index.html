@@ -113,7 +113,6 @@
 						function (position) {
 							latitude = position.coords.latitude; // Store latitude globally
 							longitude = position.coords.longitude; // Store longitude globally
-							displayText("Location OK");
 							console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
 							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
 							let speed = position.coords.speed || 0; // Speed in meters per second
@@ -187,6 +186,7 @@
 				return distance;
 			}
 			getCurrentLocation();
+
 			async function findClosestShop() {
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(async function (position) {
@@ -727,33 +727,32 @@
 			let speaking = false;
 
 			function speakMessage(fullMessage) {
+			// Check if the message is the same as the last spoken message
 				if (fullMessage === lastSpokenMessage) {
 					console.log("Message already spoken.");
-					return;
+					return; // Exit the function without speaking again
 				}
 
+				// Check if currently speaking
 				if (speaking) {
 					console.log("Already speaking, new message ignored.");
 					return;
 				}
-
 				speaking = true;
+				// Create a new instance of SpeechSynthesisUtterance.
 				const utterance = new SpeechSynthesisUtterance(fullMessage);
+				// Filter available voices to find Karen's voice in Australian English
 				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
+				// Set the voice to Karen's voice if found, otherwise use the default voice
 				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+				// Speak the message
 				speechSynthesis.speak(utterance);
-				utterance.onend = () => {
+				utterance.onend = function() {
 					speaking = false;
-					// Once speech is finished, clear the message
-					clearMessage();
 				}
-				lastSpokenMessage = fullMessage;
-			}
 
-			function clearMessage() {
-				const gestureDiv = document.getElementById("gestureDiv");
-				gestureDiv.textContent = "";
-				gestureDiv.style.display = "none";
+				// Update the last spoken message
+				lastSpokenMessage = fullMessage;
 			}
 
 
