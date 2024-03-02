@@ -741,7 +741,7 @@
 			let speaking = false;
 
 			function speakMessage(fullMessage) {
-			// Check if the message is the same as the last spoken message
+				// Check if the message is the same as the last spoken message
 				if (fullMessage === lastSpokenMessage) {
 					console.log("Message already spoken.");
 					return; // Exit the function without speaking again
@@ -752,23 +752,46 @@
 					console.log("Already speaking, new message ignored.");
 					return;
 				}
+
 				speaking = true;
-				// Create a new instance of SpeechSynthesisUtterance.
-				const utterance = new SpeechSynthesisUtterance(fullMessage);
-				// Filter available voices to find Karen's voice in Australian English
-				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
-				// Set the voice to Karen's voice if found, otherwise use the default voice
-				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
-				// Speak the message
-				speechSynthesis.speak(utterance);
-				utterance.onend = function() {
-					speaking = false;
+
+				// Function to speak the message
+				function speakWithVoice() {
+					// Create a new instance of SpeechSynthesisUtterance.
+					const utterance = new SpeechSynthesisUtterance(fullMessage);
+
+					// Filter available voices to find Karen's voice in Australian English
+					const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
+
+					// Set the voice to Karen's voice if found, otherwise use the default voice
+					utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+
+					// Speak the message
+					speechSynthesis.speak(utterance);
+
+					// Event listener for when speech ends
+					utterance.onend = function() {
+						speaking = false;
+					}
+
+					// Update the last spoken message
+					lastSpokenMessage = fullMessage;
 				}
 
-				// Update the last spoken message
-				lastSpokenMessage = fullMessage;
+				// Check if voices are already loaded
+				if (speechSynthesis.getVoices().length !== 0) {
+					// Voices are already loaded, speak the message immediately
+					speakWithVoice();
+				} else {
+					// Voices are not yet loaded, listen for the voiceschanged event
+					speechSynthesis.onvoiceschanged = function() {
+						// Once voices are loaded, speak the message
+						speakWithVoice();
+						// Remove the event listener to prevent multiple firings
+						speechSynthesis.onvoiceschanged = null;
+					}
+				}
 			}
-
 
 			let weatherDescription = null;
 			// Define fetchWeather function
