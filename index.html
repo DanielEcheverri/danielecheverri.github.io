@@ -62,13 +62,13 @@
 						}, 4000);
 					} else {
 						// Disconnect from the device
-						displayText("Around {name} street, the avatar became offline.");
 						await characteristic.stopNotifications();
 						await device.gatt.disconnect();
 						isConnected = false;
 						document.getElementById("connectButton").textContent = "Connect to Avatar";
 						// Set all potValues to 0
 						setTimeout(function() {
+							displayText("Around {name} street, the avatar became offline.");
 							startDetectMovement = false;
 							potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 						}, 4000);
