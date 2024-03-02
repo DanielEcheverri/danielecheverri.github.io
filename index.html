@@ -748,6 +748,7 @@
 
 			function speakMessage(fullMessage) {
 			// Check if the message is the same as the last spoken message
+			try{
 				if (fullMessage === lastSpokenMessage) {
 					console.log("Message already spoken.");
 					return; // Exit the function without speaking again
@@ -778,6 +779,9 @@
 
 				// Update the last spoken message
 				lastSpokenMessage = fullMessage;
+			} catch (err) {
+					console.error('Error fetching or composing message:', err);
+			}
 			}
 
 
