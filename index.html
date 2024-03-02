@@ -101,6 +101,7 @@
 				// Check if latitude, longitude, and weatherDescription are not null
 				if (latitude !== null && longitude !== null && weatherDescription !== null) {
 					displayText("Ready to connect Avatar BT {speed}");
+					findClosestShopButton.click();
 				} else {
 					// If any variable is still null, wait for a short delay and check again
 					setTimeout(checkVariables, 1000); // Adjust delay as needed (here 1000 milliseconds or 1 second)
