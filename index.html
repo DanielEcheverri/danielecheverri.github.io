@@ -826,10 +826,12 @@
 			function readTag() {
 				if (tagID === "12") {
 					noNarrative = false;
+					console.log("Non-narrative");
 					displayText("Non-narrative");
 				}
 				if (tagID === "13") {
 					noNarrative = true;
+					console.log("Narrative");
 					displayText("Narrative");
 				}
 			}
