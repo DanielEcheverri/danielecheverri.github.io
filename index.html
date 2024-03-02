@@ -224,6 +224,7 @@
 				return d;
 			}
 		</script>
+
 		<script type="text/javascript">
 			// Processing 4 sketch to visualize movements of the Avatar
 			let numPotentiometers = 8;
@@ -284,6 +285,7 @@
 					checkMovement();
 				}
 			}
+
 			// Function to receive data from JavaScript
 			function receiveData(data) {
 				let values = data.split(",");
@@ -295,6 +297,7 @@
 					}
 				}
 			}
+
 			function checkMovement() {
 				// Define thresholds for movement detection
 				let movementThreshold = 10;
@@ -308,6 +311,7 @@
 				let rightForearmMovingUp = null;
 				let waistMoving = null;
 				let bodyMoving = null;
+
 				if (!detectMovement) {
 					return;
 				}
@@ -485,7 +489,6 @@
 					directionMoving = "moving left";
 					displayText("{partMoving} is {directionMoving}");
 				}
-
 
 				// Displaying movement based on detected waist movement
 				if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
@@ -826,13 +829,13 @@
 			function readTag() {
 				if (tagID === "12") {
 					noNarrative = false;
-					console.log("Non-narrative");
-					displayText("Non-narrative");
+					console.log("Narrative");
+					displayText("Narrative");
 				}
 				if (tagID === "13") {
 					noNarrative = true;
-					console.log("Narrative");
-					displayText("Narrative");
+					console.log("Non-narrative");
+					displayText("Non-narrative");
 				}
 			}
 
