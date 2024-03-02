@@ -639,7 +639,7 @@
 							});
 					}
 				}
-			}
+
 				// Update display
 				function updateDisplay(fullMessage) {
 					// Set the text content
@@ -661,6 +661,7 @@
 
 					timeoutID = setTimeout(timeoutCallback, 3000);
 				}
+			}
 
 			// Function to compose the message
 			const sentencesFile = 'sentences.json';
@@ -753,6 +754,7 @@
 				// Update the last spoken message
 				lastSpokenMessage = fullMessage;
 			}
+
 
 			let weatherDescription = null;
 			// Define fetchWeather function
