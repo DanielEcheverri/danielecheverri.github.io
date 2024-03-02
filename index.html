@@ -657,25 +657,29 @@
 
 				// Update display
 				function updateDisplay(fullMessage) {
-					// Set the text content
-					gestureDiv.textContent = fullMessage;
-					speakMessage(fullMessage)
+					try {
+						// Set the text content
+						gestureDiv.textContent = fullMessage;
+						speakMessage(fullMessage);
 
-					// Check if message is not empty to show the overlay
-					gestureDiv.style.display = message.trim() !== "" ? "block" : "none";
+						// Check if message is not empty to show the overlay
+						gestureDiv.style.display = message.trim() !== "" ? "block" : "none";
 
-					// Set a timeout to clear the text after 3 seconds or until speaking becomes false
-					var timeoutCallback = function () {
-						if (!speaking) {
-							gestureDiv.textContent = ""; // Clear the text
-							gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
-						} else {
-							timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
-						}
-						console.log(speaking);
-					};
-
-					timeoutID = setTimeout(timeoutCallback, 3000);
+						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
+						var timeoutCallback = function() {
+							if (!speaking) {
+								gestureDiv.textContent = ""; // Clear the text
+								gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
+							} else {
+								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
+							}
+							console.log(speaking);
+						};
+						timeoutID = setTimeout(timeoutCallback, 3000);
+					} catch (error) {
+						// Catch and log any errors that occur within the function
+						console.error("An error occurred:", error);
+					}
 				}
 			}
 
