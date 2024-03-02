@@ -65,10 +65,9 @@
 						await characteristic.stopNotifications();
 						await device.gatt.disconnect();
 						isConnected = false;
+						displayText("Around {name} street, the avatar became offline.");
 						document.getElementById("connectButton").textContent = "Connect to Avatar";
 						// Set all potValues to 0
-
-						displayText("Around {name} street, the avatar became offline.");
 						setTimeout(function() {
 							startDetectMovement = false;
 							potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -378,10 +377,10 @@
 					partMoving = "head";
 					if (headMovingUp) {
 						directionMoving = "moving up";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 					} else {
 						directionMoving = "moving down";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected left leg movement
@@ -397,11 +396,11 @@
 					partMoving = "left leg";
 					if (leftLegMovingUp) {
 						directionMoving = "moving up";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 					} else {
 						partMoving = "left leg";
 						directionMoving = "moving down";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected right leg movement
@@ -417,11 +416,11 @@
 					partMoving = "right leg";
 					if (rightLegMovingUp) {
 						directionMoving = "moving up";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 					} else {
 
 						directionMoving = "moving down";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected left arm movement
@@ -429,7 +428,7 @@
 					partMoving = "left arm";
 					if (leftShoulderMovingUp && leftForearmMovingUp) {
 						directionMoving = "moving down";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
@@ -437,7 +436,7 @@
 					}
 					if (!leftShoulderMovingUp && !leftForearmMovingUp) {
 						directionMoving = "moving up";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
@@ -449,7 +448,7 @@
 					partMoving = "right arm";
 					if (rightShoulderMovingUp && !rightForearmMovingUp) {
 						directionMoving = "moving up";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
@@ -457,7 +456,7 @@
 					}
 					if (!rightShoulderMovingUp && rightForearmMovingUp) {
 						directionMoving = "moving down";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
@@ -469,22 +468,22 @@
 				if (leftForearmMovingUp != null && leftForearmMovingUp && !rightForearmMovingUp && leftShoulderMovingUp == null) {
 					partMoving = "left forearm";
 					directionMoving = "moving left";
-					displayText("${partMoving} is ${directionMoving}");
+					displayText("{partMoving} is {directionMoving}");
 				} else if (!leftForearmMovingUp && leftForearmMovingUp != null && !rightForearmMovingUp && leftShoulderMovingUp == null) {
 					partMoving = "left forearm";
 					directionMoving = "moving right";
-					displayText("${partMoving} is ${directionMoving}");
+					displayText("{partMoving} is {directionMoving}");
 				}
 
 				// Displaying movement text based on detected right forearm movement
 				if (rightForearmMovingUp != null && rightForearmMovingUp && !leftForearmMovingUp && rightShoulderMovingUp == null) {
 					partMoving = "right forearm";
 					directionMoving = "moving right";
-					displayText("${partMoving} is ${directionMoving}");
+					displayText("{partMoving} is {directionMoving}");
 				} else if (!rightForearmMovingUp && rightForearmMovingUp != null && !leftForearmMovingUp && rightShoulderMovingUp == null) {
 					partMoving = "right forearm";
 					directionMoving = "moving left";
-					displayText("${partMoving} is ${directionMoving}");
+					displayText("{partMoving} is {directionMoving}");
 				}
 
 
@@ -493,14 +492,14 @@
 					partMoving = "waist";
 					if (waistMoving) {
 						directionMoving = "moving right";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 					} else {
 						directionMoving = "moving left";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
@@ -528,14 +527,14 @@
 							detectMovement = true;
 						}, cooldownDuration);
 						directionMoving = "moving down";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 					} else {
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 						directionMoving = "moving up";
-						displayText("${partMoving} is ${directionMoving}");
+						displayText("{partMoving} is {directionMoving}");
 					}
 				}
 				// Update previous potentiometer values for the next iteration
@@ -617,7 +616,7 @@
 						// Call fetchStreetName and wait for it to resolve
 						fetchStreetName().then((name) => {
 							// Compose the full message with fetched name
-							composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude)
+							composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,speed)
 								.then((fullMessage) => {
 									updateDisplay(fullMessage);
 									streetName = name;
@@ -628,7 +627,7 @@
 						});
 					} else {
 						// Compose the full message using the existing streetName value
-						composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude)
+						composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed)
 							.then((fullMessage) => {
 								updateDisplay(fullMessage);
 							})
@@ -709,6 +708,7 @@
 						.replace(/\{name\}/g, name)
 						.replace(/\{partMoving\}/g, partMoving)
 						.replace(/\{directionMoving\}/g, directionMoving)
+						.replace(/\{speed\}/g, speed)
 						.replace(/\{latitude\}/g, latitude)
 						.replace(/\{longitude\}/g, longitude);
 
