@@ -56,7 +56,7 @@
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
 						isConnected = true;
-						displayText("On a ${weatherDescription}${timeOfDay}, the avatar became online around ${name} street.");
+						displayText("On a {weatherDescription} {timeOfDay}, the avatar became online around {name} street.");
 						setTimeout(function() {
 							startDetectMovement = true;
 						}, 4000);
@@ -68,7 +68,7 @@
 						document.getElementById("connectButton").textContent = "Connect to Avatar";
 						// Set all potValues to 0
 
-						displayText("Around ${name} street, the avatar became offline.");
+						displayText("Around {name} street, the avatar became offline.");
 						setTimeout(function() {
 							startDetectMovement = false;
 							potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -633,7 +633,8 @@
 						// Compose the full message using the existing streetName value
 						composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude)
 							.then((fullMessage) => {
-								updateDisplay(fullMessage);							})
+								updateDisplay(fullMessage);
+							})
 							.catch(error => {
 								console.error(error);
 							});
