@@ -767,8 +767,8 @@
 				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
 				// Event handler for speech synthesis error
 				utterance.onerror = function(event) {
-					console.error("Speech synthesis error:", event.error);
 					speaking = false; // Reset speaking flag
+					console.error("Speech synthesis error:", event.error);
 				};
 				// Speak the message
 				speechSynthesis.speak(utterance);
