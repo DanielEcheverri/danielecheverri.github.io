@@ -775,11 +775,17 @@
 				};
 				// Speak the message
 				speechSynthesis.speak(utterance);
+				speechSynthesis.onstart = function() {
+					speaking = true;
+					// Update the last spoken message
+					lastSpokenMessage = fullMessage;
+				};
+
 				utterance.onend = function() {
 					speaking = false;
 				}
 				// Update the last spoken message
-				lastSpokenMessage = fullMessage;
+				//lastSpokenMessage = fullMessage;
 			}
 
 
