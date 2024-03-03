@@ -748,6 +748,7 @@
 
 			function speakMessage(fullMessage) {
 			// Check if the message is the same as the last spoken message
+			console.log(fullMessage);
 				if (fullMessage === lastSpokenMessage) {
 					console.log("Message already spoken.");
 					return; // Exit the function without speaking again
