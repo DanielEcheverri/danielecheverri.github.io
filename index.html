@@ -669,14 +669,16 @@
 						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
 						var timeoutCallback = function() {
 							if (!speaking) {
+								console.log("Clearing text");
 								gestureDiv.textContent = ""; // Clear the text
 								gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
 							} else {
+								console.log("Timeout check 1 sec");
 								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
 							}
 							console.log(speaking);
 						};
-						timeoutID = setTimeout(timeoutCallback, 3000);
+						console.log(timeoutID = setTimeout(timeoutCallback, 3000));
 					} catch (error) {
 						// Catch and log any errors that occur within the function
 						console.error("An error occurred:", error);
@@ -748,7 +750,7 @@
 
 			function speakMessage(fullMessage) {
 			// Check if the message is the same as the last spoken message
-			console.log(fullMessage);
+
 				if (fullMessage === lastSpokenMessage) {
 					console.log("Message already spoken.");
 					return; // Exit the function without speaking again
