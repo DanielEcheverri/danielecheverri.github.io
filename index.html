@@ -102,7 +102,7 @@
 				if (latitude !== null && longitude !== null && weatherDescription !== null) {
 					connectButton.disabled = false;
 					findClosestShopButton.disabled = false;
-					//displayText("Ready to connect to Avatar BT");
+					displayText("Ready to connect to Avatar BT");
 				} else {
 					// If any variable is still null, wait for a short delay and check again
 					setTimeout(checkVariables, 1000); // Adjust delay as needed (here 1000 milliseconds or 1 second)
@@ -761,18 +761,12 @@
 					console.log("Already speaking, new message ignored.");
 					return;
 				}
-				//speaking = true;
 				// Create a new instance of SpeechSynthesisUtterance.
 				const utterance = new SpeechSynthesisUtterance(fullMessage);
 				// Filter available voices to find Karen's voice in Australian English
 				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
 				// Set the voice to Karen's voice if found, otherwise use the default voice
 				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
-				// Event handler for speech synthesis error
-				utterance.onerror = function(event) {
-					speaking = false; // Reset speaking flag
-					console.error("Speech synthesis error:", event.error);
-				};
 				// Speak the message
 				speechSynthesis.speak(utterance);
 				speechSynthesis.onstart = function() {
@@ -780,12 +774,14 @@
 					// Update the last spoken message
 					lastSpokenMessage = fullMessage;
 				};
-
 				utterance.onend = function() {
 					speaking = false;
 				}
-				// Update the last spoken message
-				//lastSpokenMessage = fullMessage;
+				// Event handler for speech synthesis error
+				utterance.onerror = function(event) {
+					speaking = false; // Reset speaking flag
+					console.error("Speech synthesis error:", event.error);
+				};
 			}
 
 
