@@ -443,7 +443,12 @@
 					}
 				}
 				// Displaying movement text based on detected left arm movement
-				if (leftShoulderMovingUp != null && leftForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
+				if (
+					leftShoulderMovingUp != null &&
+					leftForearmMovingUp != null &&
+					leftLegMovingUp == null &&
+					rightLegMovingUp == null
+				) {
 					partMoving = "left arm";
 					if (leftShoulderMovingUp && leftForearmMovingUp) {
 						directionMoving = "moving down";
@@ -463,7 +468,12 @@
 					}
 				}
 				// Displaying movement text based on detected right arm movement
-				if (rightShoulderMovingUp != null && rightForearmMovingUp != null && leftLegMovingUp == null && rightLegMovingUp == null) {
+				if (
+					rightShoulderMovingUp != null &&
+					rightForearmMovingUp != null &&
+					leftLegMovingUp == null &&
+					rightLegMovingUp == null
+				) {
 					partMoving = "right arm";
 					if (rightShoulderMovingUp && !rightForearmMovingUp) {
 						directionMoving = "moving up";
@@ -484,7 +494,12 @@
 				}
 
 				// Displaying movement text based on detected left forearm movement
-				if (leftForearmMovingUp != null && leftForearmMovingUp && !rightForearmMovingUp && leftShoulderMovingUp == null) {
+				if (
+					leftForearmMovingUp != null &&
+					leftForearmMovingUp &&
+					!rightForearmMovingUp &&
+					leftShoulderMovingUp == null
+				) {
 					partMoving = "left forearm";
 					directionMoving = "moving left";
 					displayText("{partMoving} is {directionMoving}");
@@ -495,7 +510,12 @@
 				}
 
 				// Displaying movement text based on detected right forearm movement
-				if (rightForearmMovingUp != null && rightForearmMovingUp && !leftForearmMovingUp && rightShoulderMovingUp == null) {
+				if (
+					rightForearmMovingUp != null &&
+				 	rightForearmMovingUp &&
+					!leftForearmMovingUp &&
+					rightShoulderMovingUp == null
+				) {
 					partMoving = "right forearm";
 					directionMoving = "moving right";
 					displayText("{partMoving} is {directionMoving}");
@@ -506,7 +526,11 @@
 				}
 
 				// Displaying movement based on detected waist movement
-				if (waistMoving != null && rightLegMovingUp != null && leftLegMovingUp != null) {
+				if (
+					waistMoving != null &&
+					rightLegMovingUp != null &&
+					leftLegMovingUp != null
+				) {
 					partMoving = "waist";
 					if (waistMoving) {
 						directionMoving = "moving right";
@@ -525,7 +549,12 @@
 					}
 				}
 				// Displaying body movement based on shoulders and legs
-				if (leftShoulderMovingUp != null && rightShoulderMovingUp != null && leftLegMovingUp != null && rightLegMovingUp != null) {
+				if (
+					leftShoulderMovingUp != null &&
+					rightShoulderMovingUp != null &&
+					leftLegMovingUp != null &&
+					rightLegMovingUp != null
+				) {
 					if (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp) {
 						bodyMoving = true; // Body is moving up
 					} else if (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp) {
