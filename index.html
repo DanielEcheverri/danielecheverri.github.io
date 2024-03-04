@@ -612,6 +612,7 @@
 				.then(() => {
 					// Construct Overpass API query
 					var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:50," + latitude + "," + longitude + ");out;";
+					console.log(overpassQuery);
 					// Fetch data from Overpass API
 					return fetch(overpassQuery);
 				})
@@ -833,7 +834,6 @@
 
 			// Call the function periodically (e.g., every 5 seconds)
 			setInterval(checkSpeechSynthesis, 1000); // Adjust the interval as needed
-
 
 			let weatherDescription = null;
 			// Define fetchWeather function
