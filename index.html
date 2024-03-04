@@ -804,6 +804,7 @@
 				// Speak the message
 				speechSynthesis.speak(utterance);
 				speechSynthesis.onstart = function() {
+					console.log("Spekaing")
 					speaking = true;
 					// Update the last spoken message
 					lastSpokenMessage = fullMessage;
