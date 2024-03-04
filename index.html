@@ -102,8 +102,9 @@
 				if (latitude !== null && longitude !== null && weatherDescription !== null) {
 					connectButton.disabled = false;
 					findClosestShopButton.disabled = false;
-					fetchStreetName();
-					displayText("Ready to connect to Avatar BT");
+					fetchStreetName().then((name) => {
+						displayText("Ready to connect to Avatar BT");
+						});
 				} else {
 					// If any variable is still null, wait for a short delay and check again
 					setTimeout(checkVariables, 1000); // Adjust delay as needed (here 1000 milliseconds or 1 second)
@@ -329,6 +330,9 @@
 				let bodyMoving = null;
 
 				if (!detectMovement) {
+					return;
+				}
+				if (speaking) {
 					return;
 				}
 				// Check movement for each potentiometer
