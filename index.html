@@ -781,22 +781,21 @@
 			// Variable to store the last spoken message
 			let lastSpokenMessage = '';
 			let speaking = false;
+			const utterance=0;
 
 			function speakMessage(fullMessage) {
 			// Check if the message is the same as the last spoken message
-
 				if (fullMessage === lastSpokenMessage) {
 					console.log("Message already spoken.");
 					return; // Exit the function without speaking again
 				}
-
 				// Check if currently speaking
 				if (speaking) {
 					console.log("Already speaking, new message ignored.");
 					return;
 				}
 				// Create a new instance of SpeechSynthesisUtterance.
-				const utterance = new SpeechSynthesisUtterance(fullMessage);
+				utterance = new SpeechSynthesisUtterance(fullMessage);
 				// Filter available voices to find Karen's voice in Australian English
 				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
 				// Set the voice to Karen's voice if found, otherwise use the default voice
@@ -804,7 +803,6 @@
 				// Speak the message
 				speechSynthesis.speak(utterance);
 				utterance.onstart = function() {
-					console.log("Spekaing")
 					speaking = true;
 					// Update the last spoken message
 					lastSpokenMessage = fullMessage;
