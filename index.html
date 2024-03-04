@@ -803,7 +803,7 @@
 				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
 				// Speak the message
 				speechSynthesis.speak(utterance);
-				speechSynthesis.onstart = function() {
+				utterance.onstart = function() {
 					console.log("Spekaing")
 					speaking = true;
 					// Update the last spoken message
