@@ -102,6 +102,7 @@
 				if (latitude !== null && longitude !== null && weatherDescription !== null) {
 					connectButton.disabled = false;
 					findClosestShopButton.disabled = false;
+					fetchStreetName();
 					displayText("Ready to connect to Avatar BT");
 				} else {
 					// If any variable is still null, wait for a short delay and check again
