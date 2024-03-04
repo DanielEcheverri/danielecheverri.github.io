@@ -1,0 +1,47 @@
+{
+	"headMovingUp": {
+		"trueConditions": ["HEAD"],
+		"falseConditions": ["LEFT LEG", "RIGHT LEG", "LEFT SHOULDER", "RIGHT SHOULDER", "LEFT FOREARM", "RIGHT FOREARM", "WAIST"],
+		"text": "{label} is {direction}"
+	},
+	"leftLegMovingUp": {
+		"trueConditions": ["LEFT LEG"],
+		"falseConditions": ["WAIST", "RIGHT LEG", "LEFT SHOULDER", "RIGHT SHOULDER", "LEFT FOREARM", "RIGHT FOREARM"],
+		"text": "{label} is {direction}"
+	},
+	"rightLegMovingUp": {
+		"trueConditions": ["RIGHT LEG"],
+		"falseConditions": ["WAIST", "LEFT LEG", "LEFT SHOULDER", "RIGHT SHOULDER", "LEFT FOREARM", "RIGHT FOREARM"],
+		"text": "{label} is {direction}"
+	},
+	"leftShoulderMovingUp": {
+		"trueConditions": ["LEFT SHOULDER"],
+		"falseConditions": ["LEFT LEG", "RIGHT LEG", "HEAD", "LEFT FOREARM", "RIGHT FOREARM", "WAIST"],
+		"text": "{label} is {direction}"
+	},
+	"rightShoulderMovingUp": {
+		"trueConditions": ["RIGHT SHOULDER"],
+		"falseConditions": ["LEFT LEG", "RIGHT LEG", "HEAD", "LEFT FOREARM", "RIGHT FOREARM", "WAIST"],
+		"text": "{label} is {direction}"
+	},
+	"leftForearmMovingUp": {
+		"trueConditions": ["LEFT FOREARM"],
+		"falseConditions": ["RIGHT FOREARM", "LEFT LEG", "RIGHT LEG", "LEFT SHOULDER", "RIGHT SHOULDER", "WAIST"],
+		"text": "{label} is {direction}"
+	},
+	"rightForearmMovingUp": {
+		"trueConditions": ["RIGHT FOREARM"],
+		"falseConditions": ["LEFT FOREARM", "LEFT LEG", "RIGHT LEG", "LEFT SHOULDER", "RIGHT SHOULDER", "WAIST"],
+		"text": "{label} is {direction}"
+	},
+	"waistMoving": {
+		"trueConditions": ["WAIST"],
+		"falseConditions": ["LEFT LEG", "RIGHT LEG", "HEAD", "LEFT SHOULDER", "RIGHT SHOULDER", "LEFT FOREARM", "RIGHT FOREARM"],
+		"text": "{label} is {direction}"
+	},
+	"bodyMovingUp": {
+		"trueConditions": ["LEFT SHOULDER", "RIGHT SHOULDER", "LEFT LEG", "RIGHT LEG"],
+		"falseConditions": [],
+		"text": "{label} is {direction}"
+	}
+}
