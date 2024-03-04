@@ -817,6 +817,25 @@
 				};
 			}
 
+			function checkSpeechSynthesis() {
+				// Check if speechSynthesis object is available
+				if ('speechSynthesis' in window) {
+					// Check if speaking flag is true
+					if (speechSynthesis.speaking) {
+						console.log("Speech synthesis is currently active.");
+						speaking = true;
+					} else {
+						speaking = false;
+						console.log("Speech synthesis is not active.");
+					}
+				} else {
+					console.log("Speech synthesis is not supported in this browser.");
+				}
+			}
+
+			// Call the function periodically (e.g., every 5 seconds)
+			setInterval(checkSpeechSynthesis, 1000); // Adjust the interval as needed
+
 
 			let weatherDescription = null;
 			// Define fetchWeather function
