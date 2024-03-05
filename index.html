@@ -322,15 +322,15 @@
 				let movementThreshold = 20;
 
 				// Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
-				let headMoving = null;
-				let leftLegMoving = null;
-				let rightLegMoving = null;
-				let leftShoulderMoving = null;
-				let rightShoulderMoving = null;
-				let leftForearmMoving = null;
-				let rightForearmMoving = null;
-				let waistMoving = null;
-				let bodyMoving = null;
+				let headMoving;
+				let leftLegMoving;
+				let rightLegMoving;
+				let leftShoulderMoving;
+				let rightShoulderMoving;
+				let leftForearmMoving;
+				let rightForearmMoving;
+				let waistMoving;
+				let bodyMoving;
 
 				if (!detectMovement || speaking) {
 			 				return;
@@ -561,8 +561,6 @@
 						bodyMoving = true; // Body is moving up
 					} else if (!leftShoulderMoving && !rightShoulderMoving && !leftLegMoving && !rightLegMoving) {
 						bodyMoving = false; // Body is moving down
-					} else {
-						bodyMoving = null; // Body movement cannot be determined
 					}
 				} else {
 					bodyMoving = null; // Body movement cannot be determined
