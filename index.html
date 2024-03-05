@@ -321,50 +321,85 @@
 				// Define thresholds for movement detection
 				let movementThreshold = 10;
 				// Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
-				let headMovingUp = null;
-				let leftLegMovingUp = null;
-				let rightLegMovingUp = null;
-				let leftShoulderMovingUp = null;
-				let rightShoulderMovingUp = null;
-				let leftForearmMovingUp = null;
-				let rightForearmMovingUp = null;
+				let headMoving = null;
+				let leftLegMoving = null;
+				let rightLegMoving = null;
+				let leftShoulderMoving = null;
+				let rightShoulderMoving = null;
+				let leftForearmMoving = null;
+				let rightForearmMoving = null;
 				let waistMoving = null;
 				let bodyMoving = null;
+
 				if (!detectMovement || speaking) {
 			 				return;
 				}
 
-				// Define a map of labels to corresponding variables
-				const labelToVariable = {
-					"HEAD": "headMovingUp",
-					"LEFT LEG": "leftLegMovingUp",
-					"RIGHT LEG": "rightLegMovingUp",
-					"LEFT SHOULDER": "leftShoulderMovingUp",
-					"RIGHT SHOULDER": "rightShoulderMovingUp",
-					"LEFT FOREARM": "leftForearmMovingUp",
-					"RIGHT FOREARM": "rightForearmMovingUp",
-					"WAIST": "waistMoving"
-				};
-
 				// Check movement for each potentiometer
 				for (let i = 0; i < numPotentiometers; i++) {
-					const label = labels[i];
-					const variable = labelToVariable[label];
-					if (variable) {
-						const threshold = movementThreshold;
-						const potValue = potValues[i];
-						const previousPotValue = previousPotValues[i];
-						if (potValue < previousPotValue - threshold) {
-							window[variable] = false;
-						} else if (potValue > previousPotValue + threshold) {
-							window[variable] = true;
+					// Check movement based on potentiometer position and its corresponding label
+					if (labels[i] == "HEAD") {
+						// Movement detection for head (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							headMoving = true; // Head is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							headMoving = false; // Head is moving down
+						}
+					} else if (labels[i] == "LEFT LEG") {
+						// Movement detection for left leg (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							leftLegMoving = false; // Left leg is moving down
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							leftLegMoving = true; // Left leg is moving up
+						}
+					} else if (labels[i] == "RIGHT LEG") {
+						// Movement detection for right leg (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							rightLegMoving = false; // Right leg is moving down
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							rightLegMoving = true; // Right leg is moving up
+						}
+					} else if (labels[i] == "LEFT SHOULDER") {
+						// Movement detection for left shoulder (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							leftShoulderMoving = false; // Left shoulder is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							leftShoulderMoving = true; // Left shoulder is moving down
+						}
+					} else if (labels[i] == "RIGHT SHOULDER") {
+						// Movement detection for right shoulder (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							rightShoulderMoving = false; // Right shoulder is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							rightShoulderMoving = true; // Right shoulder is moving down
+						}
+					} else if (labels[i] == "LEFT FOREARM") {
+						// Movement detection for left forearm (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							leftForearmMoving = true; // Left forearm is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							leftForearmMoving = false; // Left forearm is moving down
+						}
+					} else if (labels[i] == "RIGHT FOREARM") {
+						// Movement detection for right forearm (up and down movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							rightForearmMoving = true; // Right forearm is moving up
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							rightForearmMoving = false; // Right forearm is moving down
+						}
+					} else if (labels[i] == "WAIST") {
+						// Movement detection for waist (left and right movement)
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							waistMoving = false; // Waist is moving left
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							waistMoving = true; // Waist is moving right
 						}
 					}
 				}
 				// Displaying movement text based on detected head movement
-				if (headMovingUp != null) {
+				if (headMoving != null) {
 					partMoving = "head";
-					if (headMovingUp) {
+					if (headMoving) {
 						directionMoving = "moving up";
 						displayText("{partMoving} is {directionMoving}");
 					} else {
@@ -374,16 +409,16 @@
 				}
 				// Displaying movement text based on detected left leg movement
 				if (
-					leftLegMovingUp != null &&
+					leftLegMoving != null &&
 					waistMoving == null &&
-					rightLegMovingUp == null &&
-					leftShoulderMovingUp == null &&
-					leftForearmMovingUp == null &&
-					rightShoulderMovingUp == null &&
-					rightForearmMovingUp == null
+					rightLegMoving == null &&
+					leftShoulderMoving == null &&
+					leftForearmMoving == null &&
+					rightShoulderMoving == null &&
+					rightForearmMoving == null
 				) {
 					partMoving = "left leg";
-					if (leftLegMovingUp) {
+					if (leftLegMoving) {
 						directionMoving = "moving up";
 						displayText("{partMoving} is {directionMoving}");
 					} else {
@@ -394,16 +429,16 @@
 				}
 				// Displaying movement text based on detected right leg movement
 				if (
-					rightLegMovingUp != null &&
+					rightLegMoving != null &&
 					waistMoving == null &&
-					leftLegMovingUp == null &&
-					leftShoulderMovingUp == null &&
-					leftForearmMovingUp == null &&
-					rightShoulderMovingUp == null &&
-					rightForearmMovingUp == null
+					leftLegMoving == null &&
+					leftShoulderMoving == null &&
+					leftForearmMoving == null &&
+					rightShoulderMoving == null &&
+					rightForearmMoving == null
 				) {
 					partMoving = "right leg";
-					if (rightLegMovingUp) {
+					if (rightLegMoving) {
 						directionMoving = "moving up";
 						displayText("{partMoving} is {directionMoving}");
 					} else {
@@ -413,13 +448,13 @@
 				}
 				// Displaying movement text based on detected left arm movement
 				if (
-					leftShoulderMovingUp != null &&
-					leftForearmMovingUp != null &&
-					leftLegMovingUp == null &&
-					rightLegMovingUp == null
+					leftShoulderMoving != null &&
+					leftForearmMoving != null &&
+					leftLegMoving == null &&
+					rightLegMoving == null
 				) {
 					partMoving = "left arm";
-					if (leftShoulderMovingUp && leftForearmMovingUp) {
+					if (leftShoulderMoving && leftForearmMoving) {
 						directionMoving = "moving down";
 						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
@@ -427,7 +462,7 @@
 							detectMovement = true;
 						}, cooldownDuration);
 					}
-					if (!leftShoulderMovingUp && !leftForearmMovingUp) {
+					if (!leftShoulderMoving && !leftForearmMoving) {
 						directionMoving = "moving up";
 						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
@@ -438,13 +473,13 @@
 				}
 				// Displaying movement text based on detected right arm movement
 				if (
-					rightShoulderMovingUp != null &&
-					rightForearmMovingUp != null &&
-					leftLegMovingUp == null &&
-					rightLegMovingUp == null
+					rightShoulderMoving != null &&
+					rightForearmMoving != null &&
+					leftLegMoving == null &&
+					rightLegMoving == null
 				) {
 					partMoving = "right arm";
-					if (rightShoulderMovingUp && !rightForearmMovingUp) {
+					if (rightShoulderMoving && !rightForearmMoving) {
 						directionMoving = "moving up";
 						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
@@ -452,7 +487,7 @@
 							detectMovement = true;
 						}, cooldownDuration);
 					}
-					if (!rightShoulderMovingUp && rightForearmMovingUp) {
+					if (!rightShoulderMoving && rightForearmMoving) {
 						directionMoving = "moving down";
 						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
@@ -463,30 +498,30 @@
 				}
 				// Displaying movement text based on detected left forearm movement
 				if (
-					leftForearmMovingUp != null &&
-					leftForearmMovingUp &&
-					!rightForearmMovingUp &&
-					leftShoulderMovingUp == null
+					leftForearmMoving != null &&
+					leftForearmMoving &&
+					!rightForearmMoving &&
+					leftShoulderMoving == null
 				) {
 					partMoving = "left forearm";
 					directionMoving = "moving left";
 					displayText("{partMoving} is {directionMoving}");
-				} else if (!leftForearmMovingUp && leftForearmMovingUp != null && !rightForearmMovingUp && leftShoulderMovingUp == null) {
+				} else if (!leftForearmMoving && leftForearmMoving != null && !rightForearmMoving && leftShoulderMoving == null) {
 					partMoving = "left forearm";
 					directionMoving = "moving right";
 					displayText("{partMoving} is {directionMoving}");
 				}
 				// Displaying movement text based on detected right forearm movement
 				if (
-					rightForearmMovingUp != null &&
-				 	rightForearmMovingUp &&
-					!leftForearmMovingUp &&
-					rightShoulderMovingUp == null
+					rightForearmMoving != null &&
+				 	rightForearmMoving &&
+					!leftForearmMoving &&
+					rightShoulderMoving == null
 				) {
 					partMoving = "right forearm";
 					directionMoving = "moving right";
 					displayText("{partMoving} is {directionMoving}");
-				} else if (!rightForearmMovingUp && rightForearmMovingUp != null && !leftForearmMovingUp && rightShoulderMovingUp == null) {
+				} else if (!rightForearmMoving && rightForearmMoving != null && !leftForearmMoving && rightShoulderMoving == null) {
 					partMoving = "right forearm";
 					directionMoving = "moving left";
 					displayText("{partMoving} is {directionMoving}");
@@ -494,8 +529,8 @@
 				// Displaying movement based on detected waist movement
 				if (
 					waistMoving != null &&
-					rightLegMovingUp != null &&
-					leftLegMovingUp != null
+					rightLegMoving != null &&
+					leftLegMoving != null
 				) {
 					partMoving = "waist";
 					if (waistMoving) {
@@ -516,14 +551,14 @@
 				}
 				// Displaying body movement based on shoulders and legs
 				if (
-					leftShoulderMovingUp != null &&
-					rightShoulderMovingUp != null &&
-					leftLegMovingUp != null &&
-					rightLegMovingUp != null
+					leftShoulderMoving != null &&
+					rightShoulderMoving != null &&
+					leftLegMoving != null &&
+					rightLegMoving != null
 				) {
-					if (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp) {
+					if (leftShoulderMoving && rightShoulderMoving && leftLegMoving && rightLegMoving) {
 						bodyMoving = true; // Body is moving up
-					} else if (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp) {
+					} else if (!leftShoulderMoving && !rightShoulderMoving && !leftLegMoving && !rightLegMoving) {
 						bodyMoving = false; // Body is moving down
 					} else {
 						bodyMoving = null; // Body movement cannot be determined
