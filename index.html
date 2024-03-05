@@ -334,20 +334,6 @@
 				// Set detectMovement to false to prevent further movement detection during cooldown
 				detectMovement = false;
 
-				// Start cooldown timer for waist if it's moving
-				if (waistMoving) {
-					setTimeout(() => {
-						detectMovement = true; // Enable movement detection after cooldownDuration
-					}, cooldownDuration);
-				}
-
-				// Start cooldown timer for body if it's moving
-				if (bodyMovingUp || bodyMovingDown) {
-					setTimeout(() => {
-						detectMovement = true; // Enable movement detection after cooldownDuration
-					}, cooldownDuration);
-				}
-
 				// Iterate through potentiometers to detect movement in different body parts
 				for (let i = 0; i < numPotentiometers; i++) {
 					const partMoving = labels[i];
@@ -374,7 +360,7 @@
 						directionMovement = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftLegMovingUp = false; // Left leg is moving down
-					directionMovement = "down";
+						directionMovement = "down";
 							}
 						} else if (partMoving === "RIGHT LEG") {
 							// Movement detection for right leg (up and down movement)
@@ -461,6 +447,20 @@
 				if (bodyMovingUp || bodyMovingDown || leftArmMovingUp || leftArmMovingDown || rightArmMovingUp || rightArmMovingDown || bothLegsMovingUp || bothLegsMovingDown ||
 					leftLegOnlyMovingUp || leftLegOnlyMovingDown || rightLegOnlyMovingUp || rightLegOnlyMovingDown || headMovingUp || headMovingDown || waistMovingRight || waistMovingLeft || leftForearmMovingLeft || leftForearmMovingRight || rightForearmMovingLeft || rightForearmMovingRight) {
 					displayText(`${partMoving} is moving ${directionMoving}`);
+				}
+
+				// Start cooldown timer for waist if it's moving
+				if (waistMoving) {
+					setTimeout(() => {
+						detectMovement = true; // Enable movement detection after cooldownDuration
+					}, cooldownDuration);
+				}
+
+				// Start cooldown timer for body if it's moving
+				if (bodyMovingUp || bodyMovingDown) {
+					setTimeout(() => {
+						detectMovement = true; // Enable movement detection after cooldownDuration
+					}, cooldownDuration);
 				}
 
 				previousPotValues = potValues.slice(0, numPotentiometers);
