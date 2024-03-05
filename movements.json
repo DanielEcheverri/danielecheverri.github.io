@@ -13,4 +13,18 @@
 			{ "partMoving": "right leg", "directionMoving": "moving down" }
 		]
 	}
+	{
+		"patternName": "Jumping!",
+		"pattern": [
+			{ "partMoving": "right leg", "directionMoving": "moving up" },
+			{ "partMoving": "left leg", "directionMoving": "moving up" }
+		]
+	},
+	{
+		"patternName": "Landing!",
+		"pattern": [
+			{ "partMoving": "right leg", "directionMoving": "moving down" },
+			{ "partMoving": "left leg", "directionMoving": "moving down" }
+		]
+	}
 ]
