@@ -547,14 +547,16 @@
 					partMoving = "waist";
 					if (waistMoving) {
 						directionMoving = "right";
-						displayText("{partMoving} is {directionMoving}");
+						console.log(partMoving+" "+directionMoving);
+						//displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 					} else {
 						directionMoving = "left";
-						displayText("{partMoving} is {directionMoving}");
+						console.log(partMoving+" "+directionMoving);
+						//displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;

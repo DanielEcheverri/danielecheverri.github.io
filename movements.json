@@ -92,7 +92,7 @@
 		]
 	},
 	{
-		"patternName": "Dancing",
+		"patternName": "Gone dancing",
 		"pattern": [
 			{ "partMoving": "waist", "directionMoving": "left" },
 			{ "partMoving": "waist", "directionMoving": "right" },
