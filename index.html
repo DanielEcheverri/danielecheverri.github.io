@@ -550,40 +550,7 @@
 						}, cooldownDuration);
 					}
 				}
-				// Displaying body movement based on shoulders and legs
-				if (
-					leftShoulderMoving != null &&
-					rightShoulderMoving != null &&
-					leftLegMoving != null &&
-					rightLegMoving != null
-				) {
-					if (leftShoulderMoving && rightShoulderMoving && leftLegMoving && rightLegMoving) {
-						bodyMoving = true; // Body is moving up
-					} else if (!leftShoulderMoving && !rightShoulderMoving && !leftLegMoving && !rightLegMoving) {
-						bodyMoving = false; // Body is moving down
-					}
-				} else {
-					bodyMoving = null; // Body movement cannot be determined
-				}
-				// Displaying movement text based on detected body movement
-				if (bodyMoving != null) {
-					partMoving = "body";
-					if (bodyMoving) {
-						detectMovement = false;
-						setTimeout(() => {
-							detectMovement = true;
-						}, cooldownDuration);
-						directionMoving = "moving down";
-						displayText("{partMoving} is {directionMoving}");
-					} else {
-						detectMovement = false;
-						setTimeout(() => {
-							detectMovement = true;
-						}, cooldownDuration);
-						directionMoving = "moving up";
-						displayText("{partMoving} is {directionMoving}");
-					}
-				}
+
 				// Update previous potentiometer values for the next iteration.
 				previousPotValues = potValues.slice(0, numPotentiometers);
 			}
