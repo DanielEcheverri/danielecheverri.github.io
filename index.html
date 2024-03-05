@@ -556,9 +556,11 @@
 
 			// Function to track movement sequences and compare them against patterns
 			async function trackMovementSequences(partMoving, directionMoving) {
+				console.log("Track sequences");
 				try {
 					const currentSequence = { partMoving, directionMoving };
 					movementBuffer.push(currentSequence);
+					console.log(movementBuffer);
 
 					// Limit the buffer to store only the last 5 variations
 					if (movementBuffer.length > 5) {
@@ -582,6 +584,7 @@
 
 			// Function to check if a pattern exists in the movement buffer
 			function checkPatternInBuffer(pattern) {
+				console.log("Check in buffer");
 				const bufferLength = movementBuffer.length;
 				if (bufferLength < pattern.length) {
 					return false; // Not enough movements in the buffer for pattern matching
@@ -599,6 +602,7 @@
 			}
 
 			async function fetchMovementPatterns() {
+				console.log("Fetch pattern json");
 				try {
 					const response = await fetch('movements.json');
 					const patterns = await response.json();
