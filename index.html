@@ -351,7 +351,6 @@
 				const rightForearmMovingLeft = (!rightForearmMovingUp && rightForearmMovingUp !== null && !leftForearmMovingUp && rightShoulderMovingUp === null);
 
 			function checkMovement() {
-				console.log("checkMovement root");
 			if (!detectMovement || speaking) {
 					return;
 				}
@@ -365,63 +364,64 @@
 					const currentValue = potValues[i];
 					const previousValue = previousPotValues[i];
 					let movingUp = null;
-					console.log("For loop");
 					const movement = currentValue - previousValue;
+					console.log("part moving:"+partMoving);
+					console.log("labels[i]:"+labels[i]);
 					if (Math.abs(movement) > movementThreshold) {
 						// Movement detection logic for each body part
 						if (partMoving === "HEAD") {
 							// Movement detection for head (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								headMoving = true; // Head is moving up
-						directionMovement = "up";
+								directionMovement = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								headMoving = false; // Head is moving down
-						directionMovement = "down";
+								directionMovement = "down";
 							}
 						} else if (partMoving === "LEFT LEG") {
 							// Movement detection for left leg (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								leftLegMovingUp = true; // Left leg is moving up
-						directionMovement = "up";
+								directionMovement = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftLegMovingUp = false; // Left leg is moving down
-						directionMovement = "down";
+								directionMovement = "down";
 							}
 						} else if (partMoving === "RIGHT LEG") {
 							// Movement detection for right leg (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								rightLegMovingUp = true; // Right leg is moving up
-						directionMovement = "up";
+								directionMovement = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								rightLegMovingUp = false; // Right leg is moving down
-						directionMovement = "down";
+								directionMovement = "down";
 							}
 						} else if (partMoving === "LEFT SHOULDER") {
 							// Movement detection for left shoulder (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								leftShoulderMovingUp = true; // Left shoulder is moving up
-						directionMovement = "up";
+								directionMovement = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftShoulderMovingUp = false; // Left shoulder is moving down
-						directionMovement = "down";
+								directionMovement = "down";
 							}
 						} else if (partMoving === "RIGHT SHOULDER") {
 							// Movement detection for right shoulder (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								rightShoulderMovingUp = true; // Right shoulder is moving up
-						directionMovement = "up";
+								directionMovement = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								rightShoulderMovingUp = false; // Right shoulder is moving down
-						directionMovement = "down";
+								directionMovement = "down";
 							}
 						} else if (partMoving === "LEFT FOREARM") {
 							// Movement detection for left forearm (left and right movement)
 							if (currentValue < previousValue - movementThreshold) {
 								leftForearmMovingUp = true; // Left forearm is moving left
-						directionMovement = "left";
+								directionMovement = "left";
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftForearmMovingUp = false; // Left forearm is moving right
-						directionMovement = "right";
+								directionMovement = "right";
 							}
 						} else if (partMoving === "RIGHT FOREARM") {
 							// Movement detection for right forearm (left and right movement)
@@ -444,7 +444,6 @@
 								console.log("Waist right");
 							}
 						}
-						// Continue with similar logic for other body parts
 					}
 				}
 
