@@ -56,13 +56,11 @@
 						// Update UI
 						document.getElementById("connectButton").textContent = "Disconnect Avatar";
 						isConnected = true;
-						displayText("On a {weatherDescription} {timeOfDay}, the avatar became online around {name} street.");
 						setTimeout(function() {
 							startDetectMovement = true;
 						}, 4000);
 					} else {
 						// Disconnect from the device
-						displayText("Around {name} street, the avatar became offline.");
 						await characteristic.stopNotifications();
 						await device.gatt.disconnect();
 						isConnected = false;
@@ -330,7 +328,6 @@
 				let leftForearmMoving;
 				let rightForearmMoving;
 				let waistMoving;
-				let bodyMoving;
 
 				if (!detectMovement || speaking) {
 			 				return;
@@ -556,6 +553,7 @@
 			}
 
 			var streetName;
+
 			// Function to fetch city name using Overpass API
 			function fetchStreetName() {
 				return new Promise((resolve, reject) => {
@@ -605,6 +603,7 @@
 			var timeOfDay = getTimeOfDay();
 
 			var fullMessage;
+
 			function displayText(message) {
 				var gestureDiv = document.getElementById("gestureDiv");
 				fullMessage = message;
