@@ -12,7 +12,7 @@
 			{ "partMoving": "left leg", "directionMoving": "moving down" },
 			{ "partMoving": "right leg", "directionMoving": "moving down" }
 		]
-	}
+	},
 	{
 		"patternName": "Jumping!",
 		"pattern": [
