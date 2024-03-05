@@ -335,16 +335,16 @@
 			const leftArmMovingDown = (!leftShoulderMoving && !leftForearmMoving && !rightShoulderMoving && !rightForearmMoving);
 			const rightArmMovingUp = (rightShoulderMoving && rightForearmMoving && leftShoulderMoving && leftForearmMoving && !leftShoulderMoving && !rightShoulderMoving);
 			const rightArmMovingDown = (!rightShoulderMoving && !rightForearmMoving && !leftShoulderMoving && !leftForearmMoving);
-			const bothLegsMovingUp = (leftLegMoving && rightLegMoving);
-			const bothLegsMovingDown = (!leftLegMoving && !rightLegMoving);
-			const leftLegOnlyMovingUp = (leftLegMoving && !rightLegMoving);
-			const leftLegOnlyMovingDown = (!leftLegMoving && rightLegMoving);
-			const rightLegOnlyMovingUp = (!leftLegMoving && rightLegMoving);
-			const rightLegOnlyMovingDown = (leftLegMoving && !rightLegMoving);
+			const bothLegsMovingUp = (leftLegMoving && rightLegMoving && waistMoving === null);
+			const bothLegsMovingDown = (!leftLegMoving && !rightLegMoving && waistMoving === null);
+			const leftLegOnlyMovingUp = (leftLegMoving && !rightLegMoving === null && waistMoving === null);
+			const leftLegOnlyMovingDown = (!leftLegMoving && rightLegMoving === null && waistMoving === null);
+			const rightLegOnlyMovingUp = (leftLegMoving===null && rightLegMoving && waistMoving === null );
+			const rightLegOnlyMovingDown = (leftLegMoving===null && !rightLegMoving && waistMoving === null);
 			const headMovingUp = (headMoving !== null && headMoving);
 			const headMovingDown = (headMoving !== null && !headMoving);
-			const waistMovingRight = (waistMoving && waistMoving !== null);
-			const waistMovingLeft = (!waistMoving && waistMoving !== null);
+			const waistMovingRight = (waistMoving && waistMoving !== null && leftLegMoving && rightLegMoving);
+			const waistMovingLeft = (!waistMoving && waistMoving !== null && leftLegMoving && rightLegMoving);
 			const leftForearmMovingLeft = (leftForearmMoving !== null && leftForearmMoving && !rightForearmMoving && leftShoulderMoving === null);
 			const leftForearmMovingRight = (!leftForearmMoving && leftForearmMoving !== null && !rightForearmMoving && leftShoulderMoving === null);
 			const rightForearmMovingRight = (rightForearmMoving !== null && rightForearmMoving && !leftForearmMoving && rightShoulderMoving === null);
@@ -446,10 +446,10 @@
 							}
 						} else if (partMoving === "WAIST") {
 							// Movement detection for waist (left and right movement)
-							if ((currentValue < previousValue - movementThreshold) && leftLegMoving && rightLegMoving) {
+							if (currentValue < previousValue - movementThreshold) {
 								waistMoving = true; // Waist is moving left
 								directionMoving = "left";
-							} else if ((currentValue > previousValue + movementThreshold) && leftLegMoving && rightLegMoving) {
+							} else if (currentValue > previousValue + movementThreshold) {
 								waistMoving = false; // Waist is moving right
 								directionMoving = "right";
 							} else {
