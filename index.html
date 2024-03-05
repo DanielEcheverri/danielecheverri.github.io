@@ -328,6 +328,28 @@
 
 			let movementThreshold = 10;
 
+			// Combined movements
+			const bodyMovingUp = (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp);
+				const bodyMovingDown = (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp);
+				const leftArmMovingUp = (leftShoulderMovingUp && leftForearmMovingUp && rightShoulderMovingUp && rightForearmMovingUp && !leftShoulderMovingUp && !rightShoulderMovingUp);
+				const leftArmMovingDown = (!leftShoulderMovingUp && !leftForearmMovingUp && !rightShoulderMovingUp && !rightForearmMovingUp);
+				const rightArmMovingUp = (rightShoulderMovingUp && rightForearmMovingUp && leftShoulderMovingUp && leftForearmMovingUp && !leftShoulderMovingUp && !rightShoulderMovingUp);
+				const rightArmMovingDown = (!rightShoulderMovingUp && !rightForearmMovingUp && !leftShoulderMovingUp && !leftForearmMovingUp);
+				const bothLegsMovingUp = (leftLegMovingUp && rightLegMovingUp);
+				const bothLegsMovingDown = (!leftLegMovingUp && !rightLegMovingUp);
+				const leftLegOnlyMovingUp = (leftLegMovingUp && !rightLegMovingUp);
+				const leftLegOnlyMovingDown = (!leftLegMovingUp && rightLegMovingUp);
+				const rightLegOnlyMovingUp = (!leftLegMovingUp && rightLegMovingUp);
+				const rightLegOnlyMovingDown = (leftLegMovingUp && !rightLegMovingUp);
+				const headMovingUp = (headMovingUp !== null && headMovingUp);
+				const headMovingDown = (headMovingUp !== null && !headMovingUp);
+				const waistMovingRight = (waistMoving && waistMoving !== null);
+				const waistMovingLeft = (!waistMoving && waistMoving !== null);
+				const leftForearmMovingLeft = (leftForearmMovingUp !== null && leftForearmMovingUp && !rightForearmMovingUp && leftShoulderMovingUp === null);
+				const leftForearmMovingRight = (!leftForearmMovingUp && leftForearmMovingUp !== null && !rightForearmMovingUp && leftShoulderMovingUp === null);
+				const rightForearmMovingRight = (rightForearmMovingUp !== null && rightForearmMovingUp && !leftForearmMovingUp && rightShoulderMovingUp === null);
+				const rightForearmMovingLeft = (!rightForearmMovingUp && rightForearmMovingUp !== null && !leftForearmMovingUp && rightShoulderMovingUp === null);
+
 			function checkMovement() {
 			if (!detectMovement || speaking) {
 					return;
@@ -422,28 +444,6 @@
 						// Continue with similar logic for other body parts
 					}
 				}
-
-				// Combined movements
-				const bodyMovingUp = (leftShoulderMovingUp && rightShoulderMovingUp && leftLegMovingUp && rightLegMovingUp);
-				const bodyMovingDown = (!leftShoulderMovingUp && !rightShoulderMovingUp && !leftLegMovingUp && !rightLegMovingUp);
-				const leftArmMovingUp = (leftShoulderMovingUp && leftForearmMovingUp && rightShoulderMovingUp && rightForearmMovingUp && !leftShoulderMovingUp && !rightShoulderMovingUp);
-				const leftArmMovingDown = (!leftShoulderMovingUp && !leftForearmMovingUp && !rightShoulderMovingUp && !rightForearmMovingUp);
-				const rightArmMovingUp = (rightShoulderMovingUp && rightForearmMovingUp && leftShoulderMovingUp && leftForearmMovingUp && !leftShoulderMovingUp && !rightShoulderMovingUp);
-				const rightArmMovingDown = (!rightShoulderMovingUp && !rightForearmMovingUp && !leftShoulderMovingUp && !leftForearmMovingUp);
-				const bothLegsMovingUp = (leftLegMovingUp && rightLegMovingUp);
-				const bothLegsMovingDown = (!leftLegMovingUp && !rightLegMovingUp);
-				const leftLegOnlyMovingUp = (leftLegMovingUp && !rightLegMovingUp);
-				const leftLegOnlyMovingDown = (!leftLegMovingUp && rightLegMovingUp);
-				const rightLegOnlyMovingUp = (!leftLegMovingUp && rightLegMovingUp);
-				const rightLegOnlyMovingDown = (leftLegMovingUp && !rightLegMovingUp);
-				const headMovingUp = (headMovingUp !== null && headMovingUp);
-				const headMovingDown = (headMovingUp !== null && !headMovingUp);
-				const waistMovingRight = (waistMoving && waistMoving !== null);
-				const waistMovingLeft = (!waistMoving && waistMoving !== null);
-				const leftForearmMovingLeft = (leftForearmMovingUp !== null && leftForearmMovingUp && !rightForearmMovingUp && leftShoulderMovingUp === null);
-				const leftForearmMovingRight = (!leftForearmMovingUp && leftForearmMovingUp !== null && !rightForearmMovingUp && leftShoulderMovingUp === null);
-				const rightForearmMovingRight = (rightForearmMovingUp !== null && rightForearmMovingUp && !leftForearmMovingUp && rightShoulderMovingUp === null);
-				const rightForearmMovingLeft = (!rightForearmMovingUp && rightForearmMovingUp !== null && !leftForearmMovingUp && rightShoulderMovingUp === null);
 
 				// Display text for detected movements
 				if (bodyMovingUp || bodyMovingDown || leftArmMovingUp || leftArmMovingDown || rightArmMovingUp || rightArmMovingDown || bothLegsMovingUp || bothLegsMovingDown ||
