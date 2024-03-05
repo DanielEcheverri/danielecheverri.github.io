@@ -400,11 +400,11 @@
 				if (headMoving != null) {
 					partMoving = "head";
 					if (headMoving) {
-						directionMoving = "moving up";
+						directionMoving = "up";
 						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 					} else {
-						directionMoving = "moving down";
+						directionMoving = "down";
 						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 					}
@@ -421,12 +421,12 @@
 				) {
 					partMoving = "left leg";
 					if (leftLegMoving) {
-						directionMoving = "moving up";
+						directionMoving = "up";
 						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 					} else {
 						partMoving = "left leg";
-						directionMoving = "moving down";
+						directionMoving = "down";
 						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 					}
@@ -443,11 +443,11 @@
 				) {
 					partMoving = "right leg";
 					if (rightLegMoving) {
-						directionMoving = "moving up";
+						directionMoving = "up";
 						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 					} else {
-						directionMoving = "moving down";
+						directionMoving = "down";
 						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 					}
@@ -461,7 +461,7 @@
 				) {
 					partMoving = "left arm";
 					if (leftShoulderMoving && leftForearmMoving) {
-						directionMoving = "moving down";
+						directionMoving = "down";
 						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
@@ -470,7 +470,7 @@
 						}, cooldownDuration);
 					}
 					if (!leftShoulderMoving && !leftForearmMoving) {
-						directionMoving = "moving up";
+						directionMoving = "up";
 						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
@@ -488,7 +488,7 @@
 				) {
 					partMoving = "right arm";
 					if (rightShoulderMoving && !rightForearmMoving) {
-						directionMoving = "moving up";
+						directionMoving = "up";
 						//displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
@@ -496,7 +496,7 @@
 						}, cooldownDuration);
 					}
 					if (!rightShoulderMoving && rightForearmMoving) {
-						directionMoving = "moving down";
+						directionMoving = "down";
 						//displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
@@ -512,12 +512,12 @@
 					leftShoulderMoving == null
 				) {
 					partMoving = "left forearm";
-					directionMoving = "moving left";
+					directionMoving = "left";
 					console.log(partMoving+" "+directionMoving);
 					//displayText("{partMoving} is {directionMoving}");
 				} else if (!leftForearmMoving && leftForearmMoving != null && !rightForearmMoving && leftShoulderMoving == null) {
 					partMoving = "left forearm";
-					directionMoving = "moving right";
+					directionMoving = "right";
 					console.log(partMoving+" "+directionMoving);
 					//displayText("{partMoving} is {directionMoving}");
 				}
@@ -529,12 +529,12 @@
 					rightShoulderMoving == null
 				) {
 					partMoving = "right forearm";
-					directionMoving = "moving right";
+					directionMoving = "right";
 					console.log(partMoving+" "+directionMoving);
 					//displayText("{partMoving} is {directionMoving}");
 				} else if (!rightForearmMoving && rightForearmMoving != null && !leftForearmMoving && rightShoulderMoving == null) {
 					partMoving = "right forearm";
-					directionMoving = "moving left";
+					directionMoving = "left";
 					console.log(partMoving+" "+directionMoving);
 					//displayText("{partMoving} is {directionMoving}");
 				}
@@ -546,14 +546,14 @@
 				) {
 					partMoving = "waist";
 					if (waistMoving) {
-						directionMoving = "moving right";
+						directionMoving = "right";
 						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
 							detectMovement = true;
 						}, cooldownDuration);
 					} else {
-						directionMoving = "moving left";
+						directionMoving = "left";
 						displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
