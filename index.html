@@ -360,13 +360,12 @@
 
 				// Iterate through potentiometers to detect movement in different body parts
 				for (let i = 0; i < numPotentiometers; i++) {
-					partMoving = labels[i];
 					const currentValue = potValues[i];
 					const previousValue = previousPotValues[i];
 					const movement = currentValue - previousValue;
 
 					if (Math.abs(movement) > movementThreshold) {
-						console.log("Moving part:"+labels[i]);
+						partMoving = labels[i];
 						// Movement detection logic for each body part
 						if (partMoving === "HEAD") {
 							// Movement detection for head (up and down movement)
