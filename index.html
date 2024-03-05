@@ -326,18 +326,6 @@
 			let waistMoving = null;
 			let headMoving = null;
 
-			const tableData = {
-				"Left Leg Moving": !!leftLegMoving,
-				"Right Leg Moving": !!rightLegMoving,
-				"Left Shoulder Moving": !!leftShoulderMoving,
-				"Right Shoulder Moving": !!rightShoulderMoving,
-				"Left Forearm Moving": !!leftForearmMoving,
-				"Right Forearm Moving": !!rightForearmMoving,
-				"Waist Moving": !!waistMoving,
-				"Head Moving": !!headMoving
-			};
-
-
 			let movementThreshold = 10;
 
 			function checkMovement() {
@@ -356,7 +344,6 @@
 					const movement = currentValue - previousValue;
 
 					if (Math.abs(movement) > movementThreshold) {
-						console.table(tableData);
 						partMoving = labels[i];
 						// Movement detection logic for each body part
 						if (partMoving === "HEAD") {
