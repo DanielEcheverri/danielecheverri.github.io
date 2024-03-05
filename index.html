@@ -326,29 +326,19 @@
 			let waistMoving = null;
 			let headMoving = null;
 
-			let movementThreshold = 30;
+			const tableData = {
+				"Left Leg Moving": !!leftLegMoving,
+				"Right Leg Moving": !!rightLegMoving,
+				"Left Shoulder Moving": !!leftShoulderMoving,
+				"Right Shoulder Moving": !!rightShoulderMoving,
+				"Left Forearm Moving": !!leftForearmMoving,
+				"Right Forearm Moving": !!rightForearmMoving,
+				"Waist Moving": !!waistMoving,
+				"Head Moving": !!headMoving
+			};
+			console.table(tableData);
 
-			// Combined movements
-			const bodyMovingUp = (leftShoulderMoving && rightShoulderMoving && leftLegMoving && rightLegMoving);
-			const bodyMovingDown = (!leftShoulderMoving && !rightShoulderMoving && !leftLegMoving && !rightLegMoving);
-			const leftArmMovingUp = (leftShoulderMoving && leftForearmMoving && rightShoulderMoving && rightForearmMoving && !leftShoulderMoving && !rightShoulderMoving);
-			const leftArmMovingDown = (!leftShoulderMoving && !leftForearmMoving && !rightShoulderMoving && !rightForearmMoving);
-			const rightArmMovingUp = (rightShoulderMoving && rightForearmMoving && leftShoulderMoving && leftForearmMoving && !leftShoulderMoving && !rightShoulderMoving);
-			const rightArmMovingDown = (!rightShoulderMoving && !rightForearmMoving && !leftShoulderMoving && !leftForearmMoving);
-			const bothLegsMovingUp = (leftLegMoving && rightLegMoving && waistMoving === null);
-			const bothLegsMovingDown = (!leftLegMoving && !rightLegMoving && waistMoving === null);
-			const leftLegOnlyMovingUp = (leftLegMoving && !rightLegMoving === null && waistMoving === null);
-			const leftLegOnlyMovingDown = (!leftLegMoving && rightLegMoving === null && waistMoving === null);
-			const rightLegOnlyMovingUp = (leftLegMoving===null && rightLegMoving && waistMoving === null );
-			const rightLegOnlyMovingDown = (leftLegMoving===null && !rightLegMoving && waistMoving === null);
-			const headMovingUp = (headMoving !== null && headMoving);
-			const headMovingDown = (headMoving !== null && !headMoving);
-			const waistMovingRight = (waistMoving && waistMoving !== null && leftLegMoving && rightLegMoving);
-			const waistMovingLeft = (!waistMoving && waistMoving !== null && leftLegMoving && rightLegMoving);
-			const leftForearmMovingLeft = (leftForearmMoving !== null && leftForearmMoving && !rightForearmMoving && leftShoulderMoving === null);
-			const leftForearmMovingRight = (!leftForearmMoving && leftForearmMoving !== null && !rightForearmMoving && leftShoulderMoving === null);
-			const rightForearmMovingRight = (rightForearmMoving !== null && rightForearmMoving && !leftForearmMoving && rightShoulderMoving === null);
-			const rightForearmMovingLeft = (!rightForearmMoving && rightForearmMoving !== null && !leftForearmMoving && rightShoulderMoving === null);
+			let movementThreshold = 30;
 
 			function checkMovement() {
 			if (!detectMovement || speaking) {
@@ -458,6 +448,28 @@
 						}
 					}
 				}
+
+				// Combined movements based on body parts
+				const bodyMovingUp = (leftShoulderMoving && rightShoulderMoving && leftLegMoving && rightLegMoving);
+				const bodyMovingDown = (!leftShoulderMoving && !rightShoulderMoving && !leftLegMoving && !rightLegMoving);
+				const leftArmMovingUp = (leftShoulderMoving && leftForearmMoving && rightShoulderMoving=== null&& rightForearmMoving=== null);
+				const leftArmMovingDown = (!leftShoulderMoving && !leftForearmMoving && rightShoulderMoving=== null&& rightForearmMoving=== null);
+				const rightArmMovingUp = (rightShoulderMoving && rightForearmMoving && leftShoulderMoving=== null && leftForearmMoving=== null);
+				const rightArmMovingDown = (!rightShoulderMoving && !rightForearmMoving && leftShoulderMoving=== null && leftForearmMoving=== null);
+				const bothLegsMovingUp = (leftLegMoving && rightLegMoving && waistMoving === null);
+				const bothLegsMovingDown = (!leftLegMoving && !rightLegMoving && waistMoving === null);
+				const leftLegOnlyMovingUp = (leftLegMoving && !rightLegMoving === null && waistMoving === null);
+				const leftLegOnlyMovingDown = (!leftLegMoving && rightLegMoving === null && waistMoving === null);
+				const rightLegOnlyMovingUp = (rightLegMoving && leftLegMoving === null && waistMoving === null );
+				const rightLegOnlyMovingDown = (!rightLegMoving && leftLegMoving === null && waistMoving === null);
+				const headMovingUp = (headMoving);
+				const headMovingDown = (!headMoving);
+				const waistMovingRight = (waistMoving && waistMoving !== null && leftLegMoving!== null && rightLegMoving!== null);
+				const waistMovingLeft = (!waistMoving && waistMoving !== null && leftLegMoving!== null && rightLegMoving!== null);
+				const leftForearmMovingLeft = (leftForearmMoving !== null && leftForearmMoving && rightForearmMoving=== null  && leftShoulderMoving === null);
+				const leftForearmMovingRight = (!leftForearmMoving && leftForearmMoving !== null && rightForearmMoving === null&& leftShoulderMoving === null);
+				const rightForearmMovingRight = (rightForearmMoving !== null && rightForearmMoving && leftForearmMoving=== null && rightShoulderMoving === null);
+				const rightForearmMovingLeft = (!rightForearmMoving && rightForearmMoving !== null && leftForearmMoving=== null && rightShoulderMoving === null);
 
 				// Display text for detected movements
 				if (bodyMovingUp || bodyMovingDown || leftArmMovingUp || leftArmMovingDown || rightArmMovingUp || rightArmMovingDown || bothLegsMovingUp || bothLegsMovingDown ||
@@ -710,11 +722,9 @@
 				if ('speechSynthesis' in window) {
 					// Check if speaking flag is true
 					if (speechSynthesis.speaking) {
-						console.log("Speech synthesis is currently active.");
 						speaking = true;
 					} else {
 						speaking = false;
-						console.log("Speech synthesis is not active.");
 					}
 				} else {
 					console.log("Speech synthesis is not supported in this browser.");
