@@ -364,6 +364,7 @@
 					const currentValue = potValues[i];
 					const previousValue = previousPotValues[i];
 					const movement = currentValue - previousValue;
+					console.log(labels[i]);
 
 					if (Math.abs(movement) > movementThreshold) {
 						// Movement detection logic for each body part
