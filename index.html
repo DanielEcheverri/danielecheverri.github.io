@@ -365,81 +365,80 @@
 					const previousValue = previousPotValues[i];
 					let movingUp = null;
 					const movement = currentValue - previousValue;
+					console.log(partMoving+directionMoving);
 					if (Math.abs(movement) > movementThreshold) {
 						// Movement detection logic for each body part
 						if (partMoving === "HEAD") {
 							// Movement detection for head (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								headMoving = true; // Head is moving up
-								directionMovement = "up";
+								directionMoving = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								headMoving = false; // Head is moving down
-								directionMovement = "down";
+								directionMoving = "down";
 							}
 						} else if (partMoving === "LEFT LEG") {
 							// Movement detection for left leg (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								leftLegMoving = true; // Left leg is moving up
-								directionMovement = "up";
+								directionMoving = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftLegMoving = false; // Left leg is moving down
-								directionMovement = "down";
+								directionMoving = "down";
 							}
 						} else if (partMoving === "RIGHT LEG") {
 							// Movement detection for right leg (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								rightLegMoving = true; // Right leg is moving up
-								directionMovement = "up";
+								directionMoving = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								rightLegMoving = false; // Right leg is moving down
-								directionMovement = "down";
+								directionMoving = "down";
 							}
 						} else if (partMoving === "LEFT SHOULDER") {
 							// Movement detection for left shoulder (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								leftShoulderMoving = true; // Left shoulder is moving up
-								directionMovement = "up";
+								directionMoving = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftShoulderMoving = false; // Left shoulder is moving down
-								directionMovement = "down";
+								directionMoving = "down";
 							}
 						} else if (partMoving === "RIGHT SHOULDER") {
 							// Movement detection for right shoulder (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
 								rightShoulderMoving = true; // Right shoulder is moving up
-								directionMovement = "up";
+								directionMoving = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
 								rightShoulderMoving = false; // Right shoulder is moving down
-								directionMovement = "down";
+								directionMoving = "down";
 							}
 						} else if (partMoving === "LEFT FOREARM") {
 							// Movement detection for left forearm (left and right movement)
 							if (currentValue < previousValue - movementThreshold) {
 								leftForearmMoving = true; // Left forearm is moving left
-								directionMovement = "left";
+								directionMoving = "left";
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftForearmMoving = false; // Left forearm is moving right
-								directionMovement = "right";
+								directionMoving = "right";
 							}
 						} else if (partMoving === "RIGHT FOREARM") {
 							// Movement detection for right forearm (left and right movement)
 							if (currentValue < previousValue - movementThreshold) {
 								rightForearmMoving = true; // Right forearm is moving left
-								directionMovement = "left";
+								directionMoving = "left";
 							} else if (currentValue > previousValue + movementThreshold) {
 								rightForearmMoving = false; // Right forearm is moving right
-								directionMovement = "right";
+								directionMoving = "right";
 							}
 						} else if (partMoving === "WAIST") {
 							// Movement detection for waist (left and right movement)
 							if ((currentValue < previousValue - movementThreshold) && leftLegMoving && rightLegMoving) {
 								waistMoving = true; // Waist is moving left
-								directionMovement = "left";
-								console.log("Waist left");
+								directionMoving = "left";
 							} else if ((currentValue > previousValue + movementThreshold) && leftLegMoving && rightLegMoving) {
 								waistMoving = false; // Waist is moving right
-								directionMovement = "right";
-								console.log("Waist right");
+								directionMoving = "right";
 							}
 						}
 					}
