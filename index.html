@@ -316,15 +316,7 @@
 			}
 
 
-			// Define variables for detecting movement in different body parts
-			let headMovingUp = null;
-			let leftLegMovingUp = null;
-			let rightLegMovingUp = null;
-			let leftShoulderMovingUp = null;
-			let rightShoulderMovingUp = null;
-			let leftForearmMovingUp = null;
-			let rightForearmMovingUp = null;
-			let waistMoving = null;
+
 
 			let movementThreshold = 10;
 
@@ -341,6 +333,7 @@
 				const leftLegOnlyMovingDown = (!leftLegMovingUp && rightLegMovingUp);
 				const rightLegOnlyMovingUp = (!leftLegMovingUp && rightLegMovingUp);
 				const rightLegOnlyMovingDown = (leftLegMovingUp && !rightLegMovingUp);
+				let waistMoving = null;
 				const headMovingUp = (headMovingUp !== null && headMovingUp);
 				const headMovingDown = (headMovingUp !== null && !headMovingUp);
 				const waistMovingRight = (waistMoving && waistMoving !== null);
