@@ -360,7 +360,7 @@
 
 				// Iterate through potentiometers to detect movement in different body parts
 				for (let i = 0; i < numPotentiometers; i++) {
-					const partMoving = labels[i];
+					partMoving = labels[i];
 					const currentValue = potValues[i];
 					const previousValue = previousPotValues[i];
 					const movement = currentValue - previousValue;
