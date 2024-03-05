@@ -552,6 +552,71 @@
 				previousPotValues = potValues.slice(0, numPotentiometers);
 			}
 
+
+			// Function to fetch movement patterns from JSON file
+			async function fetchMovementPatterns() {
+				try {
+					const response = await fetch('movements.json');
+					if (!response.ok) {
+						throw new Error('Failed to fetch movement patterns');
+					}
+					const patterns = await response.json();
+					return patterns;
+				} catch (error) {
+					console.error(error);
+					return [];
+				}
+			}
+
+			let movementBuffer = [];
+
+			// Function to track movement sequences and compare them against patterns
+			async function trackMovementSequences(partMoving, directionMoving) {
+				try {
+					const currentSequence = { partMoving, directionMoving };
+					movementBuffer.push(currentSequence);
+
+					// Limit the buffer to store only the last 5 variations
+					if (movementBuffer.length > 5) {
+						movementBuffer.shift(); // Remove the oldest variation
+					}
+
+					const patterns = await fetchMovementPatterns();
+					for (const pattern of patterns) {
+						if (checkPatternInBuffer(pattern.pattern)) {
+							console.log(`Pattern matched: ${pattern.patternName}`);
+							// Optionally, you can clear the buffer after a match if needed
+							movementBuffer = [];
+							return;
+						}
+					}
+					console.log('No matching pattern found.');
+				} catch (error) {
+					console.error(error);
+				}
+			}
+
+			// Function to check if a pattern exists in the movement buffer
+			function checkPatternInBuffer(pattern) {
+				const bufferLength = movementBuffer.length;
+				if (bufferLength < pattern.length) {
+					return false; // Not enough movements in the buffer for pattern matching
+				}
+
+				// Check the last 'pattern.length' movements in the buffer
+				const bufferSlice = movementBuffer.slice(-pattern.length);
+				for (let i = 0; i < pattern.length; i++) {
+					if (pattern[i].partMoving !== bufferSlice[i].partMoving ||
+						pattern[i].directionMoving !== bufferSlice[i].directionMoving) {
+						return false; // Pattern doesn't match
+					}
+				}
+				return true; // Pattern matched
+			}
+
+			// Example usage
+			trackMovementSequences(partMoving, directionMoving);
+
 			var streetName;
 
 			// Function to fetch city name using Overpass API
