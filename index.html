@@ -324,6 +324,7 @@
 			let leftForearmMovingUp = null;
 			let rightForearmMovingUp = null;
 			let waistMoving = null;
+			let headMoving = null;
 
 			let movementThreshold = 10;
 
@@ -340,8 +341,8 @@
 				const leftLegOnlyMovingDown = (!leftLegMovingUp && rightLegMovingUp);
 				const rightLegOnlyMovingUp = (!leftLegMovingUp && rightLegMovingUp);
 				const rightLegOnlyMovingDown = (leftLegMovingUp && !rightLegMovingUp);
-				const headMovingUp = (headMovingUp !== null && headMovingUp);
-				const headMovingDown = (headMovingUp !== null && !headMovingUp);
+				const headMovingUp = (headMoving !== null && headMoving);
+				const headMovingDown = (headMoving !== null && !headMoving);
 				const waistMovingRight = (waistMoving && waistMoving !== null);
 				const waistMovingLeft = (!waistMoving && waistMoving !== null);
 				const leftForearmMovingLeft = (leftForearmMovingUp !== null && leftForearmMovingUp && !rightForearmMovingUp && leftShoulderMovingUp === null);
@@ -370,10 +371,10 @@
 						if (partMoving === "HEAD") {
 							// Movement detection for head (up and down movement)
 							if (currentValue < previousValue - movementThreshold) {
-								headMovingUp = true; // Head is moving up
+								headMoving = true; // Head is moving up
 						directionMovement = "up";
 							} else if (currentValue > previousValue + movementThreshold) {
-								headMovingUp = false; // Head is moving down
+								headMoving = false; // Head is moving down
 						directionMovement = "down";
 							}
 						} else if (partMoving === "LEFT LEG") {
