@@ -36,6 +36,8 @@
 			var message;
 			let partMoving = "";
 			let directionMoving = "";
+			let patternMovement ="";
+
 			async function connectToDevice() {
 				try {
 					if (!isConnected) {
@@ -571,6 +573,8 @@
 					for (const pattern of patterns) {
 						if (checkPatternInBuffer(pattern.pattern)) {
 							console.log(`Pattern matched: ${pattern.patternName}`);
+							patternMovement = pattern.patternName;
+							displayText(patternMovement);
 							// Optionally, you can clear the buffer after a match if needed
 							movementBuffer = [];
 							return;
@@ -690,7 +694,7 @@
 						// Call fetchStreetName and wait for it to resolve
 						fetchStreetName().then((name) => {
 							// Compose the full message with fetched name
-							composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,speed)
+							composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
 								.then((fullMessage) => {
 									updateDisplay(fullMessage);
 									streetName = name;
@@ -701,7 +705,7 @@
 						});
 					} else {
 						// Compose the full message using the existing streetName value
-						composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed)
+						composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
 							.then((fullMessage) => {
 								updateDisplay(fullMessage);
 							})
@@ -756,7 +760,7 @@
 				}
 			}
 
-			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude) {
+			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,patternMovement) {
 				try {
 					let sentenceTemplate;
 					if (noNarrative) {
@@ -788,6 +792,7 @@
 						.replace(/\{partMoving\}/g, partMoving)
 						.replace(/\{directionMoving\}/g, directionMoving)
 						.replace(/\{speed\}/g, speed)
+						.replace(/\{patternMovement\}/g, patternMovement)
 						.replace(/\{latitude\}/g, latitude)
 						.replace(/\{longitude\}/g, longitude);
 
