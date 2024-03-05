@@ -336,11 +336,12 @@
 				"Waist Moving": !!waistMoving,
 				"Head Moving": !!headMoving
 			};
-			console.table(tableData);
+
 
 			let movementThreshold = 30;
 
 			function checkMovement() {
+				console.table(tableData);
 			if (!detectMovement || speaking) {
 					return;
 				}
