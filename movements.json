@@ -16,15 +16,15 @@
 	{
 		"patternName": "Landing the jump!",
 		"pattern": [
-			{ "partMoving": "left arm", "directionMoving": "down" },
-			{ "partMoving": "right arm", "directionMoving": "down" }
+			{ "partMoving": "left leg", "directionMoving": "down" },
+			{ "partMoving": "right leg", "directionMoving": "down" }
 		]
 	},
 	{
 		"patternName": "Landing the jump!",
 		"pattern": [
-			{ "partMoving": "left arm", "directionMoving": "down" },
-			{ "partMoving": "right arm", "directionMoving": "down" }
+			{ "partMoving": "left leg", "directionMoving": "down" },
+			{ "partMoving": "right leg", "directionMoving": "down" }
 		]
 	},
 	{
