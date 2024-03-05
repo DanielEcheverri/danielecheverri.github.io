@@ -90,5 +90,15 @@
 			{ "partMoving": "head", "directionMoving": "up" },
 			{ "partMoving": "right arm", "directionMoving": "up" }
 		]
+	},
+	{
+		"patternName": "Dancing",
+		"pattern": [
+			{ "partMoving": "waist", "directionMoving": "left" },
+			{ "partMoving": "waist", "directionMoving": "right" },
+			{ "partMoving": "waist", "directionMoving": "left" },
+			{ "partMoving": "waist", "directionMoving": "right" },
+			{ "partMoving": "waist", "directionMoving": "left" }
+		]
 	}
 ]
