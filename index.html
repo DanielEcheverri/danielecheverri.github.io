@@ -489,6 +489,7 @@
 					partMoving = "right arm";
 					if (rightShoulderMoving && !rightForearmMoving) {
 						directionMoving = "up";
+						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
@@ -497,6 +498,7 @@
 					}
 					if (!rightShoulderMoving && rightForearmMoving) {
 						directionMoving = "down";
+						console.log(partMoving+" "+directionMoving);
 						//displayText("{partMoving} is {directionMoving}");
 						detectMovement = false;
 						setTimeout(() => {
