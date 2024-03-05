@@ -341,7 +341,7 @@
 			let movementThreshold = 30;
 
 			function checkMovement() {
-				console.table(tableData);
+
 			if (!detectMovement || speaking) {
 					return;
 				}
@@ -475,7 +475,8 @@
 				// Display text for detected movements
 				if (bodyMovingUp || bodyMovingDown || leftArmMovingUp || leftArmMovingDown || rightArmMovingUp || rightArmMovingDown || bothLegsMovingUp || bothLegsMovingDown ||
 					leftLegOnlyMovingUp || leftLegOnlyMovingDown || rightLegOnlyMovingUp || rightLegOnlyMovingDown || headMovingUp || headMovingDown || waistMovingRight || waistMovingLeft || leftForearmMovingLeft || leftForearmMovingRight || rightForearmMovingLeft || rightForearmMovingRight) {
-					displayText("{partMoving} is moving {directionMoving}");
+						console.table(tableData);
+						displayText("{partMoving} is moving {directionMoving}");
 				}
 
 				// Start cooldown timer for waist if it's moving
