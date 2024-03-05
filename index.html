@@ -598,9 +598,19 @@
 				return true; // Pattern matched
 			}
 
+			async function fetchMovementPatterns() {
+				try {
+					const response = await fetch('movements.json');
+					const patterns = await response.json();
+					return patterns;
+				} catch (error) {
+					console.error(error);
+					return [];
+				}
+			}
+
 			// Example usage
 			trackMovementSequences(partMoving, directionMoving);
-
 
 			var streetName;
 
