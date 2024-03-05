@@ -401,10 +401,10 @@
 					partMoving = "head";
 					if (headMoving) {
 						directionMoving = "moving up";
-						displayText("{partMoving} is {directionMoving}");
+						//displayText("{partMoving} is {directionMoving}");
 					} else {
 						directionMoving = "moving down";
-						displayText("{partMoving} is {directionMoving}");
+						//displayText("{partMoving} is {directionMoving}");
 					}
 				}
 				// Displaying movement text based on detected left leg movement
@@ -505,11 +505,11 @@
 				) {
 					partMoving = "left forearm";
 					directionMoving = "moving left";
-					displayText("{partMoving} is {directionMoving}");
+					//displayText("{partMoving} is {directionMoving}");
 				} else if (!leftForearmMoving && leftForearmMoving != null && !rightForearmMoving && leftShoulderMoving == null) {
 					partMoving = "left forearm";
 					directionMoving = "moving right";
-					displayText("{partMoving} is {directionMoving}");
+					//displayText("{partMoving} is {directionMoving}");
 				}
 				// Displaying movement text based on detected right forearm movement
 				if (
@@ -520,11 +520,11 @@
 				) {
 					partMoving = "right forearm";
 					directionMoving = "moving right";
-					displayText("{partMoving} is {directionMoving}");
+					//displayText("{partMoving} is {directionMoving}");
 				} else if (!rightForearmMoving && rightForearmMoving != null && !leftForearmMoving && rightShoulderMoving == null) {
 					partMoving = "right forearm";
 					directionMoving = "moving left";
-					displayText("{partMoving} is {directionMoving}");
+					//displayText("{partMoving} is {directionMoving}");
 				}
 				// Displaying movement based on detected waist movement
 				if (
