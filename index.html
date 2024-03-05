@@ -326,7 +326,7 @@
 			let waistMoving = null;
 			let headMoving = null;
 
-			let movementThreshold = 10;
+			let movementThreshold = 30;
 
 			// Combined movements
 			const bodyMovingUp = (leftShoulderMoving && rightShoulderMoving && leftLegMoving && rightLegMoving);
@@ -363,9 +363,8 @@
 					const partMoving = labels[i];
 					const currentValue = potValues[i];
 					const previousValue = previousPotValues[i];
-					let movingUp = null;
 					const movement = currentValue - previousValue;
-					console.log(partMoving+directionMoving);
+
 					if (Math.abs(movement) > movementThreshold) {
 						// Movement detection logic for each body part
 						if (partMoving === "HEAD") {
@@ -376,6 +375,8 @@
 							} else if (currentValue > previousValue + movementThreshold) {
 								headMoving = false; // Head is moving down
 								directionMoving = "down";
+							} else {
+								headMoving = null;
 							}
 						} else if (partMoving === "LEFT LEG") {
 							// Movement detection for left leg (up and down movement)
@@ -385,6 +386,8 @@
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftLegMoving = false; // Left leg is moving down
 								directionMoving = "down";
+							} else {
+								leftLegMoving = null;
 							}
 						} else if (partMoving === "RIGHT LEG") {
 							// Movement detection for right leg (up and down movement)
@@ -394,6 +397,8 @@
 							} else if (currentValue > previousValue + movementThreshold) {
 								rightLegMoving = false; // Right leg is moving down
 								directionMoving = "down";
+							} else {
+								rightLegMoving = null;
 							}
 						} else if (partMoving === "LEFT SHOULDER") {
 							// Movement detection for left shoulder (up and down movement)
@@ -403,6 +408,8 @@
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftShoulderMoving = false; // Left shoulder is moving down
 								directionMoving = "down";
+							} else {
+								leftShoulderMoving = null;
 							}
 						} else if (partMoving === "RIGHT SHOULDER") {
 							// Movement detection for right shoulder (up and down movement)
@@ -412,6 +419,8 @@
 							} else if (currentValue > previousValue + movementThreshold) {
 								rightShoulderMoving = false; // Right shoulder is moving down
 								directionMoving = "down";
+							} else {
+								rightShoulderMoving = null;
 							}
 						} else if (partMoving === "LEFT FOREARM") {
 							// Movement detection for left forearm (left and right movement)
@@ -421,6 +430,8 @@
 							} else if (currentValue > previousValue + movementThreshold) {
 								leftForearmMoving = false; // Left forearm is moving right
 								directionMoving = "right";
+							} else {
+								leftForearmMoving = null;
 							}
 						} else if (partMoving === "RIGHT FOREARM") {
 							// Movement detection for right forearm (left and right movement)
@@ -430,6 +441,8 @@
 							} else if (currentValue > previousValue + movementThreshold) {
 								rightForearmMoving = false; // Right forearm is moving right
 								directionMoving = "right";
+							} else {
+								leftForearmMoving = null;
 							}
 						} else if (partMoving === "WAIST") {
 							// Movement detection for waist (left and right movement)
@@ -439,6 +452,8 @@
 							} else if ((currentValue > previousValue + movementThreshold) && leftLegMoving && rightLegMoving) {
 								waistMoving = false; // Waist is moving right
 								directionMoving = "right";
+							} else {
+								waistMoving = null;
 							}
 						}
 					}
