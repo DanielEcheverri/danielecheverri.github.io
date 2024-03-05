@@ -346,7 +346,7 @@
 					return;
 				}
 
-				// Set detectMovement to false to prevent further movement detection during cooldown
+				// Set detectMovement to false to prevent further movement detection during cooldown.
 				detectMovement = false;
 
 				// Iterate through potentiometers to detect movement in different body parts
@@ -356,6 +356,7 @@
 					const movement = currentValue - previousValue;
 
 					if (Math.abs(movement) > movementThreshold) {
+						console.table(tableData);
 						partMoving = labels[i];
 						// Movement detection logic for each body part
 						if (partMoving === "HEAD") {
@@ -475,7 +476,6 @@
 				// Display text for detected movements
 				if (bodyMovingUp || bodyMovingDown || leftArmMovingUp || leftArmMovingDown || rightArmMovingUp || rightArmMovingDown || bothLegsMovingUp || bothLegsMovingDown ||
 					leftLegOnlyMovingUp || leftLegOnlyMovingDown || rightLegOnlyMovingUp || rightLegOnlyMovingDown || headMovingUp || headMovingDown || waistMovingRight || waistMovingLeft || leftForearmMovingLeft || leftForearmMovingRight || rightForearmMovingLeft || rightForearmMovingRight) {
-						console.table(tableData);
 						displayText("{partMoving} is moving {directionMoving}");
 				}
 
