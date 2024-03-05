@@ -552,22 +552,6 @@
 				previousPotValues = potValues.slice(0, numPotentiometers);
 			}
 
-
-			// Function to fetch movement patterns from JSON file
-			async function fetchMovementPatterns() {
-				try {
-					const response = await fetch('movements.json');
-					if (!response.ok) {
-						throw new Error('Failed to fetch movement patterns');
-					}
-					const patterns = await response.json();
-					return patterns;
-				} catch (error) {
-					console.error(error);
-					return [];
-				}
-			}
-
 			let movementBuffer = [];
 
 			// Function to track movement sequences and compare them against patterns
@@ -616,6 +600,7 @@
 
 			// Example usage
 			trackMovementSequences(partMoving, directionMoving);
+
 
 			var streetName;
 
