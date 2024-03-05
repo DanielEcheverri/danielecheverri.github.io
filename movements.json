@@ -2,6 +2,8 @@
 	{
 		"patternName": "Jumping very high!",
 		"pattern": [
+			{ "partMoving": "left arm", "directionMoving": "up" },
+			{ "partMoving": "right arm", "directionMoving": "up" },
 			{ "partMoving": "left leg", "directionMoving": "up" },
 			{ "partMoving": "right leg", "directionMoving": "up" }
 		]
@@ -10,12 +12,16 @@
 		"patternName": "Landing the jump!",
 		"pattern": [
 			{ "partMoving": "left leg", "directionMoving": "down" },
-			{ "partMoving": "right leg", "directionMoving": "down" }
+			{ "partMoving": "right leg", "directionMoving": "down" },
+			{ "partMoving": "left arm", "directionMoving": "down" },
+			{ "partMoving": "right arm", "directionMoving": "down" }
 		]
 	},
 	{
 		"patternName": "Jumping very high!",
 		"pattern": [
+			{ "partMoving": "left arm", "directionMoving": "up" },
+			{ "partMoving": "right arm", "directionMoving": "up" },
 			{ "partMoving": "right leg", "directionMoving": "up" },
 			{ "partMoving": "left leg", "directionMoving": "up" }
 		]
@@ -24,7 +30,9 @@
 		"patternName": "Landing the jump!",
 		"pattern": [
 			{ "partMoving": "right leg", "directionMoving": "down" },
-			{ "partMoving": "left leg", "directionMoving": "down" }
+			{ "partMoving": "left leg", "directionMoving": "down" },
+			{ "partMoving": "left arm", "directionMoving": "down" },
+			{ "partMoving": "right arm", "directionMoving": "down" }
 		]
 	},
 	{
@@ -104,6 +112,7 @@
 	{
 		"patternName": "Standing on the left leg",
 		"pattern": [
+			{ "partMoving": "right right", "directionMoving": "up" },
 			{ "partMoving": "left leg", "directionMoving": "up" },
 			{ "partMoving": "left leg", "directionMoving": "down" },
 			{ "partMoving": "left leg", "directionMoving": "up" },
@@ -113,6 +122,7 @@
 	{
 		"patternName": "Standing on the right leg",
 		"pattern": [
+			{ "partMoving": "left leg", "directionMoving": "up" },
 			{ "partMoving": "right leg", "directionMoving": "up" },
 			{ "partMoving": "right leg", "directionMoving": "down" },
 			{ "partMoving": "right leg", "directionMoving": "up" },
