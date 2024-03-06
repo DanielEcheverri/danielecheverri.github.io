@@ -577,7 +577,7 @@
 			async function trackMovementSequences(partMoving, directionMoving) {
 				try {
 					const currentSequence = { partMoving, directionMoving };
-
+					console.log(movementBuffer);
 					// Check if the current sequence is different from the previous one
 					if (
 						movementBuffer.length > 0 &&
