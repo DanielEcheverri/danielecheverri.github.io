@@ -620,28 +620,13 @@
 
 				// Check the last 'pattern.length' movements in the buffer
 				const bufferSlice = movementBuffer.slice(-pattern.length);
-
-				// Iterate over each pattern sequence
-				for (const sequence of pattern) {
-					let sequenceMatched = false;
-					// Iterate over each movement in the sequence
-					for (let i = 0; i < sequence.length; i++) {
-						if (
-							sequence[i].partMoving !== bufferSlice[i].partMoving ||
-							sequence[i].directionMoving !== bufferSlice[i].directionMoving
-						) {
-							// If any movement in the sequence doesn't match the buffer, break and move to the next sequence
-							sequenceMatched = false;
-							break;
-						}
-						sequenceMatched = true; // Set sequenceMatched to true if all movements match
-					}
-					// If the entire sequence matches, return true
-					if (sequenceMatched) {
-						return true;
+				for (let i = 0; i < pattern.length; i++) {
+					if (pattern[i].partMoving !== bufferSlice[i].partMoving ||
+						pattern[i].directionMoving !== bufferSlice[i].directionMoving) {
+						return false; // Pattern doesn't match
 					}
 				}
-				return false; // No sequence in the pattern matched
+				return true; // Pattern matched
 			}
 
 			async function fetchMovementPatterns() {
