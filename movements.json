@@ -4,11 +4,8 @@
 		"pattern": [
 			{ "partMoving": "left leg", "directionMoving": "up" },
 			{ "partMoving": "right leg", "directionMoving": "up" }
-		]
-	},
-	{
-		"patternName": "Jumping very high!",
-		"pattern": [
+		],
+		[
 			{ "partMoving": "right leg", "directionMoving": "up" },
 			{ "partMoving": "left leg", "directionMoving": "up" }
 		]
