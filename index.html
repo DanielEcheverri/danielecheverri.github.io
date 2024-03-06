@@ -319,7 +319,7 @@
 			// Define variables for detecting movement in different body parts
 			function checkMovement() {
 				// Define thresholds for movement detection
-				let movementThreshold = 10;
+				let movementThreshold = 25;
 
 				// Variables to track movement of the head, left leg, right leg, left shoulder, right shoulder, left forearm, right forearm, and waist
 				let headMoving;
@@ -660,7 +660,6 @@
 				.then(() => {
 					// Construct Overpass API query
 					var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:50," + latitude + "," + longitude + ");out;";
-					console.log(overpassQuery);
 					// Fetch data from Overpass API
 					return fetch(overpassQuery);
 				})
@@ -753,11 +752,9 @@
 						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
 						var timeoutCallback = function() {
 							if (!speaking) {
-								console.log("Clearing text");
 								gestureDiv.textContent = ""; // Clear the text
 								gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
 							} else {
-								console.log("Timeout check 1 sec");
 								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
 							}
 						};
