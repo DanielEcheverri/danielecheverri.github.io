@@ -30,7 +30,6 @@
 	{
 		"patternName": "Greeting someone with the left hand",
 		"pattern": [
-			{ "partMoving": "left forearm", "directionMoving": "right" },
 			{ "partMoving": "left forearm", "directionMoving": "left" },
 			{ "partMoving": "left forearm", "directionMoving": "right" },
 			{ "partMoving": "left forearm", "directionMoving": "left" }
@@ -39,28 +38,9 @@
 	{
 		"patternName": "Greeting someone with the right hand",
 		"pattern": [
-			{ "partMoving": "right forearm", "directionMoving": "right" },
 			{ "partMoving": "right forearm", "directionMoving": "left" },
 			{ "partMoving": "right forearm", "directionMoving": "right" },
 			{ "partMoving": "right forearm", "directionMoving": "left" }
-		]
-	},
-	{
-		"patternName": "Greeting someone with the left hand",
-		"pattern": [
-			{ "partMoving": "left forearm", "directionMoving": "left" },
-			{ "partMoving": "left forearm", "directionMoving": "right" },
-			{ "partMoving": "left forearm", "directionMoving": "left" },
-			{ "partMoving": "left forearm", "directionMoving": "right" }
-		]
-	},
-	{
-		"patternName": "Greeting someone with the right hand",
-		"pattern": [
-			{ "partMoving": "right forearm", "directionMoving": "left" },
-			{ "partMoving": "right forearm", "directionMoving": "right" },
-			{ "partMoving": "right forearm", "directionMoving": "left" },
-			{ "partMoving": "right forearm", "directionMoving": "right" }
 		]
 	},
 	{
@@ -97,8 +77,7 @@
 			{ "partMoving": "waist", "directionMoving": "left" },
 			{ "partMoving": "waist", "directionMoving": "right" },
 			{ "partMoving": "waist", "directionMoving": "left" },
-			{ "partMoving": "waist", "directionMoving": "right" },
-			{ "partMoving": "waist", "directionMoving": "left" }
+			{ "partMoving": "waist", "directionMoving": "right" }
 		]
 	},
 	{
