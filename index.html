@@ -627,13 +627,12 @@
 
 			async function fetchMovementPatterns() {
 				try {
-					const response = await fetch('movements.json');
-					const patterns = await response.json();
-					return patterns;
-				} catch (error) {
-					console.error(error);
-					return [];
-				}
+				const patterns = await $.get('movements.json');
+				return patterns;
+			} catch (error) {
+				console.error(error);
+				return [];
+			}
 			}
 
 			var streetName;
