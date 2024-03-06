@@ -95,5 +95,19 @@
 			{ "partMoving": "right leg", "directionMoving": "down" },
 			{ "partMoving": "right leg", "directionMoving": "up" }
 		]
+	},
+	{
+		"patternName": "Keeping something",
+		"pattern": [
+			{ "partMoving": "left arm", "directionMoving": "up" },
+			{ "partMoving": "left forearm", "directionMoving": "righ" }
+		]
+	},
+	{
+		"patternName": "Keeping something",
+		"pattern": [
+			{ "partMoving": "right arm", "directionMoving": "up" },
+			{ "partMoving": "right forearm", "directionMoving": "right" }
+		]
 	}
 ]
