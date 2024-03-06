@@ -38,62 +38,78 @@
 	{
 		"patternName": "Greeting someone with the right hand",
 		"pattern": [
+			[
 			{ "partMoving": "right forearm", "directionMoving": "left" },
 			{ "partMoving": "right forearm", "directionMoving": "right" },
 			{ "partMoving": "right forearm", "directionMoving": "left" }
 		]
+	}
 	},
 	{
 		"patternName": "Picking something from the floor with the left arm",
 		"pattern": [
+			[
 			{ "partMoving": "head", "directionMoving": "down" },
 			{ "partMoving": "left arm", "directionMoving": "down" }
 		]
+	]
 	},
 	{
 		"patternName": "Picking something from the floor with the right arm",
 		"pattern": [
+		[
 			{ "partMoving": "head", "directionMoving": "down" },
 			{ "partMoving": "right arm", "directionMoving": "down" }
 		]
+	]
 	},
 	{
 		"patternName": "Picking something high with the left arm",
 		"pattern": [
+			[
 			{ "partMoving": "head", "directionMoving": "up" },
 			{ "partMoving": "left arm", "directionMoving": "up" }
 		]
+	]
 	},
 	{
 		"patternName": "Picking something high with the right arm",
 		"pattern": [
+		[
 			{ "partMoving": "head", "directionMoving": "up" },
 			{ "partMoving": "right arm", "directionMoving": "up" }
 		]
+	]
 	},
 	{
 		"patternName": "Gone dancing",
 		"pattern": [
+		[
 			{ "partMoving": "waist", "directionMoving": "left" },
 			{ "partMoving": "waist", "directionMoving": "right" },
 			{ "partMoving": "waist", "directionMoving": "left" },
 			{ "partMoving": "waist", "directionMoving": "right" }
 		]
+	]
 	},
 	{
 		"patternName": "Standing on the right leg",
 		"pattern": [
+			[
 			{ "partMoving": "left leg", "directionMoving": "up" },
 			{ "partMoving": "left leg", "directionMoving": "down" },
 			{ "partMoving": "left leg", "directionMoving": "up" }
 		]
+	]
 	},
 	{
 		"patternName": "Standing on the left leg",
 		"pattern": [
+			[
 			{ "partMoving": "right leg", "directionMoving": "up" },
 			{ "partMoving": "right leg", "directionMoving": "down" },
 			{ "partMoving": "right leg", "directionMoving": "up" }
 		]
+	]
 	}
 ]
