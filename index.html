@@ -172,19 +172,12 @@
 							// Update the HTML element with the direction and distance walked
 							document.getElementById("currentLocation").textContent =
 								"STATUS: " +
-								"Latitude: " +
-								latitude +
-								", Longitude: " +
-								longitude +
-								", Direction: " +
-								directionText +
-								", Speed: " +
-								speed.toFixed(2) +
-								" m/s, Distance Walked: " +
-								totalDistance.toFixed(2) +
-								" m"
-								" Avatar Actions: "+
-								partMoving + " " + directionMoving;
+								"Latitude: " + latitude +
+								", Longitude: " + longitude +
+								", Direction: " + directionText +
+								", Speed: " + speed.toFixed(2) +
+								" m/s, Distance Walked: " + totalDistance.toFixed(2) +
+								" m, Avatar Actions: "+ partMoving + " " + directionMoving;
 						},
 						function (error) {
 							console.error("Error getting current location: ", error);
