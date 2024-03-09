@@ -168,6 +168,11 @@
 							}
 							// Update the HTML element with the direction and distance walked
 							document.getElementById("currentLocation").textContent =
+								"STATUS: " +
+								"Latitude: " +
+								latitude +
+								"Longitude: " +
+								longitude +
 								"Direction: " +
 								directionText +
 								", Speed: " +
@@ -565,6 +570,7 @@
 
 				// Update previous potentiometer values for the next iteration.
 				previousPotValues = potValues.slice(0, numPotentiometers);
+				//Add movement to the sequence buffer
 				trackMovementSequences(partMoving, directionMoving);
 			}
 
