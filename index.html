@@ -21,10 +21,10 @@
 		<div id="closestShop"></div>
 		<!-- Coordinates-->
 		<div id="currentLocation"></div>
-		<!-- Heading change>-->
-		<div id="headingChange"></div>
+		<!-- Console output-->
+		<div id="consoleOutput"></div>
 		<!-- Movement>-->
-		<div id="gestureDiv"></div>
+		<div id="messageDisplayDiv"></div>
 		<script>
 			//Script for pairing with Avatar_BT
 			let characteristic;
@@ -707,7 +707,7 @@
 			var fullMessage;
 
 			function displayText(message) {
-				var gestureDiv = document.getElementById("gestureDiv");
+				var messageDisplayDiv = document.getElementById("messageDisplayDiv");
 				fullMessage = message;
 
 				// Check if speaking is true, if so, exit early
@@ -754,17 +754,17 @@
 				function updateDisplay(fullMessage) {
 					try {
 						// Set the text content
-						gestureDiv.textContent = fullMessage;
+						messageDisplayDiv.textContent = fullMessage;
 						speakMessage(fullMessage);
 
 						// Check if message is not empty to show the overlay
-						gestureDiv.style.display = message.trim() !== "" ? "block" : "none";
+						messageDisplayDiv.style.display = message.trim() !== "" ? "block" : "none";
 
 						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
 						var timeoutCallback = function() {
 							if (!speaking) {
-								gestureDiv.textContent = ""; // Clear the text
-								gestureDiv.style.display = "none"; // Hide the overlay after clearing the text
+								messageDisplayDiv.textContent = ""; // Clear the text
+								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
 							} else {
 								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
 							}

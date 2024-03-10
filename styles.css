@@ -19,8 +19,7 @@ h1 {
 	position: relative;
 }
 #closestShop,
-#currentLocation,
-#headingChange {
+#currentLocation {
 	width: 100%;
 	text-align: center;
 	color: #999da0; /* Black text color */
@@ -31,7 +30,7 @@ h1 {
 	font-size: 12px; /* Text size */
 }
 
-#gestureDiv {
+#messageDisplayDiv {
 	font-weight: 700;
 	position: fixed;
 	top: 0;
