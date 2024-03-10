@@ -33,6 +33,7 @@
 			let directionMoving = "";
 			let patternMovement ="";
 			var blueToothStatus = "Avatar Offline";
+			var streetName = "Unknown";
 
 			async function connectToDevice() {
 				try {
@@ -642,8 +643,6 @@
 				return [];
 			}
 			}
-
-			var streetName;
 
 			// Function to fetch city name using Overpass API
 			function fetchStreetName() {
