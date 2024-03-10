@@ -16,8 +16,8 @@
 		<div id="avatarBTdiv">
 			<!-- Connect Button. -->
 			<button id="connectButton" class="button" disabled>Connect to Avatar</button>
-			<!-- Find Closest Shop Button -->
-			<button id="findClosestShopButton" class="button" onclick="findClosestShop()" disabled>Find Closest Shop</button>
+			<!-- Find Closest Shop Button 
+			<button id="findClosestShopButton" class="button" onclick="findClosestShop()" disabled>Find Closest Shop</button>-->
 		</div>
 		<!-- Div to display status of Avatar BT shop -->
 		<div id="closestShop"></div>
@@ -101,7 +101,7 @@
 				// Check if latitude, longitude, and weatherDescription are not null
 				if (latitude !== null && longitude !== null && weatherDescription !== null) {
 					connectButton.disabled = false;
-					findClosestShopButton.disabled = false;
+					//findClosestShopButton.disabled = false;
 					fetchStreetName().then((name) => {
 						displayText("Ready to connect to Avatar BT");
 						});
