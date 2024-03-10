@@ -19,6 +19,7 @@ h1 {
 	position: relative;
 }
 #closestShop,
+#consoleOutput,
 #currentLocation {
 	width: 100%;
 	text-align: center;
@@ -26,7 +27,8 @@ h1 {
 	font-size: 16px; /* Text size */
 }
 
-#currentLocation {
+#currentLocation,
+#consoleOutput {
 	font-size: 12px; /* Text size */
 }
 
