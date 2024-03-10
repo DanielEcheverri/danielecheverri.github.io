@@ -127,14 +127,16 @@
 				var originalConsoleError = console.error;
 
 				// Override console.log to append messages to the div
-				console.log = function(message) {
-					originalConsoleLog.apply(console, arguments);
+				console.log = function(...args) {
+					originalConsoleLog(...args);
+					var message = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '); // Convert objects to strings
 					consoleOutputDiv.innerHTML += '<div class="log">' + message + '</div>';
 				};
 
 				// Override console.error to append error messages to the div
-				console.error = function(message) {
-					originalConsoleError.apply(console, arguments);
+				console.error = function(...args) {
+					originalConsoleError(...args);
+					var message = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '); // Convert objects to strings
 					consoleOutputDiv.innerHTML += '<div class="error">' + message + '</div>';
 				};
 			}
