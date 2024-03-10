@@ -673,7 +673,7 @@
 							return element.tags['addr:street']; // Found, return street name
 						}
 					}
-					// If 'addr:street' is not found in any element, throw an error
+					// If 'addr:street' is not found in any element, throw an error.
 					throw new Error("Street name not found");
 				})
 				.catch((error) => {
@@ -681,6 +681,8 @@
 					return "an unknown";
 				});
 			}
+
+
 			var timeoutID; // Variable to hold the timeout ID.
 			var previousMessage = ""; // Variable to store the previous message
 			var previousLatitude;
