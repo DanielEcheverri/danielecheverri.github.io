@@ -113,7 +113,36 @@
 
 			// Call the function when the script is loaded
 			window.onload = checkVariables;
+
+			// Function to redirect console.log and console.error to a div
+			function redirectConsoleToDiv() {
+				var consoleOutputDiv = document.getElementById('consoleOutput');
+				if (!consoleOutputDiv) {
+					console.error("Div for console output not found");
+					return;
+				}
+
+				// Save the original console.log and console.error functions
+				var originalConsoleLog = console.log;
+				var originalConsoleError = console.error;
+
+				// Override console.log to append messages to the div
+				console.log = function(message) {
+					originalConsoleLog.apply(console, arguments);
+					consoleOutputDiv.innerHTML += '<div class="log">' + message + '</div>';
+				};
+
+				// Override console.error to append error messages to the div
+				console.error = function(message) {
+					originalConsoleError.apply(console, arguments);
+					consoleOutputDiv.innerHTML += '<div class="error">' + message + '</div>';
+				};
+			}
+
+			// Call the function to redirect console.log and console.error to the div
+			redirectConsoleToDiv();
 		</script>
+
 		<script>
 			var latitude;
 			var longitude;
