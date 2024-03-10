@@ -760,7 +760,7 @@
 						speakMessage(fullMessage);
 
 						// Check if message is not empty to show the overlay
-						messageDisplayDiv.style.display = message.trim() !== "" ? "block" : "none";
+						messageDisplayDiv.style.display = fullMessage.trim() !== "" ? "block" : "none";
 
 						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
 						var timeoutCallback = function() {
