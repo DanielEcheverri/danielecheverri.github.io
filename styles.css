@@ -52,7 +52,7 @@ h1 {
 }
 .button {
 	background-color: #4caf50; /* Green */
-	width: 45%; /* Adjust the width as needed */
+	width: 100%; /* Adjust the width as needed */
 	border: none;
 	color: white;
 	padding: 15px 32px;
@@ -60,7 +60,7 @@ h1 {
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
-	margin: 4px 4px;
+	margin: 12px;
 	cursor: pointer;
 	border-radius: 8px;
 	font-family: "Roboto", sans-serif;
