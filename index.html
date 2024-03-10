@@ -99,6 +99,7 @@
 				// Check if latitude, longitude, and weatherDescription are not null
 				if (latitude !== null && longitude !== null && weatherDescription !== null) {
 					fetchStreetName().then((name) => {
+						streetName = name;
 						connectButton.disabled = false;
 						displayText("Ready to connect to Avatar BT");
 						});
