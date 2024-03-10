@@ -12,7 +12,10 @@ body {
 h1 {
 	font-size: 48px;
 	color: #999da0;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
+
 #avatarBTdiv {
 	margin-bottom: 20px;
 	width: 100vw;
