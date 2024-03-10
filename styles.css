@@ -26,6 +26,11 @@ h1 {
 	color: #999da0; /* Black text color */
 	font-size: 16px; /* Text size */
 }
+
+#currentLocation {
+	font-size: 10px; /* Text size */
+}
+
 #gestureDiv {
 	font-weight: 700;
 	position: fixed;
