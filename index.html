@@ -962,6 +962,8 @@
 			}
 
 			var noNarrative;
+			var previousTagID = ""; // Variable to store the previous tagID
+
 			function readTag(tagID) {
 				if (tagID === previousTagID) {
 					// If tagID is the same as the previous one, do nothing
