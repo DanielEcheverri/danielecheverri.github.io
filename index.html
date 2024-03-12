@@ -753,7 +753,7 @@
 				}
 
 				// Update display
-				function updateDisplay(fullMessage) {
+				function updateDisplay(displayMessage) {
 					try {
 						// Set the text content
 						messageDisplayDiv.textContent = fullMessage;
@@ -962,7 +962,12 @@
 			}
 
 			var noNarrative;
-			function readTag() {
+			function readTag(tagID) {
+				if (tagID === previousTagID) {
+					// If tagID is the same as the previous one, do nothing
+					return;
+				}
+
 				if (tagID === "12") {
 					noNarrative = false;
 					console.log("Non-narrative");
@@ -973,6 +978,9 @@
 					console.log("Narrative");
 					displayText("Narrative");
 				}
+
+				// Update previousTagID to the current tagID
+				previousTagID = tagID;
 			}
 
 			function setupColors() {
