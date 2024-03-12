@@ -12,7 +12,7 @@
 	<body>
 		<!-- Console output-->
 		<div id="consoleOutput"></div>
-		<h1>Avatar BT Debug</h1>
+		<h1>${deviceName} Debug</h1>
 		<div id="avatarBTdiv">
 			<!-- Connect Button. -->
 			<button id="connectButton" class="button" disabled>Connect to Avatar</button>
@@ -60,7 +60,6 @@
 						} else {
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
 						}
-			        	console.log('Device Name:', deviceName);
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
 						// Update UI
