@@ -53,7 +53,7 @@
 						await characteristic.startNotifications();
 						 // Get the device name
 						deviceName = device.name;
-			        	 			console.log('Device Name:', deviceName);
+			        	console.log('Device Name:', deviceName);
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
 						// Update UI
