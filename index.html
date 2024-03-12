@@ -34,6 +34,7 @@
 			let patternMovement ="";
 			var blueToothStatus = "Avatar Offline";
 			var streetName = "Unknown";
+			var deviceName ="";
 
 			async function connectToDevice() {
 				try {
@@ -50,6 +51,9 @@
 						characteristic = await service.getCharacteristic("6e400003-b5a3-f393-e0a9-e50e24dcca9e");
 						// Start notifications for the characteristic
 						await characteristic.startNotifications();
+						 // Get the device name
+						deviceName = device.name;
+			        	 			console.log('Device Name:', deviceName);
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
 						// Update UI
