@@ -35,6 +35,7 @@
 			var blueToothStatus = "Avatar Offline";
 			var streetName = "Unknown";
 			var deviceName ="";
+			let labels = [];
 
 			async function connectToDevice() {
 				try {
@@ -53,6 +54,12 @@
 						await characteristic.startNotifications();
 						 // Get the device name
 						deviceName = device.name;
+
+						if (deviceName === "hachi_BT") {
+							labels = ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "HEAD", "LEFT LEG", "RIGHT LEG", "WAIST"];
+						} else {
+							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
+						}
 			        	console.log('Device Name:', deviceName);
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -257,12 +264,6 @@
 			let potValues;
 			let lineColors;
 			let backgroundColors;
-			let labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
-
-			if (deviceName === "hachi_BT") {
-				 labels = ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "HEAD", "LEFT LEG", "RIGHT LEG", "WAIST"];
-			}
-
 			let isMovingUp = false;
 			let isMovingDown = false;
 			var previousPotValues = new Array(numPotentiometers);
