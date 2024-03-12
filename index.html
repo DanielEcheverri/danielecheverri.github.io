@@ -257,7 +257,12 @@
 			let potValues;
 			let lineColors;
 			let backgroundColors;
-			let labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
+
+			if (deviceName === "hachi_BT") {
+				let labels = ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "HEAD", "LEFT LEG", "RIGHT LEG", "WAIST"];
+			} else {
+				let labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
+			}
 			let isMovingUp = false;
 			let isMovingDown = false;
 			var previousPotValues = new Array(numPotentiometers);
