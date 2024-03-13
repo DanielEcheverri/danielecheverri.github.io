@@ -375,10 +375,8 @@
 					// Movement detection
 					if (potValues[i] < previousPotValues[i] - movementThreshold) {
 						movements[movement] = true; // Moving up
-						movementDetected = true;
 					} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
 						movements[movement] = false; // Moving down
-						movementDetected = true;
 					}
 				}
 
