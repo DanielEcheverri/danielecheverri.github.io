@@ -24,7 +24,9 @@
 		<!-- Coordinates-->
 		<div id="currentLocation"></div>
 		<!-- Movement>-->
-		<div id="messageDisplayDiv"></div>
+		<div id="messageDisplayDiv">
+			<button id="dismissButton" onclick="dismissMessage()">Dismiss</button>
+		</div>
 		<script>
 			//Script for pairing with Avatar_BT
 			let characteristic;
@@ -760,6 +762,14 @@
 								console.error(error);
 							});
 					}
+				}
+
+				function dismissMessage() {
+					// Clear the text content of the message display div
+					document.getElementById("messageDisplayDiv").textContent = "";
+
+					// Hide the message display div
+					document.getElementById("messageDisplayDiv").style.display = "none";
 				}
 
 				// Update display
