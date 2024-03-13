@@ -392,7 +392,7 @@
 				}
 
 				function processMovementConditions(movements) {
-					// Iterate over movement conditions.
+					// Iterate over movement conditions
 					cachedMovementConditions.forEach(condition => {
 						let match = true;
 						for (let key in condition.condition) {
@@ -404,18 +404,25 @@
 						if (match) {
 							let partMoving = condition.partMoving;
 							let directionMoving = condition.directionMoving;
-							console.log(partMoving);
-							console.log(directionMoving);
+							if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
+								displayMovement(partMoving, directionMoving);
+								previousPartMoving = partMoving;
+								previousDirectionMoving = directionMoving;
+							}
 						}
 					});
 
-					// Update previous potentiometer values for the next iteration.
-					previousPotValues = potValues.slice(0, numPotentiometers);
-					// Add movement to the sequence buffer
-					trackMovementSequences(partMoving, directionMoving);
+					// Check if partMoving or directionMoving are different
+					if (previousPartMoving !== null && previousDirectionMoving !== null) {
+						// Update previous potentiometer values for the next iteration.
+						previousPotValues = potValues.slice(0, numPotentiometers);
+						// Add movement to the sequence buffer
+						console.log(previousPartMoving);
+						console.log(previousDirectionMoving);
+						trackMovementSequences(previousPartMoving, previousDirectionMoving);
+					}
 				}
 			}
-
 			let movementBuffer = [];
 
 			// Function to track movement sequences and compare them against patterns
