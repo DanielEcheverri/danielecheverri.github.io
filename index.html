@@ -378,23 +378,19 @@
 
 			async function checkMovement() {
 				// Detect movement
-				if (movements !== previousMovements) {
-					processMovementConditions(movements);
-					previousMovements = movements;
-				} else {
-					console.log("Movements are the same as previous.");
-				}
+				let movements = handleMovement();
 
 				// Fetch movement conditions JSON file if not already cached...
-				if (!cachedMovementConditions) {
+				if (!cachedMovementConditions || movements !== cachedMovementConditions) {
 					try {
-						cachedMovementConditions = await $.get('hachi_moves.json');
+						cachedMovementConditions = movements; // Update cachedMovementConditions with the new movements
+						await $.get('hachi_moves.json');
 						processMovementConditions(movements);
 					} catch (error) {
 						console.error('Error fetching movement conditions JSON:', error);
 					}
 				} else {
-					processMovementConditions(movements);
+					console.log("Movements are the same as cached.");
 				}
 
 				function processMovementConditions(movements) {
