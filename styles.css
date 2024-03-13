@@ -21,6 +21,7 @@ h1 {
 	width: 100vw;
 	position: relative;
 }
+#logoSpace,
 #closestShop,
 #consoleOutput,
 #currentLocation {
