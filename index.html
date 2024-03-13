@@ -389,7 +389,6 @@
 					}
 				} else {
 					processMovementConditions(movements);
-					console.log(movements);
 				}
 
 				function processMovementConditions(movements) {
@@ -411,6 +410,8 @@
 					// Update previous potentiometer values for the next iteration.
 					previousPotValues = potValues.slice(0, numPotentiometers);
 					// Add movement to the sequence buffer
+					console.log(partMoving);
+					console.log(directionMoving);
 					trackMovementSequences(partMoving, directionMoving);
 				}
 			}
