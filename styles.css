@@ -10,7 +10,7 @@ body {
 	background-color: #48494b;
 }
 h1 {
-	font-size: 48px;
+	font-size: 30px;
 	color: #999da0;
 	margin-top: 0px;
 	margin-bottom: 20px;
@@ -21,7 +21,6 @@ h1 {
 	width: 100vw;
 	position: relative;
 }
-#logoSpace,
 #closestShop,
 #consoleOutput,
 #currentLocation {
@@ -29,6 +28,11 @@ h1 {
 	text-align: center;
 	color: #999da0; /* Black text color */
 	font-size: 16px; /* Text size */
+}
+
+#logoSpace {
+	width: 80%;
+	text-align: center;
 }
 
 #currentLocation,
