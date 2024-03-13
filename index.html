@@ -382,7 +382,7 @@
 				// Fetch movement conditions JSON file if not already cached
 				if (!cachedMovementConditions) {
 					try {
-						cachedMovementConditions = await $.get('avatar_moves.json');
+						cachedMovementConditions = await $.get('hachi_moves.json');
 						processMovementConditions(movements);
 					} catch (error) {
 						console.error('Error fetching movement conditions JSON:', error);

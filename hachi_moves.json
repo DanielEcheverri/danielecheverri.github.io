@@ -1,0 +1,30 @@
+[
+	{
+		"condition": {
+			"headMoving": true
+		},
+		"partMoving": "head",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"leftLegMoving": true
+		},
+		"partMoving": "front leg",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"rightLegMoving": true
+		},
+		"partMoving": "back leg",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"waistMoving": true
+		},
+		"partMoving": "tail",
+		"directionMoving": "up"
+	}
+]
