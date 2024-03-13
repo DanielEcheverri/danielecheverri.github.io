@@ -406,24 +406,21 @@
 						if (match) {
 							let partMoving = condition.partMoving;
 							let directionMoving = condition.directionMoving;
-
-
-							// Check if partMoving and directionMoving are different from previous iteration
-							if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
-								// Update previousPartMoving and previousDirectionMoving
-								previousPartMoving = partMoving;
-								previousDirectionMoving = directionMoving;
-
-								console.log(partMoving);
-								console.log(directionMoving);
-
-								// Update previous potentiometer values for the next iteration.
-								previousPotValues = potValues.slice(0, numPotentiometers);
-								// Add movement to the sequence buffer
-								trackMovementSequences(partMoving, directionMoving);
-							}
+							console.log(partMoving);
+							console.log(directionMoving);
 						}
 					});
+
+					if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
+						// Update previousPartMoving and previousDirectionMoving
+						previousPartMoving = partMoving;
+						previousDirectionMoving = directionMoving;
+
+						// Update previous potentiometer values for the next iteration.
+						previousPotValues = potValues.slice(0, numPotentiometers);
+						// Add movement to the sequence buffer
+						trackMovementSequences(partMoving, directionMoving);
+			         }
 				}
 			}
 
