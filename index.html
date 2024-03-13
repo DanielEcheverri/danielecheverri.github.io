@@ -406,15 +406,16 @@
 						if (match) {
 							let partMoving = condition.partMoving;
 							let directionMoving = condition.directionMoving;
-							console.log(partMoving);
-							console.log(directionMoving);
 						}
 					});
 
-					if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
+					if (partMoving !== previousPart || directionMoving !== previousDirection) {
 						// Update previousPartMoving and previousDirectionMoving
-						previousPartMoving = partMoving;
-						previousDirectionMoving = directionMoving;
+						previousPart = partMoving;
+						previousDirection = directionMoving;
+
+						console.log(partMoving);
+						console.log(directionMoving);
 
 						// Update previous potentiometer values for the next iteration.
 						previousPotValues = potValues.slice(0, numPotentiometers);
