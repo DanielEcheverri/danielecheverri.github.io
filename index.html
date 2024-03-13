@@ -375,8 +375,6 @@
 
 			let cachedMovementConditions = null;
 
-
-
 			async function checkMovement() {
 				// Detect movement
 				let movements = handleMovement();
@@ -394,11 +392,6 @@
 				}
 
 				function processMovementConditions(movements) {
-					let partMoving = null;
-					let directionMoving = null;
-					let previousPart = null;
-					let previousDirection = null;
-
 					// Iterate over movement conditions.
 					cachedMovementConditions.forEach(condition => {
 						let match = true;
@@ -409,26 +402,15 @@
 							}
 						}
 						if (match) {
-							console.log("Match");
-							partMoving = condition.partMoving;
-							directionMoving = condition.directionMoving;
+							let partMoving = condition.partMoving;
+							let directionMoving = condition.directionMoving;
 						}
 					});
 
-					// If both partMoving and directionMoving are not null and they are different from the previous values
-					if (partMoving !== null && directionMoving !== null &&
-						(partMoving !== previousPart || directionMoving !== previousDirection)) {
-						console.log(partMoving);
-						console.log(directionMoving);
-						// Update previous values
-						previousPart = partMoving;
-						previousDirection = directionMoving;
-
-						// Update previous potentiometer values for the next iteration.
-						previousPotValues = potValues.slice(0, numPotentiometers);
-						// Add movement to the sequence buffer
-						trackMovementSequences(partMoving, directionMoving);
-					}
+					// Update previous potentiometer values for the next iteration.
+					previousPotValues = potValues.slice(0, numPotentiometers);
+					// Add movement to the sequence buffer
+					trackMovementSequences(partMoving, directionMoving);
 				}
 			}
 
@@ -448,6 +430,8 @@
 					}
 
 					movementBuffer.push(currentSequence);
+					console.log(partMoving);
+					console.log(directionMoving);
 
 					// Limit the buffer to store only the last 5 variations
 					if (movementBuffer.length > 5) {
