@@ -379,7 +379,7 @@
 				// Detect movement
 				let movements = handleMovement();
 
-				// Fetch movement conditions JSON file if not already cached
+				// Fetch movement conditions JSON file if not already cached...
 				if (!cachedMovementConditions) {
 					try {
 						cachedMovementConditions = await $.get('hachi_moves.json');
