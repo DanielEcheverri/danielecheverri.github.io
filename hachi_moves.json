@@ -15,6 +15,13 @@
 	},
 	{
 		"condition": {
+			"leftLegMoving": false
+		},
+		"partMoving": "front leg",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
 			"rightLegMoving": true
 		},
 		"partMoving": "back leg",
@@ -22,9 +29,23 @@
 	},
 	{
 		"condition": {
+			"rightLegMoving": true
+		},
+		"partMoving": "back leg",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
 			"waistMoving": true
 		},
 		"partMoving": "tail",
 		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"waistMoving": false
+		},
+		"partMoving": "tail",
+		"directionMoving": "down"
 	}
 ]
