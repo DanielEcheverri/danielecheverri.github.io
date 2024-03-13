@@ -374,8 +374,7 @@
 			}
 
 			let cachedMovementConditions = null;
-			var previousPart = null;
-			var previousDirection = null;
+
 
 
 			async function checkMovement() {
@@ -397,6 +396,8 @@
 				function processMovementConditions(movements) {
 					let partMoving = null;
 					let directionMoving = null;
+					let previousPart = null;
+					let previousDirection = null;
 
 					// Iterate over movement conditions.
 					cachedMovementConditions.forEach(condition => {
