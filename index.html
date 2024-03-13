@@ -977,14 +977,13 @@
 					// If tagID is the same as the previous one, do nothing
 					return;
 				} else {
+					console.log(tagID);
 					if (tagID === "12") {
 						noNarrative = false;
-						console.log("Non-narrative");
 						displayText("Non-narrative");
 					}
 					if (tagID === "13") {
 						noNarrative = true;
-						console.log("Narrative");
 						displayText("Narrative");
 					}
 					// Update previousTagID to the current tagID
