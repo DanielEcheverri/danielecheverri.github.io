@@ -402,24 +402,22 @@
 							}
 						}
 						if (match) {
-							let partMoving = condition.partMoving;
-							let directionMoving = condition.directionMoving;
+							partMoving = condition.partMoving;
+							directionMoving = condition.directionMoving;
 						}
 					});
 
 					// Update previous potentiometer values for the next iteration.
 					previousPotValues = potValues.slice(0, numPotentiometers);
 					// Add movement to the sequence buffer
-					trackMovementSequences(partMoving, directionMoving);
+					trackMovementSequences();
 				}
 			}
 
 			let movementBuffer = [];
 
 			// Function to track movement sequences and compare them against patterns
-			async function trackMovementSequences(partMoving, directionMoving) {
-				console.log(partMoving);
-				console.log(directionMoving);
+			async function trackMovementSequences() {
 				try {
 					const currentSequence = { partMoving, directionMoving };
 					// Check if the current sequence is different from the previous one
