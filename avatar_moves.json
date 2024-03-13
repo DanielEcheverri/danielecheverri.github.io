@@ -1,0 +1,82 @@
+[
+	{
+		"condition": {
+			"headMoving": true
+		},
+		"partMoving": "head",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"leftLegMoving": true,
+			"waistMoving": null,
+			"rightLegMoving": null,
+			"leftShoulderMoving": null,
+			"leftForearmMoving": null,
+			"rightShoulderMoving": null,
+			"rightForearmMoving": null
+		},
+		"partMoving": "left leg",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"rightLegMoving": true,
+			"waistMoving": null,
+			"leftLegMoving": null,
+			"leftShoulderMoving": null,
+			"leftForearmMoving": null,
+			"rightShoulderMoving": null,
+			"rightForearmMoving": null
+		},
+		"partMoving": "right leg",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"leftShoulderMoving": true,
+			"leftForearmMoving": true,
+			"leftLegMoving": null,
+			"rightLegMoving": null
+		},
+		"partMoving": "left arm",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
+			"rightShoulderMoving": true,
+			"rightForearmMoving": false,
+			"leftLegMoving": null,
+			"rightLegMoving": null
+		},
+		"partMoving": "right arm",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"leftForearmMoving": true,
+			"rightForearmMoving": false,
+			"leftShoulderMoving": null
+		},
+		"partMoving": "left forearm",
+		"directionMoving": "left"
+	},
+	{
+		"condition": {
+			"rightForearmMoving": true,
+			"leftForearmMoving": false,
+			"rightShoulderMoving": null
+		},
+		"partMoving": "right forearm",
+		"directionMoving": "right"
+	},
+	{
+		"condition": {
+			"waistMoving": true,
+			"rightLegMoving": true,
+			"leftLegMoving": true
+		},
+		"partMoving": "waist",
+		"directionMoving": "right"
+	}
+]
