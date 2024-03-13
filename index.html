@@ -335,63 +335,180 @@
 			}
 
 			// Define variables for detecting movement in different body parts
-			function checkMovement() {
-				if (!detectMovement || speaking) {
-					return;
-				}
 
-				const movementThreshold = 13;
+			function detectMovement() {
+				// Define thresholds for movement detection
+				let movementThreshold = 13;
 
-				const movements = {
-					"HEAD": "head",
-					"LEFT LEG": "left leg",
-					"RIGHT LEG": "right leg",
-					"LEFT SHOULDER": "left arm",
-					"RIGHT SHOULDER": "right arm",
-					"LEFT FOREARM": "left forearm",
-					"RIGHT FOREARM": "right forearm",
-					"WAIST": "waist"
+				// Variables to track movement of different body parts
+				let movements = {};
+
+				// Mapping between labels and movements
+				const labelMovements = {
+					"HEAD": "headMoving",
+					"LEFT LEG": "leftLegMoving",
+					"RIGHT LEG": "rightLegMoving",
+					"LEFT SHOULDER": "leftShoulderMoving",
+					"RIGHT SHOULDER": "rightShoulderMoving",
+					"LEFT FOREARM": "leftForearmMoving",
+					"RIGHT FOREARM": "rightForearmMoving",
+					"WAIST": "waistMoving"
 				};
 
-				const movementDirections = {
-					"-1": "down",
-					"1": "up",
-					"true": "right",
-					"false": "left"
-				};
-
-				const trackedMovements = {};
-
+				// Check movement for each potentiometer
 				for (let i = 0; i < numPotentiometers; i++) {
-					const label = labels[i];
-					const movement = movements[label];
-					const currentValue = potValues[i];
-					const previousValue = previousPotValues[i];
-					const direction = currentValue < previousValue - movementThreshold ? -1 : (currentValue > previousValue + movementThreshold ? 1 : null);
+					let label = labels[i];
+					let movement = labelMovements[label];
 
-					if (movement && direction !== null) {
-						trackedMovements[movement] = movementDirections[direction.toString()];
+					if (!movement) continue; // Skip if label not found in labelMovements
+
+					// Movement detection
+					if (potValues[i] < previousPotValues[i] - movementThreshold) {
+						movements[movement] = true; // Moving up
+					} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+						movements[movement] = false; // Moving down
 					}
 				}
 
-				Object.entries(trackedMovements).forEach(([partMoving, directionMoving]) => {
-					console.log(partMoving + " " + directionMoving);
-					//displayText(`${partMoving} is ${directionMoving}`);
+				// Return the detected movement
+				return movements;
+			}
 
-					if (directionMoving === "down" || directionMoving === "right") {
-						detectMovement = false;
-						setTimeout(() => {
-							detectMovement = true;
-						}, cooldownDuration);
-					}
-				});
+
+			function checkMovement() {
+				// Detect movement
+				let movements = detectMovement();
+
+				// Displaying movement text based on detected head movement
+				if (movements.headMoving != null) {
+					let partMoving = "head";
+					let directionMoving = movements.headMoving ? "up" : "down";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				}
+
+				// Displaying movement text based on detected left leg movement
+				if (
+					movements.leftLegMoving != null &&
+					movements.waistMoving == null &&
+					movements.rightLegMoving == null &&
+					movements.leftShoulderMoving == null &&
+					movements.leftForearmMoving == null &&
+					movements.rightShoulderMoving == null &&
+					movements.rightForearmMoving == null
+				) {
+					let partMoving = "left leg";
+					let directionMoving = movements.leftLegMoving ? "up" : "down";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				}
+
+				// Displaying movement text based on detected right leg movement
+				if (
+					movements.rightLegMoving != null &&
+					movements.waistMoving == null &&
+					movements.leftLegMoving == null &&
+					movements.leftShoulderMoving == null &&
+					movements.leftForearmMoving == null &&
+					movements.rightShoulderMoving == null &&
+					movements.rightForearmMoving == null
+				) {
+					let partMoving = "right leg";
+					let directionMoving = movements.rightLegMoving ? "up" : "down";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				}
+
+				// Displaying movement text based on detected left arm movement
+				if (
+					movements.leftShoulderMoving != null &&
+					movements.leftForearmMoving != null &&
+					movements.leftLegMoving == null &&
+					movements.rightLegMoving == null
+				) {
+					let partMoving = "left arm";
+					let directionMoving = movements.leftShoulderMoving && movements.leftForearmMoving ? "down" : "up";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				}
+
+				// Displaying movement text based on detected right arm movement
+				if (
+					movements.rightShoulderMoving != null &&
+					movements.rightForearmMoving != null &&
+					movements.leftLegMoving == null &&
+					movements.rightLegMoving == null
+				) {
+					let partMoving = "right arm";
+					let directionMoving = movements.rightShoulderMoving && !movements.rightForearmMoving ? "up" : "down";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				}
+
+				// Displaying movement text based on detected left forearm movement
+				if (
+					movements.leftForearmMoving != null &&
+					movements.leftForearmMoving &&
+					!movements.rightForearmMoving &&
+					movements.leftShoulderMoving == null
+				) {
+					let partMoving = "left forearm";
+					let directionMoving = "left";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				} else if (
+					!movements.leftForearmMoving &&
+					movements.leftForearmMoving != null &&
+					!movements.rightForearmMoving &&
+					movements.leftShoulderMoving == null
+				) {
+					let partMoving = "left forearm";
+					let directionMoving = "right";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				}
+
+				// Displaying movement text based on detected right forearm movement
+				if (
+					movements.rightForearmMoving != null &&
+					movements.rightForearmMoving &&
+					!movements.leftForearmMoving &&
+					movements.rightShoulderMoving == null
+				) {
+					let partMoving = "right forearm";
+					let directionMoving = "right";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				} else if (
+					!movements.rightForearmMoving &&
+					movements.rightForearmMoving != null &&
+					!movements.leftForearmMoving &&
+					movements.rightShoulderMoving == null
+				) {
+					let partMoving = "right forearm";
+					let directionMoving = "left";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				}
+
+				// Displaying movement based on detected waist movement
+				if (
+					movements.waistMoving != null &&
+					movements.rightLegMoving != null &&
+					movements.leftLegMoving != null
+				) {
+					let partMoving = "waist";
+					let directionMoving = movements.waistMoving ? "right" : "left";
+					console.log(partMoving + " " + directionMoving);
+					//displayText("{partMoving} is {directionMoving}");
+				}
 
 				// Update previous potentiometer values for the next iteration.
 				previousPotValues = potValues.slice(0, numPotentiometers);
-
-				// Add movement to the sequence buffer
+				//Add movement to the sequence buffer
 				trackMovementSequences(partMoving, directionMoving);
 			}
+
 
 			let movementBuffer = [];
 
