@@ -60,7 +60,7 @@
 						deviceName = device.name;
 
 						if (deviceName === "hachi_BT") {
-							labels = ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "HEAD", "LEFT LEG", "RIGHT LEG", "TAIL"];
+							labels = ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "HEAD", "FRONT LEG", "BACK LEG", "TAIL"];
 						} else {
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
 						}
@@ -343,7 +343,17 @@
 				let movements = {};
 
 				// Mapping between labels and movements
-				const labelMovements = {
+				const labelMovements = {};
+
+				if (deviceName === "hachi_BT") {
+					labelMovements = {
+					"HEAD": "headMoving",
+					"FRONT LEG": "leftLegMoving",
+					"BACK LEG": "rightLegMoving",
+					"TAIL": "waistMoving"
+					};
+				} else {
+					labelMovements = {
 					"HEAD": "headMoving",
 					"LEFT LEG": "leftLegMoving",
 					"RIGHT LEG": "rightLegMoving",
@@ -352,7 +362,8 @@
 					"LEFT FOREARM": "leftForearmMoving",
 					"RIGHT FOREARM": "rightForearmMoving",
 					"WAIST": "waistMoving"
-				};
+					};
+				}
 
 				// Check movement for each potentiometer
 				for (let i = 0; i < numPotentiometers; i++) {
@@ -410,11 +421,10 @@
 					});
 
 					// Update previous potentiometer values for the next iteration.
-					previousPotValues = potValues.slice(0, numPotentiometers);
 					// Check if partMoving or directionMoving are different from their previous values and add movement to the sequence buffer
 					if (partMoving !== previousPart || directionMoving !== previousDirection) {
 						// Update previous potentiometer values for the next iteration.
-						//previousPotValues = potValues.slice(0, numPotentiometers);
+						previousPotValues = potValues.slice(0, numPotentiometers);
 						// Add movement to the sequence buffer
 						console.log(partMoving);
 						console.log(directionMoving);
