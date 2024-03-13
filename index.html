@@ -374,61 +374,45 @@
 			}
 
 			let cachedMovementConditions = null;
-			let previousPart; // Variable to store the previous partMoving
-			let previousDirection; // Variable to store the previous directionMoving
 
 			async function checkMovement() {
 				// Detect movement
-				console.log("0");
 				let movements = handleMovement();
 
 				// Fetch movement conditions JSON file if not already cached...
-					if (!cachedMovementConditions) {
-						try {
-							cachedMovementConditions = await $.get('hachi_moves.json');
-							processMovementConditions(movements);
-						} catch (error) {
-							console.error('Error fetching movement conditions JSON:', error);
-						}
-					} else {
-						console.log("1");
+				if (!cachedMovementConditions) {
+					try {
+						cachedMovementConditions = await $.get('hachi_moves.json');
 						processMovementConditions(movements);
+					} catch (error) {
+						console.error('Error fetching movement conditions JSON:', error);
 					}
+				} else {
+					processMovementConditions(movements);
+				}
 
 				function processMovementConditions(movements) {
-					let partMoving;
-					let directionMoving;
-					console.log("2");
 					// Iterate over movement conditions.
 					cachedMovementConditions.forEach(condition => {
 						let match = true;
 						for (let key in condition.condition) {
 							if (condition.condition[key] !== movements[key]) {
 								match = false;
-								console.log("3");
 								break;
 							}
 						}
 						if (match) {
-							console.log("4");
-							partMoving = condition.partMoving;
-							directionMoving = condition.directionMoving;
+							let partMoving = condition.partMoving;
+							let directionMoving = condition.directionMoving;
+							console.log(partMoving);
+							console.log(directionMoving);
 						}
 					});
 
-					if (partMoving !== previousPart || directionMoving !== previousDirection) {
-						// Update previousPartMoving and previousDirectionMoving
-						previousPart = partMoving;
-						previousDirection = directionMoving;
-						console.log("5");
-						console.log(partMoving);
-						console.log(directionMoving);
-
-						// Update previous potentiometer values for the next iteration.
-						previousPotValues = potValues.slice(0, numPotentiometers);
-						// Add movement to the sequence buffer
-						trackMovementSequences(partMoving, directionMoving);
-			         }
+					// Update previous potentiometer values for the next iteration.
+					previousPotValues = potValues.slice(0, numPotentiometers);
+					// Add movement to the sequence buffer
+					trackMovementSequences(partMoving, directionMoving);
 				}
 			}
 
