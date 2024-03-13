@@ -404,8 +404,6 @@
 						if (match) {
 							partMoving = condition.partMoving;
 							directionMoving = condition.directionMoving;
-							console.log(partMoving);
-							console.log(directionMoving);
 						}
 					});
 
@@ -422,6 +420,8 @@
 			async function trackMovementSequences() {
 				try {
 					const currentSequence = { partMoving, directionMoving };
+					console.log(partMoving);
+					console.log(directionMoving);
 					// Check if the current sequence is different from the previous one
 					if (
 						movementBuffer.length > 0 &&
