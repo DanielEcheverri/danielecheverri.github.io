@@ -365,6 +365,7 @@
 					};
 				}
 
+				let movementDetected = false; // Flag to track if movement is detected
 				// Check movement for each potentiometer
 				for (let i = 0; i < numPotentiometers; i++) {
 					let label = labels[i];
@@ -375,13 +376,19 @@
 					// Movement detection
 					if (potValues[i] < previousPotValues[i] - movementThreshold) {
 						movements[movement] = true; // Moving up
+						movementDetected = true;
 					} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
 						movements[movement] = false; // Moving down
+						movementDetected = true;
 					}
 				}
 
-				// Return the detected movement
-				return movements;
+				// Return the detected movement only if there's a change
+				if (movementDetected) {
+						return movements;
+					} else {
+						return null; // No significant movement detected
+					}
 			}
 
 			let cachedMovementConditions = null;
