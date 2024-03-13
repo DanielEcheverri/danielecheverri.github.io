@@ -418,6 +418,8 @@
 
 			// Function to track movement sequences and compare them against patterns
 			async function trackMovementSequences(partMoving, directionMoving) {
+				console.log(partMoving);
+				console.log(directionMoving);
 				try {
 					const currentSequence = { partMoving, directionMoving };
 					// Check if the current sequence is different from the previous one
@@ -430,8 +432,6 @@
 					}
 
 					movementBuffer.push(currentSequence);
-					console.log(partMoving);
-					console.log(directionMoving);
 
 					// Limit the buffer to store only the last 5 variations
 					if (movementBuffer.length > 5) {
