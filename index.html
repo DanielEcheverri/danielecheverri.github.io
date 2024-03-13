@@ -374,6 +374,9 @@
 			}
 
 			let cachedMovementConditions = null;
+			var previousPart = null;
+			var previousDirection = null;
+
 
 			async function checkMovement() {
 				// Detect movement
@@ -392,6 +395,9 @@
 				}
 
 				function processMovementConditions(movements) {
+					let partMoving = null;
+					let directionMoving = null;
+
 					// Iterate over movement conditions.
 					cachedMovementConditions.forEach(condition => {
 						let match = true;
@@ -402,17 +408,25 @@
 							}
 						}
 						if (match) {
-							let partMoving = condition.partMoving;
-							let directionMoving = condition.directionMoving;
+							partMoving = condition.partMoving;
+							directionMoving = condition.directionMoving;
 							console.log(partMoving);
 							console.log(directionMoving);
 						}
 					});
 
-					// Update previous potentiometer values for the next iteration.
-					previousPotValues = potValues.slice(0, numPotentiometers);
-					// Add movement to the sequence buffer
-					trackMovementSequences(partMoving, directionMoving);
+					// If both partMoving and directionMoving are not null and they are different from the previous values
+					if (partMoving !== null && directionMoving !== null &&
+						(partMoving !== previousPart || directionMoving !== previousDirection)) {
+						// Update previous values
+						previousPart = partMoving;
+						previousDirection = directionMoving;
+
+						// Update previous potentiometer values for the next iteration.
+						previousPotValues = potValues.slice(0, numPotentiometers);
+						// Add movement to the sequence buffer
+						trackMovementSequences(partMoving, directionMoving);
+					}
 				}
 			}
 
