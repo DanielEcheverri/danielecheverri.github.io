@@ -404,14 +404,14 @@
 						if (match) {
 							let partMoving = condition.partMoving;
 							let directionMoving = condition.directionMoving;
+							console.log(partMoving);
+							console.log(directionMoving);
 						}
 					});
 
 					// Update previous potentiometer values for the next iteration.
 					previousPotValues = potValues.slice(0, numPotentiometers);
 					// Add movement to the sequence buffer
-					console.log(partMoving);
-					console.log(directionMoving);
 					trackMovementSequences(partMoving, directionMoving);
 				}
 			}
