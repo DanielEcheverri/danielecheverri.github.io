@@ -380,18 +380,18 @@
 				// Detect movement
 				let movements = handleMovement();
 
-				if (movements === previousMovements) {
+				if (movements !== previousMovements) {
 				// Fetch movement conditions JSON file if not already cached...
 					if (!cachedMovementConditions) {
 						try {
 							cachedMovementConditions = await $.get('hachi_moves.json');
-							previousMovements == movements;
+							previousMovements = movements;
 							processMovementConditions(movements);
 						} catch (error) {
 							console.error('Error fetching movement conditions JSON:', error);
 						}
 					} else {
-						previousMovements == movements;
+						previousMovements = movements;
 						processMovementConditions(movements);
 					}
 				} else {
