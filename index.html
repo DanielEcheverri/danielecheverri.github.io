@@ -14,7 +14,6 @@
 		<div id="consoleOutput"></div>
 		<div id="logoSpace">
 			<img class="logo" src="logo.svg" alt="Logo" />
-			<h1>Debug</h1>
 		</div>
 		<div id="avatarBTdiv">
 			<!-- Connect Button. -->
@@ -142,14 +141,14 @@
 				console.log = function(...args) {
 					originalConsoleLog(...args);
 					var consoleMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '); // Convert objects to strings
-					consoleOutputDiv.innerHTML = '<div class="log">'+"<strong>CONSOLE LOG:</strong> " + consoleMessage + '</div>';
+					consoleOutputDiv.innerHTML = '<div class="log">'+"<strong>DEBUG CONSOLE LOG:</strong> " + consoleMessage + '</div>';
 				};
 
 				// Override console.error to append error messages to the div
 				console.error = function(...args) {
 					originalConsoleError(...args);
 					var consoleMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '); // Convert objects to strings
-					consoleOutputDiv.innerHTML = '<div class="error">'+ "<strong>CONSOLE ERROR:</strong> " + consoleMessage + '</div>';
+					consoleOutputDiv.innerHTML = '<div class="error">'+ "<strong>DEBUG CONSOLE ERROR:</strong> " + consoleMessage + '</div>';
 				};
 			}
 
