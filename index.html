@@ -394,6 +394,8 @@
 					}
 
 				function processMovementConditions(movements) {
+					let partMoving;
+					let directionMoving;
 					// Iterate over movement conditions.
 					cachedMovementConditions.forEach(condition => {
 						let match = true;
@@ -404,8 +406,8 @@
 							}
 						}
 						if (match) {
-							let partMoving = condition.partMoving;
-							let directionMoving = condition.directionMoving;
+							partMoving = condition.partMoving;
+							directionMoving = condition.directionMoving;
 						}
 					});
 
