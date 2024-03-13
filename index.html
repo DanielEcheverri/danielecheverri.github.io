@@ -274,7 +274,7 @@
 			let tagID;
 
 			function setup() {
-				var avatarBTCanvas = createCanvas(windowWidth, windowHeight * 0.3);
+				var avatarBTCanvas = createCanvas(windowWidth, windowHeight * 0.5);
 				avatarBTCanvas.parent("avatarBTdiv");
 				potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
 				lineColors = new Array(numPotentiometers);
@@ -295,7 +295,7 @@
 					// Draw the line with different color for each
 					strokeWeight(40);
 					stroke(lineColors[i]);
-					line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.35), lineY);
+					line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
 					// Display the corresponding value to the left of the line
 					noStroke();
 					fill(255);
