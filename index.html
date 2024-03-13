@@ -383,12 +383,10 @@
 					}
 				}
 
-				// Return the detected movement only if there's a change
-				if (movementDetected) {
-						return movements;
-					} else {
-						return null; // No significant movement detected
-					}
+				// Exit the function if no significant movement is detected
+				if (!movementDetected) {
+					return;
+				}
 			}
 
 			let cachedMovementConditions = null;
