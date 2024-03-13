@@ -67,8 +67,8 @@ h1 {
 }
 
 .logo {
-	max-width: 100vw; /* Adjust as needed */
-	margin-bottom: 20px; /* Adjust as needed */
+	max-width: 90vw;
+	margin: 20px;
 }
 
 /* Disconnect button style */
