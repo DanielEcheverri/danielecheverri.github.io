@@ -381,16 +381,15 @@
 				let movements = handleMovement();
 
 				// Fetch movement conditions JSON file if not already cached...
-				if (!cachedMovementConditions || movements !== cachedMovementConditions) {
+				if (!cachedMovementConditions) {
 					try {
-						cachedMovementConditions = movements; // Update cachedMovementConditions with the new movements
-						await $.get('hachi_moves.json');
+						cachedMovementConditions = await $.get('hachi_moves.json');
 						processMovementConditions(movements);
 					} catch (error) {
 						console.error('Error fetching movement conditions JSON:', error);
 					}
 				} else {
-					console.log("Movements are the same as cached.");
+					processMovementConditions(movements);
 				}
 
 				function processMovementConditions(movements) {
