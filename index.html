@@ -374,31 +374,24 @@
 			}
 
 			let cachedMovementConditions = null;
-			let previousMovements = null;
+			let previousPart; // Variable to store the previous partMoving
+			let previousDirection; // Variable to store the previous directionMoving
 
 			async function checkMovement() {
 				// Detect movement
 				let movements = handleMovement();
 
-				if (movements !== previousMovements) {
-					console.log("movements different");
 				// Fetch movement conditions JSON file if not already cached...
 					if (!cachedMovementConditions) {
 						try {
-							console.log ("not cached");
 							cachedMovementConditions = await $.get('hachi_moves.json');
 							processMovementConditions(movements);
 						} catch (error) {
 							console.error('Error fetching movement conditions JSON:', error);
 						}
 					} else {
-						console.log ("cached");
 						processMovementConditions(movements);
 					}
-				} else {
-					console.log ("movement is the same");
-					return;
-				}
 
 				function processMovementConditions(movements) {
 					// Iterate over movement conditions.
@@ -413,15 +406,24 @@
 						if (match) {
 							let partMoving = condition.partMoving;
 							let directionMoving = condition.directionMoving;
-							console.log(partMoving);
-							console.log(directionMoving);
+
+
+							// Check if partMoving and directionMoving are different from previous iteration
+							if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
+								// Update previousPartMoving and previousDirectionMoving
+								previousPartMoving = partMoving;
+								previousDirectionMoving = directionMoving;
+
+								console.log(partMoving);
+								console.log(directionMoving);
+
+								// Update previous potentiometer values for the next iteration.
+								previousPotValues = potValues.slice(0, numPotentiometers);
+								// Add movement to the sequence buffer
+								trackMovementSequences(partMoving, directionMoving);
+							}
 						}
 					});
-
-					// Update previous potentiometer values for the next iteration.
-					previousPotValues = potValues.slice(0, numPotentiometers);
-					// Add movement to the sequence buffer
-					trackMovementSequences(partMoving, directionMoving);
 				}
 			}
 
