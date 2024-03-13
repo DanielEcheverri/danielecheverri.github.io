@@ -374,10 +374,16 @@
 			}
 
 			let cachedMovementConditions = null;
+			let previousMovements = null;
 
 			async function checkMovement() {
 				// Detect movement
-				let movements = handleMovement();
+				if (movements !== previousMovements) {
+					processMovementConditions(movements);
+					previousMovements = movements;
+				} else {
+					console.log("Movements are the same as previous.");
+				}
 
 				// Fetch movement conditions JSON file if not already cached...
 				if (!cachedMovementConditions) {
@@ -392,7 +398,7 @@
 				}
 
 				function processMovementConditions(movements) {
-					// Iterate over movement conditions
+					// Iterate over movement conditions.
 					cachedMovementConditions.forEach(condition => {
 						let match = true;
 						for (let key in condition.condition) {
@@ -404,24 +410,18 @@
 						if (match) {
 							let partMoving = condition.partMoving;
 							let directionMoving = condition.directionMoving;
-							if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
-								previousPartMoving = partMoving;
-								previousDirectionMoving = directionMoving;
-							}
+							console.log(partMoving);
+							console.log(directionMoving);
 						}
 					});
 
-					// Check if partMoving or directionMoving are different
-					if (previousPartMoving !== null && previousDirectionMoving !== null) {
-						// Update previous potentiometer values for the next iteration.
-						previousPotValues = potValues.slice(0, numPotentiometers);
-						// Add movement to the sequence buffer
-						console.log(previousPartMoving);
-						console.log(previousDirectionMoving);
-						trackMovementSequences(previousPartMoving, previousDirectionMoving);
-					}
+					// Update previous potentiometer values for the next iteration.
+					previousPotValues = potValues.slice(0, numPotentiometers);
+					// Add movement to the sequence buffer
+					trackMovementSequences(partMoving, directionMoving);
 				}
 			}
+
 			let movementBuffer = [];
 
 			// Function to track movement sequences and compare them against patterns
