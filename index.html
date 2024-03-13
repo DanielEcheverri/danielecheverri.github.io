@@ -365,7 +365,6 @@
 					};
 				}
 
-				let movementDetected = false; // Flag to track if movement is detected
 				// Check movement for each potentiometer
 				for (let i = 0; i < numPotentiometers; i++) {
 					let label = labels[i];
@@ -383,10 +382,9 @@
 					}
 				}
 
-				// Exit the function if no significant movement is detected
-				if (!movementDetected) {
-					return;
-				}
+				// Return the detected movement
+				return movements;
+				console.log(movements);
 			}
 
 			let cachedMovementConditions = null;
@@ -431,8 +429,8 @@
 						// Update previous potentiometer values for the next iteration.
 						previousPotValues = potValues.slice(0, numPotentiometers);
 						// Add movement to the sequence buffer
-						console.log(partMoving);
-						console.log(directionMoving);
+						//console.log(partMoving);
+						//console.log(directionMoving);
 						trackMovementSequences();
 					}
 				}
