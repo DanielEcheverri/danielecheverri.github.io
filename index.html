@@ -320,6 +320,7 @@
 			// Function to receive data from JavaScript
 			function receiveData(data) {
 				let values = data.split(",");
+				console.log(values);
 				tagID = values.pop(); // Remove and store the last element as tagID
 				readTag();
 				if (values.length === numPotentiometers) { // Check if the length of values is 8
