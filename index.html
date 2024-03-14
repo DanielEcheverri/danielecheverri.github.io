@@ -388,10 +388,10 @@
 					// Movement detection
 					if (potValues[i] < previousPotValues[i] - movementThreshold) {
 						movements[movement] = true; // Movement increases
-						console.log(movements[movement]);
+						console.log(movement+" incresases "+movements[movement]);
 					} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
 						movements[movement] = false; // Movement decreases
-						console.log(movements[movement]);
+						console.log(movement+" decreases "+movements[movement]);
 					}
 				}
 
