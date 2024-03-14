@@ -40,7 +40,10 @@
 			var streetName = "Unknown";
 			var deviceName ="";
 			let labels = ["EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY",];
-			let moveSource = null
+			const moveSource = null;
+			const movePatterns = null;
+			const sentenceSource = null;
+
 
 			async function connectToDevice() {
 				try {
@@ -63,9 +66,13 @@
 						if (deviceName === "hachi_BT") {
 							labels = ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "HEAD", "LEFT LEG", "RIGHT LEG", "TAIL"];
 							moveSource = 'hachi_moves.json';
+							movePatterns = 'hachi_patterns.json';
+							sentenceSource = 'hachi_sentences.json';
 						} else {
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
 							moveSource = 'avatar_moves.json';
+							movePatterns = 'avatar_patterns.json';
+							sentenceSource = 'avatar_sentences.json';
 						}
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -484,7 +491,7 @@
 
 			async function fetchMovementPatterns() {
 				try {
-				const patterns = await $.get('movements.json');
+				const patterns = await $.get(movePatterns);
 				return patterns;
 			} catch (error) {
 				console.error(error);
@@ -635,7 +642,6 @@
 				}
 
 			// Function to compose the message
-			const sentencesFile = 'sentences.json';
 
 			async function fetchJSONFile(filename) {
 				try {
@@ -655,7 +661,7 @@
 					let sentenceTemplate;
 					if (noNarrative) {
 						// Read sentences from JSON file
-						const sentences = await fetchJSONFile(sentencesFile);
+						const sentences = await fetchJSONFile(sentenceSource);
 						if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
 							throw new Error("Error: Unable to load or empty sentences array.");
 						}
