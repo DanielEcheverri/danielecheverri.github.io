@@ -352,18 +352,31 @@
 				// Variables to track movement of different body parts
 				let movements = {};
 
-				// Mapping between labels and movements
-				const labelMovements = {
-					"HEAD": "headMoving",
-					"LEFT LEG": "leftLegMoving",
-					"RIGHT LEG": "rightLegMoving",
-					"LEFT SHOULDER": "leftShoulderMoving",
-					"RIGHT SHOULDER": "rightShoulderMoving",
-					"LEFT FOREARM": "leftForearmMoving",
-					"RIGHT FOREARM": "rightForearmMoving",
-					"WAIST": "waistMoving"
-				};
-
+				// Mapping between labels and movements for hachi_BT
+				if (deviceName === "hachi_BT") {
+					labelMovements = {
+						"HEAD": "headMoving",
+						"FRONT LEG": "leftLegMoving",
+						"BACK LEG": "rightLegMoving",
+						"LEFT SHOULDER": "leftShoulderMoving",
+						"RIGHT SHOULDER": "rightShoulderMoving",
+						"LEFT FOREARM": "leftForearmMoving",
+						"RIGHT FOREARM": "rightForearmMoving",
+						"TAIL": "waistMoving"
+					};
+				} else {
+					// Default labelMovements object for avatar_BT
+					labelMovements = {
+						"HEAD": "headMoving",
+						"LEFT LEG": "leftLegMoving",
+						"RIGHT LEG": "rightLegMoving",
+						"LEFT SHOULDER": "leftShoulderMoving",
+						"RIGHT SHOULDER": "rightShoulderMoving",
+						"LEFT FOREARM": "leftForearmMoving",
+						"RIGHT FOREARM": "rightForearmMoving",
+						"WAIST": "waistMoving"
+					};
+				}
 				// Check movement for each potentiometer
 				for (let i = 0; i < numPotentiometers; i++) {
 					let label = labels[i];
