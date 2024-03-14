@@ -2,29 +2,29 @@
 	{
 		"patternName": "Jumping very high!",
 		"pattern": [
-			{ "partMoving": "left leg", "directionMoving": "up" },
-			{ "partMoving": "right leg", "directionMoving": "up" }
+			{ "partMoving": "front leg", "directionMoving": "up" },
+			{ "partMoving": "back leg", "directionMoving": "up" }
 		]
 	},
 	{
 		"patternName": "Jumping very high!",
 		"pattern": [
-			{ "partMoving": "right leg", "directionMoving": "up" },
-			{ "partMoving": "left leg", "directionMoving": "up" }
+			{ "partMoving": "back leg", "directionMoving": "up" },
+			{ "partMoving": "front leg", "directionMoving": "up" }
 		]
 	},
 	{
 		"patternName": "Landing the jump!",
 		"pattern": [
-			{ "partMoving": "left leg", "directionMoving": "down" },
-			{ "partMoving": "right leg", "directionMoving": "down" }
+			{ "partMoving": "front leg", "directionMoving": "down" },
+			{ "partMoving": "back leg", "directionMoving": "down" }
 		]
 	},
 	{
 		"patternName": "Landing the jump!",
 		"pattern": [
-			{ "partMoving": "left leg", "directionMoving": "down" },
-			{ "partMoving": "right leg", "directionMoving": "down" }
+			{ "partMoving": "front leg", "directionMoving": "down" },
+			{ "partMoving": "back leg", "directionMoving": "down" }
 		]
 	},
 	{
