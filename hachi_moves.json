@@ -8,6 +8,13 @@
 	},
 	{
 		"condition": {
+			"headMoving": false
+		},
+		"partMoving": "head",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
 			"leftLegMoving": true
 		},
 		"partMoving": "front leg",
@@ -29,7 +36,7 @@
 	},
 	{
 		"condition": {
-			"rightLegMoving": true
+			"rightLegMoving": false
 		},
 		"partMoving": "back leg",
 		"directionMoving": "down"
