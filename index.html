@@ -435,8 +435,7 @@
 					// Check if partMoving or directionMoving are different from their previous values and add movement to the sequence buffer
 					if (partMoving !== previousPart || directionMoving !== previousDirection) {
 						// Add movement to the sequence buffer
-						console.log(partMoving);
-						console.log(directionMoving);
+						console.log(partMoving +" "+directionMoving);
 						previousPart = partMoving;
 						previousDirection = directionMoving;
 						// Update previous potentiometer values for the next iteration.
