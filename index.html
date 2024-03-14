@@ -381,15 +381,17 @@
 				for (let i = 0; i < numPotentiometers; i++) {
 					let label = labels[i];
 					let movement = labelMovements[label];
-					 console.log(movement);
+
 
 					if (!movement) continue; // Skip if label not found in labelMovements
 
 					// Movement detection
 					if (potValues[i] < previousPotValues[i] - movementThreshold) {
 						movements[movement] = true; // Movement increases
+						console.log(movements[movement]);
 					} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
 						movements[movement] = false; // Movement decreases
+						console.log(movements[movement]);
 					}
 				}
 
