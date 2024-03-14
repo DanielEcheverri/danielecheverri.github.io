@@ -28,47 +28,33 @@
 		]
 	},
 	{
-		"patternName": "Greeting someone with the left hand",
-		"pattern": [
-			{ "partMoving": "left forearm", "directionMoving": "left" },
-			{ "partMoving": "left forearm", "directionMoving": "right" },
-			{ "partMoving": "left forearm", "directionMoving": "left" }
-		]
-	},
-	{
-		"patternName": "Greeting someone with the right hand",
-		"pattern": [
-			{ "partMoving": "right forearm", "directionMoving": "left" },
-			{ "partMoving": "right forearm", "directionMoving": "right" },
-			{ "partMoving": "right forearm", "directionMoving": "left" }
-		]
-	},
-	{
-		"patternName": "Picking something from the floor with the left arm",
+		"patternName": "Grabbing something from the floor",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "down" },
-			{ "partMoving": "left arm", "directionMoving": "down" }
+			{ "partMoving": "front leg", "directionMoving": "up" }
 		]
 	},
 	{
-		"patternName": "Picking something from the floor with the right arm",
+		"patternName": "Grabbing something from the floor",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "down" },
-			{ "partMoving": "right arm", "directionMoving": "down" }
+			{ "partMoving": "front leg", "directionMoving": "up" }
 		]
 	},
 	{
-		"patternName": "Picking something high with the left arm",
+		"patternName": "Sniffing something",
 		"pattern": [
+			{ "partMoving": "head", "directionMoving": "down" },
 			{ "partMoving": "head", "directionMoving": "up" },
-			{ "partMoving": "left arm", "directionMoving": "up" }
+			{ "partMoving": "head", "directionMoving": "down" }
 		]
 	},
 	{
-		"patternName": "Picking something high with the right arm",
+		"patternName": "Howling!",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "up" },
-			{ "partMoving": "right arm", "directionMoving": "up" }
+			{ "partMoving": "head", "directionMoving": "down" },
+			{ "partMoving": "head", "directionMoving": "up" }
 		]
 	},
 	{
@@ -81,19 +67,19 @@
 		]
 	},
 	{
-		"patternName": "Standing on the right leg",
+		"patternName": "Standing on the back leg",
 		"pattern": [
-			{ "partMoving": "left leg", "directionMoving": "up" },
-			{ "partMoving": "left leg", "directionMoving": "down" },
-			{ "partMoving": "left leg", "directionMoving": "up" }
+			{ "partMoving": "front leg", "directionMoving": "up" },
+			{ "partMoving": "front leg", "directionMoving": "down" },
+			{ "partMoving": "front leg", "directionMoving": "up" }
 		]
 	},
 	{
-		"patternName": "Standing on the left leg",
+		"patternName": "Standing on the front leg",
 		"pattern": [
-			{ "partMoving": "right leg", "directionMoving": "up" },
-			{ "partMoving": "right leg", "directionMoving": "down" },
-			{ "partMoving": "right leg", "directionMoving": "up" }
+			{ "partMoving": "back leg", "directionMoving": "up" },
+			{ "partMoving": "back leg", "directionMoving": "down" },
+			{ "partMoving": "back leg", "directionMoving": "up" }
 		]
 	},
 	{
