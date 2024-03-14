@@ -40,6 +40,7 @@
 			var streetName = "Unknown";
 			var deviceName ="";
 			let labels = ["EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY",];
+			let moveSource = null
 
 			async function connectToDevice() {
 				try {
@@ -61,8 +62,10 @@
 
 						if (deviceName === "hachi_BT") {
 							labels = ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "HEAD", "LEFT LEG", "RIGHT LEG", "TAIL"];
+							moveSource = 'hachi_moves.json';
 						} else {
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
+							moveSource = 'avatar_moves.json';
 						}
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -384,7 +387,7 @@
 				// Fetch movement conditions JSON file if not already cached...
 				if (!cachedMovementConditions) {
 					try {
-						cachedMovementConditions = await $.get('hachi_moves.json');
+						cachedMovementConditions = await $.get(movesSource);
 						processMovementConditions(movements);
 					} catch (error) {
 						console.error('Error fetching movement conditions JSON:', error);
