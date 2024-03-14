@@ -23,8 +23,8 @@
 	{
 		"patternName": "Landing the jump!",
 		"pattern": [
-			{ "partMoving": "front leg", "directionMoving": "down" },
-			{ "partMoving": "back leg", "directionMoving": "down" }
+			{ "partMoving": "back leg", "directionMoving": "down" },
+			{ "partMoving": "front leg", "directionMoving": "down" }
 		]
 	},
 	{
