@@ -18,14 +18,14 @@
 			"leftLegMoving": true
 		},
 		"partMoving": "front leg",
-		"directionMoving": "up"
+		"directionMoving": "down"
 	},
 	{
 		"condition": {
 			"leftLegMoving": false
 		},
 		"partMoving": "front leg",
-		"directionMoving": "down"
+		"directionMoving": "up"
 	},
 	{
 		"condition": {
