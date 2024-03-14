@@ -43,14 +43,16 @@
 	},
 	{
 		"condition": {
-			"waistMoving": true
+			"waistMoving": true,
+			"rightLegMoving": false
 		},
 		"partMoving": "tail",
 		"directionMoving": "up"
 	},
 	{
 		"condition": {
-			"waistMoving": false
+			"waistMoving": false,
+			"rightLegMoving": true
 		},
 		"partMoving": "tail",
 		"directionMoving": "down"
