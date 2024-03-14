@@ -382,7 +382,6 @@
 					let label = labels[i];
 					let movement = labelMovements[label];
 
-
 					if (!movement) continue; // Skip if label not found in labelMovements
 
 					// Movement detection
@@ -394,7 +393,8 @@
 						console.log(movement+" decreases "+movements[movement]);
 					}
 				}
-
+				// Update previous potentiometer values for the next iteration.
+				previousPotValues = potValues.slice(0, numPotentiometers);
 				// Return the detected movement
 				return movements;
 			}
@@ -441,8 +441,6 @@
 						console.log(partMoving +" "+directionMoving);
 						previousPart = partMoving;
 						previousDirection = directionMoving;
-						// Update previous potentiometer values for the next iteration.
-						previousPotValues = potValues.slice(0, numPotentiometers);
 						trackMovementSequences();
 					} else {
 						return;
