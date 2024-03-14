@@ -387,7 +387,7 @@
 				// Fetch movement conditions JSON file if not already cached...
 				if (!cachedMovementConditions) {
 					try {
-						cachedMovementConditions = await $.get(movesSource);
+						cachedMovementConditions = await $.get(moveSource);
 						processMovementConditions(movements);
 					} catch (error) {
 						console.error('Error fetching movement conditions JSON:', error);
