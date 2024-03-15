@@ -738,10 +738,12 @@
 				speechSynthesis.speak(utterance);
 				utterance.onstart = function() {
 					speaking = true;
+					console.log("Currently speaking");
 					// Update the last spoken message
 					lastSpokenMessage = fullMessage;
 				};
 				utterance.onend = function() {
+					console.log("End speaking");
 					speaking = false;
 				}
 				// Event handler for speech synthesis error
