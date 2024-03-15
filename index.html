@@ -18,7 +18,7 @@
 		</div>
 		<div id="avatarBTdiv">
 			<!-- Connect Button. -->
-			<button id="connectButton" class="button" disabled>Connect to Avatar <span class="material-icons">face</span></button>
+			<button id="connectButton" class="button" disabled><span class="material-icons">bluetooth_searching</span> Connect to Avatar</button>
 		</div>
 		<!-- Div to display status of Avatar BT shop -->
 		<div id="closestShop"></div>
@@ -78,7 +78,7 @@
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
 						// Update UI
-						document.getElementById("connectButton").textContent = "Disconnect Avatar";
+						document.getElementById("connectButton").textContent = "<span class="material-icons">bluetooth_connected</span> Disconnect Avatar";
 						isConnected = true;
 						blueToothStatus = "Avatar Online";
 						setTimeout(function() {
