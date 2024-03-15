@@ -1,0 +1,60 @@
+[
+	{
+		"condition": {
+			"headMoving": true
+		},
+		"partMoving": "head",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"headMoving": false
+		},
+		"partMoving": "head",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
+			"leftLegMoving": true
+		},
+		"partMoving": "front leg",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
+			"leftLegMoving": false
+		},
+		"partMoving": "front leg",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"rightLegMoving": true
+		},
+		"partMoving": "back leg",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"rightLegMoving": false
+		},
+		"partMoving": "back leg",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
+			"waistMoving": true,
+			"rightLegMoving": false
+		},
+		"partMoving": "tail",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"waistMoving": false,
+			"rightLegMoving": true
+		},
+		"partMoving": "tail",
+		"directionMoving": "down"
+	}
+]
