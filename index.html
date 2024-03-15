@@ -67,11 +67,13 @@
 						deviceName = device.name;
 
 						if (deviceName === "hachi_BT") {
+							console.log("Loading settings for Hachi_BT");
 							labels = ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "HEAD", "FRONT LEG", "TAIL", "BACK LEG"];
 							moveSource = 'hachi_moves.json';
 							movePatterns = 'hachi_patterns.json';
 							sentenceSource = 'hachi_sentences.json';
 						} else {
+							console.log("Loading settings for Avatar_BT");
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
 							moveSource = 'avatar_moves.json';
 							movePatterns = 'avatar_patterns.json';
