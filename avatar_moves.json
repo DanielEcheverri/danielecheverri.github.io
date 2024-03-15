@@ -1,6 +1,62 @@
 [
 	{
 		"condition": {
+			"leftShoulderMoving": true
+		},
+		"partMoving": "left shoulder",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"leftShoulderMoving": false
+		},
+		"partMoving": "left shoulder",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
+			"rightShoulderMoving": true
+		},
+		"partMoving": "right shoulder",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"rightShoulderMoving": false
+		},
+		"partMoving": "right shoulder",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
+			"leftForearmMoving": true
+		},
+		"partMoving": "left forearm",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"leftForearmMoving": false
+		},
+		"partMoving": "left forearm",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
+			"rightForearmMoving": true
+		},
+		"partMoving": "right forearm",
+		"directionMoving": "up"
+	},
+	{
+		"condition": {
+			"rightForearmMoving": false
+		},
+		"partMoving": "right foreamr",
+		"directionMoving": "down"
+	},
+	{
+		"condition": {
 			"headMoving": true
 		},
 		"partMoving": "head",
@@ -17,28 +73,28 @@
 		"condition": {
 			"leftLegMoving": true
 		},
-		"partMoving": "front leg",
-		"directionMoving": "down"
+		"partMoving": "left leg",
+		"directionMoving": "up"
 	},
 	{
 		"condition": {
 			"leftLegMoving": false
 		},
-		"partMoving": "front leg",
-		"directionMoving": "up"
+		"partMoving": "left leg",
+		"directionMoving": "down"
 	},
 	{
 		"condition": {
 			"rightLegMoving": true
 		},
-		"partMoving": "back leg",
+		"partMoving": "right leg",
 		"directionMoving": "up"
 	},
 	{
 		"condition": {
 			"rightLegMoving": false
 		},
-		"partMoving": "back leg",
+		"partMoving": "righ leg",
 		"directionMoving": "down"
 	},
 	{
@@ -46,15 +102,15 @@
 			"waistMoving": true,
 			"rightLegMoving": false
 		},
-		"partMoving": "tail",
-		"directionMoving": "up"
+		"partMoving": "waist",
+		"directionMoving": "left"
 	},
 	{
 		"condition": {
 			"waistMoving": false,
 			"rightLegMoving": true
 		},
-		"partMoving": "tail",
-		"directionMoving": "down"
+		"partMoving": "waist",
+		"directionMoving": "right"
 	}
 ]
