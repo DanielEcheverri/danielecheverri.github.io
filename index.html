@@ -469,7 +469,8 @@
 						movementBuffer.shift(); // Remove the oldest variation
 					}
 
-					const patterns = await fetchMovementPatterns();
+					const patterns = await fetchJSONFile(movePatterns);
+					//const patterns = await fetchMovementPatterns();
 					for (const pattern of patterns) {
 						if (checkPatternInBuffer(pattern.pattern)) {
 							console.log(`Pattern matched: ${pattern.patternName}`);
@@ -503,14 +504,22 @@
 				return true; // Pattern matched
 			}
 
+			let cachedPatterns; // Variable to cache the fetched patterns data
 			async function fetchMovementPatterns() {
 				try {
-				const patterns = await $.get(movePatterns);
-				return patterns;
-			} catch (error) {
-				console.error(error);
-				return [];
-			}
+					if (cachedPatterns) {
+						// If data is already cached, return it immediately
+						return cachedPatterns;
+					} else {
+						// If data is not cached, fetch it from the server
+						const patterns = await $.get(movePatterns);
+						cachedPatterns = patterns; // Cache the fetched data
+						return patterns;
+					}
+				} catch (error) {
+					console.error(error);
+					return []; // Return an empty array in case of error
+				}
 			}
 
 			// Function to fetch city name using Overpass API
@@ -659,11 +668,16 @@
 
 			async function fetchJSONFile(filename) {
 				try {
-					const response = await fetch(filename);
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
+					if (!cachedJSONData) {
+						const response = await fetch(filename);
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						cachedJSONData = await response.json(); // Cache the fetched JSON data
+						return cachedJSONData;
+					} else {
+						return cachedJSONData; // Return cached data if available
 					}
-					return await response.json();
 				} catch (err) {
 					console.error('Error fetching JSON file:', err);
 					return null;
