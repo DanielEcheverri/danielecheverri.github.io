@@ -111,7 +111,7 @@
 		"condition": {
 			"rightLegMoving": false
 		},
-		"partMoving": "righ leg",
+		"partMoving": "right leg",
 		"directionMoving": "up"
 	}
 ]
