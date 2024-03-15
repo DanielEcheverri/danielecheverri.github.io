@@ -47,28 +47,32 @@
 		"patternName": "Picking something from the floor with the left arm",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "down" },
-			{ "partMoving": "left arm", "directionMoving": "down" }
+			{ "partMoving": "left shoulder", "directionMoving": "down" },
+			{ "partMoving": "left forearm", "directionMoving": "right" }
 		]
 	},
 	{
 		"patternName": "Picking something from the floor with the right arm",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "down" },
-			{ "partMoving": "right arm", "directionMoving": "down" }
+			{ "partMoving": "right forearm", "directionMoving": "right" },
+			{ "partMoving": "right shoulder", "directionMoving": "down" }
 		]
 	},
 	{
-		"patternName": "Picking something high with the left arm",
+		"patternName": "Picking something from above with the left arm",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "up" },
-			{ "partMoving": "left arm", "directionMoving": "up" }
+			{ "partMoving": "left shoulder", "directionMoving": "up" },
+			{ "partMoving": "left forearm", "directionMoving": "left" }
 		]
 	},
 	{
-		"patternName": "Picking something high with the right arm",
+		"patternName": "Picking something from above with the right arm",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "up" },
-			{ "partMoving": "right arm", "directionMoving": "up" }
+			{ "partMoving": "right forearm", "directionMoving": "left" },
+			{ "partMoving": "right shoulder", "directionMoving": "up" }
 		]
 	},
 	{
