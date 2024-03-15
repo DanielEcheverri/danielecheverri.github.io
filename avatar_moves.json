@@ -32,28 +32,28 @@
 			"leftForearmMoving": true
 		},
 		"partMoving": "left forearm",
-		"directionMoving": "up"
+		"directionMoving": "right"
 	},
 	{
 		"condition": {
 			"leftForearmMoving": false
 		},
 		"partMoving": "left forearm",
-		"directionMoving": "down"
+		"directionMoving": "left"
 	},
 	{
 		"condition": {
 			"rightForearmMoving": true
 		},
 		"partMoving": "right forearm",
-		"directionMoving": "up"
+		"directionMoving": "right"
 	},
 	{
 		"condition": {
 			"rightForearmMoving": false
 		},
 		"partMoving": "right foreamr",
-		"directionMoving": "down"
+		"directionMoving": "left"
 	},
 	{
 		"condition": {
@@ -74,28 +74,28 @@
 			"leftLegMoving": true
 		},
 		"partMoving": "left leg",
-		"directionMoving": "up"
+		"directionMoving": "down"
 	},
 	{
 		"condition": {
 			"leftLegMoving": false
 		},
 		"partMoving": "left leg",
-		"directionMoving": "down"
+		"directionMoving": "up"
 	},
 	{
 		"condition": {
 			"rightLegMoving": true
 		},
 		"partMoving": "right leg",
-		"directionMoving": "up"
+		"directionMoving": "down"
 	},
 	{
 		"condition": {
 			"rightLegMoving": false
 		},
 		"partMoving": "righ leg",
-		"directionMoving": "down"
+		"directionMoving": "up"
 	},
 	{
 		"condition": {
