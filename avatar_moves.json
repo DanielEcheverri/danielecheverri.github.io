@@ -18,14 +18,14 @@
 			"rightShoulderMoving": true
 		},
 		"partMoving": "right shoulder",
-		"directionMoving": "up"
+		"directionMoving": "down"
 	},
 	{
 		"condition": {
 			"rightShoulderMoving": false
 		},
 		"partMoving": "right shoulder",
-		"directionMoving": "down"
+		"directionMoving": "up"
 	},
 	{
 		"condition": {
