@@ -447,6 +447,7 @@
 			}
 
 			let movementBuffer = [];
+			let cachedMovePatterns;
 
 			// Function to track movement sequences and compare them against patterns
 			async function trackMovementSequences() {
@@ -469,7 +470,7 @@
 						movementBuffer.shift(); // Remove the oldest variation
 					}
 
-					const patterns = await fetchJSONFile(movePatterns);
+					const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
 					//const patterns = await fetchMovementPatterns();
 					for (const pattern of patterns) {
 						if (checkPatternInBuffer(pattern.pattern)) {
@@ -666,17 +667,18 @@
 
 			// Function to compose the message
 
-			async function fetchJSONFile(filename) {
+			async function fetchJSONFile(filename, cachedVariable) {
 				try {
-					if (!cachedJSONData) {
+					if (!cachedVariable) {
 						const response = await fetch(filename);
 						if (!response.ok) {
 							throw new Error('Network response was not ok');
 						}
-						cachedJSONData = await response.json(); // Cache the fetched JSON data
-						return cachedJSONData;
+						const jsonData = await response.json(); // Fetch JSON data
+						cachedVariable = jsonData; // Cache the fetched JSON data in the specified variable
+						return jsonData;
 					} else {
-						return cachedJSONData; // Return cached data if available
+						return cachedVariable; // Return cached data if available
 					}
 				} catch (err) {
 					console.error('Error fetching JSON file:', err);
@@ -684,12 +686,13 @@
 				}
 			}
 
+			let cachedSentences;
 			async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,patternMovement) {
 				try {
 					let sentenceTemplate;
 					if (noNarrative) {
 						// Read sentences from JSON file
-						const sentences = await fetchJSONFile(sentenceSource);
+						const sentences = await fetchJSONFile(sentenceSource, cachedSentences);
 						if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
 							throw new Error("Error: Unable to load or empty sentences array.");
 						}
