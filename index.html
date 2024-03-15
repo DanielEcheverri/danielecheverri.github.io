@@ -78,7 +78,7 @@
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
 						// Update UI
-						document.getElementById("connectButton").textContent = "<span class="material-icons">bluetooth_connected</span> Disconnect Avatar";
+						document.getElementById("connectButton").innerHTML = '<span class="material-icons">bluetooth_connected</span> Disconnect Avatar';
 						isConnected = true;
 						blueToothStatus = "Avatar Online";
 						setTimeout(function() {
@@ -90,7 +90,7 @@
 						await device.gatt.disconnect();
 						isConnected = false;
 						blueToothStatus = "Avatar Offline";
-						document.getElementById("connectButton").textContent = "Connect to Avatar";
+						document.getElementById("connectButton").innerHTML = '<span class="material-icons">bluetooth_searching</span> Connect to Avatar';
 						// Set all potValues to 0
 						setTimeout(function() {
 							startDetectMovement = false;
