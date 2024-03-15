@@ -565,13 +565,15 @@
 
 			// Define a function to fetch the street name and update the global variable
 			function updateStreetName() {
-				fetchStreetName()
-					.then((name) => {
-						streetName = name;
-					})
-					.catch(error => {
-						console.error(error);
-					});
+				if (isConnected) {
+					fetchStreetName()
+						.then((name) => {
+							streetName = name;
+						})
+						.catch(error => {
+							console.error(error);
+						});
+				}
 			}
 
 			// Call updateStreetName then every 10 seconds
