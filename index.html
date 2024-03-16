@@ -68,9 +68,12 @@
 			var connecting_Sound = new Howl({
 			src: ['audio/ui_loading.ogg'],
 			volume: 0.5, // Adjust volume as needed (0 to 1)
-				onloaderror: function(error) {
-					console.error('Error loading audio:', error);
-				},
+				onplayerror: function(error) {
+					console.error('Error playing audio:', error);
+					sound.once('unlock', function() {
+						sound.play();
+					});
+				}
 			});
 
 
