@@ -280,7 +280,7 @@
 		</script>
 
 		<script type="text/javascript">
-			// Processing 4 sketch to visualize movements of the Avatar
+			// Processing 4 sketch to visualize movements of the Avatar.
 			let numPotentiometers = 8;
 			let potValues;
 			let lineColors;
@@ -898,6 +898,7 @@
 							previousTagID = tagID;
 						} else {
 							console.error('Tag information not found.');
+							return;
 						}
 					}
 				} catch (err) {
