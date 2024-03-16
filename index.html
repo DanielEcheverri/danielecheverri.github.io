@@ -897,6 +897,7 @@
 						const tagInfo = await fetchJSONFile(tagSource, cachedTagInfo);
 
 						if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
+							success_Sound.play();
 							console.log(tagID);
 
 							// Retrieve tag information based on tagID
