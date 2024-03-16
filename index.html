@@ -52,11 +52,9 @@
 			var alert_Sound = new Howl({
 			src: ['audio/alert_high-intensity.ogg'],
 			volume: 0.5, // Adjust volume as needed (0 to 1)
-			onplayerror: function() {
-					sound.once('unlock', function() {
-					sound.play();
-					});
-				}
+			onloaderror: function(error) {
+					console.error('Error loading audio:', error);
+				},
 			});
 
 			var success_Sound = new Howl({
@@ -65,11 +63,6 @@
 				onloaderror: function(error) {
 					console.error('Error loading audio:', error);
 				},
-				onplayerror: function() {
-					sound.once('unlock', function() {
-					sound.play();
-					});
-				}
 			});
 
 			var connecting_Sound = new Howl({
@@ -78,11 +71,6 @@
 				onloaderror: function(error) {
 					console.error('Error loading audio:', error);
 				},
-				onplayerror: function() {
-					sound.once('unlock', function() {
-					sound.play();
-					});
-				}
 			});
 
 
