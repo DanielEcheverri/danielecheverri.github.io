@@ -498,6 +498,7 @@
 					//const patterns = await fetchMovementPatterns();
 					for (const pattern of patterns) {
 						if (checkPatternInBuffer(pattern.pattern)) {
+							success_Sound.play();
 							console.log(`Pattern matched: ${pattern.patternName}`);
 							patternMovement = pattern.patternName;
 							displayText(patternMovement);
