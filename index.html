@@ -50,7 +50,7 @@
 			let tagSource = null;
 
 			var alert_Sound = new Howl({
-			src: ['audio/alert_high-intensity.ogg'],
+			src: ['audio/alert_high-intensity.wav'],
 			volume: 0.5, // Adjust volume as needed (0 to 1)
 			onloaderror: function(error) {
 					console.error('Error loading audio:', error);
@@ -58,7 +58,7 @@
 			});
 
 			var success_Sound = new Howl({
-			src: ['audio/navigation_selection-complete-celebration.ogg'],
+			src: ['audio/navigation_selection-complete-celebration.wav'],
 			volume: 0.5, // Adjust volume as needed (0 to 1)
 				onloaderror: function(error) {
 					console.error('Error loading audio:', error);
@@ -66,7 +66,7 @@
 			});
 
 			var connecting_Sound = new Howl({
-			src: ['audio/ui_loading.ogg'],
+			src: ['audio/ui_loading.wav'],
 			volume: 0.5, // Adjust volume as needed (0 to 1)
 				onplayerror: function(error) {
 					console.error('Error playing audio:', error);
@@ -75,7 +75,6 @@
 					});
 				}
 			});
-
 
 			async function connectToDevice() {
 				try {
