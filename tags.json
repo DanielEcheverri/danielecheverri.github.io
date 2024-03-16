@@ -3,19 +3,22 @@
 		"12": {
 			"displayText": "Non-narrative",
 			"variable": "noNarrative",
-			"boolean": true,
+			"boolean": false,
 			"partMoving": "someValue",
 			"directionMoving": "someDirection"
 		},
 		"13": {
 			"displayText": "Narrative",
 			"variable": "noNarrative",
-			"boolean": false,
+			"boolean": true,
 			"partMoving": "none",
 			"directionMoving": "none"
 		},
-		"14": {
-			"displayText": "Another Display Text"
+		"20": {
+			"displayText": "Good boy!"
+		},
+		"21": {
+			"displayText": "Good human!"
 		}
 	}
 }
