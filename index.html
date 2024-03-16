@@ -897,6 +897,8 @@
 						const tagInfo = await fetchJSONFile(tagSource, cachedTagInfo);
 
 						if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
+							// Update previousTagID to the current tagID
+							previousTagID = tagID;
 							success_Sound.play();
 							console.log(tagID);
 
@@ -912,8 +914,7 @@
 							//partMoving = tagData.partMoving;
 							//directionMoving = tagData.directionMoving;
 
-							// Update previousTagID to the current tagID
-							previousTagID = tagID;
+
 						} else {
 							alert_Sound.play();
 							console.error('Tag information not found.');
