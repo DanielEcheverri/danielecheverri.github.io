@@ -889,7 +889,7 @@
 			let cachedTagInfo;
 			async function readTag() {
 				try {
-					if (tagID === previousTagID || tagID === "0") {
+					if (tagID === previousTagID || tagID === "0" || speaking===true) {
 						// If tagID is the same as the previous one or is 0, do nothing
 						return;
 					} else {
