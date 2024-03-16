@@ -888,20 +888,15 @@
 
 			let cachedTagInfo;
 			async function readTag() {
-				console.log("1");
 				try {
-					console.log("2");
 					if (tagID === previousTagID || tagID === "0" || speaking) {
 						// If tagID is the same as the previous one or is 0, do nothing
-						console.log("3");
 						return;
 					} else {
-						console.log("4");
 						// Fetch tag information asynchronously
 						const tagInfo = await fetchJSONFile(tagSource, cachedTagInfo);
 
 						if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
-							console.log("5");
 							// Update previousTagID to the current tagID
 							previousTagID = tagID;
 							success_Sound.play();
@@ -926,7 +921,6 @@
 							return;
 						}
 					}
-					console.log("6");
 				} catch (err) {
 					console.error('Error reading tag:', err);
 				}
