@@ -46,6 +46,7 @@
 			let moveSource = null;
 			let movePatterns = null;
 			let sentenceSource = null;
+			let tagSource = null;
 
 
 			async function connectToDevice() {
@@ -72,12 +73,14 @@
 							moveSource = 'hachi_moves.json';
 							movePatterns = 'hachi_patterns.json';
 							sentenceSource = 'hachi_sentences.json';
+							tagSource = 'tags.json';
 						} else {
 							console.log("Loading settings for Avatar_BT");
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
 							moveSource = 'avatar_moves.json';
 							movePatterns = 'avatar_patterns.json';
 							sentenceSource = 'avatar_sentences.json';
+							tagSource = 'tags.json';
 						}
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -866,22 +869,39 @@
 			var noNarrative;
 			var previousTagID = ""; // Variable to store the previous tagID
 
-			function readTag() {
-				if (tagID === previousTagID) {
-					// If tagID is the same as the previous one, do nothing
-					return;
-				} else {
-					console.log(tagID);
-					if (tagID === "12") {
-						noNarrative = false;
-						displayText("Non-narrative");
+			let cachedTagInfo;
+			async function readTag() {
+				try {
+					if (tagID === previousTagID || tagID === 0) {
+						// If tagID is the same as the previous one or is 0, do nothing
+						return;
+					} else {
+						// Fetch tag information asynchronously
+						const tagInfo = await fetchJSONFile(tagSource, cachedTagInfo);
+
+						if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
+							console.log(tagID);
+
+							// Retrieve tag information based on tagID
+							const tagData = tagInfo.tags[tagID];
+
+							// Update variables based on fetched tagData
+							if (tagData.variable && typeof tagData.boolean === 'boolean') {
+								// Dynamically update variables based on tagData
+								window[tagData.variable] = tagData.boolean;
+							}
+							displayText(tagData.displayText);
+							//partMoving = tagData.partMoving;
+							//directionMoving = tagData.directionMoving;
+
+							// Update previousTagID to the current tagID
+							previousTagID = tagID;
+						} else {
+							console.error('Tag information not found.');
+						}
 					}
-					if (tagID === "13") {
-						noNarrative = true;
-						displayText("Narrative");
-					}
-					// Update previousTagID to the current tagID
-					previousTagID = tagID;
+				} catch (err) {
+					console.error('Error reading tag:', err);
 				}
 			}
 

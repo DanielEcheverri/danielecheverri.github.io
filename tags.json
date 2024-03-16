@@ -1,0 +1,21 @@
+{
+	"tags": {
+		"12": {
+			"displayText": "Non-narrative",
+			"variable": "noNarrative",
+			"boolean": true,
+			"partMoving": "someValue",
+			"directionMoving": "someDirection"
+		},
+		"13": {
+			"displayText": "Narrative",
+			"variable": "noNarrative",
+			"boolean": false,
+			"partMoving": "none",
+			"directionMoving": "none"
+		},
+		"14": {
+			"displayText": "Another Display Text"
+		}
+	}
+}
