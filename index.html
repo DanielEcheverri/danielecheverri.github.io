@@ -926,9 +926,9 @@
 				let currentLocationIndex = 0; // Initialize index of current location
 
 				// Load checkpoints from the JSON file
-				const checkpoints = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
+				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
-				while (!moveToNextLocation && currentLocationIndex < checkpoints.length) {
+				while (!moveToNextLocation && currentLocationIndex < locations.length) {
 					const location = locations[currentLocationIndex];
 					const checkpoints = location.checkpoints.checkpoint_1; // Get the first set of checkpoints
 					for (const checkpoint of checkpoints) {
@@ -947,7 +947,7 @@
 				}
 
 				// If all locations are checked and no checkpoints are reached, log a message
-				if (currentLocationIndex >= checkpoints.length) {
+				if (currentLocationIndex >= locations.length) {
 					console.log('No checkpoints reached.');
 				}
 			}
