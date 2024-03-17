@@ -951,8 +951,7 @@
 					console.log('No checkpoints reached.');
 				}
 			}
-			checkCheckpoints(latitude, longitude);
-
+			setInterval(checkCheckpoints(latitude, longitude), 30000);
 			function setupColors() {
 				lineColors[0] = color(204, 204, 0); // Dark Yellow
 				lineColors[1] = color(204, 204, 0); // Dark Yellow
