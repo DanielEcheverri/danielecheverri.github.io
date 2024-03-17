@@ -48,6 +48,7 @@
 			let movePatterns = null;
 			let sentenceSource = null;
 			let tagSource = null;
+			let checkpointsSource = 'points.json';
 
 			var alert_Sound = new Howl({src: ['audio/alert_high-intensity.mp3'],
 			onloaderror: function(error) {console.error('Error loading audio:', error);},});
@@ -275,17 +276,51 @@
 			}
 			getCurrentLocation();
 
-			function calculateDistance(lat1, lon1, lat2, lon2) {
-				var R = 6371e3; // metres
-				var φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
-				var φ2 = (lat2 * Math.PI) / 180;
-				var Δφ = ((lat2 - lat1) * Math.PI) / 180;
-				var Δλ = ((lon2 - lon1) * Math.PI) / 180;
-				var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-				var d = R * c; // in metres
-				return d;
+			// function calculateDistance(lat1, lon1, lat2, lon2) {
+			// 	var R = 6371e3; // metres
+			// 	var φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
+			// 	var φ2 = (lat2 * Math.PI) / 180;
+			// 	var Δφ = ((lat2 - lat1) * Math.PI) / 180;
+			// 	var Δλ = ((lon2 - lon1) * Math.PI) / 180;
+			// 	var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+			// 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+			// 	var d = R * c; // in metres
+			// 	return d;
+			// }
+
+			let cachedCheckpoints;
+			async function checkCheckpoints(latitude, longitude) {
+				const radius = 6; // 6 meters radius
+				let moveToNextLocation = false; // Flag to indicate moving to next location
+				let currentLocationIndex = 0; // Initialize index of current location
+
+				// Load checkpoints from the JSON file
+				const checkpoints = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
+
+				while (!moveToNextLocation && currentLocationIndex < cachedCheckpoints.length) {
+					const location = cachedCheckpoints[currentLocationIndex];
+					const checkpoints = location.checkpoints.checkpoint_1; // Get the first set of checkpoints
+					for (const checkpoint of checkpoints) {
+						const distance = checkpointDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
+						if (distance <= radius) {
+							console.log('Checkpoint reached:', checkpoint.text);
+							moveToNextLocation = true; // Set flag to move to next location
+							break; // Exit the loop if a checkpoint is reached
+						}
+					}
+
+					// If no checkpoints in the first set are reached, move to the next set
+					if (!moveToNextLocation) {
+						currentLocationIndex++; // Move to the next location
+					}
+				}
+
+				// If all locations are checked and no checkpoints are reached, log a message
+				if (currentLocationIndex >= cachedCheckpoints.length) {
+					console.log('No checkpoints reached.');
+				}
 			}
+			checkCheckpoints(latitude, longitude);
 		</script>
 
 		<script type="text/javascript">
