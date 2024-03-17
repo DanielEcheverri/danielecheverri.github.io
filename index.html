@@ -929,7 +929,7 @@
 				const checkpoints = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
 				while (!moveToNextLocation && currentLocationIndex < checkpoints.length) {
-					const location = cachedCheckpoints[currentLocationIndex];
+					const location = locations[currentLocationIndex];
 					const checkpoints = location.checkpoints.checkpoint_1; // Get the first set of checkpoints
 					for (const checkpoint of checkpoints) {
 						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
