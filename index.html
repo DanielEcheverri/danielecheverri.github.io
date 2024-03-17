@@ -199,8 +199,8 @@
 					let totalDistance = 0;
 					navigator.geolocation.watchPosition(
 						function (position) {
-							latitude = position.coords.latitude; // Store latitude globally
-							longitude = position.coords.longitude; // Store longitude globally
+							latitude = position.coords.latitude.toFixed(6); // Store latitude globally
+							longitude = position.coords.longitude.toFixed(6); // Store longitude globally
 							console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
 							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
 							speed = position.coords.speed || 0; // Speed in meters per second
