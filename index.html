@@ -929,6 +929,7 @@
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
 				while (!moveToNextLocation && currentLocationIndex < locations.length) {
+					console.log("Checking checkpoint");
 					const location = locations[currentLocationIndex];
 					const checkpoints = location.checkpoints.checkpoint_1; // Get the first set of checkpoints
 					for (const checkpoint of checkpoints) {
