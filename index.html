@@ -933,7 +933,9 @@
 				while (!moveToNextLocation && currentLocationIndex < locations.length) {
 					console.log("Checking checkpoint. 2");
 					const location = locations[currentLocationIndex];
-					const checkpoints = location.checkpoints.checkpoint_1; // Get the first set of checkpoints
+					console.log("Location: "+location);
+					const checkpoints = location.checkpoints.checkpoint_1;// Get the first set of checkpoints
+					console.log("Checkpoints: "+checkpoints);
 					for (const checkpoint of checkpoints) {
 						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
 						if (distance <= radius) {
@@ -951,6 +953,7 @@
 
 				// If all locations are checked and no checkpoints are reached, log a message
 				if (currentLocationIndex >= locations.length) {
+					console.log("Current location index :"+currentLocationIndex);
 					console.log('No checkpoints reached.');
 				}
 			}
