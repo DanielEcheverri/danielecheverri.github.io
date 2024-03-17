@@ -931,6 +931,7 @@
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
 				while (!moveToNextLocation && currentLocationIndex < locations.length) {
+					console.log("Move to next location:" + moveToNextLocation);
 					console.log("Checking checkpoint. 2");
 					const location = locations[currentLocationIndex];
 					console.log("Location: "+location);
