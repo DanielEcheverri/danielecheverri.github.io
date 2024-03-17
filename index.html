@@ -241,6 +241,7 @@
 							} else {
 								directionText = "Not moving";
 							}
+							checkCheckpoints(latitude, longitude);
 							// Update the HTML element with the direction and distance walked
 							document.getElementById("currentLocation").innerHTML =
 								"<strong><span class='material-icons' style='vertical-align: middle;'>bluetooth</span> Bluetooth:</strong> " + blueToothStatus +
@@ -953,7 +954,7 @@
 					console.log('No checkpoints reached.');
 				}
 			}
-			checkCheckpoints(latitude, longitude);
+			//checkCheckpoints(latitude, longitude);
 			function setupColors() {
 				lineColors[0] = color(204, 204, 0); // Dark Yellow
 				lineColors[1] = color(204, 204, 0); // Dark Yellow
