@@ -303,7 +303,7 @@
 			let tagID;
 
 			function setup() {
-				var avatarBTCanvas = createCanvas(windowWidth, windowHeight * 0.5);
+				var avatarBTCanvas = createCanvas(windowWidth, windowHeight * 0.35);
 				avatarBTCanvas.parent("avatarBTdiv");
 				potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
 				lineColors = new Array(numPotentiometers);
@@ -322,7 +322,7 @@
 					fill(backgroundColors[i]);
 					rect(0, i * lineHeight, width, lineHeight);
 					// Draw the line with different color for each
-					strokeWeight(40);
+					strokeWeight(30);
 					stroke(lineColors[i]);
 					line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
 					// Display the corresponding value to the left of the line
@@ -906,7 +906,6 @@
 							displayText(tagData.displayText);
 							//partMoving = tagData.partMoving;
 							//directionMoving = tagData.directionMoving;
-
 
 						} else {
 							alert_Sound.play();
