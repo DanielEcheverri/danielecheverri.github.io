@@ -301,7 +301,7 @@
 					const location = cachedCheckpoints[currentLocationIndex];
 					const checkpoints = location.checkpoints.checkpoint_1; // Get the first set of checkpoints
 					for (const checkpoint of checkpoints) {
-						const distance = checkpointDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
+						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
 						if (distance <= radius) {
 							console.log('Checkpoint reached:', checkpoint.text);
 							moveToNextLocation = true; // Set flag to move to next location
