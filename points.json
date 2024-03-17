@@ -1,5 +1,6 @@
 [
 	{
+            "checkpoints": {
 		"checkpoint_1": [
 			{
 				"latitude": 49.192721,
@@ -51,4 +52,5 @@
 			}
 		]
 	}
+}
 ]
