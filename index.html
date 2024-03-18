@@ -241,7 +241,7 @@
 							} else {
 								directionText = "Not moving";
 							}
-							runCheckpoints();
+
 							// Update the HTML element with the direction and distance walked
 							document.getElementById("currentLocation").innerHTML =
 								"<strong><span class='material-icons' style='vertical-align: middle;'>bluetooth</span> Bluetooth:</strong> " + blueToothStatus +
@@ -975,7 +975,7 @@
 				// Schedule the next execution after two seconds
 				setTimeout(runCheckpointsRepeatedly, 2000);
 			}
-
+			runCheckpoints();
 				function setupColors() {
 					lineColors[0] = color(204, 204, 0); // Dark Yellow
 					lineColors[1] = color(204, 204, 0); // Dark Yellow
