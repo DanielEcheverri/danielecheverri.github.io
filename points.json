@@ -3,8 +3,8 @@
 		"checkpoints": {
 			"checkpoint_1": [
 				{
-					"latitude": 49.191843,
-					"longitude": 16.600567,
+					"latitude": 49.191898,
+					"longitude": 16.600601,
 					"text": "Check point 1A"
 				},
 				{
@@ -15,8 +15,8 @@
 			],
 			"checkpoint_2": [
 				{
-					"latitude": 49.191936,
-					"longitude": 16.600457,
+					"latitude": 49.191981,
+					"longitude": 16.60053,
 					"text": "Check point 2A"
 				},
 				{
