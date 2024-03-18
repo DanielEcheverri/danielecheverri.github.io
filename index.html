@@ -952,7 +952,6 @@
 							if (distance <= radius) {
 								console.log('Checkpoint reached:', checkpoint.text);
 								checkpointReached = true;
-								currentLocationIndex++;
 								break; // Exit the loop over checkpoints if a checkpoint is reached
 							}
 						}
@@ -965,7 +964,8 @@
 
 					// If a checkpoint is reached, stay within the same location to check the next set
 					if (checkpointReached) {
-						continue; // Move to the next iteration of the loop (same location)
+						currentLocationIndex++;
+						//continue; // Move to the next iteration of the loop (same location)
 					} else {
 						break; // Exit the loop if no checkpoint is reached
 					}
