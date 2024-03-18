@@ -923,7 +923,7 @@
 			let cachedCheckpoints;
 			let lastCheckedIndex = 0; // Initialize the index of the last checked key
 
-			async function checkCheckpoints() {
+			async function checkCheckpoints(latitude, longitude) {
 				console.log("Checking checkpoint");
 				const radius = 2; // 2 meters radius
 
@@ -931,26 +931,24 @@
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
 				// Start iterating from the last checked index
-				for (let i = lastCheckedIndex; i < locations[0].checkpoints.length; i++) {
-					const checkpointSet = locations[0].checkpoints[i];
-					console.log('Current Checkpoint Set:', i);
+				const checkpointSet = locations[0].checkpoints[lastCheckedIndex];
+				console.log('Current Checkpoint Set:', lastCheckedIndex);
 
-					// Process checkpoints within the current set asynchronously
-					for (const checkpoint of checkpointSet) {
-						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-						console.log('Checkpoint Latitude:', checkpoint.latitude);
-						console.log('Checkpoint Longitude:', checkpoint.longitude);
-						console.log('Distance:', distance);
+				// Process checkpoints within the current set
+				for (const checkpoint of checkpointSet) {
+					const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
+					console.log('Checkpoint Latitude:', checkpoint.latitude);
+					console.log('Checkpoint Longitude:', checkpoint.longitude);
+					console.log('Distance:', distance);
 
-						if (distance <= radius) {
-							console.log('Checkpoint reached:', checkpoint.text);
-							lastCheckedIndex = i + 1; // Update the last checked index to start from the next key
-							return; // Exit the function when a checkpoint is reached
-						}
+					if (distance <= radius) {
+						console.log('Checkpoint reached:', checkpoint.text);
+						lastCheckedIndex++; // Move to the next key
+						return; // Exit the function when a checkpoint is reached
 					}
 				}
 
-				console.log("No checkpoints reached in the first set.");
+				console.log("No checkpoints reached in the current set.");
 			}
 
 				function setupColors() {
