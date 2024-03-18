@@ -925,7 +925,7 @@
 
 			async function checkCheckpoints() {
 				console.debug("Checking checkpoint");
-				const radius = 5; // 2 meters radius
+				const radius = 5; // 5 meters radius
 
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
@@ -965,26 +965,26 @@
 				}
 			}
 
-							function setupColors() {
-													lineColors[0] = color(204, 204, 0); // Dark Yellow
-													lineColors[1] = color(204, 204, 0); // Dark Yellow
-													lineColors[2] = color(255, 0, 0); // Red
-													lineColors[3] = color(204, 204, 0); // Dark Yellow
-													lineColors[4] = color(204, 204, 0); // Dark Yellow
-													lineColors[5] = color(0, 255, 0); // Bright Green
-													lineColors[6] = color(0, 128, 0); // Grass Green
-													lineColors[7] = color(0, 128, 0); // Grass Green
-												}
-							function setupBackgroundColors() {
-																				backgroundColors[0] = color(0, 0, 0); // 0% black
-																				backgroundColors[1] = color(0, 0, 0); // 0% black
-																				backgroundColors[2] = color(0, 0, 0, 200); // 90% black
-																				backgroundColors[3] = color(0, 0, 0, 230); // 75% black
-																				backgroundColors[4] = color(0, 0, 0, 230); // 60% black
-																				backgroundColors[5] = color(0, 0, 0, 128); // 60% black
-																				backgroundColors[6] = color(0, 0, 0, 100); // 60% black
-																				backgroundColors[7] = color(0, 0, 0, 100); // 60% black
-																			}
+			function setupColors() {
+				lineColors[0] = color(204, 204, 0); // Dark Yellow
+				lineColors[1] = color(204, 204, 0); // Dark Yellow
+				lineColors[2] = color(255, 0, 0); // Red
+				lineColors[3] = color(204, 204, 0); // Dark Yellow
+				lineColors[4] = color(204, 204, 0); // Dark Yellow
+				lineColors[5] = color(0, 255, 0); // Bright Green
+				lineColors[6] = color(0, 128, 0); // Grass Green
+				lineColors[7] = color(0, 128, 0); // Grass Green
+			}
+			function setupBackgroundColors() {
+				backgroundColors[0] = color(0, 0, 0); // 0% black
+				backgroundColors[1] = color(0, 0, 0); // 0% black
+				backgroundColors[2] = color(0, 0, 0, 200); // 90% black
+				backgroundColors[3] = color(0, 0, 0, 230); // 75% black
+				backgroundColors[4] = color(0, 0, 0, 230); // 60% black
+				backgroundColors[5] = color(0, 0, 0, 128); // 60% black
+				backgroundColors[6] = color(0, 0, 0, 100); // 60% black
+				backgroundColors[7] = color(0, 0, 0, 100); // 60% black
+			}
 		</script>
 	</body>
 </html>
