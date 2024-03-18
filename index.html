@@ -925,10 +925,8 @@
 			let currentLocationIndex = 0; // Initialize index of current location
 
 			async function checkCheckpoints(latitude, longitude) {
-				moveToNextLocation = false; // Reset moveToNextLocation
 				console.log("Checking checkpoint. 1");
 				const radius = 2; // 2 meters radius
-				console.log('Move to next location:', moveToNextLocation);
 
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
@@ -969,14 +967,16 @@
 					} else {
 						// If no checkpoints in any set are reached, log a message and move to the next location
 						console.log("No checkpoints reached in this location.");
+						currentLocationIndex++; // Move to the next location
 					}
 				}
 
-
 				// If all locations are checked and no checkpoints are reached, log a message
 				if (currentLocationIndex >= locations.length) {
+					console.log("All locations checked.");
 				}
 			}
+
 
 			function setupColors() {
 				lineColors[0] = color(204, 204, 0); // Dark Yellow
