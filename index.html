@@ -925,6 +925,7 @@
 			let currentLocationIndex = 0; // Initialize index of current location
 
 			async function checkCheckpoints(latitude, longitude) {
+				moveToNextLocation = false; // Reset moveToNextLocation
 				console.log("Checking checkpoint. 1");
 				const radius = 2; // 2 meters radius
 				console.log('Move to next location:', moveToNextLocation);
@@ -939,8 +940,7 @@
 
 					for (const checkpointSet of checkpointSets) {
 						const checkpoints = location.checkpoints[checkpointSet]; // Get the checkpoints from the set
-						console.log('Current index:', currentLocationIndex);
-							console.log('Checkpoint Set Name:', checkpointSet);
+						console.log('Checkpoint Set Name:', checkpointSet);
 						for (const checkpoint of checkpoints) {
 							const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
 							console.log('Checkpoint Latitude:', checkpoint.latitude);
