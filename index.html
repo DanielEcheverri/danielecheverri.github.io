@@ -931,6 +931,10 @@
 
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
+				console.log('Current index:', currentLocationIndex);
+				console.log('Checkpoint Set Name:', checkpointSet);
+				console.log('Checkpoint Latitude:', checkpoint.latitude);
+				console.log('Checkpoint Longitude:', checkpoint.longitude);
 
 				while (currentLocationIndex < locations.length) {
 					const location = locations[currentLocationIndex];
@@ -941,10 +945,7 @@
 
 						for (const checkpoint of checkpoints) {
 							const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-							console.log('Current index:', currentLocationIndex);
-							console.log('Checkpoint Set Name:', checkpointSet);
-							console.log('Checkpoint Latitude:', checkpoint.latitude);
-							console.log('Checkpoint Longitude:', checkpoint.longitude);
+
 							console.log('Distance:', distance);
 							if (distance <= radius) {
 								console.log('Checkpoint reached:', checkpoint.text);
