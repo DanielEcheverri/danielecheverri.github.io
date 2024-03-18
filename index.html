@@ -241,7 +241,7 @@
 							} else {
 								directionText = "Not moving";
 							}
-							checkCheckpoints(latitude, longitude);
+							checkCheckpoints();
 							// Update the HTML element with the direction and distance walked
 							document.getElementById("currentLocation").innerHTML =
 								"<strong><span class='material-icons' style='vertical-align: middle;'>bluetooth</span> Bluetooth:</strong> " + blueToothStatus +
@@ -923,7 +923,7 @@
 			let cachedCheckpoints;
 			let lastCheckedIndex = 0; // Initialize the index of the last checked key
 
-			async function checkCheckpoints(latitude, longitude) {
+			async function checkCheckpoints() {
 				console.log("Checking checkpoint");
 				const radius = 2; // 2 meters radius
 
