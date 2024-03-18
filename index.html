@@ -934,19 +934,19 @@
 
 				// Iterate over locations
 				while (currentLocationIndex < locations.length) {
-					console.log("Move to next location: " + currentLocationIndex);
+					//console.log("Move to next location: " + currentLocationIndex);
 					const location = locations[currentLocationIndex];
 					const checkpointSets = Object.entries(location.checkpoints); // Get all checkpoint sets
 					const [currentCheckpointSetName, currentCheckpointSet] = checkpointSets[currentCheckpointSetIndex]; // Get current checkpoint set
 
-					console.log('Current Checkpoint Set:', currentCheckpointSetName); // Display the name of the current set
+					//console.log('Current Checkpoint Set:', currentCheckpointSetName); // Display the name of the current set
 
 					// Iterate over checkpoints within the current set
 					for (const checkpoint of currentCheckpointSet) {
 						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-						console.log('Checkpoint Latitude:', checkpoint.latitude);
-						console.log('Checkpoint Longitude:', checkpoint.longitude);
-						console.log('Distance:', distance);
+						//console.log('Checkpoint Latitude:', checkpoint.latitude);
+						//console.log('Checkpoint Longitude:', checkpoint.longitude);
+						//console.log('Distance:', distance);
 
 						if (distance <= radius) {
 							console.log('Checkpoint reached:', checkpoint.text);
