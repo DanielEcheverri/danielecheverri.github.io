@@ -923,51 +923,47 @@
 			let cachedCheckpoints;
 			let lastCheckedIndex = 0; // Initialize the index of the last checked key
 
-				async function checkCheckpoints() {
-				    console.debug("Checking checkpoint");
-				    const radius = 2; // 2 meters radius
+			async function checkCheckpoints() {
+				console.debug("Checking checkpoint");
+				const radius = 4; // 2 meters radius
 
-				    // Load checkpoints from the JSON file
-				    const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
+				// Load checkpoints from the JSON file
+				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
-				    // Ensure locations is an array and not empty
-				    if (Array.isArray(locations) && locations.length > 0) {
-				        const checkpoints = locations[0].checkpoints;
+				// Ensure locations is an array and not empty
+				if (Array.isArray(locations) && locations.length > 0) {
+					const checkpoints = locations[0].checkpoints;
 
-				        // Ensure checkpoints is an object
-				        if (typeof checkpoints === 'object' && checkpoints !== null) {
-				            const checkpointKeys = Object.keys(checkpoints);
+					// Ensure checkpoints is an object
+					if (typeof checkpoints === 'object' && checkpoints !== null) {
+						const checkpointKeys = Object.keys(checkpoints);
 
-				            // Ensure lastCheckedIndex is within bounds
-				            if (lastCheckedIndex < checkpointKeys.length) {
-				                const currentCheckpointKey = checkpointKeys[lastCheckedIndex];
-				                console.log('Current Checkpoint Set:', currentCheckpointKey);
+						// Ensure lastCheckedIndex is within bounds
+						if (lastCheckedIndex < checkpointKeys.length) {
+							const currentCheckpointKey = checkpointKeys[lastCheckedIndex];
+							console.log('Current Checkpoint Set:', currentCheckpointKey);
 
-				                // Process checkpoints within the current set
-				                for (const checkpoint of checkpoints[currentCheckpointKey]) {
-				                    const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-				                    console.log('Checkpoint Latitude:', checkpoint.latitude);
-				                    console.log('Checkpoint Longitude:', checkpoint.longitude);
-				                    console.log('Distance:', distance);
+							// Process checkpoints within the current set
+							for (const checkpoint of checkpoints[currentCheckpointKey]) {
+								const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
+								console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude,'Distance:', distance );
+								//console.log();
+								//console.log('Distance:', distance);
 
-				                    if (distance <= radius) {
-				                        console.log('Checkpoint reached:', checkpoint.text);
-										success_Sound.play();
-				                        lastCheckedIndex++; // Move to the next key
-				                        return; // Exit the function when a checkpoint is reached
-				                    }
-				                }
-				                console.log("No checkpoints reached in the current set.");
-				            } else {
-				                console.log("No more checkpoint sets to check.");
-				            }
-				        } else {
-				            console.log("Invalid or missing checkpoints data.");
-				        }
-				    } else {
-				        console.log("No locations loaded or invalid JSON structure.");
-				    }
+								if (distance <= radius) {
+									console.log('Checkpoint reached:', checkpoint.text);
+									success_Sound.play();
+									lastCheckedIndex++; // Move to the next key
+									return; // Exit the function when a checkpoint is reached
+								}
+							}
+							//console.log("No checkpoints reached in the current set.");
+						} else {
+							console.log("No more checkpoint sets to check.");
+						}
+					}
 				}
+			}
 
 							function setupColors() {
 													lineColors[0] = color(204, 204, 0); // Dark Yellow
