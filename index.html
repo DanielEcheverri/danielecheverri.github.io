@@ -948,12 +948,13 @@
 							console.log('Checkpoint Longitude:', checkpoint.longitude);
 							console.log('Distance:', distance);
 							if (distance <= radius) {
-								console.log("4");
+								console.log("4a");
 								console.log('Checkpoint reached:', checkpoint.text);
 								moveToNextLocation = true; // Set flag to move to next location
 								console.log('Move to next location:', moveToNextLocation);
 								break; // Exit the loop over checkpoints if a checkpoint is reached
 							} else {
+								console.log("4b");
 								break;
 							}
 						}
