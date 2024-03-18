@@ -241,7 +241,7 @@
 							} else {
 								directionText = "Not moving";
 							}
-							checkCheckpoints(latitude, longitude);
+							runCheckpointsRepeatedly();
 							// Update the HTML element with the direction and distance walked
 							document.getElementById("currentLocation").innerHTML =
 								"<strong><span class='material-icons' style='vertical-align: middle;'>bluetooth</span> Bluetooth:</strong> " + blueToothStatus +
@@ -966,6 +966,14 @@
 				if (currentLocationIndex >= locations.length) {
 					console.log("No checkpoints reached.");
 				}
+			}
+
+			async function runCheckpoints() {
+				// Call checkCheckpoints
+				await checkCheckpoints(latitude, longitude);
+
+				// Schedule the next execution after two seconds
+				setTimeout(runCheckpointsRepeatedly, 2000);
 			}
 
 				function setupColors() {
