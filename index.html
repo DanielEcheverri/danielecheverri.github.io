@@ -965,6 +965,7 @@
 					if (checkpointReached) {
 						console.log("Moving to the next location...");
 						currentLocationIndex++; // Move to the next location
+						checkpointReached = false;
 					} else {
 						console.log("No checkpoints reached in this location.");
 						break; // Exit the loop over locations if no checkpoint is reached
