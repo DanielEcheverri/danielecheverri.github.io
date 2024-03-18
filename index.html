@@ -925,7 +925,7 @@
 				let currentLocationIndex = 0; // Initialize index of current location
 
 				async function checkCheckpoints(latitude, longitude) {
-				console.log("Checking checkpoint");
+				console.log("Checking checkpoint. 1");
 				const radius = 2; // 2 meters radius
 				let currentLocationIndex = 0; // Initialize index of current location
 
@@ -943,7 +943,7 @@
 					for (const [checkpointSetName, checkpoints] of checkpointSets) {
 						console.log('Checkpoint Set Name:', checkpointSetName);
 
-						// Iterate over checkpoints
+						// Iterate over checkpoints within the set
 						for (const checkpoint of checkpoints) {
 							const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
 							console.log('Checkpoint Latitude:', checkpoint.latitude);
@@ -963,12 +963,10 @@
 					}
 
 					if (checkpointReached) {
-						console.log("Moving to the next location...");
-						currentLocationIndex++; // Move to the next location
-						checkpointReached = false;
+						console.log("Moving to the next set of checkpoints within the same location...");
 					} else {
-						console.log("No checkpoints reached in this location.");
-						break; // Exit the loop over locations if no checkpoint is reached
+						console.log("No checkpoints reached in this location. Moving to the next location...");
+						currentLocationIndex++; // Move to the next location
 					}
 				}
 
@@ -976,6 +974,7 @@
 					console.log("All locations checked.");
 				}
 			}
+
 
 				function setupColors() {
 					lineColors[0] = color(204, 204, 0); // Dark Yellow
