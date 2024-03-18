@@ -934,6 +934,7 @@
 
 				while (currentLocationIndex < locations.length) {
 					const location = locations[currentLocationIndex];
+					console.log('Current index:', currentLocationIndex);
 					const checkpointSets = Object.keys(location.checkpoints); // Get all checkpoint sets
 
 					for (const checkpointSet of checkpointSets) {
@@ -948,6 +949,7 @@
 							if (distance <= radius) {
 								console.log('Checkpoint reached:', checkpoint.text);
 								moveToNextLocation = true; // Set flag to move to next location
+								console.log('Move to next location:', moveToNextLocation);
 								break; // Exit the loop over checkpoints if a checkpoint is reached
 							}
 						}
@@ -960,7 +962,9 @@
 
 					// If a checkpoint is reached, move to the next location
 					if (moveToNextLocation) {
+						console.log('Move to next location:', moveToNextLocation);
 						currentLocationIndex++; // Move to the next location
+						console.log('Next index:', currentLocationIndex);
 						moveToNextLocation = false; // Reset moveToNextLocation
 					} else {
 						// If no checkpoints in any set are reached, log a message and move to the next location
