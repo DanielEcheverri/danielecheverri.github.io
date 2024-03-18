@@ -920,15 +920,6 @@
 									}
 								}
 
-								let cachedCheckpoints;
-							let lastCheckedIndex = 0; // Initialize the index of the last checked key
-
-							async function checkCheckpoints() {
-								console.debug("Checking checkpoint");
-								const radius = 2; // 2 meters radius
-
-								// Load checkpoints from the JSON file
-								const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 				let cachedCheckpoints;
 				let lastCheckedIndex = 0; // Initialize the index of the last checked key
 
