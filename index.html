@@ -961,12 +961,11 @@
 
 					// If a checkpoint is reached, move to the next location
 					if (moveToNextLocation) {
-						moveToNextLocation = false; // Reset moveToNextLocation
 						currentLocationIndex++; // Move to the next location
+						moveToNextLocation = false; // Reset moveToNextLocation
 					} else {
 						// If no checkpoints in any set are reached, log a message and move to the next location
 						console.log("No checkpoints reached in this location.");
-						currentLocationIndex++; // Move to the next location
 					}
 				}
 
