@@ -921,11 +921,13 @@
 			}
 
 			let cachedCheckpoints;
+			let moveToNextLocation = false; // Flag to indicate moving to next location
+			let currentLocationIndex = 0; // Initialize index of current location
+
 			async function checkCheckpoints(latitude, longitude) {
 				console.log("Checking checkpoint. 1");
 				const radius = 2; // 2 meters radius
-				let moveToNextLocation = false; // Flag to indicate moving to next location
-				let currentLocationIndex = 0; // Initialize index of current location
+
 
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
@@ -953,6 +955,7 @@
 					// If no checkpoints in the first set are reached, move to the next set
 					if (!moveToNextLocation) {
 						currentLocationIndex++; // Move to the next location
+						console.log('Next index:', currentLocationIndex);
 					}
 				}
 
