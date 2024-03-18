@@ -925,26 +925,30 @@
 			let currentLocationIndex = 0; // Initialize index of current location
 
 			async function checkCheckpoints(latitude, longitude) {
-				console.log("Checking checkpoint. 1");
+				console.log("Checking checkpoints");
 				const radius = 2; // 2 meters radius
 
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
 				while (currentLocationIndex < locations.length) {
+					console.log("1");
 					const location = locations[currentLocationIndex];
 					console.log('Current index:', currentLocationIndex);
 					const checkpointSets = Object.keys(location.checkpoints); // Get all checkpoint sets
 
 					for (const checkpointSet of checkpointSets) {
+						console.log("2");
 						const checkpoints = location.checkpoints[checkpointSet]; // Get the checkpoints from the set
 						console.log('Checkpoint Set Name:', checkpointSet);
 						for (const checkpoint of checkpoints) {
+							console.log("3");
 							const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
 							console.log('Checkpoint Latitude:', checkpoint.latitude);
 							console.log('Checkpoint Longitude:', checkpoint.longitude);
 							console.log('Distance:', distance);
 							if (distance <= radius) {
+								console.log("4");
 								console.log('Checkpoint reached:', checkpoint.text);
 								moveToNextLocation = true; // Set flag to move to next location
 								console.log('Move to next location:', moveToNextLocation);
@@ -954,12 +958,14 @@
 
 						// If a checkpoint is reached in this set, break out of the loop over checkpoint sets
 						if (moveToNextLocation) {
+							console.log("5");
 							break;
 						}
 					}
 
 					// If a checkpoint is reached, move to the next location
 					if (moveToNextLocation) {
+						console.log("6");
 						console.log('Move to next location:', moveToNextLocation);
 						currentLocationIndex++; // Move to the next location
 						console.log('Next index:', currentLocationIndex);
@@ -973,6 +979,7 @@
 
 				// If all locations are checked and no checkpoints are reached, log a message
 				if (currentLocationIndex >= locations.length) {
+					console.log("7");
 					console.log("All locations checked.");
 				}
 			}
