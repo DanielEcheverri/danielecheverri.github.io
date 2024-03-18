@@ -935,6 +935,7 @@
 					const checkpointSets = Object.keys(location.checkpoints); // Get all checkpoint sets
 					const currentCheckpointSet = checkpointSets[0]; // Get the name of the first checkpoint set
 					const checkpoints = location.checkpoints[currentCheckpointSet];// Get the first set of checkpoints
+					console.log('Move to next location:', moveToNextLocation);
 					for (const checkpoint of checkpoints) {
 						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
 						console.log('Current index:', currentLocationIndex);
