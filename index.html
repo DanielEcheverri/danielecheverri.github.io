@@ -931,8 +931,6 @@
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
-				let currentLocationIndex = 0; // Initialize index of current location
-
 				// Iterate over locations
 				while (currentLocationIndex < locations.length) {
 					const location = locations[currentLocationIndex];
@@ -954,6 +952,7 @@
 							if (distance <= radius) {
 								console.log('Checkpoint reached:', checkpoint.text);
 								checkpointReached = true;
+								currentLocationIndex++;
 								break; // Exit the loop over checkpoints if a checkpoint is reached
 							}
 						}
@@ -966,7 +965,6 @@
 
 					// If a checkpoint is reached, stay within the same location to check the next set
 					if (checkpointReached) {
-						currentLocationIndex++;
 						continue; // Move to the next iteration of the loop (same location)
 					} else {
 						break; // Exit the loop if no checkpoint is reached
