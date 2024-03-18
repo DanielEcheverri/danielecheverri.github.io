@@ -929,7 +929,7 @@
 
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
-				console.log(locations);
+				console.log(locations[0].checkpoints.length);
 				console.log("Last checked index:", lastCheckedIndex);
 
 				// Ensure lastCheckedIndex is within bounds
