@@ -291,304 +291,361 @@
 		</script>
 
 		<script type="text/javascript">
-					// Processing 4 sketch to visualize movements of the Avatar.
-					let numPotentiometers = 8;
-					let potValues;
-					let lineColors;
-					let backgroundColors;
-					let isMovingUp = false;
-					let isMovingDown = false;
-					var previousPotValues = new Array(numPotentiometers);
-					const cooldownDuration = 500; // 1 second
-					let detectMovement = true;
-					let startDetectMovement = false;
-					let tagID;
+				// Processing 4 sketch to visualize movements of the Avatar.
+				let numPotentiometers = 8;
+				let potValues;
+				let lineColors;
+				let backgroundColors;
+				let isMovingUp = false;
+				let isMovingDown = false;
+				var previousPotValues = new Array(numPotentiometers);
+				const cooldownDuration = 500; // 1 second
+				let detectMovement = true;
+				let startDetectMovement = false;
+				let tagID;
 
-					function setup() {
-						var avatarBTCanvas = createCanvas(windowWidth, windowHeight * 0.35);
-						avatarBTCanvas.parent("avatarBTdiv");
-						potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
-						lineColors = new Array(numPotentiometers);
-						backgroundColors = new Array(numPotentiometers);
-						setupColors();
-						setupBackgroundColors();
-					}
-					function draw() {
-						background(255);
-						let lineHeight = height / numPotentiometers;
-						let labelSize = min(width, height) * 0.03; // Responsive font size for labels
-						for (let i = 0; i < numPotentiometers; i++) {
-							let lineY = i * lineHeight + lineHeight / 2;
-							// Draw the background rectangle
-							noStroke();
-							fill(backgroundColors[i]);
-							rect(0, i * lineHeight, width, lineHeight);
-							// Draw the line with different color for each
-							strokeWeight(30);
-							stroke(lineColors[i]);
-							line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
-							// Display the corresponding value to the left of the line
-							noStroke();
-							fill(255);
-							textFont("Roboto");
-							textAlign(RIGHT, CENTER);
-							textSize(labelSize);
-							text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width * 0.55) - 10, lineY);
-						}
-						// Draw vertical labels on the right side
-						textAlign(RIGHT, CENTER);
-						let labelFontSize = min(width, height) * 0.04; // Responsive font size for labels
+				function setup() {
+					var avatarBTCanvas = createCanvas(windowWidth, windowHeight * 0.35);
+					avatarBTCanvas.parent("avatarBTdiv");
+					potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
+					lineColors = new Array(numPotentiometers);
+					backgroundColors = new Array(numPotentiometers);
+					setupColors();
+					setupBackgroundColors();
+				}
+				function draw() {
+					background(255);
+					let lineHeight = height / numPotentiometers;
+					let labelSize = min(width, height) * 0.03; // Responsive font size for labels
+					for (let i = 0; i < numPotentiometers; i++) {
+						let lineY = i * lineHeight + lineHeight / 2;
+						// Draw the background rectangle
+						noStroke();
+						fill(backgroundColors[i]);
+						rect(0, i * lineHeight, width, lineHeight);
+						// Draw the line with different color for each
+						strokeWeight(30);
+						stroke(lineColors[i]);
+						line(0, lineY, map(potValues[i], 0, 4095, 0, width * 0.55), lineY);
+						// Display the corresponding value to the left of the line
+						noStroke();
+						fill(255);
 						textFont("Roboto");
-						textSize(labelFontSize);
-						fill(255); // Set text color to white
-						for (let i = 0; i < numPotentiometers; i++) {
-							text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
-						}
-						// Detect movement and display corresponding text
-						if (startDetectMovement){
-							checkMovement();
+						textAlign(RIGHT, CENTER);
+						textSize(labelSize);
+						text(int(potValues[i]), map(potValues[i], 0, 4095, 0, width * 0.55) - 10, lineY);
+					}
+					// Draw vertical labels on the right side
+					textAlign(RIGHT, CENTER);
+					let labelFontSize = min(width, height) * 0.04; // Responsive font size for labels
+					textFont("Roboto");
+					textSize(labelFontSize);
+					fill(255); // Set text color to white
+					for (let i = 0; i < numPotentiometers; i++) {
+						text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
+					}
+					// Detect movement and display corresponding text
+					if (startDetectMovement){
+						checkMovement();
+					}
+				}
+
+				// Function to receive data from JavaScript
+				function receiveData(data) {
+					let values = data.split(",");
+					//console.log(values);
+					tagID = values.pop(); // Remove and store the last element as tagID
+					readTag();
+					if (values.length === numPotentiometers) { // Check if the length of values is 8
+						for (let i = 0; i < values.length; i++) {
+							potValues[i] = parseFloat(values[i]);
 						}
 					}
+				}
 
-					// Function to receive data from JavaScript
-					function receiveData(data) {
-						let values = data.split(",");
-						//console.log(values);
-						tagID = values.pop(); // Remove and store the last element as tagID
-						readTag();
-						if (values.length === numPotentiometers) { // Check if the length of values is 8
-							for (let i = 0; i < values.length; i++) {
-								potValues[i] = parseFloat(values[i]);
-							}
+				// Define variables for detecting movement in different body parts
+				function handleMovement() {
+					// Define thresholds for movement detection
+					let movementThreshold = 13;
+
+					// Variables to track movement of different body parts
+					let movements = {};
+
+					// Mapping between labels and movements for hachi_BT
+					if (deviceName === "hachi_BT") {
+						labelMovements = {
+							"HEAD": "headMoving",
+							"FRONT LEG": "leftLegMoving",
+							"BACK LEG": "rightLegMoving",
+							"LEFT SHOULDER": "leftShoulderMoving",
+							"RIGHT SHOULDER": "rightShoulderMoving",
+							"LEFT FOREARM": "leftForearmMoving",
+							"RIGHT FOREARM": "rightForearmMoving",
+							"TAIL": "waistMoving"
+						};
+					} else {
+						// Default labelMovements object for avatar_BT
+						labelMovements = {
+							"HEAD": "headMoving",
+							"LEFT LEG": "leftLegMoving",
+							"RIGHT LEG": "rightLegMoving",
+							"LEFT SHOULDER": "leftShoulderMoving",
+							"RIGHT SHOULDER": "rightShoulderMoving",
+							"LEFT FOREARM": "leftForearmMoving",
+							"RIGHT FOREARM": "rightForearmMoving",
+							"WAIST": "waistMoving"
+						};
+					}
+					// Check movement for each potentiometer
+					for (let i = 0; i < numPotentiometers; i++) {
+						let label = labels[i];
+						let movement = labelMovements[label];
+
+						if (!movement) continue; // Skip if label not found in labelMovements
+
+						// Movement detection
+						if (potValues[i] < previousPotValues[i] - movementThreshold) {
+							movements[movement] = true; // Movement increases
+						} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+							movements[movement] = false; // Movement decreases
 						}
 					}
+					// Update previous potentiometer values for the next iteration.
+					previousPotValues = potValues.slice(0, numPotentiometers);
+					// Return the detected movement
+					return movements;
+				}
 
-					// Define variables for detecting movement in different body parts
-					function handleMovement() {
-						// Define thresholds for movement detection
-						let movementThreshold = 13;
+				let cachedMovementConditions = null;
+				let previousPart = "none";
+				let previousDirection = "none";
 
-						// Variables to track movement of different body parts
-						let movements = {};
+				async function checkMovement() {
+					// Detect movement
+					let movements = handleMovement();
 
-						// Mapping between labels and movements for hachi_BT
-						if (deviceName === "hachi_BT") {
-							labelMovements = {
-								"HEAD": "headMoving",
-								"FRONT LEG": "leftLegMoving",
-								"BACK LEG": "rightLegMoving",
-								"LEFT SHOULDER": "leftShoulderMoving",
-								"RIGHT SHOULDER": "rightShoulderMoving",
-								"LEFT FOREARM": "leftForearmMoving",
-								"RIGHT FOREARM": "rightForearmMoving",
-								"TAIL": "waistMoving"
-							};
-						} else {
-							// Default labelMovements object for avatar_BT
-							labelMovements = {
-								"HEAD": "headMoving",
-								"LEFT LEG": "leftLegMoving",
-								"RIGHT LEG": "rightLegMoving",
-								"LEFT SHOULDER": "leftShoulderMoving",
-								"RIGHT SHOULDER": "rightShoulderMoving",
-								"LEFT FOREARM": "leftForearmMoving",
-								"RIGHT FOREARM": "rightForearmMoving",
-								"WAIST": "waistMoving"
-							};
-						}
-						// Check movement for each potentiometer
-						for (let i = 0; i < numPotentiometers; i++) {
-							let label = labels[i];
-							let movement = labelMovements[label];
-
-							if (!movement) continue; // Skip if label not found in labelMovements
-
-							// Movement detection
-							if (potValues[i] < previousPotValues[i] - movementThreshold) {
-								movements[movement] = true; // Movement increases
-							} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-								movements[movement] = false; // Movement decreases
-							}
-						}
-						// Update previous potentiometer values for the next iteration.
-						previousPotValues = potValues.slice(0, numPotentiometers);
-						// Return the detected movement
-						return movements;
-					}
-
-					let cachedMovementConditions = null;
-					let previousPart = "none";
-					let previousDirection = "none";
-
-					async function checkMovement() {
-						// Detect movement
-						let movements = handleMovement();
-
-						// Fetch movement conditions JSON file if not already cached...
-						if (!cachedMovementConditions) {
-							try {
-								cachedMovementConditions = await $.get(moveSource);
-								processMovementConditions(movements);
-							} catch (error) {
-								console.error('Error fetching movement conditions JSON:', error);
-							}
-						} else {
+					// Fetch movement conditions JSON file if not already cached...
+					if (!cachedMovementConditions) {
+						try {
+							cachedMovementConditions = await $.get(moveSource);
 							processMovementConditions(movements);
+						} catch (error) {
+							console.error('Error fetching movement conditions JSON:', error);
+						}
+					} else {
+						processMovementConditions(movements);
+					}
+
+					function processMovementConditions(movements) {
+						// Iterate over movement conditions.
+						cachedMovementConditions.forEach(condition => {
+							let match = true;
+							for (let key in condition.condition) {
+								if (condition.condition[key] !== movements[key]) {
+									match = false;
+									break;
+								}
+							}
+							if (match) {
+								partMoving = condition.partMoving;
+								directionMoving = condition.directionMoving;
+							}
+						});
+
+						// Check if partMoving or directionMoving are different from their previous values and add movement to the sequence buffer
+						if (partMoving !== previousPart || directionMoving !== previousDirection) {
+							// Add movement to the sequence buffer
+							console.log(partMoving+" "+directionMoving);
+							previousPart = partMoving;
+							previousDirection = directionMoving;
+							trackMovementSequences();
+						} else {
+							return;
+						}
+					}
+				}
+
+				let movementBuffer = [];
+				let cachedMovePatterns;
+
+				// Function to track movement sequences and compare them against patterns
+				async function trackMovementSequences() {
+					try {
+						const currentSequence = { partMoving, directionMoving };
+
+						// Check if the current sequence is different from the previous one
+						if (
+							movementBuffer.length > 0 &&
+							movementBuffer[movementBuffer.length - 1].partMoving === partMoving &&
+							movementBuffer[movementBuffer.length - 1].directionMoving === directionMoving
+						) {
+							return; // Exit early if the sequence is the same as the previous one
 						}
 
-						function processMovementConditions(movements) {
-							// Iterate over movement conditions.
-							cachedMovementConditions.forEach(condition => {
-								let match = true;
-								for (let key in condition.condition) {
-									if (condition.condition[key] !== movements[key]) {
-										match = false;
-										break;
-									}
-								}
-								if (match) {
-									partMoving = condition.partMoving;
-									directionMoving = condition.directionMoving;
-								}
-							});
+						movementBuffer.push(currentSequence);
 
-							// Check if partMoving or directionMoving are different from their previous values and add movement to the sequence buffer
-							if (partMoving !== previousPart || directionMoving !== previousDirection) {
-								// Add movement to the sequence buffer
-								console.log(partMoving+" "+directionMoving);
-								previousPart = partMoving;
-								previousDirection = directionMoving;
-								trackMovementSequences();
-							} else {
+						// Limit the buffer to store only the last 5 variations
+						if (movementBuffer.length > 5) {
+							movementBuffer.shift(); // Remove the oldest variation
+						}
+
+						const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
+						//const patterns = await fetchMovementPatterns();
+						for (const pattern of patterns) {
+							if (checkPatternInBuffer(pattern.pattern)) {
+								success_Sound.play();
+								console.log(`Pattern matched: ${pattern.patternName}`);
+								patternMovement = pattern.patternName;
+								displayText(patternMovement);
+								// Optionally, you can clear the buffer after a match if needed
+								movementBuffer = [];
 								return;
 							}
 						}
+					} catch (error) {
+						console.error(error);
+					}
+				}
+
+				// Function to check if a pattern exists in the movement buffer
+				function checkPatternInBuffer(pattern) {
+					const bufferLength = movementBuffer.length;
+					if (bufferLength < pattern.length) {
+						return false; // Not enough movements in the buffer for pattern matching
 					}
 
-					let movementBuffer = [];
-					let cachedMovePatterns;
-
-					// Function to track movement sequences and compare them against patterns
-					async function trackMovementSequences() {
-						try {
-							const currentSequence = { partMoving, directionMoving };
-
-							// Check if the current sequence is different from the previous one
-							if (
-								movementBuffer.length > 0 &&
-								movementBuffer[movementBuffer.length - 1].partMoving === partMoving &&
-								movementBuffer[movementBuffer.length - 1].directionMoving === directionMoving
-							) {
-								return; // Exit early if the sequence is the same as the previous one
-							}
-
-							movementBuffer.push(currentSequence);
-
-							// Limit the buffer to store only the last 5 variations
-							if (movementBuffer.length > 5) {
-								movementBuffer.shift(); // Remove the oldest variation
-							}
-
-							const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
-							//const patterns = await fetchMovementPatterns();
-							for (const pattern of patterns) {
-								if (checkPatternInBuffer(pattern.pattern)) {
-									success_Sound.play();
-									console.log(`Pattern matched: ${pattern.patternName}`);
-									patternMovement = pattern.patternName;
-									displayText(patternMovement);
-									// Optionally, you can clear the buffer after a match if needed
-									movementBuffer = [];
-									return;
-								}
-							}
-						} catch (error) {
-							console.error(error);
+					// Check the last 'pattern.length' movements in the buffer
+					const bufferSlice = movementBuffer.slice(-pattern.length);
+					for (let i = 0; i < pattern.length; i++) {
+						if (pattern[i].partMoving !== bufferSlice[i].partMoving ||
+							pattern[i].directionMoving !== bufferSlice[i].directionMoving) {
+							return false; // Pattern doesn't match
 						}
 					}
+					return true; // Pattern matched
+				}
 
-					// Function to check if a pattern exists in the movement buffer
-					function checkPatternInBuffer(pattern) {
-						const bufferLength = movementBuffer.length;
-						if (bufferLength < pattern.length) {
-							return false; // Not enough movements in the buffer for pattern matching
+				let cachedPatterns; // Variable to cache the fetched patterns data
+				async function fetchMovementPatterns() {
+					try {
+						if (cachedPatterns) {
+							// If data is already cached, return it immediately
+							return cachedPatterns;
+						} else {
+							// If data is not cached, fetch it from the server
+							const patterns = await $.get(movePatterns);
+							cachedPatterns = patterns; // Cache the fetched data
+							return patterns;
 						}
-
-						// Check the last 'pattern.length' movements in the buffer
-						const bufferSlice = movementBuffer.slice(-pattern.length);
-						for (let i = 0; i < pattern.length; i++) {
-							if (pattern[i].partMoving !== bufferSlice[i].partMoving ||
-								pattern[i].directionMoving !== bufferSlice[i].directionMoving) {
-								return false; // Pattern doesn't match
-							}
-						}
-						return true; // Pattern matched
+					} catch (error) {
+						console.error(error);
+						return []; // Return an empty array in case of error
 					}
+				}
 
-					let cachedPatterns; // Variable to cache the fetched patterns data
-					async function fetchMovementPatterns() {
-						try {
-							if (cachedPatterns) {
-								// If data is already cached, return it immediately
-								return cachedPatterns;
+				// Function to fetch city name using Overpass API
+				function fetchStreetName() {
+					return new Promise((resolve, reject) => {
+						const checkCoordinates = () => {
+							if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
+								resolve();
 							} else {
-								// If data is not cached, fetch it from the server
-								const patterns = await $.get(movePatterns);
-								cachedPatterns = patterns; // Cache the fetched data
-								return patterns;
+								setTimeout(checkCoordinates, 300); // Check again after 100 milliseconds
+								console.log("Fetching location...");
 							}
-						} catch (error) {
-							console.error(error);
-							return []; // Return an empty array in case of error
+						};
+						checkCoordinates();
+						// Log the street promise to the console
+						console.log("Fetching street data...");
+					})
+					.then(() => {
+						// Construct Overpass API query
+						var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:50," + latitude + "," + longitude + ");out;";
+						// Fetch data from Overpass API
+						return fetch(overpassQuery);
+					})
+					.then((response) => response.json())
+					.then((data) => {
+						// Loop through elements to find 'addr:street' property
+						for (let i = 0; i < data.elements.length; i++) {
+							const element = data.elements[i];
+							if (element.tags && element.tags['addr:street']) {
+								console.log("Street name:", element.tags['addr:street']);
+								return element.tags['addr:street']; // Found, return street name
+							}
 						}
+						// If 'addr:street' is not found in any element, throw an error.
+						throw new Error("Street name not found");
+					})
+					.catch((error) => {
+						//console.error("Error fetching street name:", error);
+						return "an unknown";
+					});
+				}
+
+				// Define a function to fetch the street name and update the global variable
+				function updateStreetName() {
+					if (isConnected) {
+						fetchStreetName()
+							.then((name) => {
+								streetName = name;
+							})
+							.catch(error => {
+								console.error(error);
+							});
+					}
+				}
+
+				// Call updateStreetName then every 10 seconds
+				setInterval(updateStreetName, 30000); // Call it every 10 seconds (10000 milliseconds)
+
+				var timeoutID; // Variable to hold the timeout ID.
+				var previousMessage = ""; // Variable to store the previous message
+				var previousLatitude;
+				var previousLongitude;
+				var previousPartMoving;
+				var previousDirectionMoving;
+				var timeOfDay = getTimeOfDay();
+
+				var fullMessage;
+
+				function displayText(message) {
+					var messageDisplayDiv = document.getElementById("messageDisplayDiv");
+					fullMessage = message;
+
+					// Check if speaking is true, if so, exit early
+					if (speaking) {
+						return;
 					}
 
-					// Function to fetch city name using Overpass API
-					function fetchStreetName() {
-						return new Promise((resolve, reject) => {
-							const checkCoordinates = () => {
-								if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
-									resolve();
-								} else {
-									setTimeout(checkCoordinates, 300); // Check again after 100 milliseconds
-									console.log("Fetching location...");
-								}
+					clearTimeout(timeoutID);
+
+					// Check if partMoving or directionMoving has changed
+					if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
+						// Update previous partMoving and directionMoving.
+						previousPartMoving = partMoving;
+						previousDirectionMoving = directionMoving;
+
+						// Check if latitude or longitude has changed
+						if (latitude !== previousLatitude || longitude !== previousLongitude) {
+							// Update previous latitude and longitude
+							previousLatitude = latitude;
+							previousLongitude = longitude;
+							console.log("new position");
+							composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
+									.then((fullMessage) => {
+										updateDisplay(fullMessage);
+										streetName = name;
+									})
+									.catch(error => {
+										console.error(error);
+									});
 							};
-							checkCoordinates();
-							// Log the street promise to the console
-							console.log("Fetching street data...");
-						})
-						.then(() => {
-							// Construct Overpass API query
-							var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:50," + latitude + "," + longitude + ");out;";
-							// Fetch data from Overpass API
-							return fetch(overpassQuery);
-						})
-						.then((response) => response.json())
-						.then((data) => {
-							// Loop through elements to find 'addr:street' property
-							for (let i = 0; i < data.elements.length; i++) {
-								const element = data.elements[i];
-								if (element.tags && element.tags['addr:street']) {
-									console.log("Street name:", element.tags['addr:street']);
-									return element.tags['addr:street']; // Found, return street name
-								}
-							}
-							// If 'addr:street' is not found in any element, throw an error.
-							throw new Error("Street name not found");
-						})
-						.catch((error) => {
-							//console.error("Error fetching street name:", error);
-							return "an unknown";
-						});
-					}
-
-					// Define a function to fetch the street name and update the global variable
-					function updateStreetName() {
-						if (isConnected) {
-							fetchStreetName()
-								.then((name) => {
-									streetName = name;
+						} else {
+							// Compose the full message using the existing streetName value
+							composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
+								.then((fullMessage) => {
+									updateDisplay(fullMessage);
 								})
 								.catch(error => {
 									console.error(error);
@@ -596,387 +653,326 @@
 						}
 					}
 
-					// Call updateStreetName then every 10 seconds
-					setInterval(updateStreetName, 30000); // Call it every 10 seconds (10000 milliseconds)
+					function dismissMessage() {
+						// Clear the text content of the message display div
+						document.getElementById("messageDisplayDiv").textContent = "";
 
-					var timeoutID; // Variable to hold the timeout ID.
-					var previousMessage = ""; // Variable to store the previous message
-					var previousLatitude;
-					var previousLongitude;
-					var previousPartMoving;
-					var previousDirectionMoving;
-					var timeOfDay = getTimeOfDay();
+						// Hide the message display div
+						document.getElementById("messageDisplayDiv").style.display = "none";
+					}
 
-					var fullMessage;
-
-					function displayText(message) {
-						var messageDisplayDiv = document.getElementById("messageDisplayDiv");
-						fullMessage = message;
-
-						// Check if speaking is true, if so, exit early
-						if (speaking) {
-							return;
-						}
-
-						clearTimeout(timeoutID);
-
-						// Check if partMoving or directionMoving has changed
-						if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
-							// Update previous partMoving and directionMoving.
-							previousPartMoving = partMoving;
-							previousDirectionMoving = directionMoving;
-
-							// Check if latitude or longitude has changed
-							if (latitude !== previousLatitude || longitude !== previousLongitude) {
-								// Update previous latitude and longitude
-								previousLatitude = latitude;
-								previousLongitude = longitude;
-								console.log("new position");
-								composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
-										.then((fullMessage) => {
-											updateDisplay(fullMessage);
-											streetName = name;
-										})
-										.catch(error => {
-											console.error(error);
-										});
-								};
-							} else {
-								// Compose the full message using the existing streetName value
-								composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
-									.then((fullMessage) => {
-										updateDisplay(fullMessage);
-									})
-									.catch(error => {
-										console.error(error);
-									});
-							}
-						}
-
-						function dismissMessage() {
-							// Clear the text content of the message display div
-							document.getElementById("messageDisplayDiv").textContent = "";
-
-							// Hide the message display div
-							document.getElementById("messageDisplayDiv").style.display = "none";
-						}
-
-						// Update display
-						function updateDisplay(displayMessage) {
-							try {
-								// Set the text content
-								messageDisplayDiv.textContent = fullMessage;
-								speakMessage(fullMessage);
-
-								// Check if message is not empty to show the overlay
-								messageDisplayDiv.style.display = fullMessage.trim() !== "" ? "block" : "none";
-
-								// Set a timeout to clear the text after 3 seconds or until speaking becomes false
-								var timeoutCallback = function() {
-									if (!speaking) {
-										messageDisplayDiv.textContent = ""; // Clear the text
-										messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-									} else {
-										timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
-									}
-								};
-								timeoutID = setTimeout(timeoutCallback, 3000);
-							} catch (error) {
-								// Catch and log any errors that occur within the function
-								console.error("An error occurred:", error);
-							}
-						}
-
-					// Function to compose the message
-
-					async function fetchJSONFile(filename, cachedVariable) {
+					// Update display
+					function updateDisplay(displayMessage) {
 						try {
-							if (!cachedVariable) {
-								const response = await fetch(filename);
-								if (!response.ok) {
-									throw new Error('Network response was not ok');
-								}
-								const jsonData = await response.json(); // Fetch JSON data
-								cachedVariable = jsonData; // Cache the fetched JSON data in the specified variable
-								return jsonData;
-							} else {
-								return cachedVariable; // Return cached data if available
-							}
-						} catch (err) {
-							console.error('Error fetching JSON file:', err);
-							return null;
-						}
-					}
+							// Set the text content
+							messageDisplayDiv.textContent = fullMessage;
+							speakMessage(fullMessage);
 
-					let cachedSentences;
-					async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,patternMovement) {
-						try {
-							let sentenceTemplate;
-							if (noNarrative) {
-								// Read sentences from JSON file.
-								const sentences = await fetchJSONFile(sentenceSource, cachedSentences);
-								if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
-									throw new Error("Error: Unable to load or empty sentences array.");
-								}
+							// Check if message is not empty to show the overlay
+							messageDisplayDiv.style.display = fullMessage.trim() !== "" ? "block" : "none";
 
-								// Select a random sentence object from the array
-								const randomSentenceObject = sentences[Math.floor(Math.random() * sentences.length)];
-
-								// Ensure that the random sentence object has the "sentence" property and it's a string
-								if (!randomSentenceObject || typeof randomSentenceObject.sentence !== 'string') {
-									throw new Error("Error: Random sentence object is invalid.");
-								}
-
-								// Extract the sentence template from the random sentence object
-								sentenceTemplate = randomSentenceObject.sentence;
-							} else {
-								// If noNarrative is set to true, keep the original message template
-								sentenceTemplate = template;
-							}
-							// Replace placeholders in the sentence template
-							fullMessage = sentenceTemplate
-								.replace(/\{weatherDescription\}/g, weatherDescription)
-								.replace(/\{timeOfDay\}/g, timeOfDay)
-								.replace(/\{name\}/g, name)
-								.replace(/\{partMoving\}/g, partMoving)
-								.replace(/\{directionMoving\}/g, directionMoving)
-								.replace(/\{speed\}/g, speed)
-								.replace(/\{patternMovement\}/g, patternMovement)
-								.replace(/\{latitude\}/g, latitude)
-								.replace(/\{longitude\}/g, longitude);
-
-							return fullMessage;
-						} catch (err) {
-							console.error('Error fetching or composing message:', err);
-							return null;
-						}
-					}
-
-					// Variable to store the last spoken message
-					let lastSpokenMessage = '';
-					let speaking = false;
-
-					function speakMessage(fullMessage) {
-					// Check if the message is the same as the last spoken message
-						if (fullMessage === lastSpokenMessage) {
-							console.log("Message already spoken.");
-							return; // Exit the function without speaking again
-						}
-						// Check if currently speaking
-						if (speaking) {
-							console.log("Already speaking, new message ignored.");
-							return;
-						}
-						// Create a new instance of SpeechSynthesisUtterance.
-						const utterance = new SpeechSynthesisUtterance(fullMessage);
-						// Filter available voices to find Karen's voice in Australian English
-						const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
-						// Set the voice to Karen's voice if found, otherwise use the default voice
-						utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
-						// Speak the message
-						speechSynthesis.speak(utterance);
-						utterance.onstart = function() {
-							speaking = true;
-							console.log("Currently speaking");
-							// Update the last spoken message
-							lastSpokenMessage = fullMessage;
-						};
-						utterance.onend = function() {
-							console.log("End speaking");
-							speaking = false;
-						}
-						// Event handler for speech synthesis error
-						utterance.onerror = function(event) {
-							speaking = false; // Reset speaking flag
-							console.error("Speech synthesis error:", event.error);
-						};
-					}
-
-					function checkSpeechSynthesis() {
-						// Check if speechSynthesis object is available
-						if ('speechSynthesis' in window) {
-							// Check if speaking flag is true
-							if (speechSynthesis.speaking) {
-								speaking = true;
-							} else {
-								speaking = false;
-							}
-						} else {
-							console.log("Speech synthesis is not supported in this browser.");
-						}
-					}
-
-					// Call the function periodically (e.g., every 5 seconds)
-					setInterval(checkSpeechSynthesis, 1000); // Adjust the interval as needed
-
-					let weatherDescription = null;
-					// Define fetchWeather function
-					function fetchWeather() {
-						// Define a promise to fetch weather description
-						const weatherPromise = new Promise((resolve, reject) => {
-							const checkCoordinates = () => {
-								if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
-
-									resolve();
+							// Set a timeout to clear the text after 3 seconds or until speaking becomes false
+							var timeoutCallback = function() {
+								if (!speaking) {
+									messageDisplayDiv.textContent = ""; // Clear the text
+									messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
 								} else {
-									console.log("Fetching location");
-									setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
+									timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
 								}
 							};
-							checkCoordinates();
-						})
-						.then(() => {
-							const apiKey = '21b99074efb73ba35f476f78f1b018ec';
-							const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
-							// Fetch data from OpenWeather API
-							return fetch(apiUrl);
-						})
-						.then(response => {
+							timeoutID = setTimeout(timeoutCallback, 3000);
+						} catch (error) {
+							// Catch and log any errors that occur within the function
+							console.error("An error occurred:", error);
+						}
+					}
+
+				// Function to compose the message
+
+				async function fetchJSONFile(filename, cachedVariable) {
+					try {
+						if (!cachedVariable) {
+							const response = await fetch(filename);
 							if (!response.ok) {
-								throw new Error('Failed to fetch weather data');
+								throw new Error('Network response was not ok');
 							}
-							return response.json();
-						})
-						.then(data => {
-							// Extract the weather description and store it globally
-							weatherDescription = data.weather[0].description;
-							return weatherDescription;
-						})
-						.catch(error => {
-							console.error('Error fetching weather data:', error);
-							throw error; // Rethrow the error to be caught by the caller if needed
-						});
-
-						// Log the weather promise to the console
-						console.log("Fetching weather data...");
-
-						// Use the weather promise elsewhere in your code if needed
-						weatherPromise.then((weatherDescription) => {
-							console.log("Weather description:", weatherDescription);
-						});
-
-						// Return the weather promise
-						return weatherPromise;
-					}
-					fetchWeather();
-
-					// Function to determine if it's day or night
-					function getTimeOfDay() {
-						var currentTime = new Date().getHours();
-						if (currentTime >= 6 && currentTime < 9) {
-							return "early morning";
-						} else if (currentTime >= 9 && currentTime < 12) {
-							return "morning";
-						} else if (currentTime >= 12 && currentTime < 15) {
-							return "noon";
-						} else if (currentTime >= 15 && currentTime < 18) {
-							return "afternoon";
-						} else if (currentTime >= 18 && currentTime < 21) {
-							return "evening";
+							const jsonData = await response.json(); // Fetch JSON data
+							cachedVariable = jsonData; // Cache the fetched JSON data in the specified variable
+							return jsonData;
 						} else {
-							return "night";
+							return cachedVariable; // Return cached data if available
 						}
+					} catch (err) {
+						console.error('Error fetching JSON file:', err);
+						return null;
 					}
+				}
 
-					var noNarrative;
-					var previousTagID = ""; // Variable to store the previous tagID
-
-					let cachedTagInfo;
-					async function readTag() {
-						try {
-							if (tagID === previousTagID || tagID === "0" || speaking) {
-								// If tagID is the same as the previous one or is 0, do nothing
-								return;
-							} else {
-								// Fetch tag information asynchronously
-								const tagInfo = await fetchJSONFile(tagSource, cachedTagInfo);
-
-								if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
-									// Update previousTagID to the current tagID
-									previousTagID = tagID;
-									success_Sound.play();
-									console.log(tagID);
-
-									// Retrieve tag information based on tagID
-									const tagData = tagInfo.tags[tagID];
-
-									// Update variables based on fetched tagData
-									if (tagData.variable && typeof tagData.boolean === 'boolean') {
-										// Dynamically update variables based on tagData
-										window[tagData.variable] = tagData.boolean;
-									}
-									displayText(tagData.displayText);
-									//partMoving = tagData.partMoving;
-									//directionMoving = tagData.directionMoving;
-
-								} else {
-									alert_Sound.play();
-									console.error('Tag information not found.');
-									return;
-								}
+				let cachedSentences;
+				async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,patternMovement) {
+					try {
+						let sentenceTemplate;
+						if (noNarrative) {
+							// Read sentences from JSON file.
+							const sentences = await fetchJSONFile(sentenceSource, cachedSentences);
+							if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
+								throw new Error("Error: Unable to load or empty sentences array.");
 							}
-						} catch (err) {
-							console.error('Error reading tag:', err);
+
+							// Select a random sentence object from the array
+							const randomSentenceObject = sentences[Math.floor(Math.random() * sentences.length)];
+
+							// Ensure that the random sentence object has the "sentence" property and it's a string
+							if (!randomSentenceObject || typeof randomSentenceObject.sentence !== 'string') {
+								throw new Error("Error: Random sentence object is invalid.");
+							}
+
+							// Extract the sentence template from the random sentence object
+							sentenceTemplate = randomSentenceObject.sentence;
+						} else {
+							// If noNarrative is set to true, keep the original message template
+							sentenceTemplate = template;
 						}
+						// Replace placeholders in the sentence template
+						fullMessage = sentenceTemplate
+							.replace(/\{weatherDescription\}/g, weatherDescription)
+							.replace(/\{timeOfDay\}/g, timeOfDay)
+							.replace(/\{name\}/g, name)
+							.replace(/\{partMoving\}/g, partMoving)
+							.replace(/\{directionMoving\}/g, directionMoving)
+							.replace(/\{speed\}/g, speed)
+							.replace(/\{patternMovement\}/g, patternMovement)
+							.replace(/\{latitude\}/g, latitude)
+							.replace(/\{longitude\}/g, longitude);
+
+						return fullMessage;
+					} catch (err) {
+						console.error('Error fetching or composing message:', err);
+						return null;
 					}
+				}
 
-				let cachedCheckpoints;
-				let moveToNextLocation = false; // Flag to indicate moving to next location
-				let currentLocationIndex = 0; // Initialize index of current location
-				let currentCheckpointSetIndex = 0; // Initialize index of current checkpoint set
+				// Variable to store the last spoken message
+				let lastSpokenMessage = '';
+				let speaking = false;
 
-				async function checkCheckpoints(latitude, longitude) {
+				function speakMessage(fullMessage) {
+				// Check if the message is the same as the last spoken message
+					if (fullMessage === lastSpokenMessage) {
+						console.log("Message already spoken.");
+						return; // Exit the function without speaking again
+					}
+					// Check if currently speaking
+					if (speaking) {
+						console.log("Already speaking, new message ignored.");
+						return;
+					}
+					// Create a new instance of SpeechSynthesisUtterance.
+					const utterance = new SpeechSynthesisUtterance(fullMessage);
+					// Filter available voices to find Karen's voice in Australian English
+					const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Karen' && voice.lang === 'en-AU');
+					// Set the voice to Karen's voice if found, otherwise use the default voice
+					utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+					// Speak the message
+					speechSynthesis.speak(utterance);
+					utterance.onstart = function() {
+						speaking = true;
+						console.log("Currently speaking");
+						// Update the last spoken message
+						lastSpokenMessage = fullMessage;
+					};
+					utterance.onend = function() {
+						console.log("End speaking");
+						speaking = false;
+					}
+					// Event handler for speech synthesis error
+					utterance.onerror = function(event) {
+						speaking = false; // Reset speaking flag
+						console.error("Speech synthesis error:", event.error);
+					};
+				}
+
+				function checkSpeechSynthesis() {
+					// Check if speechSynthesis object is available
+					if ('speechSynthesis' in window) {
+						// Check if speaking flag is true
+						if (speechSynthesis.speaking) {
+							speaking = true;
+						} else {
+							speaking = false;
+						}
+					} else {
+						console.log("Speech synthesis is not supported in this browser.");
+					}
+				}
+
+				// Call the function periodically (e.g., every 5 seconds)
+				setInterval(checkSpeechSynthesis, 1000); // Adjust the interval as needed
+
+				let weatherDescription = null;
+				// Define fetchWeather function
+				function fetchWeather() {
+					// Define a promise to fetch weather description
+					const weatherPromise = new Promise((resolve, reject) => {
+						const checkCoordinates = () => {
+							if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
+
+								resolve();
+							} else {
+								console.log("Fetching location");
+								setTimeout(checkCoordinates, 100); // Check again after 100 milliseconds
+							}
+						};
+						checkCoordinates();
+					})
+					.then(() => {
+						const apiKey = '21b99074efb73ba35f476f78f1b018ec';
+						const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+						// Fetch data from OpenWeather API
+						return fetch(apiUrl);
+					})
+					.then(response => {
+						if (!response.ok) {
+							throw new Error('Failed to fetch weather data');
+						}
+						return response.json();
+					})
+					.then(data => {
+						// Extract the weather description and store it globally
+						weatherDescription = data.weather[0].description;
+						return weatherDescription;
+					})
+					.catch(error => {
+						console.error('Error fetching weather data:', error);
+						throw error; // Rethrow the error to be caught by the caller if needed
+					});
+
+					// Log the weather promise to the console
+					console.log("Fetching weather data...");
+
+					// Use the weather promise elsewhere in your code if needed
+					weatherPromise.then((weatherDescription) => {
+						console.log("Weather description:", weatherDescription);
+					});
+
+					// Return the weather promise
+					return weatherPromise;
+				}
+				fetchWeather();
+
+				// Function to determine if it's day or night
+				function getTimeOfDay() {
+					var currentTime = new Date().getHours();
+					if (currentTime >= 6 && currentTime < 9) {
+						return "early morning";
+					} else if (currentTime >= 9 && currentTime < 12) {
+						return "morning";
+					} else if (currentTime >= 12 && currentTime < 15) {
+						return "noon";
+					} else if (currentTime >= 15 && currentTime < 18) {
+						return "afternoon";
+					} else if (currentTime >= 18 && currentTime < 21) {
+						return "evening";
+					} else {
+						return "night";
+					}
+				}
+
+				var noNarrative;
+				var previousTagID = ""; // Variable to store the previous tagID
+
+				let cachedTagInfo;
+				async function readTag() {
+					try {
+						if (tagID === previousTagID || tagID === "0" || speaking) {
+							// If tagID is the same as the previous one or is 0, do nothing
+							return;
+						} else {
+							// Fetch tag information asynchronously
+							const tagInfo = await fetchJSONFile(tagSource, cachedTagInfo);
+
+							if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
+								// Update previousTagID to the current tagID
+								previousTagID = tagID;
+								success_Sound.play();
+								console.log(tagID);
+
+								// Retrieve tag information based on tagID
+								const tagData = tagInfo.tags[tagID];
+
+								// Update variables based on fetched tagData
+								if (tagData.variable && typeof tagData.boolean === 'boolean') {
+									// Dynamically update variables based on tagData
+									window[tagData.variable] = tagData.boolean;
+								}
+								displayText(tagData.displayText);
+								//partMoving = tagData.partMoving;
+								//directionMoving = tagData.directionMoving;
+
+							} else {
+								alert_Sound.play();
+								console.error('Tag information not found.');
+								return;
+							}
+						}
+					} catch (err) {
+						console.error('Error reading tag:', err);
+					}
+				}
+
+			let cachedCheckpoints;
+			let lastCheckedIndex = 0; // Initialize the index of the last checked key
+
+			async function checkCheckpoints(latitude, longitude) {
 				console.log("Checking checkpoint");
 				const radius = 2; // 2 meters radius
 
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
-				for (const location of locations) {
-					console.log("Move to next location");
-					const checkpointSets = Object.entries(location.checkpoints);
+				// Start iterating from the last checked index
+				for (let i = lastCheckedIndex; i < locations[0].checkpoints.length; i++) {
+					const checkpointSet = locations[0].checkpoints[i];
+					console.log('Current Checkpoint Set:', i);
 
-					for (const [checkpointSetName, checkpointSet] of checkpointSets) {
-						console.log('Current Checkpoint Set:', checkpointSetName);
+					// Process checkpoints within the current set asynchronously
+					for (const checkpoint of checkpointSet) {
+						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
+						console.log('Checkpoint Latitude:', checkpoint.latitude);
+						console.log('Checkpoint Longitude:', checkpoint.longitude);
+						console.log('Distance:', distance);
 
-						// Process checkpoints within the current set asynchronously
-						await Promise.all(checkpointSet.map(async checkpoint => {
-							const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-							console.log('Checkpoint Latitude:', checkpoint.latitude);
-							console.log('Checkpoint Longitude:', checkpoint.longitude);
-							console.log('Distance:', distance);
-
-							if (distance <= radius) {
-								console.log('Checkpoint reached:', checkpoint.text);
-								return true; // Signal that a checkpoint is reached
-							}
-						}));
+						if (distance <= radius) {
+							console.log('Checkpoint reached:', checkpoint.text);
+							lastCheckedIndex = i + 1; // Update the last checked index to start from the next key
+							return; // Exit the function when a checkpoint is reached
+						}
 					}
 				}
 
-				console.log("No checkpoints reached.");
+				console.log("No checkpoints reached in the first set.");
 			}
 
-					function setupColors() {
-						lineColors[0] = color(204, 204, 0); // Dark Yellow
-						lineColors[1] = color(204, 204, 0); // Dark Yellow
-						lineColors[2] = color(255, 0, 0); // Red
-						lineColors[3] = color(204, 204, 0); // Dark Yellow
-						lineColors[4] = color(204, 204, 0); // Dark Yellow
-						lineColors[5] = color(0, 255, 0); // Bright Green
-						lineColors[6] = color(0, 128, 0); // Grass Green
-						lineColors[7] = color(0, 128, 0); // Grass Green
-					}
-					function setupBackgroundColors() {
-						backgroundColors[0] = color(0, 0, 0); // 0% black
-						backgroundColors[1] = color(0, 0, 0); // 0% black
-						backgroundColors[2] = color(0, 0, 0, 200); // 90% black
-						backgroundColors[3] = color(0, 0, 0, 230); // 75% black
-						backgroundColors[4] = color(0, 0, 0, 230); // 60% black
-						backgroundColors[5] = color(0, 0, 0, 128); // 60% black
-						backgroundColors[6] = color(0, 0, 0, 100); // 60% black
-						backgroundColors[7] = color(0, 0, 0, 100); // 60% black
-					}
+				function setupColors() {
+					lineColors[0] = color(204, 204, 0); // Dark Yellow
+					lineColors[1] = color(204, 204, 0); // Dark Yellow
+					lineColors[2] = color(255, 0, 0); // Red
+					lineColors[3] = color(204, 204, 0); // Dark Yellow
+					lineColors[4] = color(204, 204, 0); // Dark Yellow
+					lineColors[5] = color(0, 255, 0); // Bright Green
+					lineColors[6] = color(0, 128, 0); // Grass Green
+					lineColors[7] = color(0, 128, 0); // Grass Green
+				}
+				function setupBackgroundColors() {
+					backgroundColors[0] = color(0, 0, 0); // 0% black
+					backgroundColors[1] = color(0, 0, 0); // 0% black
+					backgroundColors[2] = color(0, 0, 0, 200); // 90% black
+					backgroundColors[3] = color(0, 0, 0, 230); // 75% black
+					backgroundColors[4] = color(0, 0, 0, 230); // 60% black
+					backgroundColors[5] = color(0, 0, 0, 128); // 60% black
+					backgroundColors[6] = color(0, 0, 0, 100); // 60% black
+					backgroundColors[7] = color(0, 0, 0, 100); // 60% black
+				}
 		</script>
 	</body>
 </html>
