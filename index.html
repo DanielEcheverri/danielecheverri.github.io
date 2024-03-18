@@ -924,55 +924,44 @@
 				let moveToNextLocation = false; // Flag to indicate moving to next location
 				let currentLocationIndex = 0; // Initialize index of current location
 
-				async function checkCheckpoints(latitude, longitude) {
-				console.log("Checking checkpoint. 1");
+			async function checkCheckpoints(latitude, longitude) {
+				console.log("Checking checkpoint");
 				const radius = 2; // 2 meters radius
-				let currentLocationIndex = 0; // Initialize index of current location
 
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
-				while (currentLocationIndex < locations.length) {
+				while (!moveToNextLocation && currentLocationIndex < locations.length) {
+					console.log("Move to next location:" + moveToNextLocation);
 					const location = locations[currentLocationIndex];
-					console.log('Current index:', currentLocationIndex);
-					const checkpointSets = Object.entries(location.checkpoints); // Get all checkpoint sets
-
-					let checkpointReached = false; // Flag to indicate if a checkpoint is reached
-
-					// Iterate over checkpoint sets
-					for (const [checkpointSetName, checkpoints] of checkpointSets) {
-						console.log('Checkpoint Set Name:', checkpointSetName);
-
-						// Iterate over checkpoints within the set
-						for (const checkpoint of checkpoints) {
-							const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-							console.log('Checkpoint Latitude:', checkpoint.latitude);
-							console.log('Checkpoint Longitude:', checkpoint.longitude);
-							console.log('Distance:', distance);
-
-							if (distance <= radius) {
-								console.log('Checkpoint reached:', checkpoint.text);
-								checkpointReached = true;
-								break; // Exit the loop over checkpoints if a checkpoint is reached
-							}
-						}
-
-						if (checkpointReached) {
-							break; // Exit the loop over checkpoint sets if a checkpoint is reached
+					console.log("Location: "+location);
+					const checkpoints = location.checkpoints.checkpoint_1;// Get the first set of checkpoints
+					console.log("Checkpoints: "+checkpoints);
+					for (const checkpoint of checkpoints) {
+						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
+						console.log('Checkpoint Latitude:', checkpoint.latitude);
+						console.log('Checkpoint Longitude:', checkpoint.longitude);
+						console.log('Distance:', distance);
+						if (distance <= radius) {
+							console.log('Checkpoint reached:', checkpoint.text);
+							moveToNextLocation = true; // Set flag to move to next location
+							break; // Exit the loop if a checkpoint is reached
 						}
 					}
 
-					if (checkpointReached) {
-						console.log("Moving to the next set of checkpoints within the same location...");
+					// If no checkpoints in the first set are reached, move to the next set
+					if (moveToNextLocation) {
 						currentLocationIndex++; // Move to the next location
+						moveToNextLocation = false;
 					} else {
-						console.log("No checkpoints reached in this location. Moving to the next location...");
 						break;
 					}
 				}
 
+				// If all locations are checked and no checkpoints are reached, log a message
 				if (currentLocationIndex >= locations.length) {
-					console.log("All locations checked.");
+					console.log("Current location index :"+currentLocationIndex);
+					console.log('No checkpoints reached.');
 				}
 			}
 
