@@ -964,9 +964,10 @@
 
 					if (checkpointReached) {
 						console.log("Moving to the next set of checkpoints within the same location...");
+						currentLocationIndex++; // Move to the next location
 					} else {
 						console.log("No checkpoints reached in this location. Moving to the next location...");
-						currentLocationIndex++; // Move to the next location
+						break;
 					}
 				}
 
