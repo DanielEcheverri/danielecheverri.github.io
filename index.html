@@ -927,7 +927,7 @@
 			async function checkCheckpoints(latitude, longitude) {
 				console.log("Checking checkpoint. 1");
 				const radius = 2; // 2 meters radius
-
+				console.log('Move to next location:', moveToNextLocation);
 
 				// Load checkpoints from the JSON file
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
@@ -937,7 +937,6 @@
 					const checkpointSets = Object.keys(location.checkpoints); // Get all checkpoint sets
 					const currentCheckpointSet = checkpointSets[0]; // Get the name of the first checkpoint set
 					const checkpoints = location.checkpoints[currentCheckpointSet];// Get the first set of checkpoints
-					console.log('Move to next location:', moveToNextLocation);
 					for (const checkpoint of checkpoints) {
 						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
 						console.log('Current index:', currentLocationIndex);
