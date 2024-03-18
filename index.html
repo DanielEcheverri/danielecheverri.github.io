@@ -935,7 +935,6 @@
 
 				// Iterate over locations
 				while (currentLocationIndex < locations.length) {
-					console.log("Move to next location: " + currentLocationIndex);
 					const location = locations[currentLocationIndex];
 					const checkpointSets = Object.entries(location.checkpoints); // Get all checkpoint sets
 
@@ -967,6 +966,7 @@
 
 					// If a checkpoint is reached, stay within the same location to check the next set
 					if (checkpointReached) {
+						currentLocationIndex++;
 						continue; // Move to the next iteration of the loop (same location)
 					} else {
 						break; // Exit the loop if no checkpoint is reached
