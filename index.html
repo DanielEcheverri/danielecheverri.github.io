@@ -931,14 +931,14 @@
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
 				while (!moveToNextLocation && currentLocationIndex < locations.length) {
-					console.log("Move to next location:" + moveToNextLocation);
-					console.log("Checking checkpoint. 2");
 					const location = locations[currentLocationIndex];
-					console.log("Location: "+location);
 					const checkpoints = location.checkpoints.checkpoint_1;// Get the first set of checkpoints
-					console.log("Checkpoints: "+checkpoints);
 					for (const checkpoint of checkpoints) {
 						const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
+						console.log('Current index:', currentLocationIndex);
+			      			    console.log('Checkpoint Latitude:', checkpoint.latitude);
+			       				console.log('Checkpoint Longitude:', checkpoint.longitude);
+			         			console.log('Distance:', distance);
 						if (distance <= radius) {
 							console.log('Checkpoint reached:', checkpoint.text);
 							moveToNextLocation = true; // Set flag to move to next location
@@ -954,11 +954,9 @@
 
 				// If all locations are checked and no checkpoints are reached, log a message
 				if (currentLocationIndex >= locations.length) {
-					console.log("Current location index :"+currentLocationIndex);
-					console.log('No checkpoints reached.');
 				}
 			}
-			//checkCheckpoints(latitude, longitude);
+
 			function setupColors() {
 				lineColors[0] = color(204, 204, 0); // Dark Yellow
 				lineColors[1] = color(204, 204, 0); // Dark Yellow
