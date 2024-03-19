@@ -83,6 +83,8 @@ h1 {
 	background-color: #ffffff; /* White */
 	color: black;
 	width: 60%; /* Adjust the width as needed */
+	position: absolute; /* Position absolute */
+	bottom: 0; /* Align to the bottom */
 }
 
 /* Style for disabled */
