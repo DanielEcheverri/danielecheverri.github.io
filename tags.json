@@ -14,7 +14,7 @@
 			"partMoving": "none",
 			"directionMoving": "none"
 		},
-		"20": {
+		"2": {
 			"displayText": "Good boy!",
 			"function": "barking_Sound.play();"
 		},
