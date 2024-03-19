@@ -28,9 +28,7 @@
 		<!-- Coordinates-->
 		<div id="currentLocation"></div>
 		<!-- Movement>-->
-		<div id="messageDisplayDiv" style="display: none;">
-			<button id="dismissButton" class="button" onclick="dismissMessage()">Dismiss</button>
-		</div>
+		<div id="messageDisplayDiv"></div>
 		<script>
 			//Script for pairing with Avatar_BT
 			let characteristic;
@@ -659,14 +657,27 @@
 
 						// Check if message is not empty to show the overlay
 						messageDisplayDiv.style.display = fullMessage.trim() !== "" ? "block" : "none";
-						dismissButton.style.display = "block"; // Show the Dismiss button
-
+						if (fullMessage.trim() !== "") {
+						// Append a close button if message is not empty
+						var closeButton = document.createElement("button");
+						closeButton.textContent = "Close";
+						closeButton.style.position = "fixed";
+						closeButton.style.bottom = "20px";
+						closeButton.style.left = "50%";
+						closeButton.style.transform = "translateX(-50%)";
+						closeButton.addEventListener("click", function() {
+							messageDisplayDiv.textContent = ""; // Clear the text
+							messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
+							dismissButton.style.display = "none"; // Hide the Dismiss button
+							closeButton.remove(); // Remove the close button
+						});
+						document.body.appendChild(closeButton);
+					}
 						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
 						var timeoutCallback = function() {
 							if (!speaking) {
 								messageDisplayDiv.textContent = ""; // Clear the text
 								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-								dismissButton.style.display = "none"; // Hide the Dismiss button
 							} else {
 								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
 							}
