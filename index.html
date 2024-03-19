@@ -665,10 +665,10 @@
 							closeButton.addEventListener("click", function() {
 								messageDisplayDiv.textContent = ""; // Clear the text
 								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-								//closeButton.remove(); // Remove the close button
+								closeButton.remove(); // Remove the close button
 							});
 							// Append the close button to messageDisplayDiv
-							messageDisplayDiv.appendChild(closeButton);
+							//messageDisplayDiv.appendChild(closeButton);
 						}
 						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
 						var timeoutCallback = function() {
