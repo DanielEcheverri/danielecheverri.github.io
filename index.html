@@ -639,14 +639,6 @@
 					}
 				}
 
-				function dismissMessage() {
-					// Clear the text content of the message display div
-					document.getElementById("messageDisplayDiv").textContent = "";
-
-					// Hide the message display div
-					document.getElementById("messageDisplayDiv").style.display = "none";
-				}
-
 				// Update display
 				function updateDisplay(displayMessage) {
 					try {
@@ -661,6 +653,7 @@
 							// Create a close button
 							var closeButton = document.createElement("dismissButton");
 							closeButton.classList.add("button"); // Add your button class here
+							closeButton.id = "dismissButton"; // Set the id for styling
 							closeButton.textContent = "Dismiss";
 							closeButton.addEventListener("click", function() {
 								messageDisplayDiv.textContent = ""; // Clear the text
@@ -668,7 +661,7 @@
 								closeButton.remove(); // Remove the close button
 							});
 							// Append the close button to messageDisplayDiv
-							//messageDisplayDiv.appendChild(closeButton);
+							messageDisplayDiv.appendChild(closeButton);
 						}
 						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
 						var timeoutCallback = function() {

@@ -79,7 +79,7 @@ h1 {
 	background-color: #0082fc; /* Blue */
 }
 
-.dismissButton {
+#dismissButton {
 	background-color: #ffffff; /* White */
 	color: black;
 	width: 90%; /* Adjust the width as needed */
