@@ -143,6 +143,15 @@
 						streetName = name;
 						connectButton.disabled = false;
 						displayText("Ready to connect to Avatar BT");
+						if ('wakeLock' in navigator) {
+							navigator.wakeLock.request('screen').then(() => {
+								console.log('Screen wake lock activated');
+							}).catch((err) => {
+								console.error('Failed to activate wake lock:', err);
+							});
+						} else {
+							console.warn('Wake lock API not supported');
+						}
 						});
 				} else {
 					// If any variable is still null, wait for a short delay and check again
