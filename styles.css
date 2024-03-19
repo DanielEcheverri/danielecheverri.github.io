@@ -23,7 +23,7 @@ h1 {
 #closestShop,
 #consoleOutput,
 #currentLocation {
-	width: 100%;
+	width: 90%;
 	text-align: center;
 	color: #999da0; /* Black text color */
 	font-size: 16px; /* Text size */

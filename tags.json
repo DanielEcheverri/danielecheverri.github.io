@@ -15,10 +15,12 @@
 			"directionMoving": "none"
 		},
 		"20": {
-			"displayText": "Good boy!"
+			"displayText": "Good boy!",
+			"function": "barking_Sound.play();"
 		},
 		"21": {
-			"displayText": "Good human!"
+			"displayText": "Good human!",
+			"function": "talking_Sound.play();"
 		}
 	}
 }

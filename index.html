@@ -19,7 +19,7 @@
 		</div>
 		<div id="avatarBTdiv">
 			<!-- Connect Button. -->
-			<button id="connectButton" class="button" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('Connecting...')">
+			<button id="connectButton" class="button" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('')">
 				<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
 			</button>
 		</div>
@@ -55,6 +55,12 @@
 			onloaderror: function(error) {console.error('Error loading audio:', error);},});
 
 			var connecting_Sound = new Howl({src: ['audio/ui_loading.mp3'],
+			onloaderror: function(error) {console.error('Error loading audio:', error);},});
+
+			var barking_Sound = new Howl({src: ['audio/barking.mp3'],
+			onloaderror: function(error) {console.error('Error loading audio:', error);},});
+
+			var talking_Sound = new Howl({src: ['audio/talking.mp3'],
 			onloaderror: function(error) {console.error('Error loading audio:', error);},});
 
 			async function connectToDevice() {
@@ -902,6 +908,11 @@
 
 							// Retrieve tag information based on tagID
 							const tagData = tagInfo.tags[tagID];
+
+							// Execute function specified in the JSON
+							if (tagInfo.tags[tagID].function) {
+								eval(tagInfo.tags[tagID].function);
+							}
 
 							// Update variables based on fetched tagData
 							if (tagData.variable && typeof tagData.boolean === 'boolean') {
