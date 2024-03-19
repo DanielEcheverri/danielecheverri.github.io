@@ -19,7 +19,7 @@
 		</div>
 		<div id="avatarBTdiv">
 			<!-- Connect Button. -->
-			<button id="connectButton" class="button" disabled onclick="connecting_Sound.play(), displayText('Connecting...')">
+			<button id="connectButton" class="button" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('Connecting...')">
 				<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
 			</button>
 		</div>
@@ -136,14 +136,8 @@
 				}
 			}
 
-			function checkVariables() {
-				// Check if latitude, longitude, and weatherDescription are not null
-				if (latitude !== null && longitude !== null && weatherDescription !== null) {
-					fetchStreetName().then((name) => {
-						streetName = name;
-						connectButton.disabled = false;
-						displayText("Ready to connect to Avatar BT");
-						if ('wakeLock' in navigator) {
+			function wakeLock() {
+				if ('wakeLock' in navigator) {
 							navigator.wakeLock.request('screen').then(() => {
 								console.log('Screen wake lock activated');
 							}).catch((err) => {
@@ -152,6 +146,15 @@
 						} else {
 							console.warn('Wake lock API not supported');
 						}
+			}
+
+			function checkVariables() {
+				// Check if latitude, longitude, and weatherDescription are not null
+				if (latitude !== null && longitude !== null && weatherDescription !== null) {
+					fetchStreetName().then((name) => {
+						streetName = name;
+						connectButton.disabled = false;
+						displayText("Ready to connect to Avatar BT");
 						});
 				} else {
 					// If any variable is still null, wait for a short delay and check again
