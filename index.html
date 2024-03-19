@@ -660,11 +660,10 @@
 						if (fullMessage.trim() !== "") {
 							// Create a close button
 							var closeButton = document.createElement("button");
-							closeButton.textContent = "Close";
+							closeButton.textContent = "Dismiss";
 							closeButton.addEventListener("click", function() {
 								messageDisplayDiv.textContent = ""; // Clear the text
 								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-								dismissButton.style.display = "none"; // Hide the Dismiss button
 								closeButton.remove(); // Remove the close button
 							});
 							// Append the close button to messageDisplayDiv
@@ -674,9 +673,7 @@
 						var timeoutCallback = function() {
 							if (!speaking) {
 								messageDisplayDiv.textContent = ""; // Clear the text
-								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-								dismissButton.style.display = "none"; // Hide the Dismiss button
-							} else {
+								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text							} else {
 								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
 							}
 						};
