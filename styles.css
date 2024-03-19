@@ -84,8 +84,8 @@ h1 {
 	color: black;
 	width: 60%; /* Adjust the width as needed */
 	position: absolute; /* Position absolute */
-	transform: translateX(-50%); /* Adjust to center horizontally */
-	bottom: 0; /* Align to the bottom */
+	transform: translateX(-100%); /* Adjust to center horizontally */
+	bottom: 10; /* Align to the bottom */
 }
 
 /* Style for disabled */
