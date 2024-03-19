@@ -88,7 +88,7 @@ h1 {
 
 	/* Center the button both horizontally and vertically */
 	position: absolute;
-	bottom: 0;
+	bottom: 15;
 	left: 0;
 	right: 0;
 	margin: auto;
