@@ -81,6 +81,8 @@ h1 {
 
 #dismissButton {
 	background-color: #ffffff; /* White */
+	color: black;
+	width: 90%; /* Adjust the width as needed */
 }
 
 /* Style for disabled */
