@@ -47,7 +47,6 @@
 			let sentenceSource = null;
 			let tagSource = null;
 			let checkpointsSource = 'points.json';
-			var dismissButton = document.getElementById("dismissButton");
 
 			var alert_Sound = new Howl({src: ['audio/alert_high-intensity.mp3'],
 			onloaderror: function(error) {console.error('Error loading audio:', error);},});
@@ -657,27 +656,26 @@
 
 						// Check if message is not empty to show the overlay
 						messageDisplayDiv.style.display = fullMessage.trim() !== "" ? "block" : "none";
+
 						if (fullMessage.trim() !== "") {
-						// Append a close button if message is not empty
-						var closeButton = document.createElement("button");
-						closeButton.textContent = "Close";
-						closeButton.style.position = "fixed";
-						closeButton.style.bottom = "20px";
-						closeButton.style.left = "50%";
-						closeButton.style.transform = "translateX(-50%)";
-						closeButton.addEventListener("click", function() {
-							messageDisplayDiv.textContent = ""; // Clear the text
-							messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-							dismissButton.style.display = "none"; // Hide the Dismiss button
-							closeButton.remove(); // Remove the close button
-						});
-						document.body.appendChild(closeButton);
-					}
+							// Create a close button
+							var closeButton = document.createElement("button");
+							closeButton.textContent = "Close";
+							closeButton.addEventListener("click", function() {
+								messageDisplayDiv.textContent = ""; // Clear the text
+								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
+								dismissButton.style.display = "none"; // Hide the Dismiss button
+								closeButton.remove(); // Remove the close button
+							});
+							// Append the close button to messageDisplayDiv
+							messageDisplayDiv.appendChild(closeButton);
+						}
 						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
 						var timeoutCallback = function() {
 							if (!speaking) {
 								messageDisplayDiv.textContent = ""; // Clear the text
 								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
+								dismissButton.style.display = "none"; // Hide the Dismiss button
 							} else {
 								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
 							}
