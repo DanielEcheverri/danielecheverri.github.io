@@ -659,7 +659,8 @@
 
 						if (fullMessage.trim() !== "") {
 							// Create a close button
-							var closeButton = document.createElement("button");
+							var closeButton = document.createElement("dismissButton");
+							closeButton.classList.add("button"); // Add your button class here
 							closeButton.textContent = "Dismiss";
 							closeButton.addEventListener("click", function() {
 								messageDisplayDiv.textContent = ""; // Clear the text
