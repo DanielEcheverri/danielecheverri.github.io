@@ -1016,96 +1016,103 @@
 		</script>
 		<script>
 
-			// Load the Google Identity Services library
-			window.onload = function() {
-			  google.accounts.id.initialize({
-			    client_id: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9pg8f7.apps.googleusercontent.com',
-			    callback: handleCredentialResponse
-			});
-			  console.log("Google ID loaded");
-			};
+						// Load the Google Identity Services library
+						window.onload = function() {
+						  google.accounts.id.initialize({
+						    client_id: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9pg8f7.apps.googleusercontent.com',
+						    callback: handleCredentialResponse
+						});
+						  console.log("Google ID loaded");
+						};
 
-			var accessToken;
-			// Function to handle the response from Google Identity Services
-			function handleCredentialResponse(response) {
-				console.log("Inside handle");
-				if (response.credential) {
-				var credential = response.credential;
+						var accessToken;
+						// Function to handle the response from Google Identity Services
+						function handleCredentialResponse(response) {
+							console.log("Inside handle");
+							if (response.credential) {
+							var credential = response.credential;
 
-				// Obtain the access token from the credential
-				accessToken = credential.id_token;
+							// Obtain the access token from the credential
+							accessToken = credential.id_token;
 
-				// Now you can use the access token to authenticate API requests to Google Sheets API
-				readAndWriteToSpreadsheet(accessToken);
-				console.log("Authenticated...");
+							// Now you can use the access token to authenticate API requests to Google Sheets API
+							readAndWriteToSpreadsheet(accessToken);
+							console.log("Authenticated...");
 
-				} else if (response.error) {
-				console.error('Authentication error:', response.error);
-				}
-			}
+							} else if (response.error) {
+							console.error('Authentication error:', response.error);
+							}
+						}
 
-			setInterval(function() {
-						readAndWriteToSpreadsheet(accessToken);
-						console.log("Interval");
-					}, 5000); // 1000 milliseconds = 1 second
+						setInterval(function() {
+									readAndWriteToSpreadsheet(accessToken);
+									console.log("Interval");
+								}, 5000); // 1000 milliseconds = 1 second
 
-			var passage = 0;
-			// Function to read and write data to a Google Sheets spreadsheet
+						var passage = 0;
+						// Function to read and write data to a Google Sheets spreadsheet
+						// Function to read and write data to a Google Sheets spreadsheet
 			function readAndWriteToSpreadsheet(accessToken) {
+			  // Values to be written to the spreadsheet
+			  let valuesToWrite;
+			  let writeRange;
+			  let readRange;
+			  if (deviceName === 'hachi_BT') {
+			    valuesToWrite = [
+			      [latitude],
+			      [longitude],
+			      [passage]
+			    ];
+			    writeRange = 'Sheet1!B2:B4';
+			    readRange = 'Sheet1!A2:A4';
+			  } else {
+			    valuesToWrite = [
+			      [latitude],
+			      [longitude],
+			      [passage]
+			    ];
+			    writeRange = 'Sheet1!A2:A4';
+			    readRange = 'Sheet1!B2:B4';
+			  }
 
-				// Values to be written to the spreadsheet
-				let valuesToWrite;
-				let writeRange;
-				let readRange;
-				if (deviceName === 'hachi_BT') {
-				valuesToWrite = [
-					[latitude],
-					[longitude],
-					[passage]
-				];
-				writeRange = 'Sheet1!B2:B4';
-				readRange = 'Sheet1!A2:A4';
-				} else {
-				valuesToWrite = [
-					[latitude],
-					[longitude],
-					[passage]
-				];
-				writeRange = 'Sheet1!A2:A4';
-				readRange = 'Sheet1!B2:B4';
-				}
-
-				// Update values in the spreadsheet
-				gapi.client.sheets.spreadsheets.values.update({
-				spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
-				range: writeRange, // Range to update
-				valueInputOption: 'RAW',
-				resource: {
-					values: valuesToWrite
-				},
-				headers: {
-					Authorization: 'Bearer ' + accessToken // Include access token in the headers
-				}
-				}).then(() => {
-				// After writing, read cells from the other range
-				gapi.client.sheets.spreadsheets.values.get({
-					spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
-					range: readRange, // Range to read
-					headers: {
-					Authorization: 'Bearer ' + accessToken // Include access token in the headers
-					}
-				}).then((response) => {
-					const valuesRead = response.result.values;
-					const other_latitude = valuesRead[0][0];
-					const other_longitude = valuesRead[1][0];
-					const other_passage = valuesRead[2][0];
-					console.log('Read values:', other_latitude, other_longitude, other_passage);
-				}, (error) => {
-					console.error('Error reading values:', error.result.error.message);
-				});
-				}, (error) => {
-				console.error('Error updating values:', error.result.error.message);
-				});
+			  // Update values in the spreadsheet
+			  fetch('https://sheets.googleapis.com/v4/spreadsheets/1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o/values/' + writeRange + '?valueInputOption=RAW', {
+			    method: 'PUT',
+			    headers: {
+			      'Authorization': 'Bearer ' + accessToken,
+			      'Content-Type': 'application/json',
+			    },
+			    body: JSON.stringify({
+			      values: valuesToWrite
+			    })
+			  })
+			  .then(response => {
+			    if (!response.ok) {
+			      throw new Error('Failed to update values: ' + response.statusText);
+			    }
+			    // After writing, read cells from the other range
+			    return fetch('https://sheets.googleapis.com/v4/spreadsheets/1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o/values/' + readRange, {
+			      headers: {
+			        'Authorization': 'Bearer ' + accessToken
+			      }
+			    });
+			  })
+			  .then(response => {
+			    if (!response.ok) {
+			      throw new Error('Failed to read values: ' + response.statusText);
+			    }
+			    return response.json();
+			  })
+			  .then(data => {
+			    const valuesRead = data.values;
+			    const other_latitude = valuesRead[0][0];
+			    const other_longitude = valuesRead[1][0];
+			    const other_passage = valuesRead[2][0];
+			    console.log('Read values:', other_latitude, other_longitude, other_passage);
+			  })
+			  .catch(error => {
+			    console.error('Error:', error);
+			  });
 			}
 		</script>
 	</body>
