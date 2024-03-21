@@ -1025,6 +1025,7 @@
 
 			// Function to handle authentication response
 			function handleCredentialResponse(response) {
+				console.log("Credential handled");
 			  if (response.credential) {
 			    var credential = response.credential;
 			    var accessToken = credential.id_token;
