@@ -1027,6 +1027,7 @@
 
 			// Function to handle the response from Google Identity Services
 			function handleCredentialResponse(response) {
+				console.log("Inside handle");
 				if (response.credential) {
 				var credential = response.credential;
 
@@ -1037,7 +1038,8 @@
 				readAndWriteToSpreadsheet(accessToken);
 				console.log("Authenticated...");
 					setInterval(function() {
-					readAndWriteToSpreadsheet(accessToken);
+						readAndWriteToSpreadsheet(accessToken);
+						console.log("Interval");
 					}, 5000); // 1000 milliseconds = 1 second
 				} else if (response.error) {
 				console.error('Authentication error:', response.error);
