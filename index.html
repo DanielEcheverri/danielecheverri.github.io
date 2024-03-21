@@ -1037,14 +1037,16 @@
 				// Now you can use the access token to authenticate API requests to Google Sheets API
 				readAndWriteToSpreadsheet(accessToken);
 				console.log("Authenticated...");
-					setInterval(function() {
-						readAndWriteToSpreadsheet(accessToken);
-						console.log("Interval");
-					}, 5000); // 1000 milliseconds = 1 second
+
 				} else if (response.error) {
 				console.error('Authentication error:', response.error);
 				}
 			}
+
+			setInterval(function() {
+						readAndWriteToSpreadsheet(accessToken);
+						console.log("Interval");
+					}, 5000); // 1000 milliseconds = 1 second
 
 			// Function to read and write data to a Google Sheets spreadsheet
 			function readAndWriteToSpreadsheet(accessToken) {
