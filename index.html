@@ -1021,8 +1021,8 @@
 			  google.accounts.id.initialize({
 			    client_id: 'YOUR_CLIENT_ID',
 			    callback: handleCredentialResponse
-				console.log("Google ID loaded");
 			  });
+			  console.log("Google ID loaded");
 			};
 
 						// Function to handle the response from Google Identity Services
@@ -1044,6 +1044,7 @@
 						  }
 						}
 
+						handleCredentialResponse(response);
 						// Function to read and write data to a Google Sheets spreadsheet
 						function readAndWriteToSpreadsheet(accessToken) {
 
