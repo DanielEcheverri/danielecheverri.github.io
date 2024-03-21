@@ -1018,10 +1018,10 @@
 
 			// Load the Google Identity Services library
 			window.onload = function() {
-			  google.accounts.id.initialize({
+			  console.log(google.accounts.id.initialize({
 			    client_id: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9pg8f7.apps.googleusercontent.com',
 			    callback: handleCredentialResponse
-			  });
+			  }));
 			  console.log("Google ID loaded");
 			};
 
