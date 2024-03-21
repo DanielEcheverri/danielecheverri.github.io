@@ -1016,102 +1016,82 @@
 		</script>
 		<script>
 
-						// Load the Google Identity Services library
-						window.onload = function() {
-						  google.accounts.id.initialize({
-						    client_id: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9pg8f7.apps.googleusercontent.com',
-						    callback: handleCredentialResponse
-						});
-						  console.log("Google ID loaded");
-						};
+									// Load the Google Identity Services library
+									window.onload = function() {
+									  google.accounts.id.initialize({
+									    client_id: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9pg8f7.apps.googleusercontent.com',
+									    callback: handleCredentialResponse
+									});
+									  console.log("Google ID loaded");
+									};
 
-						var accessToken;
-						// Function to handle the response from Google Identity Services
-						function handleCredentialResponse(response) {
-							console.log("Inside handle");
-							if (response.credential) {
-							var credential = response.credential;
+									var accessToken;
+									// Function to handle the response from Google Identity Services
+									function handleCredentialResponse(response) {
+										console.log("Inside handle");
+										if (response.credential) {
+										var credential = response.credential;
 
-							// Obtain the access token from the credential
-							accessToken = credential.id_token;
+										// Obtain the access token from the credential
+										accessToken = credential.id_token;
 
-							// Now you can use the access token to authenticate API requests to Google Sheets API
-							readAndWriteToSpreadsheet(accessToken);
-							console.log("Authenticated...");
+										// Now you can use the access token to authenticate API requests to Google Sheets API
+										readAndWriteToSpreadsheet(accessToken);
+										console.log("Authenticated...");
 
-							} else if (response.error) {
-							console.error('Authentication error:', response.error);
-							}
-						}
+										} else if (response.error) {
+										console.error('Authentication error:', response.error);
+										}
+									}
 
-						setInterval(function() {
-									readAndWriteToSpreadsheet(accessToken);
-									console.log("Interval");
-								}, 5000); // 1000 milliseconds = 1 second
+									setInterval(function() {
+												readAndWriteToSpreadsheet(accessToken);
+												console.log("Interval");
+											}, 5000); // 1000 milliseconds = 1 second
 
-						var passage = 0;
+									var passage = 0;
 						// Function to read and write data to a Google Sheets spreadsheet
-						// Function to read and write data to a Google Sheets spreadsheet
-			function readAndWriteToSpreadsheet(accessToken) {
+			function readAndWriteToSpreadsheet() {
 			  // Values to be written to the spreadsheet
-			  let valuesToWrite;
-			  let writeRange;
-			  let readRange;
-			  if (deviceName === 'hachi_BT') {
-			    valuesToWrite = [
-			      [latitude],
-			      [longitude],
-			      [passage]
-			    ];
-			    writeRange = 'Sheet1!B2:B4';
-			    readRange = 'Sheet1!A2:A4';
-			  } else {
-			    valuesToWrite = [
-			      [latitude],
-			      [longitude],
-			      [passage]
-			    ];
-			    writeRange = 'Sheet1!A2:A4';
-			    readRange = 'Sheet1!B2:B4';
-			  }
+			  let valuesToWrite = [
+			    [latitude],
+			    [longitude],
+			    [passage]
+			  ];
+
+			  // Range to update
+			  let writeRange = 'Sheet1!A2:C2';
+
+			  // Range to read
+			  let readRange = 'Sheet1!A1:C2';
 
 			  // Update values in the spreadsheet
-			  fetch('https://sheets.googleapis.com/v4/spreadsheets/1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o/values/' + writeRange + '?valueInputOption=RAW', {
-			    method: 'PUT',
-			    headers: {
-			      'Authorization': 'Bearer ' + accessToken,
-			      'Content-Type': 'application/json',
-			    },
-			    body: JSON.stringify({
+			  gapi.client.sheets.spreadsheets.values.update({
+			    spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
+			    range: writeRange,
+			    valueInputOption: 'RAW',
+			    resource: {
 			      values: valuesToWrite
-			    })
-			  })
-			  .then(response => {
-			    if (!response.ok) {
-			      throw new Error('Failed to update values: ' + response.statusText);
+			    },
+			    headers: {
+			      Authorization: 'Bearer ' + accessToken
 			    }
+			  }).then(() => {
 			    // After writing, read cells from the other range
-			    return fetch('https://sheets.googleapis.com/v4/spreadsheets/1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o/values/' + readRange, {
+			    gapi.client.sheets.spreadsheets.values.get({
+			      spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
+			      range: readRange,
 			      headers: {
-			        'Authorization': 'Bearer ' + accessToken
+			        Authorization: 'Bearer ' + accessToken
 			      }
+			    }).then((response) => {
+			      const valuesRead = response.result.values;
+			      console.log('Read values:', valuesRead);
+			    }, (error) => {
+			      console.error('Error reading values:', error.result.error.message);
 			    });
-			  })
-			  .then(response => {
-			    if (!response.ok) {
-			      throw new Error('Failed to read values: ' + response.statusText);
-			    }
-			    return response.json();
-			  })
-			  .then(data => {
-			    const valuesRead = data.values;
-			    const other_latitude = valuesRead[0][0];
-			    const other_longitude = valuesRead[1][0];
-			    const other_passage = valuesRead[2][0];
-			    console.log('Read values:', other_latitude, other_longitude, other_passage);
-			  })
-			  .catch(error => {
-			    console.error('Error:', error);
+			  }, (error) => {
+			    console.error('Error updating values:', error.result.error.message);
 			  });
 			}
 		</script>
