@@ -1015,19 +1015,21 @@
 		</script>
 		<script>
 
-
-			// Reading writing to Google Sheets
 			// Load the Google Sheets API client library
 			gapi.load('client', initClient);
 
 			// Initialize the Google Sheets API client
 			function initClient() {
 			gapi.client.init({
-				apiKey: 'AIzaSyBIlIb5HqcM1fBW0e6QE9FD4IPs9SHBurw',
+				// apiKey: 'YOUR_API_KEY', // Remove or comment out the API key
 				discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+				clientId: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9pg8f7.apps.googleusercontent.com',
+				scope: 'https://www.googleapis.com/auth/spreadsheets',
 			}).then(() => {
-			// Set up interval to call readAndWriteToSpreadsheet every second
-			setInterval(readAndWriteToSpreadsheet, 1000);
+				// Authentication succeeded, you can now make requests to the API
+				readAndWriteToSpreadsheet();
+			}, (error) => {
+				console.error('Error initializing API client:', error);
 			});
 			}
 
