@@ -1012,5 +1012,76 @@
 				backgroundColors[7] = color(0, 0, 0, 100); // 60% black
 			}
 		</script>
+		<script>
+			// Reading writing to Google Sheets
+			// Load the Google Sheets API client library
+			gapi.load('client', initClient);
+
+			// Initialize the Google Sheets API client
+			function initClient() {
+			gapi.client.init({
+				apiKey: 'AIzaSyBIlIb5HqcM1fBW0e6QE9FD4IPs9SHBurw',
+				discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+			}).then(() => {
+			// Set up interval to call readAndWriteToSpreadsheet every second
+			setInterval(readAndWriteToSpreadsheet, 1000);
+			});
+			}
+
+			// Function to read and write data to a Google Sheets spreadsheet
+			function readAndWriteToSpreadsheet() {
+			// Construct latitude, longitude, and passage values elsewhere
+
+			  const passage = 0;
+
+			  // Values to be written to the spreadsheet
+			  let valuesToWrite;
+			  let writeRange;
+			  let readRange;
+			  if (deviceName === 'hachi_BT') {
+			    valuesToWrite = [
+			      [latitude],
+			      [longitude],
+			      [passage]
+			    ];
+			    writeRange = 'Sheet1!B2:B4';
+			    readRange = 'Sheet1!A2:A4';
+			  } else {
+			    valuesToWrite = [
+			      [latitude],
+			      [longitude],
+			      [passage]
+			    ];
+			    writeRange = 'Sheet1!A2:A4';
+			    readRange = 'Sheet1!B2:B4';
+			  }
+
+			  // Update values in the spreadsheet
+			  gapi.client.sheets.spreadsheets.values.update({
+			    spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
+			    range: writeRange, // Range to update
+			    valueInputOption: 'RAW',
+			    resource: {
+			      values: valuesToWrite
+			    }
+			  }).then(() => {
+			    // After writing, read cells from the other range
+			    gapi.client.sheets.spreadsheets.values.get({
+			      spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
+			      range: readRange, // Range to read
+			    }).then((response) => {
+			      const valuesRead = response.result.values;
+			      const other_latitude = valuesRead[0][0];
+			      const other_longitude = valuesRead[1][0];
+			      const other_passage = valuesRead[2][0];
+			      console.log('Read values:', other_latitude, other_longitude, other_passage);
+			    }, (error) => {
+			      console.error('Error reading values:', error.result.error.message);
+			    });
+			  }, (error) => {
+			    console.error('Error updating values:', error.result.error.message);
+			  });
+			}
+		</script>
 	</body>
 </html>
