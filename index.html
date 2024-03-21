@@ -1015,55 +1015,37 @@
 			}
 		</script>
 		<script>
+			// Load Google Identity Services library
+			window.onload = function() {
+			  google.accounts.id.initialize({
+			    client_id: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9pg8f7.apps.googleusercontent.com',
+			    callback: handleCredentialResponse
+			  });
+			};
 
-									// Load the Google Identity Services library
-									window.onload = function() {
-									  google.accounts.id.initialize({
-									    client_id: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9pg8f7.apps.googleusercontent.com',
-									    callback: handleCredentialResponse
-									});
-									  console.log("Google ID loaded");
-									};
+			// Function to handle authentication response
+			function handleCredentialResponse(response) {
+			  if (response.credential) {
+			    var credential = response.credential;
+			    var accessToken = credential.id_token;
 
-									var accessToken;
-									// Function to handle the response from Google Identity Services
-									function handleCredentialResponse(response) {
-										console.log("Inside handle");
-										if (response.credential) {
-										var credential = response.credential;
+			    // Write 'passage' to cell A2
+			    writePassageToSheet(accessToken);
 
-										// Obtain the access token from the credential
-										accessToken = credential.id_token;
+			    // Read from cell B2
+			    readFromSheet(accessToken);
+			  } else if (response.error) {
+			    console.error('Authentication error:', response.error);
+			  }
+			}
 
-										// Now you can use the access token to authenticate API requests to Google Sheets API
-										readAndWriteToSpreadsheet(accessToken);
-										console.log("Authenticated...");
+			// Function to write 'passage' to cell A2
+			function writePassageToSheet(accessToken) {
+			  // Value to be written
+			  var valueToWrite = [[passage]];
 
-										} else if (response.error) {
-										console.error('Authentication error:', response.error);
-										}
-									}
-
-									setInterval(function() {
-												readAndWriteToSpreadsheet(accessToken);
-												console.log("Interval");
-											}, 5000); // 1000 milliseconds = 1 second
-
-									var passage = 0;
-						// Function to read and write data to a Google Sheets spreadsheet
-			function readAndWriteToSpreadsheet() {
-			  // Values to be written to the spreadsheet
-			  let valuesToWrite = [
-			    [latitude],
-			    [longitude],
-			    [passage]
-			  ];
-
-			  // Range to update
-			  let writeRange = 'Sheet1!A2:C2';
-
-			  // Range to read
-			  let readRange = 'Sheet1!A1:C2';
+			  // Write range
+			  var writeRange = 'Sheet1!A2';
 
 			  // Update values in the spreadsheet
 			  gapi.client.sheets.spreadsheets.values.update({
@@ -1071,27 +1053,40 @@
 			    range: writeRange,
 			    valueInputOption: 'RAW',
 			    resource: {
-			      values: valuesToWrite
+			      values: valueToWrite
 			    },
 			    headers: {
 			      Authorization: 'Bearer ' + accessToken
 			    }
 			  }).then(() => {
-			    // After writing, read cells from the other range
-			    gapi.client.sheets.spreadsheets.values.get({
-			      spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
-			      range: readRange,
-			      headers: {
-			        Authorization: 'Bearer ' + accessToken
-			      }
-			    }).then((response) => {
-			      const valuesRead = response.result.values;
-			      console.log('Read values:', valuesRead);
-			    }, (error) => {
-			      console.error('Error reading values:', error.result.error.message);
-			    });
-			  }, (error) => {
-			    console.error('Error updating values:', error.result.error.message);
+			    console.log('Value written to cell A2');
+			  }).catch(error => {
+			    console.error('Error writing to sheet:', error.result.error.message);
+			  });
+			}
+
+			// Function to read from cell B2 and assign to other_passage variable
+			function readFromSheet(accessToken) {
+			  // Read range
+			  var readRange = 'Sheet1!B2';
+
+			  // Read from the spreadsheet
+			  gapi.client.sheets.spreadsheets.values.get({
+			    spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
+			    range: readRange,
+			    headers: {
+			      Authorization: 'Bearer ' + accessToken
+			    }
+			  }).then(response => {
+			    var values = response.result.values;
+			    if (values && values.length > 0) {
+			      var other_passage = values[0][0];
+			      console.log('Value read from cell B2:', other_passage);
+			    } else {
+			      console.error('No data found in cell B2');
+			    }
+			  }).catch(error => {
+			    console.error('Error reading from sheet:', error.result.error.message);
 			  });
 			}
 		</script>
