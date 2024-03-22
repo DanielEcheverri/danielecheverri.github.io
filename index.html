@@ -949,6 +949,7 @@
 
 			let cachedCheckpoints;
 			let lastCheckedIndex = 0; // Initialize the index of the last checked key
+			let currentCheckpoint;
 
 			async function checkCheckpoints() {
 				console.debug("Checking checkpoint");
@@ -979,6 +980,7 @@
 
 								if (distance <= radius) {
 									console.log('Checkpoint reached:', checkpoint.text);
+									currentCheckpoint = checkpoint.text;
 									success_Sound.play();
 									lastCheckedIndex++; // Move to the next key
 									return; // Exit the function when a checkpoint is reached
