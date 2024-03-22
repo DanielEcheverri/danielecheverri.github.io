@@ -1036,20 +1036,30 @@
 
 			// Reference to your Firebase Realtime Database
 			const database = getDatabase(app);
-			const hachi_latitude = latitude;
-			const hachi_longitude = longitude;
-			const hachi_checkpoint = currentCheckpoint;
 
-			// Write variables to the database
-			set(ref(database, 'hachi_data'), {
-				hachi_latitude: hachi_latitude,
-				hachi_longitude: hachi_longitude,
-				hachi_checkpoint: hachi_checkpoint
-			}).then(() => {
-				console.log("Variables written to the database successfully!");
-			}).catch((error) => {
-				console.error("Error writing variables to the database:", error);
-			});
+			function writeToDatabase() {
+			     // Check if variables are not null or empty
+			     if (latitude && longitude && currentCheckpoint) {
+			         // Determine the database name based on the deviceName
+			         const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
+
+			         // Write variables to the database
+			         set(ref(database, databaseName), {
+			             hachi_latitude: latitude,
+			             hachi_longitude: longitude,
+			             hachi_checkpoint: currentCheckpoint
+			         }).then(() => {
+			             console.log("Variables written to the database successfully!");
+			         }).catch((error) => {
+			             console.error("Error writing variables to the database:", error);
+			         });
+			     } else {
+			         console.log("One or more variables are null or empty. Data not written to the database.");
+			     }
+			 }
+
+			 // Call the function to write variables to the database every 2 seconds
+			 setInterval(writeToDatabase, 2000);
 		</script>
 	</body>
 </html>
