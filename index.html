@@ -1015,6 +1015,37 @@
 				backgroundColors[7] = color(0, 0, 0, 100); // 60% black
 			}
 		</script>
-		<script src="sync_data.js"></script>
+		<script>
+			// Your Firebase configuration
+			const firebaseConfig = {
+			  apiKey: "YOUR_API_KEY",
+			  authDomain: "YOUR_AUTH_DOMAIN",
+			  databaseURL: "YOUR_DATABASE_URL",
+			  projectId: "YOUR_PROJECT_ID",
+			  storageBucket: "YOUR_STORAGE_BUCKET",
+			  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+			  appId: "YOUR_APP_ID"
+			};
+
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+
+			// Reference to your Firebase Realtime Database
+			const database = firebase.database();
+
+			// Variables to be written
+			const variable_a = "value_a";
+			const variable_b = "value_b";
+
+			// Write variables to the database
+			database.ref('variables').set({
+			  variable_a: variable_a,
+			  variable_b: variable_b
+			}).then(() => {
+			  console.log("Variables written to the database successfully!");
+			}).catch((error) => {
+			  console.error("Error writing variables to the database:", error);
+			});
+		</script>
 	</body>
 </html>
