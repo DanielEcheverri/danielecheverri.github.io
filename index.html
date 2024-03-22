@@ -1063,7 +1063,7 @@
 			            const otherCheckpointVar = (deviceName === 'hachi_BT') ? 'hachi_checkpoint' : 'avatar_checkpoint';
 
 			            // Read variables from the other database
-			            get(ref(database, otherDatabaseName)).then((snapshot) => {
+			            onValue(ref(database, otherDatabaseName)).then((snapshot) => {
 			                const otherData = snapshot.val();
 			                if (otherData) {
 			                    other_latitude = otherData[otherLatitudeVar];
