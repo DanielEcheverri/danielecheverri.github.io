@@ -949,7 +949,7 @@
 
 			let cachedCheckpoints;
 			let lastCheckedIndex = 0; // Initialize the index of the last checked key
-			let currentCheckpoint;
+			let currentCheckpoint = "none";
 
 			async function checkCheckpoints() {
 				console.debug("Checking checkpoint");
@@ -1037,7 +1037,7 @@
 			// Reference to your Firebase Realtime Database
 			const database = getDatabase(app);
 			const hachi_latitude = latitude;
-			 		const hachi_longitude = longitude;
+			const hachi_longitude = longitude;
 			const hachi_checkpoint = currentCheckpoint;
 
 			// Write variables to the database
