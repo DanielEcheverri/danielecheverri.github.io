@@ -1016,54 +1016,57 @@
 			}
 		</script>
 		<script>
-			function writeToGoogleSheet(location, latitude) {
-			  // Your Google Sheets API endpoint
-			  const endpoint = 'https://sheets.googleapis.com/v4/spreadsheets/1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o/values/Sheet1!A2:A3:append';
+						function writeToGoogleSheet(longitude, latitude) {
+						  // Your Google Sheets API endpoint
+						  const endpoint = 'https://sheets.googleapis.com/v4/spreadsheets/1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o/values/Sheet1!A2:A3:append';
 
-			  // Your API key
-			  const apiKey = 'AIzaSyBIlIb5HqcM1fBW0e6QE9FD4IPs9SHBurw';
+						  // Your API key
+						  const apiKey = 'AIzaSyBIlIb5HqcM1fBW0e6QE9FD4IPs9SHBurw';
 
-			  // Data to be written to the spreadsheet
-			  const data = {
-			    values: [
-			      [location],
-			      [latitude]
-			    ]
-			  };
+						  // Data to be written to the spreadsheet
+						  const data = {
+						    values: [
+						      [longitude],
+						      [latitude]
+						    ]
+						  };
 
-			  // Construct the request
-			  const requestOptions = {
-			    method: 'POST',
-			    headers: {
-			      'Content-Type': 'application/json',
-			      'Authorization': `Bearer ${apiKey}`
-			    },
-			    body: JSON.stringify(data)
-			  };
+						  // Construct the request
+						  const requestOptions = {
+						    method: 'POST',
+						    headers: {
+						      'Content-Type': 'application/json',
+						      'Authorization': `Bearer ${apiKey}`
+						    },
+						    body: JSON.stringify(data)
+						  };
 
-			  // Send the request
-			  return fetch(endpoint, requestOptions)
-			    .then(response => response.json())
-			    .then(result => {
-			      console.log('Data written successfully:', result);
-			      return result;
+						  // Send the request
+						  return fetch(endpoint, requestOptions)
+						    .then(response => response.json())
+						    .then(result => {
+						      console.log('Data written successfully:', result);
+						      return result;
+						    })
+						    .catch(error => {
+						      console.error('Error writing data:', error);
+						      throw error;
+						    });
+						}
+
+						// Example usage:
+						function updateGoogleSheetEverySecond() {
+
+			  // Call writeToGoogleSheet function to update Google Sheet
+			  writeToGoogleSheet(longitud, latitude)
+			    .then(() => {
+			      console.log('Data successfully written to Google Sheet');
 			    })
 			    .catch(error => {
-			      console.error('Error writing data:', error);
-			      throw error;
+			      console.error('Failed to write data to Google Sheet:', error);
 			    });
 			}
-
-			// Example usage:
-			const location = 'New York';
-			const latitude = 40.7128;
-			writeToGoogleSheet(location, latitude)
-			  .then(() => {
-			    console.log('Data successfully written to Google Sheet');
-			  })
-			  .catch(error => {
-			    console.error('Failed to write data to Google Sheet:', error);
-			  });
+			setInterval(updateGoogleSheetEverySecond, 1000);
 		</script>
 	</body>
 </html>
