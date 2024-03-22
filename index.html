@@ -1036,17 +1036,17 @@
 			const database = getDatabase(app);
 
 			// Variables to be written
-			const variable_a = "value_a";
-			const variable_b = "value_b";
+			const hachi_latitude = latitude;
+			const hachi_longitude = longitude;
 
 			// Write variables to the database
-			set(ref(database, 'variables'), {
-			  variable_a: variable_a,
-			  variable_b: variable_b
+			set(ref(database, 'hachi_data'), {
+				hachi_latitude: hachi_latitude,
+				hachi_longitude: hachi_longitude
 			}).then(() => {
-			  console.log("Variables written to the database successfully!");
+				console.log("Variables written to the database successfully!");
 			}).catch((error) => {
-			  console.error("Error writing variables to the database:", error);
+				console.error("Error writing variables to the database:", error);
 			});
 		</script>
 	</body>
