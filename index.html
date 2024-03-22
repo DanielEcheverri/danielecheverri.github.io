@@ -1072,8 +1072,8 @@
 				const otherLongitudeVar = (deviceName === 'hachi_BT') ? 'hachi_longitude' : 'avatar_longitude';
 				const otherCheckpointVar = (deviceName === 'hachi_BT') ? 'hachi_checkpoint' : 'avatar_checkpoint';
 
-				// Get variables from the other database
-				get(ref(database, otherDatabaseName)).then((snapshot) => {
+				// Subscribe to real-time updates for variables from the other database
+				onValue(ref(database, otherDatabaseName), (snapshot) => {
 					const otherData = snapshot.val();
 					if (otherData) {
 						other_latitude = otherData[otherLatitudeVar];
@@ -1086,8 +1086,6 @@
 					} else {
 						console.log("No data found in the other database.");
 					}
-				}).catch((error) => {
-					console.error("Error reading variables from the other database:", error);
 				});
 			}
 			// Call the function to write variables to the database every 2 seconds
