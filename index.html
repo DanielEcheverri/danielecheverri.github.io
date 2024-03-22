@@ -1067,7 +1067,7 @@
 					const otherCheckpointVar = (deviceName === 'hachi_BT') ? 'hachi_checkpoint' : 'avatar_checkpoint';
 
 					// Subscribe to real-time updates for variables from the other database
-					onValue(ref(database, otherDatabaseName), (snapshot) => {
+					onValue(ref(database, otherDatabaseName), (snapshot) =>{
 						const otherData = snapshot.val();
 						if (otherData) {
 							other_latitude = otherData[otherLatitudeVar];
@@ -1080,16 +1080,17 @@
 						} else {
 							console.log("No data found in the other database.");
 						}
-					}, {
-						onlyOnce: true // Fetch the data only once to avoid continuous updates
-					});
-			    } else {
-			        console.log("One or more variables are null or empty. Data not written to the database.");
-			    }
-			}
+					}).then(() => {
+			            console.log("Variables read from the database successfully!");
+						onlyOnce: true; // Fetch the data only once to avoid continuous updates
+			        }).catch((error) => {
+			            console.error("Error reading variables to the database:", error);
+			        });
+				}
+				}
 
-						// Call the function to write variables to the database every 2 seconds
-						setInterval(writeToDatabase, 2000);
+				// Call the function to write variables to the database every 2 seconds
+				setInterval(writeToDatabase, 2000);
 		</script>
 	</body>
 </html>
