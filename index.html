@@ -1041,7 +1041,7 @@
 			set(ref(database, 'hachi_data'), {
 				hachi_latitude: latitude,
 				hachi_longitude: longitude,
-				hachi_checkpoint: checkpoint.text
+				hachi_checkpoint: currentCheckpoint
 			}).then(() => {
 				console.log("Variables written to the database successfully!");
 			}).catch((error) => {
