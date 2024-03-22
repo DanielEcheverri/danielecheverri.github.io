@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
-
+<script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-database-compat.js"></script>
+<script>
 // Your Firebase configuration
 const firebaseConfig = {
 	apiKey: "AIzaSyDWeHUOXcHSp01pLYXY8HQm-l8e7ldqeRA",
@@ -79,3 +79,4 @@ function readFromDatabase(deviceName) {
 // Call the function to write variables to the database every 2 seconds
 setInterval(writeToDatabase, 2000);
 setInterval(readFromDatabase, 2000);
+</script>
