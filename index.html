@@ -1015,60 +1015,6 @@
 				backgroundColors[7] = color(0, 0, 0, 100); // 60% black
 			}
 		</script>
-		<script>
-			//const { google } = require('googleapis');
-
-			// Load the service account key JSON file
-			const serviceAccountKey = require('credentials.json');
-
-			// Configure authentication
-			const auth = new google.auth.GoogleAuth({
-			  credentials: serviceAccountKey,
-			  scopes: ['https://www.googleapis.com/auth/spreadsheets']
-			});
-
-			// Google Sheets API instance
-			const sheets = google.sheets({ version: 'v4', auth });
-
-			// Function to write data to Google Sheet
-			async function writeToGoogleSheet(location, latitude) {
-			  const spreadsheetId = '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o';
-
-			  const values = [
-			    [longitude],
-			    [latitude]
-			  ];
-
-			  try {
-			    const response = await sheets.spreadsheets.values.append({
-			      spreadsheetId: spreadsheetId,
-			      range: 'Sheet1!A2:A3',
-			      valueInputOption: 'RAW',
-			      requestBody: {
-			        values: values
-			      }
-			    });
-
-			    console.log('Data written successfully:', response.data);
-			    return response.data;
-			  } catch (error) {
-			    console.error('Error writing data:', error);
-			    throw error;
-			  }
-			}
-
-			// Function to continuously update Google Sheet every second
-			async function updateGoogleSheetEverySecond() {
-
-			  try {
-			    await writeToGoogleSheet(longitude, latitude);
-			    console.log('Data successfully written to Google Sheet');
-			  } catch (error) {
-			    console.error('Failed to write data to Google Sheet:', error);
-			  }
-			}
-			// Call the function every second
-			setInterval(updateGoogleSheetEverySecond, 1000);
-		</script>
+		<script></script>
 	</body>
 </html>
