@@ -1016,56 +1016,58 @@
 			}
 		</script>
 		<script>
-						function writeToGoogleSheet(longitude, latitude) {
-						  // Your Google Sheets API endpoint
-						  const endpoint = 'https://sheets.googleapis.com/v4/spreadsheets/1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o/values/Sheet1!A2:A3:append';
+									const { google } = require('googleapis');
 
-						  // Your API key
-						  const apiKey = 'AIzaSyBIlIb5HqcM1fBW0e6QE9FD4IPs9SHBurw';
+			// Load the service account key JSON file
+			const serviceAccountKey = require('credentials.json');
 
-						  // Data to be written to the spreadsheet
-						  const data = {
-						    values: [
-						      [longitude],
-						      [latitude]
-						    ]
-						  };
+			// Configure authentication
+			const auth = new google.auth.GoogleAuth({
+			  credentials: serviceAccountKey,
+			  scopes: ['https://www.googleapis.com/auth/spreadsheets']
+			});
 
-						  // Construct the request
-						  const requestOptions = {
-						    method: 'POST',
-						    headers: {
-						      'Content-Type': 'application/json',
-						      'Authorization': `Bearer ${apiKey}`
-						    },
-						    body: JSON.stringify(data)
-						  };
+			// Google Sheets API instance
+			const sheets = google.sheets({ version: 'v4', auth });
 
-						  // Send the request
-						  return fetch(endpoint, requestOptions)
-						    .then(response => response.json())
-						    .then(result => {
-						      console.log('Data written successfully:', result);
-						      return result;
-						    })
-						    .catch(error => {
-						      console.error('Error writing data:', error);
-						      throw error;
-						    });
-						}
+			// Function to write data to Google Sheet
+			async function writeToGoogleSheet(location, latitude) {
+			  const spreadsheetId = '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o';
 
-						// Example usage:
-						function updateGoogleSheetEverySecond() {
+			  const values = [
+			    [longitude],
+			    [latitude]
+			  ];
 
-			  // Call writeToGoogleSheet function to update Google Sheet
-			  writeToGoogleSheet(longitude, latitude)
-			    .then(() => {
-			      console.log('Data successfully written to Google Sheet');
-			    })
-			    .catch(error => {
-			      console.error('Failed to write data to Google Sheet:', error);
+			  try {
+			    const response = await sheets.spreadsheets.values.append({
+			      spreadsheetId: spreadsheetId,
+			      range: 'Sheet1!A2:A3',
+			      valueInputOption: 'RAW',
+			      requestBody: {
+			        values: values
+			      }
 			    });
+
+			    console.log('Data written successfully:', response.data);
+			    return response.data;
+			  } catch (error) {
+			    console.error('Error writing data:', error);
+			    throw error;
+			  }
 			}
+
+			// Function to continuously update Google Sheet every second
+			async function updateGoogleSheetEverySecond() {
+
+			  try {
+			    await writeToGoogleSheet(longitude, latitude);
+			    console.log('Data successfully written to Google Sheet');
+			  } catch (error) {
+			    console.error('Failed to write data to Google Sheet:', error);
+			  }
+			}
+			// Call the function every second
 			setInterval(updateGoogleSheetEverySecond, 1000);
 		</script>
 	</body>
