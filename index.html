@@ -9,8 +9,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
@@ -1015,7 +1013,13 @@
 				backgroundColors[7] = color(0, 0, 0, 100); // 60% black
 			}
 		</script>
-		<script>
+
+
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js'
+	import  {getDatabase } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js'
+  </script>
+		<script></script>
 			// Your Firebase configuration
 			const firebaseConfig = {
 			  apiKey: "YOUR_API_KEY",
