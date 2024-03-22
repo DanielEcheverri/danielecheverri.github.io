@@ -1015,79 +1015,17 @@
 			}
 		</script>
 		<script>
-			// Load Google Identity Services library
-			window.onload = function() {
-			  google.accounts.id.initialize({
-			    client_id: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9g8f7.apps.googleusercontent.com',
-			    callback: handleCredentialResponse
-			  });
-			};
+						// Load the API client and authenticate with OAuth
+			gapi.load('client', initClient);
 
-			// Function to handle authentication response
-			function handleCredentialResponse() {
-				console.log('Initialization response:', response);
-			  if (response.credential) {
-			    var credential = response.credential;
-			    var accessToken = credential.id_token;
-
-			    // Write 'passage' to cell A2
-			    writePassageToSheet(accessToken);
-
-			    // Read from cell B2
-			    readFromSheet(accessToken);
-			  } else if (response.error) {
-			    console.error('Authentication error:', response.error);
-			  }
-			}
-
-			// Function to write 'passage' to cell A2
-			function writePassageToSheet(accessToken) {
-			  // Value to be written
-			  var valueToWrite = [[passage]];
-
-			  // Write range
-			  var writeRange = 'Sheet1!A2';
-
-			  // Update values in the spreadsheet
-			  gapi.client.sheets.spreadsheets.values.update({
-			    spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
-			    range: writeRange,
-			    valueInputOption: 'RAW',
-			    resource: {
-			      values: valueToWrite
-			    },
-			    headers: {
-			      Authorization: 'Bearer ' + accessToken
-			    }
+			function initClient() {
+			  gapi.client.init({
+			    clientId: '1074186074798-4nrbq9rthttrjmimsc6v7i0emb9pg8f7.apps.googleusercontent.com', // Your actual OAuth client ID
+			    discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+			    scope: 'https://www.googleapis.com/auth/spreadsheets',
 			  }).then(() => {
-			    console.log('Value written to cell A2');
-			  }).catch(error => {
-			    console.error('Error writing to sheet:', error.result.error.message);
-			  });
-			}
-
-			// Function to read from cell B2 and assign to other_passage variable
-			function readFromSheet(accessToken) {
-			  // Read range
-			  var readRange = 'Sheet1!B2';
-
-			  // Read from the spreadsheet
-			  gapi.client.sheets.spreadsheets.values.get({
-			    spreadsheetId: '1FC7ZTfggoxfqSstoAyaqjP0r1LyPKr44HxTn7VqpN7o',
-			    range: readRange,
-			    headers: {
-			      Authorization: 'Bearer ' + accessToken
-			    }
-			  }).then(response => {
-			    var values = response.result.values;
-			    if (values && values.length > 0) {
-			      var other_passage = values[0][0];
-			      console.log('Value read from cell B2:', other_passage);
-			    } else {
-			      console.error('No data found in cell B2');
-			    }
-			  }).catch(error => {
-			    console.error('Error reading from sheet:', error.result.error.message);
+			    // API is ready
+			    console.log('Google Sheets API initialized with OAuth');
 			  });
 			}
 		</script>
