@@ -73,7 +73,8 @@
 	{
 		"condition": {
 			"waistMoving": true,
-			"rightLegMoving": false
+			"rightLegMoving": false,
+			"leftLegMoving": false
 		},
 		"partMoving": "waist",
 		"directionMoving": "left"
@@ -81,7 +82,8 @@
 	{
 		"condition": {
 			"waistMoving": false,
-			"rightLegMoving": true
+			"rightLegMoving": true,
+			"leftLegMoving": false
 		},
 		"partMoving": "waist",
 		"directionMoving": "right"
