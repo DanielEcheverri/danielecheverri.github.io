@@ -1059,12 +1059,12 @@
 			            prevCurrentCheckpoint = currentCheckpoint;
 
 			            // Determine the database name based on the deviceName
-			            const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
+			            const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
 
 			            // Determine the variable names based on the deviceName
-			            const latitudeVar = (deviceName === 'hachi_BT') ? 'avatar_latitude' : 'hachi_latitude';
-			            const longitudeVar = (deviceName === 'hachi_BT') ? 'avatar_longitude' : 'hachi_longitude';
-			            const checkpointVar = (deviceName === 'hachi_BT') ? 'avatar_checkpoint' : 'hachi_checkpoint';
+			            const latitudeVar = (deviceName === 'hachi_BT') ? 'hachi_latitude' : 'avatar_latitude' ;
+			            const longitudeVar = (deviceName === 'hachi_BT') ? 'hachi_longitude' : 'avatar_longitude';
+			            const checkpointVar = (deviceName === 'hachi_BT') ? 'hachi_checkpoint' :'avatar_checkpoint' ;
 
 			            // Write variables to the database
 			            set(ref(database, databaseName), {
@@ -1091,10 +1091,10 @@
 			// Function to read data from the database
 			function readFromDatabase(deviceName) {
 				// Read from the other database based on deviceName
-				const otherDatabaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
-				const otherLatitudeVar = (deviceName === 'hachi_BT') ? 'hachi_latitude' : 'avatar_latitude';
-				const otherLongitudeVar = (deviceName === 'hachi_BT') ? 'hachi_longitude' : 'avatar_longitude';
-				const otherCheckpointVar = (deviceName === 'hachi_BT') ? 'hachi_checkpoint' : 'avatar_checkpoint';
+				const otherDatabaseName = (deviceName === 'hachi_BT') ? 'avatar_data': 'hachi_data';
+				const otherLatitudeVar = (deviceName === 'hachi_BT') ? 'avatar_latitude' : 'hachi_latitude';
+				const otherLongitudeVar = (deviceName === 'hachi_BT') ? 'avatar_longitude' : 'hachi_longitude' ;
+				const otherCheckpointVar = (deviceName === 'hachi_BT') ? 'avatar_checkpoint' : 'hachi_checkpoint';
 
 				// Subscribe to real-time updates for variables from the other database
 				onValue(ref(database, otherDatabaseName), (snapshot) => {
