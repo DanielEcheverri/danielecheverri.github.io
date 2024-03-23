@@ -426,10 +426,8 @@
 
 					// Movement detection
 					if (potValues[i] < previousPotValues[i] - movementThreshold) {
-						console.log(movements[movement]);
 						movements[movement] = true; // Movement increases
 					} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-						console.log(movements[movement]);
 						movements[movement] = false; // Movement decreases
 					}
 				}
@@ -464,6 +462,7 @@
 					cachedMovementConditions.forEach(condition => {
 						let match = true;
 						for (let key in condition.condition) {
+							console.log(movements);
 							if (condition.condition[key] !== movements[key]) {
 								match = false;
 								break;
