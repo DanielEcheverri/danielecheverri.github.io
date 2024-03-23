@@ -1041,27 +1041,44 @@
 			const database = getDatabase(app);
 
 			// Function to write data to the database
+
+			// Variables to store previous values of latitude, longitude, and currentCheckpoint
+			let prevLatitude = null;
+			let prevLongitude = null;
+			let prevCurrentCheckpoint = null;
+
+			// Function to write data to the database
 			function writeToDatabase() {
 			    // Check if variables are not null or empty
 			    if (latitude && longitude && currentCheckpoint) {
-			        // Determine the database name based on the deviceName
-			        const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
+			        // Check if variables have changed since the last write operation
+			        if (latitude !== prevLatitude || longitude !== prevLongitude || currentCheckpoint !== prevCurrentCheckpoint) {
+			            // Update previous values
+			            prevLatitude = latitude;
+			            prevLongitude = longitude;
+			            prevCurrentCheckpoint = currentCheckpoint;
 
-			        // Determine the variable names based on the deviceName
-			        const latitudeVar = (deviceName === 'hachi_BT') ? 'avatar_latitude' : 'hachi_latitude';
-			        const longitudeVar = (deviceName === 'hachi_BT') ? 'avatar_longitude' : 'hachi_longitude';
-			        const checkpointVar = (deviceName === 'hachi_BT') ? 'avatar_checkpoint' : 'hachi_checkpoint';
+			            // Determine the database name based on the deviceName
+			            const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
 
-			        // Write variables to the database
-			        set(ref(database, databaseName), {
-			            [latitudeVar]: latitude,
-			            [longitudeVar]: longitude,
-			            [checkpointVar]: currentCheckpoint
-			        }).then(() => {
-			            console.log("Variables written to the database successfully!");
-			        }).catch((error) => {
-			            console.error("Error writing variables to the database:", error);
-			        });
+			            // Determine the variable names based on the deviceName
+			            const latitudeVar = (deviceName === 'hachi_BT') ? 'avatar_latitude' : 'hachi_latitude';
+			            const longitudeVar = (deviceName === 'hachi_BT') ? 'avatar_longitude' : 'hachi_longitude';
+			            const checkpointVar = (deviceName === 'hachi_BT') ? 'avatar_checkpoint' : 'hachi_checkpoint';
+
+			            // Write variables to the database
+			            set(ref(database, databaseName), {
+			                [latitudeVar]: latitude,
+			                [longitudeVar]: longitude,
+			                [checkpointVar]: currentCheckpoint
+			            }).then(() => {
+			                console.log("Variables written to the database successfully!");
+			            }).catch((error) => {
+			                console.error("Error writing variables to the database:", error);
+			            });
+			        } else {
+			            console.log("Variables have not changed since the last write operation. Data not written to the database.");
+			        }
 			    } else {
 			        console.log("One or more variables are null or empty. Data not written to the database.");
 			    }
