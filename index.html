@@ -462,7 +462,6 @@
 					cachedMovementConditions.forEach(condition => {
 						let match = true;
 						for (let key in condition.condition) {
-							console.log(movements);
 							if (condition.condition[key] !== movements[key]) {
 								match = false;
 								break;
