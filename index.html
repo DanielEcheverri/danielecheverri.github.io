@@ -27,9 +27,7 @@
 		<!-- Div to display status of Avatar BT shop -->
 		<div id="closestShop"></div>
 		<!-- Coordinates-->
-		<div id="currentLocation">
-			<label> <input type="checkbox" id="showConsoleCheckbox" onclick="toggleConsoleOutput()" /> Show Console </label>
-		</div>
+		<div id="currentLocation"></div>
 		<!-- Movement>-->
 		<div id="messageDisplayDiv"></div>
 		<script>
@@ -38,8 +36,8 @@
 				let isConnected = false; // Track connection state
 				let device; // Declare device variable.
 				var message;
-				let partMoving = "";
-				let directionMoving = "";
+				let partMoving = "none";
+				let directionMoving = "none";
 				let patternMovement ="";
 				var blueToothStatus = "Avatar Offline";
 				var streetName = "Unknown";
@@ -155,12 +153,6 @@
 							} else {
 								console.warn('Wake lock API not supported');
 							}
-				}
-
-				function toggleConsoleOutput() {
-					var consoleOutputDiv = document.getElementById('consoleOutput');
-					var checkbox = document.getElementById('showConsoleCheckbox');
-					consoleOutputDiv.style.display = checkbox.checked ? 'block' : 'none';
 				}
 
 				function checkVariables() {
