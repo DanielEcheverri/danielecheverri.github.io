@@ -1114,6 +1114,7 @@
 			var other_latitude=null;
 			var other_longitude=null;
 			var other_checkpoint=null;
+			var passage=null;
 
 			// Function to read data from the database
 			function readFromDatabase(deviceName) {
@@ -1121,7 +1122,9 @@
 				const otherDatabaseName = (deviceName === 'hachi_BT') ? 'avatar_data': 'hachi_data';
 				const otherLatitudeVar = (deviceName === 'hachi_BT') ? 'avatar_latitude' : 'hachi_latitude';
 				const otherLongitudeVar = (deviceName === 'hachi_BT') ? 'avatar_longitude' : 'hachi_longitude' ;
-				const otherCheckpointVar = (deviceName === 'hachi_BT') ? 'avatar_checkpoint' : 'hachi_checkpoint';
+				const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
+				const myPassage = (deviceName === 'hachi_BT') ? 'hachi_passage' :'avatar_passage' ;
+
 
 				// Subscribe to real-time updates for variables from the other database
 				onValue(ref(database, otherDatabaseName), (snapshot) => {
@@ -1129,8 +1132,19 @@
 					if (otherData) {
 						other_latitude = otherData[otherLatitudeVar];
 						other_longitude = otherData[otherLongitudeVar];
-						other_checkpoint = otherData[otherCheckpointVar];
 						distEachOther = calculateDistance(latitude, longitude, other_latitude, other_longitude);
+						//console.log("Variables read from the other database successfully!");
+					} else {
+						console.log("No data found in the other database.");
+					}
+				});
+
+				// Subscribe to real-time updates for variables from the other database
+				onValue(ref(database, databaseName), (snapshot) => {
+					const myData = snapshot.val();
+					if (myData) {
+						passage = myData[myPassage];
+						displayText(passage);
 						//console.log("Variables read from the other database successfully!");
 					} else {
 						console.log("No data found in the other database.");
