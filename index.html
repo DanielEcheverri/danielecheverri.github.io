@@ -220,6 +220,7 @@
 			var longitude;
 			let speed;
 			var distEachOther = 0;
+			let directionText;
 
 			function getCurrentLocation() {
 				if (navigator.geolocation) {
@@ -250,7 +251,7 @@
 							previousPosition = position;
 							let heading = position.coords.heading || 0; // Heading in degrees
 							// Determine direction text based on heading
-							let directionText;
+
 							if (speed >= speedThreshold) {
 								if (heading >= 337.5 || heading < 22.5) {
 									directionText = "Heading North";
