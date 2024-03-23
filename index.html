@@ -1143,7 +1143,7 @@
 				if (myData) {
 					const passage = myData[myPassage];
 					if (passage !== previousPassage) { // Compare with previous passage
-						updateDisplay(String(passage));
+						composeMessage(String(passage));
 						previousPassage = passage; // Update previous passage
 					}
 				} else {
