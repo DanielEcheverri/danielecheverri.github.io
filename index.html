@@ -954,6 +954,7 @@
 			let cachedCheckpoints;
 			let lastCheckedIndex = 0; // Initialize the index of the last checked key
 			let currentCheckpoint = "none";
+			let chkPointDistance = 0;
 
 			async function checkCheckpoints() {
 				console.debug("Checking checkpoint");
@@ -978,7 +979,8 @@
 							// Process checkpoints within the current set
 							for (const checkpoint of checkpoints[currentCheckpointKey]) {
 								const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-								console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude,'Distance:', distance.toFixed(2) );
+								chkPointDistance = distance.toFixed(2);
+								console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude,'Distance:', chkPointDistance );
 								//console.log();
 								//console.log('Distance:', distance);
 
@@ -1079,6 +1081,7 @@
 			            const longitudeVar = (deviceName === 'hachi_BT') ? 'hachi_longitude' : 'avatar_longitude';
 						const headingVar = (deviceName === 'hachi_BT') ? 'hachi_heading' : 'avatar_heading';
 			            const checkpointVar = (deviceName === 'hachi_BT') ? 'hachi_checkpoint' :'avatar_checkpoint' ;
+						const checkDistVar = (deviceName === 'hachi_BT') ? 'hachi_dist_checkpoint' : 'avatar_dist_checkpoint';
 						const movementVar = (deviceName === 'hachi_BT') ? 'hachi_movement' :'avatar_movement' ;
 						const partMovementVar = (deviceName === 'hachi_BT') ? 'hachi_part' :'avatar_part' ;
 						const dirMovementVar = (deviceName === 'hachi_BT') ? 'hachi_direction' :'avatar_direction' ;
@@ -1090,6 +1093,7 @@
 			                [longitudeVar]: longitude,
 							[headingVar]: directionText,
 			                [checkpointVar]: currentCheckpoint,
+							[checkDistVar]: chkPointDistance,
 							[movementVar]: patternMovement,
 							[partMovementVar]: partMoving,
 							[dirMovementVar]: directionMoving,
