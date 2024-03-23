@@ -1114,7 +1114,6 @@
 			var other_latitude=null;
 			var other_longitude=null;
 			var other_checkpoint=null;
-			var passage=null;
 
 			// Function to read data from the database
 			function readFromDatabase(deviceName) {
@@ -1139,11 +1138,11 @@
 					}
 				});
 
-				// Subscribe to real-time updates for variables from the other database
+				// Subscribe to real-time updates for variables from own database
 				onValue(ref(database, databaseName), (snapshot) => {
 					const myData = snapshot.val();
 					if (myData) {
-						passage = myData[myPassage];
+						const passage = myData[myPassage];
 						displayText(passage);
 						//console.log("Variables read from the other database successfully!");
 					} else {
