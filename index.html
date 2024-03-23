@@ -1021,112 +1021,113 @@
 		</script>
 
 		<script type="module">
-			import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js'
-			import  { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js'
+						import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js'
+						import  { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js'
 
-			// Your Firebase configuration
-			const firebaseConfig = {
-				apiKey: "AIzaSyDWeHUOXcHSp01pLYXY8HQm-l8e7ldqeRA",
-				authDomain: "searchingforus.firebaseapp.com",
-				databaseURL: "https://searchingforus-default-rtdb.europe-west1.firebasedatabase.app",
-				projectId: "searchingforus",
-				storageBucket: "searchingforus.appspot.com",
-				messagingSenderId: "1074186074798",
-				appId: "1:1074186074798:web:316b5662099ab3b0e48b3f"
-			};
+						// Your Firebase configuration
+						const firebaseConfig = {
+							apiKey: "AIzaSyDWeHUOXcHSp01pLYXY8HQm-l8e7ldqeRA",
+							authDomain: "searchingforus.firebaseapp.com",
+							databaseURL: "https://searchingforus-default-rtdb.europe-west1.firebasedatabase.app",
+							projectId: "searchingforus",
+							storageBucket: "searchingforus.appspot.com",
+							messagingSenderId: "1074186074798",
+							appId: "1:1074186074798:web:316b5662099ab3b0e48b3f"
+						};
 
-			// Initialize Firebase
-			const app = initializeApp(firebaseConfig);
+						// Initialize Firebase
+						const app = initializeApp(firebaseConfig);
 
-			// Reference to your Firebase Realtime Database
-			const database = getDatabase(app);
+						// Reference to your Firebase Realtime Database
+						const database = getDatabase(app);
 
-			// Function to write data to the database
+						// Function to write data to the database
 
-			// Variables to store previous values of latitude, longitude, and currentCheckpoint
-			let prevLatitude = null;
-			let prevLongitude = null;
-			let prevCurrentCheckpoint = null;
-			let prevMovement = null;
-			let prevTagInteraction = null;
-			let prevHeading = null;
+						// Variables to store previous values of latitude, longitude, and currentCheckpoint
+						let prevLatitude = null;
+						let prevLongitude = null;
+						let prevCurrentCheckpoint = null;
+						let prevMovement = null;
+						let prevTagInteraction = null;
+						let prevHeading = null;
 
-			// Function to write data to the database
-			function writeToDatabase() {
+						// Function to write data to the database
+						function writeToDatabase() {
 			    // Check if variables are not null or empty
-			    if (latitude && longitude && currentCheckpoint) {
-			        // Check if variables have changed since the last write operation
-			        if (latitude !== prevLatitude || longitude !== prevLongitude || currentCheckpoint !== prevCurrentCheckpoint) {
-			            // Update previous values
-			            prevLatitude = latitude;
-			            prevLongitude = longitude;
-			            prevCurrentCheckpoint = currentCheckpoint;
-						prevMovement = patternMovement;
-						prevTagInteraction = tagID;
-						prevHeading = directionText;
+			    if (!(latitude && longitude && currentCheckpoint && patternMovement && tagID && directionText)) {
+			        //console.log("One or more variables are null or empty. Data not written to the database.");
+			        return;
+			    }
 
-			            // Determine the database name based on the deviceName
-			            const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
+			    // Initialize an object to hold the variables that have changed
+			    const changedVariables = {};
 
-			            // Determine the variable names based on the deviceName
-			            const latitudeVar = (deviceName === 'hachi_BT') ? 'hachi_latitude' : 'avatar_latitude' ;
-			            const longitudeVar = (deviceName === 'hachi_BT') ? 'hachi_longitude' : 'avatar_longitude';
-						const headingVar = (deviceName === 'hachi_BT') ? 'hachi_heading' : 'avatar_heading';
-			            const checkpointVar = (deviceName === 'hachi_BT') ? 'hachi_checkpoint' :'avatar_checkpoint' ;
-						const movementVar = (deviceName === 'hachi_BT') ? 'hachi_movement' :'avatar_movement' ;
-						const tagInteractionVar = (deviceName === 'hachi_BT') ? 'hachi_tag' :'avatar_tag' ;
+			    // Define mapping of variable names
+			    const variableMapping = {
+			        latitude: (deviceName === 'hachi_BT') ? 'hachi_latitude' : 'avatar_latitude',
+			        longitude: (deviceName === 'hachi_BT') ? 'hachi_longitude' : 'avatar_longitude',
+			        currentCheckpoint: (deviceName === 'hachi_BT') ? 'hachi_checkpoint' : 'avatar_checkpoint',
+			        patternMovement: (deviceName === 'hachi_BT') ? 'hachi_movement' : 'avatar_movement',
+			        tagID: (deviceName === 'hachi_BT') ? 'hachi_tag' : 'avatar_tag',
+			        directionText: (deviceName === 'hachi_BT') ? 'hachi_heading' : 'avatar_heading'
+			    };
 
-			            // Write variables to the database
-			            set(ref(database, databaseName), {
-			                [latitudeVar]: latitude,
-			                [longitudeVar]: longitude,
-							[headingVar]: directionText,
-			                [checkpointVar]: currentCheckpoint,
-							[movementVar]: patternMovement,
-							[tagInteractionVar]: tagID
-			            }).then(() => {
+			    // Check if variables have changed since the last write operation
+			    for (const [variable, mapping] of Object.entries(variableMapping)) {
+			        if (this[variable] !== this[`prev${variable.charAt(0).toUpperCase()}${variable.slice(1)}`]) {
+			            changedVariables[mapping] = this[variable];
+			            this[`prev${variable.charAt(0).toUpperCase()}${variable.slice(1)}`] = this[variable];
+			        }
+			    }
+
+			    // If there are any changed variables, write them to the database
+			    if (Object.keys(changedVariables).length > 0) {
+			        // Determine the database name based on the deviceName
+			        const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
+
+			        // Write variables to the database
+			        set(ref(database, databaseName), changedVariables)
+			            .then(() => {
 			                //console.log("Variables written to the database successfully!");
-			            }).catch((error) => {
+			            })
+			            .catch((error) => {
 			                console.error("Error writing variables to the database:", error);
 			            });
-			        } else {
-			            //console.log("Variables have not changed. Data not written to the database.");
-			        }
 			    } else {
-			        //console.log("One or more variables are null or empty. Data not written to the database.");
+			        //console.log("Variables have not changed. Data not written to the database.");
 			    }
 			}
 
-			var other_latitude=null;
-			var other_longitude=null;
-			var other_checkpoint=null;
+						var other_latitude=null;
+						var other_longitude=null;
+						var other_checkpoint=null;
 
-			// Function to read data from the database
-			function readFromDatabase(deviceName) {
-				// Read from the other database based on deviceName
-				const otherDatabaseName = (deviceName === 'hachi_BT') ? 'avatar_data': 'hachi_data';
-				const otherLatitudeVar = (deviceName === 'hachi_BT') ? 'avatar_latitude' : 'hachi_latitude';
-				const otherLongitudeVar = (deviceName === 'hachi_BT') ? 'avatar_longitude' : 'hachi_longitude' ;
-				const otherCheckpointVar = (deviceName === 'hachi_BT') ? 'avatar_checkpoint' : 'hachi_checkpoint';
+						// Function to read data from the database
+						function readFromDatabase(deviceName) {
+							// Read from the other database based on deviceName
+							const otherDatabaseName = (deviceName === 'hachi_BT') ? 'avatar_data': 'hachi_data';
+							const otherLatitudeVar = (deviceName === 'hachi_BT') ? 'avatar_latitude' : 'hachi_latitude';
+							const otherLongitudeVar = (deviceName === 'hachi_BT') ? 'avatar_longitude' : 'hachi_longitude' ;
+							const otherCheckpointVar = (deviceName === 'hachi_BT') ? 'avatar_checkpoint' : 'hachi_checkpoint';
 
-				// Subscribe to real-time updates for variables from the other database
-				onValue(ref(database, otherDatabaseName), (snapshot) => {
-					const otherData = snapshot.val();
-					if (otherData) {
-						other_latitude = otherData[otherLatitudeVar];
-						other_longitude = otherData[otherLongitudeVar];
-						other_checkpoint = otherData[otherCheckpointVar];
-						distEachOther = calculateDistance(latitude, longitude, other_latitude, other_longitude);
-						//console.log("Variables read from the other database successfully!");
-					} else {
-						console.log("No data found in the other database.");
-					}
-				});
-			}
-			setInterval(() => {
-				writeToDatabase();
-				readFromDatabase(); // Read data after writing
-			}, 2000);
+							// Subscribe to real-time updates for variables from the other database
+							onValue(ref(database, otherDatabaseName), (snapshot) => {
+								const otherData = snapshot.val();
+								if (otherData) {
+									other_latitude = otherData[otherLatitudeVar];
+									other_longitude = otherData[otherLongitudeVar];
+									other_checkpoint = otherData[otherCheckpointVar];
+									distEachOther = calculateDistance(latitude, longitude, other_latitude, other_longitude);
+									//console.log("Variables read from the other database successfully!");
+								} else {
+									console.log("No data found in the other database.");
+								}
+							});
+						}
+						setInterval(() => {
+							writeToDatabase();
+							readFromDatabase(); // Read data after writing
+						}, 2000);
 		</script>
 	</body>
 </html>
