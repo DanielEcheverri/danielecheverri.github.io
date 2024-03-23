@@ -1142,7 +1142,7 @@
 				onValue(ref(database, databaseName), (snapshot) => {
 					const myData = snapshot.val();
 					if (myData) {
-						const passage = myData[myPassage];
+						var passage = myData[myPassage];
 						displayText({passage});
 						//console.log("Variables read from the other database successfully!");
 					} else {
