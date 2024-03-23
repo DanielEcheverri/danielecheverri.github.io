@@ -89,7 +89,7 @@
 		"patternName": "Picking something from above with the right arm",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "up" },
-			{ "partMoving": "right shoulder", "directionMoving": "up" }
+			{ "partMoving": "right forearm", "directionMoving": "left" }
 		]
 	},
 	{
