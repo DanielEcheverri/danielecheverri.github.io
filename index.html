@@ -426,15 +426,16 @@
 
 					// Movement detection
 					if (potValues[i] < previousPotValues[i] - movementThreshold) {
+						console.log(movements[movement]);
 						movements[movement] = true; // Movement increases
 					} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+						console.log(movements[movement]);
 						movements[movement] = false; // Movement decreases
 					}
 				}
 				// Update previous potentiometer values for the next iteration.
 				previousPotValues = potValues.slice(0, numPotentiometers);
 				// Return the detected movement
-				console.log(movements);
 				return movements;
 			}
 
