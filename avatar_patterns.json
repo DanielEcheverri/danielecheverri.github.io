@@ -128,14 +128,14 @@
 		"patternName": "Keeping something",
 		"pattern": [
 			{ "partMoving": "left shoulder", "directionMoving": "up" },
-			{ "partMoving": "left forearm", "directionMoving": "right" }
+			{ "partMoving": "left forearm", "directionMoving": "left" }
 		]
 	},
 	{
 		"patternName": "Keeping something",
 		"pattern": [
 			{ "partMoving": "right shoulder", "directionMoving": "up" },
-			{ "partMoving": "right forearm", "directionMoving": "right" }
+			{ "partMoving": "right forearm", "directionMoving": "left" }
 		]
 	}
 ]
