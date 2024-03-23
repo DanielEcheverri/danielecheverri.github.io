@@ -72,50 +72,50 @@
 	},
 	{
 		"condition": {
-			"waistMoving": true,
-			"rightLegMoving": false,
-			"leftLegMoving": false
+			"waistMoving": false,
+			"leftLegMoving": true,
+			"rightLegMoving": false
 		},
 		"partMoving": "waist",
 		"directionMoving": "left"
 	},
 	{
 		"condition": {
-			"waistMoving": false,
-			"rightLegMoving": true,
-			"leftLegMoving": false
+			"waistMoving": true,
+			"leftLegMoving": false,
+			"rightLegMoving": true
 		},
 		"partMoving": "waist",
 		"directionMoving": "right"
 	},
 	{
 		"condition": {
-			"leftLegMoving": true,
-			"waistMoving": null
+			"waistMoving": null,
+			"leftLegMoving": true
 		},
 		"partMoving": "left leg",
 		"directionMoving": "down"
 	},
 	{
 		"condition": {
-			"leftLegMoving": false,
-			"waistMoving": null
+			"waistMoving": null,
+			"leftLegMoving": false
 		},
 		"partMoving": "left leg",
 		"directionMoving": "up"
 	},
 	{
 		"condition": {
-			"rightLegMoving": true,
-			"waistMoving": null
+			"waistMoving": null,
+			"rightLegMoving": true
 		},
 		"partMoving": "right leg",
 		"directionMoving": "down"
 	},
 	{
 		"condition": {
-			"rightLegMoving": false,
-			"waistMoving": null
+			"waistMoving": null,
+			"rightLegMoving": false
 		},
 		"partMoving": "right leg",
 		"directionMoving": "up"
