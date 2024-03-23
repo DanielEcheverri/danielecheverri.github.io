@@ -38,7 +38,7 @@
 				var message;
 				let partMoving = "none";
 				let directionMoving = "none";
-				let patternMovement ="";
+				let patternMovement ="none";
 				var blueToothStatus = "Avatar Offline";
 				var streetName = "Unknown";
 				var deviceName ="";
@@ -1083,8 +1083,8 @@
 			            const checkpointVar = (deviceName === 'hachi_BT') ? 'hachi_checkpoint' :'avatar_checkpoint' ;
 						const checkDistVar = (deviceName === 'hachi_BT') ? 'hachi_dist_checkpoint' : 'avatar_dist_checkpoint';
 						const movementVar = (deviceName === 'hachi_BT') ? 'hachi_movement' :'avatar_movement' ;
-						const partMovementVar = (deviceName === 'hachi_BT') ? 'hachi_part' :'avatar_part' ;
-						const dirMovementVar = (deviceName === 'hachi_BT') ? 'hachi_direction' :'avatar_direction' ;
+						const partMovementVar = (deviceName === 'hachi_BT') ? 'hachi_part_mov' :'avatar_part_mov' ;
+						const dirMovementVar = (deviceName === 'hachi_BT') ? 'hachi_part_dir' :'avatar_part_dir' ;
 						const tagInteractionVar = (deviceName === 'hachi_BT') ? 'hachi_tag' :'avatar_tag' ;
 
 			            // Write variables to the database
