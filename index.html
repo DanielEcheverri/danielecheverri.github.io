@@ -219,6 +219,7 @@
 			var longitude;
 			let speed;
 			var distEachOther = 0;
+			let directionText = "Not moving"
 
 			function getCurrentLocation() {
 				if (navigator.geolocation) {
@@ -249,7 +250,7 @@
 							previousPosition = position;
 							let heading = position.coords.heading || 0; // Heading in degrees
 							// Determine direction text based on heading
-							let directionText;
+
 							if (speed >= speedThreshold) {
 								if (heading >= 337.5 || heading < 22.5) {
 									directionText = "Heading North";
@@ -1048,6 +1049,7 @@
 			let prevCurrentCheckpoint = null;
 			let prevMovement = null;
 			let prevTagInteraction = null;
+			let prevHeading = null;
 
 			// Function to write data to the database
 			function writeToDatabase() {
@@ -1061,6 +1063,7 @@
 			            prevCurrentCheckpoint = currentCheckpoint;
 						prevMovement = patternMovement;
 						prevTagInteraction = tagID;
+						prevHeading = directionText;
 
 			            // Determine the database name based on the deviceName
 			            const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
@@ -1068,6 +1071,7 @@
 			            // Determine the variable names based on the deviceName
 			            const latitudeVar = (deviceName === 'hachi_BT') ? 'hachi_latitude' : 'avatar_latitude' ;
 			            const longitudeVar = (deviceName === 'hachi_BT') ? 'hachi_longitude' : 'avatar_longitude';
+						const headingVar = (deviceName === 'hachi_BT') ? 'hachi_heading' : 'avatar_heading';
 			            const checkpointVar = (deviceName === 'hachi_BT') ? 'hachi_checkpoint' :'avatar_checkpoint' ;
 						const movementVar = (deviceName === 'hachi_BT') ? 'hachi_movement' :'avatar_movement' ;
 						const tagInteractionVar = (deviceName === 'hachi_BT') ? 'hachi_tag' :'avatar_tag' ;
@@ -1076,6 +1080,7 @@
 			            set(ref(database, databaseName), {
 			                [latitudeVar]: latitude,
 			                [longitudeVar]: longitude,
+							[headingVar]: directionText,
 			                [checkpointVar]: currentCheckpoint,
 							[movementVar]: patternMovement,
 							[tagInteractionVar]: tagID
