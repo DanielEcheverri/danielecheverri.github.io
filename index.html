@@ -273,6 +273,7 @@
 								directionText = "Not moving";
 							}
 							checkCheckpoints();
+							updateNavigationInfo();
 						},
 						function (error) {
 							console.error("Error getting current location: ", error);
@@ -282,9 +283,8 @@
 				} else {
 					console.error("Geolocation is not supported by this browser.");
 				}
-			updateNavigationInfo();
-			}
 
+			}
 			function updateNavigationInfo() {
 				document.getElementById("currentLocation").innerHTML =
 					"<strong><span class='material-icons' style='vertical-align: middle;'>bluetooth</span> Bluetooth:</strong> " + blueToothStatus +
