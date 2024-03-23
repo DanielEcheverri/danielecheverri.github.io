@@ -90,28 +90,32 @@
 	},
 	{
 		"condition": {
-			"leftLegMoving": true
+			"leftLegMoving": true,
+			"waistMoving": null
 		},
 		"partMoving": "left leg",
 		"directionMoving": "down"
 	},
 	{
 		"condition": {
-			"leftLegMoving": false
+			"leftLegMoving": false,
+			"waistMoving": null
 		},
 		"partMoving": "left leg",
 		"directionMoving": "up"
 	},
 	{
 		"condition": {
-			"rightLegMoving": true
+			"rightLegMoving": true,
+			"waistMoving": null
 		},
 		"partMoving": "right leg",
 		"directionMoving": "down"
 	},
 	{
 		"condition": {
-			"rightLegMoving": false
+			"rightLegMoving": false,
+			"waistMoving": null
 		},
 		"partMoving": "right leg",
 		"directionMoving": "up"
