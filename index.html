@@ -27,7 +27,9 @@
 		<!-- Div to display status of Avatar BT shop -->
 		<div id="closestShop"></div>
 		<!-- Coordinates-->
-		<div id="currentLocation"></div>
+		<div id="currentLocation">
+			<label> <input type="checkbox" id="showConsoleCheckbox" onclick="toggleConsoleOutput()" /> Show Console </label>
+		</div>
 		<!-- Movement>-->
 		<div id="messageDisplayDiv"></div>
 		<script>
@@ -153,6 +155,12 @@
 							} else {
 								console.warn('Wake lock API not supported');
 							}
+				}
+
+				function toggleConsoleOutput() {
+					var consoleOutputDiv = document.getElementById('consoleOutput');
+					var checkbox = document.getElementById('showConsoleCheckbox');
+					consoleOutputDiv.style.display = checkbox.checked ? 'block' : 'none';
 				}
 
 				function checkVariables() {
@@ -281,7 +289,7 @@
 								"<strong><span class='material-icons' style='vertical-align: middle;'>pets</span><span class='material-icons' style='vertical-align: middle;'>person</span> Separation :</strong> " + distEachOther.toFixed(2) +" m" + "<br>" +
 								" <strong><span class='material-icons' style='vertical-align: middle;'>explore</span> Direction:</strong> " + directionText +
 								"<strong><span class='material-icons' style='vertical-align: middle;'>speed</span> Speed:</strong> " + speed.toFixed(2) + "ms/s" + "<br>" +
-								"<strong><span class='material-icons' style='vertical-align: middle;'>directions_walk</span> Distance Walked: </strong> " + totalDistance.toFixed(2) +
+								" <strong><span class='material-icons' style='vertical-align: middle;'>directions_walk</span> Distance Walked: </strong> " + totalDistance.toFixed(2) +
 								" m <strong>Avatar Actions:</strong> "+ partMoving + " " + directionMoving;
 						},
 						function (error) {
