@@ -1143,7 +1143,7 @@
 					const myData = snapshot.val();
 					if (myData) {
 						const passage = myData[myPassage];
-						displayText(passage);
+						displayText('$passage');
 						//console.log("Variables read from the other database successfully!");
 					} else {
 						console.log("No data found in the other database.");
