@@ -1113,7 +1113,7 @@
 
 			var other_latitude=null;
 			var other_longitude=null;
-			var other_checkpoint=null;
+			let previousPassage = ''; // Initialize previous passage value
 
 			// Function to read data from the database
 			function readFromDatabase(deviceName) {
@@ -1123,7 +1123,6 @@
 				const otherLongitudeVar = (deviceName === 'hachi_BT') ? 'avatar_longitude' : 'hachi_longitude' ;
 				const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
 				const myPassage = (deviceName === 'hachi_BT') ? 'hachi_passage' :'avatar_passage' ;
-
 
 				// Subscribe to real-time updates for variables from the other database
 				onValue(ref(database, otherDatabaseName), (snapshot) => {
@@ -1140,15 +1139,17 @@
 
 				// Subscribe to real-time updates for variables from own database
 				onValue(ref(database, databaseName), (snapshot) => {
-					const myData = snapshot.val();
-					if (myData) {
-						var passage = myData[myPassage];
+				const myData = snapshot.val();
+				if (myData) {
+					const passage = myData[myPassage];
+					if (passage !== previousPassage) { // Compare with previous passage
 						displayText(String(passage));
-						//console.log("Variables read from the other database successfully!");
-					} else {
-						console.log("No data found in the other database.");
+						previousPassage = passage; // Update previous passage
 					}
-				});
+				} else {
+					console.log("No data found in the own database.");
+				}
+			});
 			}
 			setInterval(() => {
 				writeToDatabase();
