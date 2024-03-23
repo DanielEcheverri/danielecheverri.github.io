@@ -90,7 +90,6 @@
 	},
 	{
 		"condition": {
-			"waistMoving": null,
 			"leftLegMoving": true
 		},
 		"partMoving": "left leg",
@@ -98,7 +97,6 @@
 	},
 	{
 		"condition": {
-			"waistMoving": null,
 			"leftLegMoving": false
 		},
 		"partMoving": "left leg",
@@ -106,7 +104,6 @@
 	},
 	{
 		"condition": {
-			"waistMoving": null,
 			"rightLegMoving": true
 		},
 		"partMoving": "right leg",
@@ -114,7 +111,6 @@
 	},
 	{
 		"condition": {
-			"waistMoving": null,
 			"rightLegMoving": false
 		},
 		"partMoving": "right leg",
