@@ -421,7 +421,7 @@
 				for (let i = 0; i < numPotentiometers; i++) {
 					let label = labels[i];
 					let movement = labelMovements[label];
-					console.log(movement);
+
 					if (!movement) continue; // Skip if label not found in labelMovements
 
 					// Movement detection
@@ -434,6 +434,7 @@
 				// Update previous potentiometer values for the next iteration.
 				previousPotValues = potValues.slice(0, numPotentiometers);
 				// Return the detected movement
+				console.log(movements);
 				return movements;
 			}
 
