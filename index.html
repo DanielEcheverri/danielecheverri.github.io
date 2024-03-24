@@ -405,7 +405,6 @@
 						}
 
 						// Define variables for detecting movement in different body parts
-						// Define variables for detecting movement in different body parts
 			function handleMovement() {
 			    // Define thresholds for movement detection
 			    let movementThreshold = 13;
@@ -455,7 +454,9 @@
 			            movements[movement] = true; // Movement increases
 			        } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
 			            movements[movement] = false; // Movement decreases
-			        }
+			        } else {
+						movements[movement] = null; // No movement
+					}
 			    }
 
 			    // Update previous potentiometer values for the next iteration.
