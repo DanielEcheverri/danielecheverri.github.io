@@ -58,12 +58,21 @@
 		]
 	},
 	{
-		"patternName": "Gone dancing",
+		"patternName": "Wiggling the tail",
 		"pattern": [
-			{ "partMoving": "waist", "directionMoving": "left" },
-			{ "partMoving": "waist", "directionMoving": "right" },
-			{ "partMoving": "waist", "directionMoving": "left" },
-			{ "partMoving": "waist", "directionMoving": "right" }
+			{ "partMoving": "tail", "directionMoving": "down" },
+			{ "partMoving": "back leg", "directionMoving": "up" },
+			{ "partMoving": "tail", "directionMoving": "up" },
+			{ "partMoving": "back leg", "directionMoving": "down" }
+		]
+	},
+	{
+		"patternName": "Wiggling the tail",
+		"pattern": [
+			{ "partMoving": "tail", "directionMoving": "up" },
+			{ "partMoving": "back leg", "directionMoving": "down" },
+			{ "partMoving": "tail", "directionMoving": "down" },
+			{ "partMoving": "back leg", "directionMoving": "up" }
 		]
 	},
 	{
