@@ -384,6 +384,7 @@
 				}
 			}
 
+			let previousMovements;
 			// Define variables for detecting movement in different body parts
 			function handleMovement() {
 				// Define thresholds for movement detection
@@ -434,7 +435,12 @@
 				// Update previous potentiometer values for the next iteration.
 				previousPotValues = potValues.slice(0, numPotentiometers);
 				// Return the detected movement
-				return movements;
+				if (movements !== previousMovements){
+					previousMovements = movements;
+					return movements;
+				} else {
+					return null;
+				}
 			}
 
 			let cachedMovementConditions = null;
