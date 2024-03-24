@@ -435,8 +435,8 @@
 				// Update previous potentiometer values for the next iteration.
 				previousPotValues = potValues.slice(0, numPotentiometers);
 				// Return the detected movement
-				if (movements !== previousMovements){
-					previousMovements = movements;
+				if (!arraysEqual(movements, previousMovements)) {
+					previousMovements = movements.slice(); // Copy movements array
 					console.log(movements);
 					return movements;
 				} else {
