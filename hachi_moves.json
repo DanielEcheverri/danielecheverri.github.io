@@ -29,6 +29,7 @@
 	},
 	{
 		"condition": {
+			"waistMoving": null,
 			"rightLegMoving": true
 		},
 		"partMoving": "back leg",
@@ -36,6 +37,7 @@
 	},
 	{
 		"condition": {
+			"waistMoving": null,
 			"rightLegMoving": false
 		},
 		"partMoving": "back leg",
