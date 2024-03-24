@@ -445,7 +445,10 @@
 			        let label = labels[i];
 			        let movement = labelMovements[label];
 
-			        if (!movement) continue; // Skip if label not found in labelMovements
+					// Ignore if movement is null
+					if (movement === null || movement === undefined) {
+						continue;
+					}
 
 			        // Movement detection
 			        if (potValues[i] < previousPotValues[i] - movementThreshold) {
