@@ -437,6 +437,7 @@
 				// Return the detected movement
 				if (movements !== previousMovements){
 					previousMovements = movements;
+					console.log(movements);
 					return movements;
 				} else {
 					return null;
