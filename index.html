@@ -700,38 +700,14 @@
 					}
 
 					clearTimeout(timeoutID);
-
-					// Check if partMoving or directionMoving has changed
-					if (partMoving !== previousPartMoving || directionMoving !== previousDirectionMoving) {
-						// Update previous partMoving and directionMoving.
-						previousPartMoving = partMoving;
-						previousDirectionMoving = directionMoving;
-
-						// Check if latitude or longitude has changed
-						if (latitude !== previousLatitude || longitude !== previousLongitude) {
-							// Update previous latitude and longitude
-							previousLatitude = latitude;
-							previousLongitude = longitude;
-							console.log("new position");
-							composeMessage(message, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
-									.then((fullMessage) => {
-										updateDisplay(fullMessage);
-										streetName = name;
-									})
-									.catch(error => {
-										console.error(error);
-									});
-							};
-						} else {
-							// Compose the full message using the existing streetName value
-							composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
+					composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
 								.then((fullMessage) => {
 									updateDisplay(fullMessage);
 								})
 								.catch(error => {
 									console.error(error);
 								});
-						}
+
 					}
 
 					// Update display
