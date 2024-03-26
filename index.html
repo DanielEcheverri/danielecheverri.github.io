@@ -561,7 +561,7 @@
 								displayText(patternMovement);
 								// Optionally, you can clear the buffer after a match if needed
 								movementBuffer = [];
-								resetPatternTimer();
+								resetTimer(patternMovement);
 								return;
 							}
 						}
@@ -570,18 +570,34 @@
 					}
 				}
 
-				let timeoutId; // Variable to store the timeout ID
-				function setPatternMovementToNone() {
-					if (patternMovement !== "none") {
-						patternMovement = "none";
+				let timeoutIds = {}; // Object to store timeout IDs for different variables
+
+				// Function to set a variable to "none" after 3 seconds of inactivity
+				function setToNone(variable) {
+					if (variable !== "none") {
+						variable = "none";
 					}
-					clearTimeout(timeoutId); // Clear the timeout
+					clearTimeout(timeoutIds[variable]); // Clear the timeout
 				}
 
-				// Function to reset the timer whenever patternMovement changes
-				function resetPatternTimer() {
-					timeoutId = setTimeout(setPatternMovementToNone, 3000); // Set a new timeout
+				// Function to reset the timer whenever a variable changes
+				function resetTimer(variable) {
+					clearTimeout(timeoutIds[variable]); // Clear the previous timeout
+					timeoutIds[variable] = setTimeout(() => setToNone(variable), 3000); // Set a new timeout
 				}
+
+
+				// function setPatternMovementToNone() {
+				// 	if (patternMovement !== "none") {
+				// 		patternMovement = "none";
+				// 	}
+				// 	clearTimeout(timeoutId); // Clear the timeout
+				// }
+
+				// // Function to reset the timer whenever patternMovement changes
+				// function resetPatternTimer() {
+				// 	timeoutId = setTimeout(setPatternMovementToNone, 3000); // Set a new timeout
+				// }
 
 				// Function to check if a pattern exists in the movement buffer
 				function checkPatternInBuffer(pattern) {

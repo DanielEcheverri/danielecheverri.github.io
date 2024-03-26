@@ -1,34 +1,34 @@
 [
 	{
-		"patternName": "Jumping very high!",
+		"patternName": "Jumping",
 		"pattern": [
 			{ "partMoving": "front leg", "directionMoving": "up" },
 			{ "partMoving": "back leg", "directionMoving": "up" }
 		]
 	},
 	{
-		"patternName": "Jumping very high!",
+		"patternName": "Jumping",
 		"pattern": [
 			{ "partMoving": "back leg", "directionMoving": "up" },
 			{ "partMoving": "front leg", "directionMoving": "up" }
 		]
 	},
 	{
-		"patternName": "Landing the jump!",
+		"patternName": "Landing",
 		"pattern": [
 			{ "partMoving": "front leg", "directionMoving": "down" },
 			{ "partMoving": "back leg", "directionMoving": "down" }
 		]
 	},
 	{
-		"patternName": "Landing the jump!",
+		"patternName": "Landing",
 		"pattern": [
 			{ "partMoving": "back leg", "directionMoving": "down" },
 			{ "partMoving": "front leg", "directionMoving": "down" }
 		]
 	},
 	{
-		"patternName": "Grabbing something from the floor",
+		"patternName": "Grabbing down",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "down" },
 			{ "partMoving": "front leg", "directionMoving": "up" },
@@ -36,7 +36,7 @@
 		]
 	},
 	{
-		"patternName": "Grabbing something from the floor",
+		"patternName": "Grabbing down",
 		"pattern": [
 			{ "partMoving": "front leg", "directionMoving": "up" },
 			{ "partMoving": "front leg", "directionMoving": "down" },
@@ -44,7 +44,7 @@
 		]
 	},
 	{
-		"patternName": "Grabbing something high",
+		"patternName": "Grabbing up",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "up" },
 			{ "partMoving": "front leg", "directionMoving": "up" },
@@ -52,7 +52,7 @@
 		]
 	},
 	{
-		"patternName": "Grabbing something high",
+		"patternName": "Grabbing up",
 		"pattern": [
 			{ "partMoving": "front leg", "directionMoving": "up" },
 			{ "partMoving": "front leg", "directionMoving": "down" },
@@ -60,7 +60,7 @@
 		]
 	},
 	{
-		"patternName": "Sniffing something",
+		"patternName": "Sniffing down",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "down" },
 			{ "partMoving": "head", "directionMoving": "up" },
@@ -68,7 +68,7 @@
 		]
 	},
 	{
-		"patternName": "Howling!",
+		"patternName": "Howling",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "up" },
 			{ "partMoving": "head", "directionMoving": "down" },
@@ -76,7 +76,7 @@
 		]
 	},
 	{
-		"patternName": "Wiggling the tail",
+		"patternName": "Wiggling tail",
 		"pattern": [
 			{ "partMoving": "tail", "directionMoving": "down" },
 			{ "partMoving": "back leg", "directionMoving": "up" },
@@ -85,7 +85,7 @@
 		]
 	},
 	{
-		"patternName": "Wiggling the tail",
+		"patternName": "Wiggling tail",
 		"pattern": [
 			{ "partMoving": "tail", "directionMoving": "up" },
 			{ "partMoving": "back leg", "directionMoving": "down" },
@@ -94,7 +94,7 @@
 		]
 	},
 	{
-		"patternName": "Standing on the back leg",
+		"patternName": "Standing back leg",
 		"pattern": [
 			{ "partMoving": "front leg", "directionMoving": "up" },
 			{ "partMoving": "front leg", "directionMoving": "down" },
@@ -102,25 +102,11 @@
 		]
 	},
 	{
-		"patternName": "Standing on the front leg",
+		"patternName": "Standing front leg",
 		"pattern": [
 			{ "partMoving": "back leg", "directionMoving": "up" },
 			{ "partMoving": "back leg", "directionMoving": "down" },
 			{ "partMoving": "back leg", "directionMoving": "up" }
-		]
-	},
-	{
-		"patternName": "Keeping something",
-		"pattern": [
-			{ "partMoving": "left arm", "directionMoving": "up" },
-			{ "partMoving": "left forearm", "directionMoving": "right" }
-		]
-	},
-	{
-		"patternName": "Keeping something",
-		"pattern": [
-			{ "partMoving": "right arm", "directionMoving": "up" },
-			{ "partMoving": "right forearm", "directionMoving": "right" }
 		]
 	}
 ]
