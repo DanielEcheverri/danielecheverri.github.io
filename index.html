@@ -1065,7 +1065,7 @@
 
 		<script type="module">
 			import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js'
-			import  { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js'
+			import  { getDatabase, ref, set, onValue, update } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js'
 
 			// Your Firebase configuration
 			const firebaseConfig = {
@@ -1131,7 +1131,7 @@
 						const passageVar = (deviceName === 'hachi_BT') ? 'hachi_passage' :'avatar_passage' ;
 
 			            // Write variables to the database
-			            set(ref(database, databaseName), {
+			            update(ref(database, databaseName), {
 			                [latitudeVar]: latitude,
 			                [longitudeVar]: longitude,
 							[headingVar]: directionText,
@@ -1141,7 +1141,7 @@
 							[partMovementVar]: partMoving,
 							[dirMovementVar]: directionMoving,
 							[tagInteractionVar]: tagID,
-							[passageVar]: passageEmpty
+							//[passageVar]: passageEmpty
 			            }).then(() => {
 			                //console.log("Variables written to the database successfully!");
 			            }).catch((error) => {
