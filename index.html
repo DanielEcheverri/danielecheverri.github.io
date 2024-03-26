@@ -561,12 +561,26 @@
 								displayText(patternMovement);
 								// Optionally, you can clear the buffer after a match if needed
 								movementBuffer = [];
+								resetPatternTimer();
 								return;
 							}
 						}
 					} catch (error) {
 						console.error(error);
 					}
+				}
+
+				let timeoutId; // Variable to store the timeout ID
+				function setPatternMovementToNone() {
+					if (patternMovement !== "none") {
+						patternMovement = "none";
+					}
+					clearTimeout(timeoutId); // Clear the timeout
+				}
+
+				// Function to reset the timer whenever patternMovement changes
+				function resetPatternTimer() {
+					timeoutId = setTimeout(setPatternMovementToNone, 3000); // Set a new timeout
 				}
 
 				// Function to check if a pattern exists in the movement buffer
