@@ -561,7 +561,9 @@
 								displayText(patternMovement);
 								// Optionally, you can clear the buffer after a match if needed
 								movementBuffer = [];
-								resetTimer(patternMovement);
+								resetTimer(partMoving, 3000);
+								resetTimer(partMoving, 5000);
+								resetTimer(directionMoving, 5000);
 								return;
 							}
 						}
@@ -581,9 +583,9 @@
 				}
 
 				// Function to reset the timer whenever a variable changes
-				function resetTimer(variable) {
+				function resetTimer(variable, timeout) {
 					clearTimeout(timeoutIds[variable]); // Clear the previous timeout
-					timeoutIds[variable] = setTimeout(() => setToNone(variable), 3000); // Set a new timeout
+					timeoutIds[variable] = setTimeout(() => setToNone(variable), timeout); // Set a new timeout
 				}
 
 
