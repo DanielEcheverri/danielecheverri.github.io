@@ -561,9 +561,6 @@
 								displayText(patternMovement);
 								// Optionally, you can clear the buffer after a match if needed
 								movementBuffer = [];
-								resetTimer(partMoving, 3000);
-								resetTimer(partMoving, 5000);
-								resetTimer(directionMoving, 5000);
 								return;
 							}
 						}
@@ -571,6 +568,10 @@
 						console.error(error);
 					}
 				}
+
+				resetTimer(partMoving, 3000);
+				resetTimer(partMoving, 5000);
+				resetTimer(directionMoving, 5000);
 
 				let timeoutIds = {}; // Object to store timeout IDs for different variables
 
