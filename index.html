@@ -577,17 +577,18 @@
 
 				// Function to set a variable to "none" after 3 seconds of inactivity
 				function setToNone(variable) {
-				if (variable.value !== "none") {
-					variable.value = "none";
+					if (variable !== "none") {
+						variable = "none";
+					}
+					clearTimeout(timeoutIds[variable]); // Clear the timeout
 				}
-				clearTimeout(timeoutIds[variable.name]); // Clear the timeout
-			}
 
-			// Function to reset the timer whenever a variable changes
-			function resetTimer(variable, timeout) {
-				clearTimeout(timeoutIds[variable.name]); // Clear the previous timeout
-				timeoutIds[variable.name] = setTimeout(() => setToNone(variable), timeout); // Set a new timeout
-			}
+				// Function to reset the timer whenever a variable changes
+				function resetTimer(variable) {
+					clearTimeout(timeoutIds[variable]); // Clear the previous timeout
+					timeoutIds[variable] = setTimeout(() => setToNone(variable), 3000); // Set a new timeout
+				}
+
 
 
 				// function setPatternMovementToNone() {
