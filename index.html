@@ -561,7 +561,7 @@
 								displayText(patternMovement);
 								// Clear the buffer after a match
 								movementBuffer = [];
-								setTimeout(resetVariables, 3000); // 3000 milliseconds = 3 seconds
+								setTimeout(resetVariables, 4000); // 3000 milliseconds = 3 seconds
 								return;
 							}
 						}
@@ -694,7 +694,7 @@
 					var messageDisplayDiv = document.getElementById("messageDisplayDiv");
 					fullMessage = message;
 
-					// Check if speaking is true, if so, exit early
+					// Check if speaking is true, if so, exit early.
 					if (speaking) {
 						return;
 					}
