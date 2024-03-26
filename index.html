@@ -572,7 +572,6 @@
 
 				let timeoutIds = {}; // Object to store timeout IDs for different variables
 
-
 				resetTimer(partMoving, 5000);
 				resetTimer(directionMoving, 5000);
 
@@ -587,7 +586,7 @@
 				// Function to reset the timer whenever a variable changes
 				function resetTimer(variable, timeout) {
 					clearTimeout(timeoutIds[variable]); // Clear the previous timeout
-					timeoutIds[variable] = setTimeout(() => setToNone(variable), timeout); // Set a new timeout
+					console.log(timeoutIds[variable] = setTimeout(() => setToNone(variable), timeout)); // Set a new timeout
 				}
 
 
