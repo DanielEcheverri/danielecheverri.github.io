@@ -559,8 +559,9 @@
 								console.log(`Pattern matched: ${pattern.patternName}`);
 								patternMovement = pattern.patternName;
 								displayText(patternMovement);
-								// Optionally, you can clear the buffer after a match if needed
+								// Clear the buffer after a match
 								movementBuffer = [];
+								resetTimer(patternMovement, 3000);
 								return;
 							}
 						}
@@ -571,7 +572,7 @@
 
 				let timeoutIds = {}; // Object to store timeout IDs for different variables
 
-				resetTimer(patternMovement, 3000);
+
 				resetTimer(partMoving, 5000);
 				resetTimer(directionMoving, 5000);
 
