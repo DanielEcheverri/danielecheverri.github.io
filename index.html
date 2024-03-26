@@ -569,11 +569,11 @@
 					}
 				}
 
+				let timeoutIds = {}; // Object to store timeout IDs for different variables
+
 				resetTimer(patternMovement, 3000);
 				resetTimer(partMoving, 5000);
 				resetTimer(directionMoving, 5000);
-
-				let timeoutIds = {}; // Object to store timeout IDs for different variables
 
 				// Function to set a variable to "none" after 3 seconds of inactivity
 				function setToNone(variable) {
