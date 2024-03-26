@@ -1127,6 +1127,7 @@
 						const partMovementVar = (deviceName === 'hachi_BT') ? 'hachi_part_mov' :'avatar_part_mov' ;
 						const dirMovementVar = (deviceName === 'hachi_BT') ? 'hachi_part_dir' :'avatar_part_dir' ;
 						const tagInteractionVar = (deviceName === 'hachi_BT') ? 'hachi_tag' :'avatar_tag' ;
+						const passageVar = (deviceName === 'hachi_BT') ? 'hachi_passage' :'avatar_passage' ;
 
 			            // Write variables to the database
 			            set(ref(database, databaseName), {
@@ -1138,7 +1139,8 @@
 							[movementVar]: patternMovement,
 							[partMovementVar]: partMoving,
 							[dirMovementVar]: directionMoving,
-							[tagInteractionVar]: tagID
+							[tagInteractionVar]: tagID,
+							//[passageVar]: tagID
 			            }).then(() => {
 			                //console.log("Variables written to the database successfully!");
 			            }).catch((error) => {
