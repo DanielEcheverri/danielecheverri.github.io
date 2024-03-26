@@ -695,7 +695,7 @@
 					fullMessage = message;
 
 					// Check if speaking is true, if so, exit early.
-					if (speaking) {
+					if (speaking || !isConnected) {
 						return;
 					}
 
