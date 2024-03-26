@@ -1093,6 +1093,7 @@
 			let prevMovement = null;
 			let prevTagInteraction = null;
 			let prevHeading = null;
+			let passageEmpty = null;
 
 			// Function to write data to the database
 			function writeToDatabase() {
@@ -1140,7 +1141,7 @@
 							[partMovementVar]: partMoving,
 							[dirMovementVar]: directionMoving,
 							[tagInteractionVar]: tagID,
-							//[passageVar]: tagID
+							[passageVar]: passageEmpty
 			            }).then(() => {
 			                //console.log("Variables written to the database successfully!");
 			            }).catch((error) => {
