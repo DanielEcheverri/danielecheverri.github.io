@@ -562,8 +562,6 @@
 								// Clear the buffer after a match
 								movementBuffer = [];
 								resetTimer(patternMovement, 3000);
-								resetTimer(partMoving, 5000);
-								resetTimer(directionMoving, 5000);
 								return;
 							}
 						}
@@ -572,7 +570,10 @@
 					}
 				}
 
+
 				let timeoutIds = {}; // Object to store timeout IDs for different variables
+				resetTimer(partMoving, 5000);
+				resetTimer(directionMoving, 5000);
 
 				// Function to set a variable to "none" after 3 seconds of inactivity
 				function setToNone(variable) {
