@@ -561,7 +561,9 @@
 								displayText(patternMovement);
 								// Clear the buffer after a match
 								movementBuffer = [];
-								resetTimer(patternMovement, 3000);
+								patternMovement= "none";
+								partMoving = "none";
+								directionMoving = "none";
 								return;
 							}
 						}
@@ -569,27 +571,6 @@
 						console.error(error);
 					}
 				}
-
-
-				let timeoutIds = {}; // Object to store timeout IDs for different variables
-				console.log(resetTimer(partMoving, 5000));
-				resetTimer(directionMoving, 5000);
-
-				// Function to set a variable to "none" after 3 seconds of inactivity
-				function setToNone(variable) {
-					if (variable !== "none") {
-						variable = "none";
-					}
-					clearTimeout(timeoutIds[variable]); // Clear the timeout
-				}
-
-				// Function to reset the timer whenever a variable changes
-				function resetTimer(variable) {
-					clearTimeout(timeoutIds[variable]); // Clear the previous timeout
-					timeoutIds[variable] = setTimeout(() => setToNone(variable), 3000); // Set a new timeout
-				}
-
-
 
 				// function setPatternMovementToNone() {
 				// 	if (patternMovement !== "none") {
