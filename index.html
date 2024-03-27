@@ -807,24 +807,6 @@
 
 				let weatherDescription = null;
 
-				// Function to determine if it's day or night
-				function getTimeOfDay() {
-					var currentTime = new Date().getHours();
-					if (currentTime >= 6 && currentTime < 9) {
-						return "early morning";
-					} else if (currentTime >= 9 && currentTime < 12) {
-						return "morning";
-					} else if (currentTime >= 12 && currentTime < 15) {
-						return "noon";
-					} else if (currentTime >= 15 && currentTime < 18) {
-						return "afternoon";
-					} else if (currentTime >= 18 && currentTime < 21) {
-						return "evening";
-					} else {
-						return "night";
-					}
-				}
-
 				var noNarrative;
 				var previousTagID = ""; // Variable to store the previous tagID
 
