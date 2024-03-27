@@ -614,62 +614,6 @@
 					}
 				}
 
-				// Function to fetch city name using Overpass API
-				function fetchStreetName() {
-					return new Promise((resolve, reject) => {
-						const checkCoordinates = () => {
-							if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
-								resolve();
-							} else {
-								setTimeout(checkCoordinates, 300); // Check again after 100 milliseconds
-								console.log("Fetching location...");
-							}
-						};
-						checkCoordinates();
-						// Log the street promise to the console
-						console.log("Fetching street data...");
-					})
-					.then(() => {
-						// Construct Overpass API query
-						var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:50," + latitude + "," + longitude + ");out;";
-						// Fetch data from Overpass API
-						return fetch(overpassQuery);
-					})
-					.then((response) => response.json())
-					.then((data) => {
-						// Loop through elements to find 'addr:street' property
-						for (let i = 0; i < data.elements.length; i++) {
-							const element = data.elements[i];
-							if (element.tags && element.tags['addr:street']) {
-								console.log("Street name:", element.tags['addr:street']);
-								return element.tags['addr:street']; // Found, return street name
-							}
-						}
-						// If 'addr:street' is not found in any element, throw an error.
-						throw new Error("Street name not found");
-					})
-					.catch((error) => {
-						//console.error("Error fetching street name:", error);
-						return "an unknown";
-					});
-				}
-
-				// Define a function to fetch the street name and update the global variable
-				function updateStreetName() {
-					if (isConnected) {
-						fetchStreetName()
-							.then((name) => {
-								streetName = name;
-							})
-							.catch(error => {
-								console.error(error);
-							});
-					}
-				}
-
-				// Call updateStreetName then every 10 seconds
-				//setInterval(updateStreetName, 30000); // Call it every 10 seconds (10000 milliseconds)
-
 				var timeoutID; // Variable to hold the timeout ID.
 				var previousMessage = ""; // Variable to store the previous message
 				var previousLatitude;
