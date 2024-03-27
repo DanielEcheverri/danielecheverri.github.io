@@ -856,7 +856,7 @@
 					}
 				}
 
-				// Call the function periodically (e.g., every 5 seconds)
+				// Call the function periodically (e.g., every 5 seconds).
 				setInterval(checkSpeechSynthesis, 1000); // Adjust the interval as needed
 
 				let weatherDescription = null;
@@ -866,7 +866,6 @@
 					const weatherPromise = new Promise((resolve, reject) => {
 						const checkCoordinates = () => {
 							if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
-
 								resolve();
 							} else {
 								console.log("Fetching location");
