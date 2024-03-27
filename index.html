@@ -157,7 +157,7 @@
 
 				function checkVariables() {
 					// Check if latitude, longitude, and weatherDescription are not null
-					if (latitude !== null && longitude !== null && weatherDescription !== null) {
+					if (latitude !== null && longitude !== null) {
 						fetchStreetName().then((name) => {
 							streetName = name;
 							connectButton.disabled = false;
