@@ -576,18 +576,6 @@
 					patternMovement = "none";
 				}
 
-				// function setPatternMovementToNone() {
-				// 	if (patternMovement !== "none") {
-				// 		patternMovement = "none";
-				// 	}
-				// 	clearTimeout(timeoutId); // Clear the timeout
-				// }
-
-				// // Function to reset the timer whenever patternMovement changes
-				// function resetPatternTimer() {
-				// 	timeoutId = setTimeout(setPatternMovementToNone, 3000); // Set a new timeout
-				// }
-
 				// Function to check if a pattern exists in the movement buffer
 				function checkPatternInBuffer(pattern) {
 					const bufferLength = movementBuffer.length;
@@ -1160,6 +1148,7 @@
 				const otherLongitudeVar = (deviceName === 'hachi_BT') ? 'avatar_longitude' : 'hachi_longitude' ;
 				const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
 				const myPassage = (deviceName === 'hachi_BT') ? 'hachi_passage' :'avatar_passage' ;
+				const myStreet = (deviceName === 'hachi_BT') ? 'hachi_street' :'avatar_street' ;
 
 				// Subscribe to real-time updates for variables from the other database
 				onValue(ref(database, otherDatabaseName), (snapshot) => {
@@ -1184,6 +1173,7 @@
 						displayText(String(passage));
 						previousPassage = passage; // Update previous passage
 					}
+					streetName = myData[myStreet];
 				} else {
 					console.log("No data found in the own database.");
 				}
