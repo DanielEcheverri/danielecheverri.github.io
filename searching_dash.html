@@ -119,6 +119,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
       	flex-direction: column;
         position: absolute;
         top: 0;
+      	left: 0;
         width: 100%;
         height: 70%;
         align-items: center; /* Vertically center items */
@@ -148,6 +149,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
         display: flex;
         position: absolute;
         bottom: 0;
+      	left: 0;
         width: 100%;
         height: 30%;
     }
@@ -456,6 +458,41 @@ window.writeToHachi = function(databaseNode, hachiData) {
       }
     }
   
+  var radius = 1000;
+  window.fetchStopsNear = async function(latitude,longitude) {
+    try {
+    const apiKey = 'gYW4HBUHK9kB5j8wDxwxGglMKrWl9P9J';
+    const apiUrl = `https://api.transit.land/api/v2/stops?lon=${longitude}&lat=${latitude}&r=${radius}`;
+    const response = await fetch(apiUrl, {
+      headers: {
+        'Api-Key': apiKey
+      }
+    });
+    const data = await response.json();
+
+    // Check if the 'stops' property exists in the response
+    if (!data || !data.stops || data.stops.length === 0) {
+      console.log('No transit stops found near the specified location.');
+      return null;
+    }
+
+    // Process the data (e.g., extract stop names, IDs, etc.)
+    const stops = data.stops.map(stop => ({
+      id: stop.onestop_id,
+      name: stop.name,
+      location: {
+        longitude: stop.geometry.coordinates[0],
+        latitude: stop.geometry.coordinates[1]
+      }
+    }));
+
+    return stops;
+  } catch (error) {
+    console.error('Error fetching transit stops:', error);
+    return null;
+  }
+}
+  
   //Last line of the function. KEEP
 })
 
@@ -596,8 +633,13 @@ Loading variables...
 
 &lt;&lt;set $storyWeather to &#39;&#39;&gt;&gt;
 &lt;&lt;set $storyTime to &#39;&#39;&gt;&gt;
+&lt;&lt;set $storyTransStop to &#39;&#39;&gt;&gt;
 &lt;&lt;repeat 20000ms&gt;&gt;
 &lt;&lt;script&gt;&gt;
+fetchStopsNear(avatar_latitude, avatar_longitude)
+  .then((transStops) =&gt; {
+  	variables().storyTransStop=transStops;
+  });
 fetchWeather(avatar_latitude, avatar_longitude)
   .then((weatherDescription) =&gt; {
   	variables().storyWeather=weatherDescription;
@@ -665,7 +707,7 @@ Stand on the front or back leg? $hachi_movement
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="hachi_2A" tags="" position="825,650" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;This is Hachi&#39;s second B interaction with the world&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;This is Hachi&#39;s second A interaction with the world&quot;&gt;&gt;
 $hachi_passage
 
 &lt;&lt;set hachi_passage to $hachi_passage&gt;&gt;
@@ -688,7 +730,7 @@ Stand on the front or back leg? $hachi_movement
 &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
-&lt;&lt;nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="hachi_2B" tags="" position="950,650" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="hachi_2B" tags="" position="950,650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;This is Hachi&#39;s second B interaction with the world&quot;&gt;&gt;
 $hachi_passage
 
