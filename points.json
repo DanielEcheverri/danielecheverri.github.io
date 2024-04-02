@@ -3,8 +3,8 @@
 		"checkpoints": {
 			"checkpoint_1": [
 				{
-					"latitude": 49.192242,
-					"longitude": 16.602331,
+					"latitude": 49.191985,
+					"longitude": 16.600385,
 					"text": "Checkpoint 1A"
 				},
 				{
@@ -15,8 +15,8 @@
 			],
 			"checkpoint_2": [
 				{
-					"latitude": 49.192879,
-					"longitude": 16.604801,
+					"latitude": 49.191885,
+					"longitude": 16.600493,
 					"text": "Checkpoint 2A"
 				},
 				{
@@ -27,8 +27,8 @@
 			],
 			"checkpoint_3": [
 				{
-					"latitude": 49.197696,
-					"longitude": 16.606312,
+					"latitude": 49.191998,
+					"longitude": 16.600632,
 					"text": "Checkpoint 3A"
 				},
 				{
@@ -39,8 +39,8 @@
 			],
 			"checkpoint_4": [
 				{
-					"latitude": 49.207571,
-					"longitude": 16.601022,
+					"latitude": 49.191897,
+					"longitude": 16.600431,
 					"text": "Checkpoint 4A"
 				},
 				{
@@ -51,8 +51,8 @@
 			],
 			"checkpoint_5": [
 				{
-					"latitude": 49.207571,
-					"longitude": 16.601022,
+					"latitude": 49.191884,
+					"longitude": 16.600446,
 					"text": "Checkpoint 5A"
 				},
 				{
@@ -63,8 +63,8 @@
 			],
 			"checkpoint_6": [
 				{
-					"latitude": 49.207571,
-					"longitude": 16.601022,
+					"latitude": 49.191904,
+					"longitude": 16.600468,
 					"text": "Checkpoint 6A"
 				},
 				{
