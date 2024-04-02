@@ -525,6 +525,9 @@
 						if (partMoving !== previousPart || directionMoving !== previousDirection) {
 							// Add movement to the sequence buffer
 							console.log(partMoving+" "+directionMoving);
+							if (noNarrative){
+								displayText(partMoving+" "+directionMoving);
+							}
 							previousPart = partMoving;
 							previousDirection = directionMoving;
 							trackMovementSequences();
@@ -565,7 +568,9 @@
 								window.success_Sound.play();
 								console.log(`Pattern matched: ${pattern.patternName}`);
 								patternMovement = pattern.patternName;
-								//displayText(patternMovement);
+								if (noNarrative){
+									displayText(patternMovement);
+								}
 								// Clear the buffer after a match
 								movementBuffer = [];
 								setTimeout(resetVariables, 4000); // 3000 milliseconds = 3 seconds
