@@ -63,6 +63,26 @@
 				// var talking_Sound = new Howl({src: ['audio/talking.mp3'],
 				// onloaderror: function(error) {console.error('Error loading audio:', error);},});
 
+				async function initializeSounds() {
+					try {
+						const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
+						if (sounds) {
+						for (var key in sounds) {
+							if (sounds.hasOwnProperty(key)) {
+							window[key] = new Howl({
+								src: [sounds[key].src],
+								onloaderror: function(error) { console.error('Error loading audio:', error); }
+							});
+							}
+						}
+						} else {
+						console.error('Failed to load sounds.');
+						}
+					} catch (error) {
+						console.error('Error initializing sounds:', error);
+					}
+				}
+
 				async function connectToDevice() {
 					try {
 						if (!isConnected) {
@@ -899,26 +919,6 @@
 						}
 					}
 				}
-
-				// async function initializeSounds() {
-				// 	try {
-				// 		const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
-				// 		if (sounds) {
-				// 		for (var key in sounds) {
-				// 			if (sounds.hasOwnProperty(key)) {
-				// 			window[key] = new Howl({
-				// 				src: [sounds[key].src],
-				// 				onloaderror: function(error) { console.error('Error loading audio:', error); }
-				// 			});
-				// 			}
-				// 		}
-				// 		} else {
-				// 		console.error('Failed to load sounds.');
-				// 		}
-				// 	} catch (error) {
-				// 		console.error('Error initializing sounds:', error);
-				// 	}
-				// }
 
 				function setupColors() {
 					lineColors[0] = color(204, 204, 0); // Dark Yellow
