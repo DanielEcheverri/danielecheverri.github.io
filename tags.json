@@ -3,12 +3,12 @@
 		"12": {
 			"displayText": "Non-narrative",
 			"variable": "noNarrative",
-			"boolean": false
+			"boolean": true
 		},
 		"13": {
 			"displayText": "Narrative",
 			"variable": "noNarrative",
-			"boolean": true
+			"boolean": false
 		},
 		"2": {
 			"displayText": "Good boy!",
