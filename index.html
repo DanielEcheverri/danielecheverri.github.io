@@ -48,20 +48,9 @@
 				let sentenceSource = null;
 				let tagSource = null;
 				let checkpointsSource = 'points.json';
-				// var alert_Sound = new Howl({src: ['audio/alert_high-intensity.mp3'],
-				// onloaderror: function(error) {console.error('Error loading audio:', error);},});
-
-				// var success_Sound = new Howl({src: ['audio/navigation_selection-complete-celebration.mp3'],
-				// onloaderror: function(error) {console.error('Error loading audio:', error);},});
 
 				var connecting_Sound = new Howl({src: ['audio/ui_loading.mp3'],
 				onloaderror: function(error) {console.error('Error loading audio:', error);},});
-
-				// var barking_Sound = new Howl({src: ['audio/barking.mp3'],
-				// onloaderror: function(error) {console.error('Error loading audio:', error);},});
-
-				// var talking_Sound = new Howl({src: ['audio/talking.mp3'],
-				// onloaderror: function(error) {console.error('Error loading audio:', error);},});
 
 				async function initializeSounds() {
 					try {
@@ -648,15 +637,14 @@
 					if (speaking) {
 						return;
 					}
-
 					clearTimeout(timeoutID);
-					composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
-								.then((fullMessage) => {
+					// composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
+					// 			.then((fullMessage) => {
 									updateDisplay(fullMessage);
-								})
-								.catch(error => {
-									console.error(error);
-								});
+								// })
+								// .catch(error => {
+								// 	console.error(error);
+								// });
 
 					}
 
@@ -721,48 +709,49 @@
 				}
 
 				let cachedSentences;
-				async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,patternMovement) {
-					try {
-						let sentenceTemplate;
-						if (noNarrative) {
-							// Read sentences from JSON file.
-							const sentences = await fetchJSONFile(sentenceSource, cachedSentences);
-							if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
-								throw new Error("Error: Unable to load or empty sentences array.");
-							}
 
-							// Select a random sentence object from the array
-							const randomSentenceObject = sentences[Math.floor(Math.random() * sentences.length)];
+				// async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,patternMovement) {
+				// 	try {
+				// 		let sentenceTemplate;
+				// 		if (noNarrative) {
+				// 			// Read sentences from JSON file.
+				// 			const sentences = await fetchJSONFile(sentenceSource, cachedSentences);
+				// 			if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
+				// 				throw new Error("Error: Unable to load or empty sentences array.");
+				// 			}
 
-							// Ensure that the random sentence object has the "sentence" property and it's a string
-							if (!randomSentenceObject || typeof randomSentenceObject.sentence !== 'string') {
-								throw new Error("Error: Random sentence object is invalid.");
-							}
+				// 			// Select a random sentence object from the array
+				// 			const randomSentenceObject = sentences[Math.floor(Math.random() * sentences.length)];
 
-							// Extract the sentence template from the random sentence object
-							sentenceTemplate = randomSentenceObject.sentence;
-						} else {
-							// If noNarrative is set to true, keep the original message template
-							sentenceTemplate = template;
-						}
-						// Replace placeholders in the sentence template
-						fullMessage = sentenceTemplate
-							.replace(/\{weatherDescription\}/g, weatherDescription)
-							.replace(/\{timeOfDay\}/g, timeOfDay)
-							.replace(/\{name\}/g, name)
-							.replace(/\{partMoving\}/g, partMoving)
-							.replace(/\{directionMoving\}/g, directionMoving)
-							.replace(/\{speed\}/g, speed)
-							.replace(/\{patternMovement\}/g, patternMovement)
-							.replace(/\{latitude\}/g, latitude)
-							.replace(/\{longitude\}/g, longitude);
+				// 			// Ensure that the random sentence object has the "sentence" property and it's a string
+				// 			if (!randomSentenceObject || typeof randomSentenceObject.sentence !== 'string') {
+				// 				throw new Error("Error: Random sentence object is invalid.");
+				// 			}
 
-						return fullMessage;
-					} catch (err) {
-						console.error('Error fetching or composing message:', err);
-						return null;
-					}
-				}
+				// 			// Extract the sentence template from the random sentence object
+				// 			sentenceTemplate = randomSentenceObject.sentence;
+				// 		} else {
+				// 			// If noNarrative is set to true, keep the original message template
+				// 			sentenceTemplate = template;
+				// 		}
+				// 		// Replace placeholders in the sentence template
+				// 		fullMessage = sentenceTemplate
+				// 			.replace(/\{weatherDescription\}/g, weatherDescription)
+				// 			.replace(/\{timeOfDay\}/g, timeOfDay)
+				// 			.replace(/\{name\}/g, name)
+				// 			.replace(/\{partMoving\}/g, partMoving)
+				// 			.replace(/\{directionMoving\}/g, directionMoving)
+				// 			.replace(/\{speed\}/g, speed)
+				// 			.replace(/\{patternMovement\}/g, patternMovement)
+				// 			.replace(/\{latitude\}/g, latitude)
+				// 			.replace(/\{longitude\}/g, longitude);
+
+				// 		return fullMessage;
+				// 	} catch (err) {
+				// 		console.error('Error fetching or composing message:', err);
+				// 		return null;
+				// 	}
+				// }
 
 				// Variable to store the last spoken message
 				let lastSpokenMessage = '';
