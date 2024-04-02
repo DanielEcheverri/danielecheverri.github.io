@@ -20,7 +20,7 @@
 		</div>
 		<div id="avatarBTdiv">
 			<!-- Connect Button. -->
-			<button id="connectButton" class="button" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('')">
+			<button id="connectButton" class="button" disabled onclick="window.connecting_Sound.play();, wakeLock(), displayText('')">
 				<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
 			</button>
 		</div>
@@ -89,6 +89,7 @@
 								movePatterns = 'hachi_patterns.json';
 								sentenceSource = 'hachi_sentences.json';
 								tagSource = 'tags.json';
+								initializeSounds();
 							} else {
 								console.log("Loading settings for Avatar_BT");
 								labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
@@ -96,6 +97,7 @@
 								movePatterns = 'avatar_patterns.json';
 								sentenceSource = 'avatar_sentences.json';
 								tagSource = 'tags.json';
+								initializeSounds();
 							}
 							// Listen for characteristic value changes
 							characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -557,7 +559,7 @@
 						//const patterns = await fetchMovementPatterns();
 						for (const pattern of patterns) {
 							if (checkPatternInBuffer(pattern.pattern)) {
-								success_Sound.play();
+								window.success_Sound.play();
 								console.log(`Pattern matched: ${pattern.patternName}`);
 								patternMovement = pattern.patternName;
 								//displayText(patternMovement);
@@ -823,7 +825,8 @@
 							if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
 								// Update previousTagID to the current tagID
 								previousTagID = tagID;
-								success_Sound.play();
+								//success_Sound.play();
+								window.success_Sound.play();
 								console.log(tagID);
 
 								// Retrieve tag information based on tagID
@@ -844,7 +847,7 @@
 								//directionMoving = tagData.directionMoving;
 
 							} else {
-								alert_Sound.play();
+								window.alert_Sound.play();
 								console.error('Tag information not found.');
 								return;
 							}
@@ -890,7 +893,7 @@
 									if (distance <= radius) {
 										console.log('Checkpoint reached:', checkpoint.text);
 										currentCheckpoint = checkpoint.text;
-										success_Sound.play();
+										window.success_Sound.play();
 										lastCheckedIndex++; // Move to the next key
 										return; // Exit the function when a checkpoint is reached
 									}
@@ -900,6 +903,26 @@
 								console.log("No more checkpoint sets to check.");
 							}
 						}
+					}
+				}
+
+				async function initializeSounds() {
+					try {
+						const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
+						if (sounds) {
+						for (var key in sounds) {
+							if (sounds.hasOwnProperty(key)) {
+							window[key] = new Howl({
+								src: [sounds[key].src],
+								onloaderror: function(error) { console.error('Error loading audio:', error); }
+							});
+							}
+						}
+						} else {
+						console.error('Failed to load sounds.');
+						}
+					} catch (error) {
+						console.error('Error initializing sounds:', error);
 					}
 				}
 
