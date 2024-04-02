@@ -674,7 +674,7 @@
 						var timeoutCallback = function() {
 							if (!speaking) {
 								messageDisplayDiv.textContent = ""; // Clear the text
-								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text							} else {
+								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
 								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
 							}
 						};
