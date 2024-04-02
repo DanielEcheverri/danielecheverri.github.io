@@ -638,54 +638,47 @@
 						return;
 					}
 					clearTimeout(timeoutID);
-					// composeMessage(message, weatherDescription, timeOfDay, streetName, partMoving, directionMoving,latitude,longitude,speed,patternMovement)
-					// 			.then((fullMessage) => {
-									updateDisplay(fullMessage);
-								// })
-								// .catch(error => {
-								// 	console.error(error);
-								// });
+					updateDisplay(fullMessage);
+				}
 
-					}
+				// Update display
+				function updateDisplay(displayMessage) {
+					try {
+						// Set the text content
+						messageDisplayDiv.textContent = fullMessage;
+						speakMessage(fullMessage);
 
-					// Update display
-					function updateDisplay(displayMessage) {
-						try {
-							// Set the text content
-							messageDisplayDiv.textContent = fullMessage;
-							speakMessage(fullMessage);
+						// Check if message is not empty to show the overlay
+						messageDisplayDiv.style.display = fullMessage.trim() !== "" ? "block" : "none";
 
-							// Check if message is not empty to show the overlay
-							messageDisplayDiv.style.display = fullMessage.trim() !== "" ? "block" : "none";
-
-							if (fullMessage.trim() !== "") {
-								// Create a close button
-								var closeButton = document.createElement("dismissButton");
-								closeButton.classList.add("button"); // Add your button class here
-								closeButton.id = "dismissButton"; // Set the id for styling
-								closeButton.textContent = "Dismiss";
-								closeButton.addEventListener("click", function() {
-									messageDisplayDiv.textContent = ""; // Clear the text
-									messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-									closeButton.remove(); // Remove the close button
-								});
-								// Append the close button to messageDisplayDiv
-								messageDisplayDiv.appendChild(closeButton);
-							}
-							// Set a timeout to clear the text after 3 seconds or until speaking becomes false
-							var timeoutCallback = function() {
-								if (!speaking) {
-									messageDisplayDiv.textContent = ""; // Clear the text
-									messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text							} else {
-									timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
-								}
-							};
-							timeoutID = setTimeout(timeoutCallback, 3000);
-						} catch (error) {
-							// Catch and log any errors that occur within the function
-							console.error("An error occurred:", error);
+						if (fullMessage.trim() !== "") {
+							// Create a close button
+							var closeButton = document.createElement("dismissButton");
+							closeButton.classList.add("button"); // Add your button class here
+							closeButton.id = "dismissButton"; // Set the id for styling
+							closeButton.textContent = "Dismiss";
+							closeButton.addEventListener("click", function() {
+								messageDisplayDiv.textContent = ""; // Clear the text
+								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
+								closeButton.remove(); // Remove the close button
+							});
+							// Append the close button to messageDisplayDiv
+							messageDisplayDiv.appendChild(closeButton);
 						}
+						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
+						var timeoutCallback = function() {
+							if (!speaking) {
+								messageDisplayDiv.textContent = ""; // Clear the text
+								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text							} else {
+								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
+							}
+						};
+						timeoutID = setTimeout(timeoutCallback, 3000);
+					} catch (error) {
+						// Catch and log any errors that occur within the function
+						console.error("An error occurred:", error);
 					}
+				}
 
 				// Function to compose the message
 
@@ -709,49 +702,6 @@
 				}
 
 				let cachedSentences;
-
-				// async function composeMessage(template, weatherDescription, timeOfDay, name, partMoving, directionMoving,latitude,longitude,patternMovement) {
-				// 	try {
-				// 		let sentenceTemplate;
-				// 		if (noNarrative) {
-				// 			// Read sentences from JSON file.
-				// 			const sentences = await fetchJSONFile(sentenceSource, cachedSentences);
-				// 			if (!sentences || !Array.isArray(sentences) || sentences.length === 0) {
-				// 				throw new Error("Error: Unable to load or empty sentences array.");
-				// 			}
-
-				// 			// Select a random sentence object from the array
-				// 			const randomSentenceObject = sentences[Math.floor(Math.random() * sentences.length)];
-
-				// 			// Ensure that the random sentence object has the "sentence" property and it's a string
-				// 			if (!randomSentenceObject || typeof randomSentenceObject.sentence !== 'string') {
-				// 				throw new Error("Error: Random sentence object is invalid.");
-				// 			}
-
-				// 			// Extract the sentence template from the random sentence object
-				// 			sentenceTemplate = randomSentenceObject.sentence;
-				// 		} else {
-				// 			// If noNarrative is set to true, keep the original message template
-				// 			sentenceTemplate = template;
-				// 		}
-				// 		// Replace placeholders in the sentence template
-				// 		fullMessage = sentenceTemplate
-				// 			.replace(/\{weatherDescription\}/g, weatherDescription)
-				// 			.replace(/\{timeOfDay\}/g, timeOfDay)
-				// 			.replace(/\{name\}/g, name)
-				// 			.replace(/\{partMoving\}/g, partMoving)
-				// 			.replace(/\{directionMoving\}/g, directionMoving)
-				// 			.replace(/\{speed\}/g, speed)
-				// 			.replace(/\{patternMovement\}/g, patternMovement)
-				// 			.replace(/\{latitude\}/g, latitude)
-				// 			.replace(/\{longitude\}/g, longitude);
-
-				// 		return fullMessage;
-				// 	} catch (err) {
-				// 		console.error('Error fetching or composing message:', err);
-				// 		return null;
-				// 	}
-				// }
 
 				// Variable to store the last spoken message
 				let lastSpokenMessage = '';
