@@ -19,6 +19,9 @@
 			<img class="logo" src="logo.svg" alt="Logo" />
 		</div>
 		<div id="avatarBTdiv">
+			<script>
+				initializeSounds();
+			</script>
 			<!-- Connect Button. -->
 			<button id="connectButton" class="button" disabled onclick="window.connecting_Sound.play(), wakeLock(), displayText('')">
 				<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
@@ -48,7 +51,6 @@
 				let sentenceSource = null;
 				let tagSource = null;
 				let checkpointsSource = 'points.json';
-				initializeSounds();
 				// var alert_Sound = new Howl({src: ['audio/alert_high-intensity.mp3'],
 				// onloaderror: function(error) {console.error('Error loading audio:', error);},});
 
