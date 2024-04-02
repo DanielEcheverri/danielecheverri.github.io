@@ -3,16 +3,12 @@
 		"12": {
 			"displayText": "Non-narrative",
 			"variable": "noNarrative",
-			"boolean": false,
-			"partMoving": "someValue",
-			"directionMoving": "someDirection"
+			"boolean": false
 		},
 		"13": {
 			"displayText": "Narrative",
 			"variable": "noNarrative",
-			"boolean": true,
-			"partMoving": "none",
-			"directionMoving": "none"
+			"boolean": true
 		},
 		"2": {
 			"displayText": "Good boy!",
