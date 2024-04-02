@@ -16,11 +16,11 @@
 		},
 		"2": {
 			"displayText": "Good boy!",
-			"function": "barking_Sound.play();"
+			"function": "window.barking_Sound.play();"
 		},
 		"21": {
 			"displayText": "Good human!",
-			"function": "talking_Sound.play();"
+			"function": "window.talking_Sound.play();"
 		}
 	}
 }
