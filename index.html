@@ -822,7 +822,7 @@
 
 				async function checkCheckpoints() {
 					console.debug("Checking checkpoint");
-					const radius = 10; // 10 meters radius
+					const radius = 8; // 8 meters radius
 
 					// Load checkpoints from the JSON file
 					const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
