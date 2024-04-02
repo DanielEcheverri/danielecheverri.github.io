@@ -13,45 +13,6 @@
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
-		<!-- Console output-->
-		<div id="consoleOutput"></div>
-		<div id="logoSpace">
-			<img class="logo" src="logo.svg" alt="Logo" />
-		</div>
-		<div id="avatarBTdiv">
-			<script>
-				async function initializeSounds() {
-					try {
-						const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
-						if (sounds) {
-						for (var key in sounds) {
-							if (sounds.hasOwnProperty(key)) {
-							window[key] = new Howl({
-								src: [sounds[key].src],
-								onloaderror: function(error) { console.error('Error loading audio:', error); }
-							});
-							}
-						}
-						} else {
-						console.error('Failed to load sounds.');
-						}
-					} catch (error) {
-						console.error('Error initializing sounds:', error);
-					}
-				}
-				initializeSounds();
-			</script>
-			<!-- Connect Button. -->
-			<button id="connectButton" class="button" disabled onclick="window.connecting_Sound.play(), wakeLock(), displayText('')">
-				<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
-			</button>
-		</div>
-		<!-- Div to display status of Avatar BT shop -->
-		<div id="closestShop"></div>
-		<!-- Coordinates-->
-		<div id="currentLocation"></div>
-		<!-- Movement>-->
-		<div id="messageDisplayDiv"></div>
 		<script>
 				//Script for pairing with Avatar_BT
 				let characteristic;
@@ -920,25 +881,25 @@
 					}
 				}
 
-				// async function initializeSounds() {
-				// 	try {
-				// 		const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
-				// 		if (sounds) {
-				// 		for (var key in sounds) {
-				// 			if (sounds.hasOwnProperty(key)) {
-				// 			window[key] = new Howl({
-				// 				src: [sounds[key].src],
-				// 				onloaderror: function(error) { console.error('Error loading audio:', error); }
-				// 			});
-				// 			}
-				// 		}
-				// 		} else {
-				// 		console.error('Failed to load sounds.');
-				// 		}
-				// 	} catch (error) {
-				// 		console.error('Error initializing sounds:', error);
-				// 	}
-				// }
+				async function initializeSounds() {
+					try {
+						const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
+						if (sounds) {
+						for (var key in sounds) {
+							if (sounds.hasOwnProperty(key)) {
+							window[key] = new Howl({
+								src: [sounds[key].src],
+								onloaderror: function(error) { console.error('Error loading audio:', error); }
+							});
+							}
+						}
+						} else {
+						console.error('Failed to load sounds.');
+						}
+					} catch (error) {
+						console.error('Error initializing sounds:', error);
+					}
+				}
 
 				function setupColors() {
 					lineColors[0] = color(204, 204, 0); // Dark Yellow
@@ -1100,5 +1061,25 @@
 			}, 2000);
 			readFromDatabase(); // Read data after writing
 		</script>
+		<!-- Console output-->
+		<div id="consoleOutput"></div>
+		<div id="logoSpace">
+			<img class="logo" src="logo.svg" alt="Logo" />
+		</div>
+		<div id="avatarBTdiv">
+			<script>
+				initializeSounds();
+			</script>
+			<!-- Connect Button. -->
+			<button id="connectButton" class="button" disabled onclick="window.connecting_Sound.play(), wakeLock(), displayText('')">
+				<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
+			</button>
+		</div>
+		<!-- Div to display status of Avatar BT shop -->
+		<div id="closestShop"></div>
+		<!-- Coordinates-->
+		<div id="currentLocation"></div>
+		<!-- Movement>-->
+		<div id="messageDisplayDiv"></div>
 	</body>
 </html>
