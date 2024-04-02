@@ -48,7 +48,7 @@
 				let sentenceSource = null;
 				let tagSource = null;
 				let checkpointsSource = 'points.json';
-
+				initializeSounds();
 				// var alert_Sound = new Howl({src: ['audio/alert_high-intensity.mp3'],
 				// onloaderror: function(error) {console.error('Error loading audio:', error);},});
 
@@ -89,7 +89,6 @@
 								movePatterns = 'hachi_patterns.json';
 								sentenceSource = 'hachi_sentences.json';
 								tagSource = 'tags.json';
-								initializeSounds();
 							} else {
 								console.log("Loading settings for Avatar_BT");
 								labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
@@ -97,7 +96,6 @@
 								movePatterns = 'avatar_patterns.json';
 								sentenceSource = 'avatar_sentences.json';
 								tagSource = 'tags.json';
-								initializeSounds();
 							}
 							// Listen for characteristic value changes
 							characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -162,11 +160,6 @@
 					if (latitude !== null && longitude !== null) {
 						connectButton.disabled = false;
 						displayText("Ready to connect to Avatar BT");
-						//fetchStreetName().then((name) => {
-						//	streetName = name;
-						//	connectButton.disabled = false;
-						//	displayText("Ready to connect to Avatar BT");
-						//	});
 					} else {
 						// If any variable is still null, wait for a short delay and check again
 						setTimeout(checkVariables, 1000); // Adjust delay as needed (here 1000 milliseconds or 1 second)
