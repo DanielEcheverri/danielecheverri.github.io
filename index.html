@@ -71,7 +71,7 @@
 						console.error('Error initializing sounds:', error);
 					}
 				}
-				initializeSounds();
+
 				async function connectToDevice() {
 					try {
 						if (!isConnected) {
@@ -97,6 +97,7 @@
 								movePatterns = 'hachi_patterns.json';
 								sentenceSource = 'hachi_sentences.json';
 								tagSource = 'tags.json';
+								initializeSounds();
 							} else {
 								console.log("Loading settings for Avatar_BT");
 								labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
@@ -104,6 +105,7 @@
 								movePatterns = 'avatar_patterns.json';
 								sentenceSource = 'avatar_sentences.json';
 								tagSource = 'tags.json';
+								initializeSounds();
 							}
 							// Listen for characteristic value changes
 							characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -167,6 +169,7 @@
 					// Check if latitude, longitude, and weatherDescription are not null
 					if (latitude !== null && longitude !== null) {
 						connectButton.disabled = false;
+						initializeSounds();
 						displayText("Ready to connect to Avatar BT");
 					} else {
 						// If any variable is still null, wait for a short delay and check again
