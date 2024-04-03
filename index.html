@@ -653,7 +653,7 @@
 					try {
 						// Set the text content
 						messageDisplayDiv.textContent = fullMessage;
-						speakMessage(fullMessage);
+						console.log(speakMessage(fullMessage));
 
 						// Check if message is not empty to show the overlay
 						messageDisplayDiv.style.display = fullMessage.trim() !== "" ? "block" : "none";
