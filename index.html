@@ -524,6 +524,7 @@
 							// Add movement to the sequence buffer
 							console.log(partMoving+" "+directionMoving);
 							if (noNarrative){
+								window.success_Sound.play();
 								displayText(partMoving+" "+directionMoving);
 							}
 							previousPart = partMoving;
