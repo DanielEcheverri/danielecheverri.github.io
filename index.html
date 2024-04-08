@@ -833,36 +833,35 @@
 					if (Array.isArray(locations) && locations.length > 0) {
 						const checkpoints = locations[0].checkpoints;
 
-						// Determine which checkpoint set to use based on deviceName
-						let checkpointKeys;
-						if (deviceName === "hachi_BT") {
-							checkpointKeys = Object.keys(checkpoints)[1]; // Second key
-						} else {
-							checkpointKeys = Object.keys(checkpoints)[0]; // First key
-						}
+						// Ensure checkpoints is an object
+						if (typeof checkpoints === 'object' && checkpoints !== null) {
+							const checkpointKeys = Object.keys(checkpoints);
 
-						// Ensure lastCheckedIndex is within bounds
-						if (lastCheckedIndex < checkpoints[checkpointKeys].length) {
-							const currentCheckpointKey = checkpointKeys;
-							console.log('Current Checkpoint Set:', currentCheckpointKey);
+							// Ensure lastCheckedIndex is within bounds
+							if (lastCheckedIndex < checkpointKeys.length) {
+								const currentCheckpointKey = checkpointKeys[lastCheckedIndex];
+								console.log('Current Checkpoint Set:', currentCheckpointKey);
 
-							// Process checkpoints within the current set
-							for (const checkpoint of checkpoints[currentCheckpointKey]) {
-								const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-								chkPointDistance = distance.toFixed(2);
-								console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude, 'Distance:', chkPointDistance);
+								// Process checkpoints within the current set
+								for (const checkpoint of checkpoints[currentCheckpointKey]) {
+									const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
+									chkPointDistance = distance.toFixed(2);
+									console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude,'Distance:', chkPointDistance );
+									//console.log();
+									//console.log('Distance:', distance);
 
-								if (distance <= radius) {
-									console.log('Checkpoint reached:', checkpoint.text);
-									currentCheckpoint = checkpoint.text;
-									window.success_Sound.play();
-									lastCheckedIndex++; // Move to the next key
-									return; // Exit the function when a checkpoint is reached
+									if (distance <= radius) {
+										console.log('Checkpoint reached:', checkpoint.text);
+										currentCheckpoint = checkpoint.text;
+										window.success_Sound.play();
+										lastCheckedIndex++; // Move to the next key
+										return; // Exit the function when a checkpoint is reached
+									}
 								}
+								//console.log("No checkpoints reached in the current set.");
+							} else {
+								console.log("No more checkpoint sets to check.");
 							}
-							//console.log("No checkpoints reached in the current set.");
-						} else {
-							console.log("No more checkpoints in the set to check.");
 						}
 					}
 				}
