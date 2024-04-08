@@ -918,6 +918,7 @@
 			let prevMovement = null;
 			let prevTagInteraction = null;
 			let prevHeading = null;
+			let prevStatus = null;
 			let passageEmpty = null;
 
 			// Function to write data to the database
@@ -930,6 +931,7 @@
 			         currentCheckpoint !== prevCurrentCheckpoint ||
 			         patternMovement !== prevMovement ||
 			         tagID !== prevTagInteraction ||
+					 blueToothStatus !== prevStatus ||
 			         directionText !== prevHeading) {
 
 			            // Update previous values
@@ -939,6 +941,7 @@
 						prevMovement = patternMovement;
 						prevTagInteraction = tagID;
 						prevHeading = directionText;
+						prevStatus = blueToothStatus;
 
 			            // Determine the database name based on the deviceName
 			            const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
