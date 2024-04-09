@@ -919,7 +919,8 @@
 			let prevTagInteraction = null;
 			let prevHeading = null;
 			let prevStatus = null;
-			let passageEmpty = null;
+			let prevSpeed = null;
+
 
 			// Function to write data to the database
 			function writeToDatabase() {
@@ -942,7 +943,7 @@
 						prevTagInteraction = tagID;
 						prevHeading = directionText;
 						prevStatus = blueToothStatus;
-
+						prevSpeed = speed;
 			            // Determine the database name based on the deviceName
 			            const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
 
@@ -957,6 +958,7 @@
 						const dirMovementVar = (deviceName === 'hachi_BT') ? 'hachi_part_dir' :'avatar_part_dir' ;
 						const tagInteractionVar = (deviceName === 'hachi_BT') ? 'hachi_tag' :'avatar_tag' ;
 						const statusVar = (deviceName === 'hachi_BT') ? 'hachi_status' :'avatar_status' ;
+						const speedVar = (deviceName === 'hachi_BT') ? 'hachi_speed' :'avatar_speed' ;
 
 			            // Write variables to the database
 			            update(ref(database, databaseName), {
@@ -969,7 +971,8 @@
 							[partMovementVar]: partMoving,
 							[dirMovementVar]: directionMoving,
 							[tagInteractionVar]: tagID,
-							[statusVar]: blueToothStatus
+							[statusVar]: blueToothStatus,
+							[speedVar]: speed
 			            }).then(() => {
 			                //console.log("Variables written to the database successfully!");
 			            }).catch((error) => {
