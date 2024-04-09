@@ -242,7 +242,8 @@
 							longitude = position.coords.longitude.toFixed(6); // Store longitude globally
 							console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
 							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
-							speed = position.coords.speed.toFixed(2) || 0; // Speed in meters per second
+							speed = position.coords.speed || 0; // Speed in meters per second
+							speed = speed.toFixed(2);
 							// Reset total distance if speed is less than threshold
 							if (speed < speedThreshold) {
 								totalDistance = 0;
