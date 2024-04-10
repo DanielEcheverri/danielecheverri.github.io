@@ -572,55 +572,56 @@ let sentencesSource = 'sentences.json';
 let cachedSentences;
   
 window.makeComments = async function(character) {
-    return new Promise(async (resolve, reject) => {
-        if (character !== "Hachi" && character !== "Avatar") {
-            reject("Invalid character name. Please provide 'Hachi' or 'Avatar'.");
-            return;
+        // Fetch JSON data
+    const jsonData = await fetchJSONFile('sentences.json', cachedSentences);
+
+    // Extract data based on the character parameter
+    let observes, approaching, soundscape;
+    if (character === 'Avatar') {
+        observes = jsonData.avatar_observes;
+        approaching = jsonData.approaching;
+        soundscape = jsonData.soundscape;
+    } else if (character === 'Hachi') {
+        observes = jsonData.hachi_observes;
+        approaching = jsonData.approaching;
+        soundscape = jsonData.soundscape;
+    } else {
+        console.error('Invalid character parameter');
+        return;
+    }
+
+    // Initialize used sentences array for the character
+    let characterSentenceHistory = [];
+
+    // Function to get a random sentence from an array and ensure it's not repeated often
+    const getRandomSentence = (array, usedSentences) => {
+        let sentence;
+        do {
+            sentence = array[Math.floor(Math.random() * array.length)];
+        } while (usedSentences.includes(sentence));
+        usedSentences.push(sentence);
+        return sentence;
+    };
+
+    // Process the distance segments
+    const distanceSegments = Math.ceil(character === 'Avatar' ? avatar_checkpoint_dist / 15 : hachi_checkpoint_dist / 15);
+    const lastSegmentIndex = distanceSegments - 1;
+    for (let i = 0; i < distanceSegments; i++) {
+        // Check if it's the last segment
+        if (i === lastSegmentIndex) {
+            console.log(getRandomSentence(approaching, characterSentenceHistory));
+        } else {
+            console.log(getRandomSentence(soundscape, characterSentenceHistory));
         }
+    }
 
-        try {
-            // Fetch JSON file
-            const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
+    // Reset used sentences array for the next call
+    characterSentenceHistory = [];
 
-            // Check which character is specified and read corresponding data
-            const observesData = character === "Hachi" ? jsonData.hachi_observes : jsonData.avatar_observes;
-            const approachingData = jsonData.approaching;
-            const soundscapeData = jsonData.soundscape;
-
-            // Get distance data based on character
-            const distanceData = character === "Hachi" ? hachi_checkpoint_dist : avatar_checkpoint_dist;
-
-            // Split distance into 15-meter segments
-            const segments = Math.ceil(distanceData / 15);
-            const segmentLength = Math.floor(distanceData / segments);
-
-            // Generate segments
-            const distanceSegments = [];
-            for (let i = 0; i < segments; i++) {
-                let randomSentence;
-                if (i === segments - 1) {
-                    // Last segment
-                    randomSentence = approachingData[`sentence${Math.floor(Math.random() * Object.keys(approachingData).length) + 1}`];
-                } else {
-                    // Other segments
-                    let availableSentences = Object.keys(observesData).filter(key => !characterSentenceHistory.includes(key));
-                    if (availableSentences.length === 0) {
-                        // If all sentences have been used, reset history
-                        availableSentences = Object.keys(observesData);
-                        characterSentenceHistory = [];
-                    }
-                    randomSentence = observesData[availableSentences[Math.floor(Math.random() * availableSentences.length)]];
-                    characterSentenceHistory.push(randomSentence);
-                }
-                distanceSegments.push(randomSentence);
-            }
-
-            resolve(distanceSegments);
-        } catch (error) {
-            console.error('Error fetching JSON data:', error);
-            reject(error);
-        }
-    });
+    // Output observes sentences
+    for (let i = 1; i <= 40; i++) {
+        console.log(observes[`observation${i}`]);
+    }
 }
 
   
