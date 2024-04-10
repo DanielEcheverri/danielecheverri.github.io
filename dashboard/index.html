@@ -613,24 +613,36 @@ window.makeComments = async function(character) {
     console.log('Distance Segments:', distanceSegments);
     const lastSegmentIndex = distanceSegments - 1;
     console.log('Last Segment Index:', lastSegmentIndex);
+    
+    // Determine the current segment based on the value of avatar_checkpoint_dist or hachi_checkpoint_dist
+    let currentSegment;
+    if (character === 'Avatar') {
+        currentSegment = Math.ceil(avatar_checkpoint_dist / 15);
+    } else {
+        currentSegment = Math.ceil(hachi_checkpoint_dist / 15);
+    }
+
+    // Display the text for the current segment only
+    console.log('Current Segment:', currentSegment);
     for (let i = 0; i < distanceSegments; i++) {
-        // Check if it's the last segment
-        console.log(`Segment ${i + 1}:`);
-        if (i === lastSegmentIndex) {
-            console.log('Last Segment:');
-            console.log(getRandomSentenceValue(approaching, characterSentenceHistory));
-        } else {
-            let randomArray;
-            if (character === 'Avatar') {
-                randomArray = Math.random() < 0.5 ? observes : soundscape;
+        if (i === currentSegment - 1) {
+            console.log('Current Segment Text:');
+            if (i === lastSegmentIndex) {
+                console.log(getRandomSentenceValue(approaching, characterSentenceHistory));
             } else {
-                randomArray = Math.random() < 0.5 ? observes : soundscape;
+                let randomArray;
+                if (character === 'Avatar') {
+                    randomArray = Math.random() < 0.5 ? observes : soundscape;
+                } else {
+                    randomArray = Math.random() < 0.5 ? observes : soundscape;
+                }
+                console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
             }
-            console.log('Random Array:', randomArray);
-            console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
+            break; // Stop iteration after displaying the text for the current segment
         }
     }
 };
+
 
 
   //Last line of the function. KEEP
