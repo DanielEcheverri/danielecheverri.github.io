@@ -573,6 +573,7 @@ let cachedSentences;
 let characterSentenceHistory = [];
 let initialCheckpoint;
 let randomSentences = []; // Array to store pre-generated random sentences
+let totalSegments;
 
 window.makeComments = async function(character) {
     console.log(`Character: ${character}`);
@@ -625,6 +626,8 @@ window.makeComments = async function(character) {
         // Take a snapshot of the initial checkpoint distance if it's not already defined
         if (!initialCheckpoint) {
             initialCheckpoint = character === 'Avatar' ? avatar_checkpoint_dist : hachi_checkpoint_dist;
+            // Calculate the total number of segments based on the initial checkpoint distance
+            totalSegments = Math.ceil(initialCheckpoint / 15);
         }
 
         // Determine the current distance and progress made
@@ -638,8 +641,10 @@ window.makeComments = async function(character) {
 
         // Display the text for the current segment only
         console.log('Current Segment Text:');
-        if (currentSegment <= 0) {
-            console.log('Already arrived');
+        if (currentSegment >= totalSegments) {
+            console.log('Arrived at the next checkpoint');
+            // Reset the initial checkpoint for the next segment
+            initialCheckpoint = currentDistance;
         } else if (currentSegment === 1) {
             console.log(approaching[Math.floor(Math.random() * approaching.length)]);
         } else {
@@ -647,6 +652,7 @@ window.makeComments = async function(character) {
         }
     }, 1000); // Check for updates every second
 };
+
 
   //Last line of the function. KEEP
 })
