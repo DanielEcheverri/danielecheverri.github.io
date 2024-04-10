@@ -570,61 +570,65 @@ window.fetchStops = async function(latitude, longitude) {
   
 let sentencesSource = 'sentences.json';
 let cachedSentences;
-let characterSentenceHistory = [];
-
-let sentencesSource = 'sentences.json';
-let cachedSentences;
-let characterSentenceHistory = [];
-
+  
 window.makeComments = async function(character) {
+    console.log('makeComments function called with character:', character);
+
     // Fetch JSON data
-    const jsonData = await fetchJSONFile('sentences.json', cachedSentences);
+    const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
+    console.log('JSON data fetched:', jsonData);
 
     // Extract data based on the character parameter
     let observes, approaching, soundscape;
     if (character === 'Avatar') {
         observes = jsonData.avatar_observes;
+        approaching = jsonData.approaching;
+        soundscape = jsonData.soundscape;
     } else if (character === 'Hachi') {
         observes = jsonData.hachi_observes;
+        approaching = jsonData.approaching;
+        soundscape = jsonData.soundscape;
     } else {
         console.error('Invalid character parameter');
         return;
     }
-    approaching = jsonData.approaching;
-    soundscape = jsonData.soundscape;
+    console.log('Data extracted for character:', character, 'Observes:', observes, 'Approaching:', approaching, 'Soundscape:', soundscape);
 
-    // Function to get a random sentence value from an object and ensure it's not repeated often
-    const getRandomSentenceValue = (obj, usedSentences) => {
-        let sentenceValue;
-        let key;
+    // Initialize used sentence names array for the character
+    let characterSentenceHistory = [];
+    console.log('Initialized characterSentenceHistory:', characterSentenceHistory);
+
+    // Function to get a random sentence name from an array and ensure it's not repeated often
+    const getRandomSentenceName = (array, usedSentences) => {
+        let sentenceName;
         do {
-            key = Object.keys(obj)[Math.floor(Math.random() * Object.keys(obj).length)];
-            sentenceValue = obj[key];
-        } while (usedSentences.includes(sentenceValue));
-        usedSentences.push(sentenceValue);
-        return sentenceValue;
+            sentenceName = array[Math.floor(Math.random() * array.length)];
+        } while (usedSentences.includes(sentenceName));
+        usedSentences.push(sentenceName);
+        console.log('Random sentence chosen:', sentenceName);
+        console.log('Updated characterSentenceHistory:', characterSentenceHistory);
+        return sentenceName;
     };
 
     // Process the distance segments
     const distanceSegments = Math.ceil(character === 'Avatar' ? avatar_checkpoint_dist / 15 : hachi_checkpoint_dist / 15);
+    console.log('Distance segments to process:', distanceSegments);
     const lastSegmentIndex = distanceSegments - 1;
     for (let i = 0; i < distanceSegments; i++) {
+        console.log('Processing distance segment:', i + 1);
         // Check if it's the last segment
         if (i === lastSegmentIndex) {
-            console.log(getRandomSentenceValue(approaching, characterSentenceHistory));
+            console.log('Last segment reached, choosing sentence from approaching.');
+            console.log(getRandomSentenceName(approaching, characterSentenceHistory));
         } else {
-            let randomArray;
-            if (character === 'Avatar') {
-                randomArray = Math.random() < 0.5 ? observes : soundscape;
-            } else {
-                randomArray = Math.random() < 0.5 ? observes : soundscape;
-            }
-            console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
+            // Randomly choose between soundscape and observes
+            const chosenArray = Math.random() < 0.5 ? Object.keys(soundscape) : Object.keys(observes);
+            console.log('Choosing sentence from randomly selected array:', chosenArray);
+            console.log(getRandomSentenceName(chosenArray, characterSentenceHistory));
         }
     }
 }
 
-  
   //Last line of the function. KEEP
 })
 </script><tw-passagedata pid="1" name="init" tags="" position="700,275" size="100,100">&lt;&lt;nobr&gt;&gt;&lt;&lt;set _timerRunning = true&gt;&gt;&lt;&lt;timed 3s&gt;&gt;&lt;&lt;set _timerRunning = false&gt;&gt;
