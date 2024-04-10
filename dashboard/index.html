@@ -636,9 +636,9 @@ window.makeComments = async function(character) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
         } else if (currentSegment === 1) {
-            console.log(approaching[Math.floor(Math.random() * approaching.length)]);
+            storyComment=approaching[Math.floor(Math.random() * approaching.length)];
         } else {
-            console.log(randomSentences[currentSegment - 2]); // Subtract 2 because the first segment is 1-based
+            storyComment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
         }
     }, 1000); // Check for updates every second
 };
@@ -1024,12 +1024,14 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="sentences" tags="" position="1100,400" size="100,100">&lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
-&lt;&lt;set $storyComment to &#39;&#39;&gt;&gt;
+&lt;&lt;set $$avatar_comment to &#39;&#39;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;Avatar&#39;);
+variables().avatar_comment = storyComment;
 &lt;&lt;/script&gt;&gt;
 
+&lt;&lt;live $avatar_comment&gt;&gt;
 
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
