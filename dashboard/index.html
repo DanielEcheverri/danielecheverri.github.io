@@ -568,7 +568,9 @@ window.fetchStops = async function(latitude, longitude) {
     }
 }
   
-
+let sentencesSource = 'sentences.json';
+let cachedSentences;
+  
 let sentencesSource = 'sentences.json';
 let cachedSentences;
 let characterSentenceHistory = [];
@@ -577,7 +579,7 @@ window.makeComments = async function(character) {
     console.log(`Character: ${character}`);
 
     // Fetch JSON data
-    const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
+    const jsonData = await fetchJSONFile('sentences.json', cachedSentences);
     console.log('JSON Data:', jsonData);
 
     // Extract data based on the character parameter
@@ -631,8 +633,6 @@ window.makeComments = async function(character) {
             console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
         }
     }
-};
-
 }
 
   
