@@ -574,7 +574,7 @@ let characterSentenceHistory = [];
 let initialCheckpoint;
 let randomSentences = []; // Array to store pre-generated random sentences
 let totalSegments;
-let storyComment;
+var storyComment;
 
 window.makeComments = async function(character) {
     // Fetch JSON data
@@ -637,10 +637,10 @@ window.makeComments = async function(character) {
             initialCheckpoint = currentDistance;
         } else if (currentSegment === 1) {
             storyComment=approaching[Math.floor(Math.random() * approaching.length)];
-          console.log(storyComment);
+          //console.log(storyComment);
         } else {
             storyComment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
-          console.log(storyComment);
+          //console.log(storyComment);
         }
     }, 1000); // Check for updates every second
 };
@@ -660,6 +660,7 @@ window.makeComments = async function(character) {
 &lt;&lt;set $avatar_passage to avatar_passage&gt;&gt;
 &lt;&lt;set $avatar_status to avatar_status&gt;&gt;
 &lt;&lt;set $avatar_speed to avatar_speed&gt;&gt;
+&lt;&lt;set $avatar_comment to &gt;&gt;
 
 &lt;&lt;set $hachi_checkpoint to hachi_checkpoint&gt;&gt;
 &lt;&lt;set $hachi_checkpoint_dist to hachi_checkpoint_dist&gt;&gt;
@@ -1025,12 +1026,11 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="sentences" tags="" position="1100,400" size="100,100">&lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
-&lt;&lt;set $avatar_comment to &#39;Hello&#39;&gt;&gt;
+&lt;&lt;set $avatar_comment to &quot;Hello&quot;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;Avatar&#39;);
-variables().avatar_comment=storyComment;
-console.log(variables().avatar_comment);
+console.log(variables().storyComment);
 &lt;&lt;/script&gt;&gt;
 
 &lt;&lt;live $avatar_comment&gt;&gt;</tw-passagedata></tw-storydata>
