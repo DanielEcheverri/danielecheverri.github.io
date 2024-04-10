@@ -637,10 +637,10 @@ window.makeComments = async function(character) {
             initialCheckpoint = currentDistance;
         } else if (currentSegment === 1) {
             storyComment=approaching[Math.floor(Math.random() * approaching.length)];
-          console.log(storyComment);
+          //console.log(storyComment);
         } else {
             storyComment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
-          console.log(storyComment);
+          //console.log(storyComment);
         }
     }, 1000); // Check for updates every second
 };
@@ -1030,7 +1030,6 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;Avatar&#39;);
-console.log(variables().storyComment);
 &lt;&lt;/script&gt;&gt;
 
 &lt;&lt;live $avatar_comment&gt;&gt;</tw-passagedata></tw-storydata>
