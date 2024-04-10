@@ -630,6 +630,7 @@ window.makeComments = async function(character) {
 
         // Determine the current segment based on the progress
         let currentSegment = Math.ceil(progress / 15);
+      	console.log("Current segment: "+currentSegment);
 
         // Display the text for the current segment only
         if (currentSegment >= totalSegments) {
@@ -640,7 +641,7 @@ window.makeComments = async function(character) {
           //console.log(storyComment);
         } else {
             variables().avatar_comment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
-          console.log(variables().avatar_comment);
+          //console.log(variables().avatar_comment);
         }
     }, 1000); // Check for updates every second
 };
@@ -1032,7 +1033,7 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 makeComments(&#39;Avatar&#39;);
 console.log(variables().avatar_comment);
 &lt;&lt;/script&gt;&gt;
-
+&lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
 &lt;&lt;live $avatar_comment&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
