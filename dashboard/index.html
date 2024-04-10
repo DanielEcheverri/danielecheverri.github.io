@@ -874,17 +874,17 @@ Promise.all([
         $hachi_passage
         &lt;&lt;set hachi_passage to $hachi_passage&gt;&gt;
         &lt;&lt;script&gt;&gt;
-            writeToHachir(&#39;hachi_passage&#39;,hachi_passage);
+            writeToHachi(&#39;hachi_passage&#39;,hachi_passage);
         &lt;&lt;/script&gt;&gt;
     &lt;&lt;elseif $hachi_status is &quot;Online&quot; and not $hachi_online &gt;&gt;
           &lt;&lt;set $hachi_passage to &quot;This is Hachi&#39;s first interaction with the world. On a &quot; + $storyWeather +&quot; &quot;+ $storyTime+&quot; &quot;+&quot;, is hachi standing on its back or front leg?&quot;&gt;&gt;
         1  $hachi_passage
           &lt;&lt;set hachi_passage to $hachi_passage&gt;&gt;
           &lt;&lt;script&gt;&gt;
-              writeToHahic(&#39;hachi_passage&#39;,hachi_passage);
-      &lt;&lt;/script&gt;&gt;
-      &lt;&lt;stop&gt;&gt;
-      &lt;&lt;set $hachi_online to true&gt;&gt;
+              writeToHachi(&#39;hachi_passage&#39;,hachi_passage);
+      	&lt;&lt;/script&gt;&gt;
+      	&lt;&lt;stop&gt;&gt;
+      	&lt;&lt;set $hachi_online to true&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
 
