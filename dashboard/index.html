@@ -588,7 +588,7 @@ window.makeComments = async function(character) {
             const soundscapeData = jsonData.soundscape;
 
             // Get distance data based on character
-            const distanceData = character === "Hachi" ? hachi_checkpoint_dist : avatar_checkpoint_dis;
+            const distanceData = character === "Hachi" ? hachi_checkpoint_dist : avatar_checkpoint_dist;
 
             // Split distance into 15-meter segments
             const segments = Math.ceil(distanceData / 15);
