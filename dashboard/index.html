@@ -576,7 +576,7 @@ window.makeComments = async function(character) {
     console.log(`Character: ${character}`);
 
     // Fetch JSON data
-    const jsonData = await fetchJSONFile('sentences.json', cachedSentences);
+    const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
     console.log('JSON Data:', jsonData);
 
     // Extract data based on the character parameter
