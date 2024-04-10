@@ -637,10 +637,10 @@ window.makeComments = async function(character) {
             initialCheckpoint = currentDistance;
           console.log(storyComment);
         } else if (currentSegment === 1) {
-            storyComment=(approaching[Math.floor(Math.random() * approaching.length)]);
+            storyComment=approaching[Math.floor(Math.random() * approaching.length)];
           console.log(storyComment);
         } else {
-            storyComment=(randomSentences[currentSegment - 2]); // Subtract 2 because the first segment is 1-based
+            storyComment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
           console.log(storyComment);
         }
     }, 1000); // Check for updates every second
