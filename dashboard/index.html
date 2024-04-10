@@ -576,9 +576,9 @@ let randomSentences = []; // Array to store pre-generated random sentences
 let totalSegments;
 let storyComment;
 
-window.makeComments = function(character) {
-    // Fetch JSON data synchronously
-    const jsonData = fetchJSONFileSync(sentencesSource, cachedSentences);
+window.makeComments = async function(character) {
+    // Fetch JSON data
+    const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
 
     // Extract data based on the character parameter
     let observes, approaching, soundscape;
@@ -588,7 +588,7 @@ window.makeComments = function(character) {
         observes = jsonData.hachi_observes;
     } else {
         console.error('Invalid character parameter');
-        return null;
+        return;
     }
     approaching = jsonData.approaching;
     soundscape = jsonData.soundscape;
@@ -636,9 +636,9 @@ window.makeComments = function(character) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
         } else if (currentSegment === 1) {
-            return approaching[Math.floor(Math.random() * approaching.length)];
+            console.log(approaching[Math.floor(Math.random() * approaching.length)]);
         } else {
-            return randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
+            console.log(randomSentences[currentSegment - 2]); // Subtract 2 because the first segment is 1-based
         }
     }, 1000); // Check for updates every second
 };
@@ -1027,10 +1027,7 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;set $storyComment to &#39;&#39;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
-// Call the makeComments function and store the result in a variable
-const segmentText = makeComments(&#39;Avatar&#39;);
-// Now you can use the segmentText variable as needed
-console.log(segmentText); // Output the segment text to the console
+makeComments(&#39;Avatar&#39;);
 &lt;&lt;/script&gt;&gt;
 
 
