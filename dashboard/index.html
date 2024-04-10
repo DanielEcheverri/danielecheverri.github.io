@@ -636,11 +636,11 @@ window.makeComments = async function(character) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
         } else if (currentSegment === 1) {
-            storyComment=approaching[Math.floor(Math.random() * approaching.length)];
+            variables().avatar_comment=approaching[Math.floor(Math.random() * approaching.length)];
           //console.log(storyComment);
         } else {
-            storyComment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
-          //console.log(storyComment);
+            variables().avatar_comment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
+          console.log(variables().avatar_comment);
         }
     }, 1000); // Check for updates every second
 };
@@ -1030,7 +1030,7 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;Avatar&#39;);
-console.log(variables().storyComment);
+console.log(variables().avatar_comment);
 &lt;&lt;/script&gt;&gt;
 
 &lt;&lt;live $avatar_comment&gt;&gt;</tw-passagedata></tw-storydata>
