@@ -571,6 +571,7 @@ window.fetchStops = async function(latitude, longitude) {
 let sentencesSource = 'sentences.json';
 let cachedSentences;
 let characterSentenceHistory = [];
+let initialCheckpoint;
 
 window.makeComments = async function(character) {
     console.log(`Character: ${character}`);
@@ -608,40 +609,38 @@ window.makeComments = async function(character) {
         return sentenceValue;
     };
 
-    // Process the distance segments
-    const distanceSegments = Math.ceil(character === 'Avatar' ? avatar_checkpoint_dist / 15 : hachi_checkpoint_dist / 15);
-    console.log('Distance Segments:', distanceSegments);
-    const lastSegmentIndex = distanceSegments - 1;
-    console.log('Last Segment Index:', lastSegmentIndex);
-    
-    // Determine the current segment based on the value of avatar_checkpoint_dist or hachi_checkpoint_dist
-    let currentSegment;
-    if (character === 'Avatar') {
-        currentSegment = Math.ceil(avatar_checkpoint_dist / 15);
-    } else {
-        currentSegment = Math.ceil(hachi_checkpoint_dist / 15);
+    // Take a snapshot of the initial checkpoint distance
+    if (!initialCheckpoint) {
+        initialCheckpoint = character === 'Avatar' ? avatar_checkpoint_dist : hachi_checkpoint_dist;
     }
 
-    // Display the text for the current segment only
+    // Determine the current segment based on the initial checkpoint and the current checkpoint
+    let currentSegment;
+    if (character === 'Avatar') {
+        currentSegment = Math.ceil((initialCheckpoint - avatar_checkpoint_dist) / 15);
+    } else {
+        currentSegment = Math.ceil((initialCheckpoint - hachi_checkpoint_dist) / 15);
+    }
+
     console.log('Current Segment:', currentSegment);
-    for (let i = 0; i < distanceSegments; i++) {
-        if (i === currentSegment - 1) {
-            console.log('Current Segment Text:');
-            if (i === lastSegmentIndex) {
-                console.log(getRandomSentenceValue(approaching, characterSentenceHistory));
-            } else {
-                let randomArray;
-                if (character === 'Avatar') {
-                    randomArray = Math.random() < 0.5 ? observes : soundscape;
-                } else {
-                    randomArray = Math.random() < 0.5 ? observes : soundscape;
-                }
-                console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
-            }
-            break; // Stop iteration after displaying the text for the current segment
+    
+    // Display the text for the current segment only
+    console.log('Current Segment Text:');
+    if (currentSegment <= 0) {
+        console.log('Already arrived');
+    } else if (currentSegment === 1) {
+        console.log(getRandomSentenceValue(approaching, characterSentenceHistory));
+    } else {
+        let randomArray;
+        if (character === 'Avatar') {
+            randomArray = Math.random() < 0.5 ? observes : soundscape;
+        } else {
+            randomArray = Math.random() < 0.5 ? observes : soundscape;
         }
+        console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
     }
 };
+
 
 
 
@@ -1025,14 +1024,15 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="sentences" tags="" position="1100,400" size="100,100">&lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
+
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;Avatar&#39;).then(() =&gt; {
     console.log(&#39;Comments generated successfully.&#39;);
 }).catch((error) =&gt; {
     console.error(&#39;Error generating comments:&#39;, error);
 });
-
 &lt;&lt;/script&gt;&gt;
+
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
