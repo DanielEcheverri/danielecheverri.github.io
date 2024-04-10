@@ -636,7 +636,7 @@ window.makeComments = async function(character) {
         if (currentSegment >= totalSegments) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
-        } else if (currentSegment === 1) {
+        } else if (currentSegment === totalSegments) {
             variables().avatar_comment=approaching[Math.floor(Math.random() * approaching.length)];
           //console.log(storyComment);
         } else {
