@@ -572,12 +572,13 @@ let sentencesSource = 'sentences.json';
 let cachedSentences;
 let characterSentenceHistory = [];
 
-window.makeComments = async function(character) {
-    console.log(`Character: ${character}`);
+let sentencesSource = 'sentences.json';
+let cachedSentences;
+let characterSentenceHistory = [];
 
+window.makeComments = async function(character) {
     // Fetch JSON data
-    const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
-    console.log('JSON Data:', jsonData);
+    const jsonData = await fetchJSONFile('sentences.json', cachedSentences);
 
     // Extract data based on the character parameter
     let observes, approaching, soundscape;
@@ -591,10 +592,6 @@ window.makeComments = async function(character) {
     }
     approaching = jsonData.approaching;
     soundscape = jsonData.soundscape;
-
-    console.log('Observes:', observes);
-    console.log('Approaching:', approaching);
-    console.log('Soundscape:', soundscape);
 
     // Function to get a random sentence value from an object and ensure it's not repeated often
     const getRandomSentenceValue = (obj, usedSentences) => {
@@ -610,14 +607,10 @@ window.makeComments = async function(character) {
 
     // Process the distance segments
     const distanceSegments = Math.ceil(character === 'Avatar' ? avatar_checkpoint_dist / 15 : hachi_checkpoint_dist / 15);
-    console.log('Distance Segments:', distanceSegments);
     const lastSegmentIndex = distanceSegments - 1;
-    console.log('Last Segment Index:', lastSegmentIndex);
     for (let i = 0; i < distanceSegments; i++) {
         // Check if it's the last segment
-        console.log(`Segment ${i + 1}:`);
         if (i === lastSegmentIndex) {
-            console.log('Last Segment:');
             console.log(getRandomSentenceValue(approaching, characterSentenceHistory));
         } else {
             let randomArray;
@@ -626,11 +619,10 @@ window.makeComments = async function(character) {
             } else {
                 randomArray = Math.random() < 0.5 ? observes : soundscape;
             }
-            console.log('Random Array:', randomArray);
             console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
         }
     }
-};
+}
 
   
   //Last line of the function. KEEP
