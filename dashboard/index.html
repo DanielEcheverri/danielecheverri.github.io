@@ -609,40 +609,39 @@ window.makeComments = async function(character) {
         return sentenceValue;
     };
 
-    // Take a snapshot of the initial checkpoint distance
-    if (!initialCheckpoint) {
-        initialCheckpoint = character === 'Avatar' ? avatar_checkpoint_dist : hachi_checkpoint_dist;
-    }
-
-    // Determine the current segment based on the initial checkpoint and the current checkpoint
-    let currentSegment;
-    if (character === 'Avatar') {
-        currentSegment = Math.ceil((initialCheckpoint - avatar_checkpoint_dist) / 15);
-    } else {
-        currentSegment = Math.ceil((initialCheckpoint - hachi_checkpoint_dist) / 15);
-    }
-
-    console.log('Current Segment:', currentSegment);
-    
-    // Display the text for the current segment only
-    console.log('Current Segment Text:');
-    if (currentSegment <= 0) {
-        console.log('Already arrived');
-    } else if (currentSegment === 1) {
-        console.log(getRandomSentenceValue(approaching, characterSentenceHistory));
-    } else {
-        let randomArray;
-        if (character === 'Avatar') {
-            randomArray = Math.random() < 0.5 ? observes : soundscape;
-        } else {
-            randomArray = Math.random() < 0.5 ? observes : soundscape;
+    // Set up a timer to periodically check for updates in checkpoint distances
+    setInterval(() => {
+        // Take a snapshot of the initial checkpoint distance if it's not already defined
+        if (!initialCheckpoint) {
+            initialCheckpoint = character === 'Avatar' ? avatar_checkpoint_dist : hachi_checkpoint_dist;
         }
-        console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
-    }
+
+        // Determine the current distance and progress made
+        let currentDistance = character === 'Avatar' ? avatar_checkpoint_dist : hachi_checkpoint_dist;
+        let progress = initialCheckpoint - currentDistance;
+
+        // Determine the current segment based on the progress
+        let currentSegment = Math.ceil(progress / 15);
+
+        console.log('Current Segment:', currentSegment);
+
+        // Display the text for the current segment only
+        console.log('Current Segment Text:');
+        if (currentSegment <= 0) {
+            console.log('Already arrived');
+        } else if (currentSegment === 1) {
+            console.log(getRandomSentenceValue(approaching, characterSentenceHistory));
+        } else {
+            let randomArray;
+            if (character === 'Avatar') {
+                randomArray = Math.random() < 0.5 ? observes : soundscape;
+            } else {
+                randomArray = Math.random() < 0.5 ? observes : soundscape;
+            }
+            console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
+        }
+    }, 1000); // Check for updates every second
 };
-
-
-
 
   //Last line of the function. KEEP
 })
