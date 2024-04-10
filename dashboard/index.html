@@ -588,7 +588,7 @@ window.makeComments = async function(character) {
         observes = jsonData.hachi_observes;
     } else {
         console.error('Invalid character parameter');
-        return null; // Return null if character parameter is invalid
+        return;
     }
     approaching = jsonData.approaching;
     soundscape = jsonData.soundscape;
@@ -631,15 +631,14 @@ window.makeComments = async function(character) {
         // Determine the current segment based on the progress
         let currentSegment = Math.ceil(progress / 15);
 
-        // Return the text for the current segment only
+        // Display the text for the current segment only
         if (currentSegment >= totalSegments) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
-            return 'Arrived at the next checkpoint';
         } else if (currentSegment === 1) {
-            return approaching[Math.floor(Math.random() * approaching.length)];
+            console.log(approaching[Math.floor(Math.random() * approaching.length)]);
         } else {
-            return randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
+            console.log(randomSentences[currentSegment - 2]); // Subtract 2 because the first segment is 1-based
         }
     }, 1000); // Check for updates every second
 };
@@ -1026,15 +1025,16 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $storyComment to &#39;&#39;&gt;&gt;
 
-&lt;&lt;repeat 2s&gt;&gt;
 &lt;&lt;script&gt;&gt;
-makeComments(&#39;Avatar&#39;).then(segmentText =&gt; {
-    console.log(segmentText); // Output the segment text
-}).catch(error =&gt; {
-    console.error(&#39;Error:&#39;, error); // Handle any errors
+makeComments(&#39;Avatar&#39;).then((segmentText) =&gt; {
+    // Store the returned segment text in a variable
+    let segmentTextAvatar = segmentText;
+    console.log(segmentTextAvatar);
+    // Now you can use segmentTextAvatar as needed
+}).catch((error) =&gt; {
+    console.error(&#39;Error:&#39;, error);
 });
 &lt;&lt;/script&gt;&gt;
-&lt;&lt;/repeat&gt;&gt;
 
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
