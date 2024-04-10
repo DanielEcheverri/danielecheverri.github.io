@@ -1008,13 +1008,7 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;script&gt;&gt;
 const character = &quot;Avatar&quot;; // Change to &quot;Hachi&quot; or &quot;Avatar&quot;
-makeComments(character)
-    .then(distanceSegments =&gt; {
-        console.log(distanceSegments);
-    })
-    .catch(error =&gt; {
-        console.error(&#39;Error:&#39;, error);
-    });
+makeComments(character);
 &lt;&lt;/script&gt;&gt;
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
