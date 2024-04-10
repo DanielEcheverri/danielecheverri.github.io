@@ -615,11 +615,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				let totalSegments;
 
 				window.makeComments = async function(character) {
-				    console.log(`Character: ${character}`);
-
 				    // Fetch JSON data
 				    const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
-				    //console.log('JSON Data:', jsonData);
 
 				    // Extract data based on the character parameter
 				    let observes, approaching, soundscape;
@@ -633,10 +630,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				    }
 				    approaching = jsonData.approaching;
 				    soundscape = jsonData.soundscape;
-
-				    //console.log('Observes:', observes);
-				    //console.log('Approaching:', approaching);
-				    //console.log('Soundscape:', soundscape);
 
 				    // Function to generate random sentences upfront and store them in an array
 				    const generateRandomSentences = (obj, count) => {
@@ -676,10 +669,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				        // Determine the current segment based on the progress
 				        let currentSegment = Math.ceil(progress / 15);
 
-				        console.log('Current Segment:', currentSegment);
-
 				        // Display the text for the current segment only
-				        console.log('Current Segment Text:');
 				        if (currentSegment >= totalSegments) {
 				            console.log('Arrived at the next checkpoint');
 				            // Reset the initial checkpoint for the next segment
@@ -691,7 +681,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				        }
 				    }, 1000); // Check for updates every second
 				};
-
 
 				  //Last line of the function. KEEP
 				})
