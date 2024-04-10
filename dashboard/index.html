@@ -572,6 +572,7 @@ let sentencesSource = 'sentences.json';
 let cachedSentences;
 let characterSentenceHistory = [];
 let initialCheckpoint;
+let randomSentences = []; // Array to store pre-generated random sentences
 
 window.makeComments = async function(character) {
     console.log(`Character: ${character}`);
@@ -597,17 +598,27 @@ window.makeComments = async function(character) {
     console.log('Approaching:', approaching);
     console.log('Soundscape:', soundscape);
 
-    // Function to get a random sentence value from an object and ensure it's not repeated often
-    const getRandomSentenceValue = (obj, usedSentences) => {
-        let sentenceValue;
-        let key;
-        do {
-            key = Object.keys(obj)[Math.floor(Math.random() * Object.keys(obj).length)];
-            sentenceValue = obj[key];
-        } while (usedSentences.includes(sentenceValue));
-        usedSentences.push(sentenceValue);
-        return sentenceValue;
+    // Function to generate random sentences upfront and store them in an array
+    const generateRandomSentences = (obj, count) => {
+        let sentences = [];
+        let keys = Object.keys(obj);
+        while (sentences.length < count) {
+            let key = keys[Math.floor(Math.random() * keys.length)];
+            let sentence = obj[key];
+            if (!sentences.includes(sentence)) {
+                sentences.push(sentence);
+            }
+        }
+        return sentences;
     };
+
+    // Generate random sentences for observes and soundscape
+    if (randomSentences.length === 0) {
+        randomSentences = randomSentences.concat(generateRandomSentences(observes, 20));
+        randomSentences = randomSentences.concat(generateRandomSentences(soundscape, 20));
+        // Shuffle the array to ensure randomness
+        randomSentences = randomSentences.sort(() => Math.random() - 0.5);
+    }
 
     // Set up a timer to periodically check for updates in checkpoint distances
     setInterval(() => {
@@ -630,15 +641,9 @@ window.makeComments = async function(character) {
         if (currentSegment <= 0) {
             console.log('Already arrived');
         } else if (currentSegment === 1) {
-            console.log(getRandomSentenceValue(approaching, characterSentenceHistory));
+            console.log(approaching[Math.floor(Math.random() * approaching.length)]);
         } else {
-            let randomArray;
-            if (character === 'Avatar') {
-                randomArray = Math.random() < 0.5 ? observes : soundscape;
-            } else {
-                randomArray = Math.random() < 0.5 ? observes : soundscape;
-            }
-            console.log(getRandomSentenceValue(randomArray, characterSentenceHistory));
+            console.log(randomSentences[currentSegment - 2]); // Subtract 2 because the first segment is 1-based
         }
     }, 1000); // Check for updates every second
 };
