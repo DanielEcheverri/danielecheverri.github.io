@@ -636,16 +636,15 @@ window.makeComments = async function(character) {
       	console.log("Total segments: "+totalSegments+" Current segment: "+currentSegment);
 
         // Display the text for the current segment only
-        if (currentSegment >= totalSegments) {
+        if (currentSegment === 0) {
+            variables().avatar_comment = ""; // Set to empty string
+        } else if (currentSegment >= totalSegments) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
-        } else if (currentSegment === totalSegments-1) {
-          variables().avatar_comment=approachingFinal;
-          //variables().avatar_comment=approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
-          //console.log(storyComment);
+        } else if (currentSegment === totalSegments - 1) {
+            variables().avatar_comment = approachingFinal;
         } else {
-            variables().avatar_comment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
-          //console.log(variables().avatar_comment);
+            variables().avatar_comment = randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
         }
     }, 1000); // Check for updates every second
 };
@@ -1041,7 +1040,7 @@ console.log(variables().avatar_comment);
 
 &lt;&lt;set  $prevComment to $avatar_comment&gt;&gt;
 
-&lt;&lt;repeat 2s&gt;&gt;
+&lt;&lt;repeat 1s&gt;&gt;
 	&lt;&lt;set  $currentComment to $avatar_comment&gt;&gt;
 	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
 		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
