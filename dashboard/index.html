@@ -1044,7 +1044,7 @@ console.log(variables().avatar_comment);
 	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
 		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
           &lt;&lt;script&gt;&gt;
-          	writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
+          	writeToAvatar(&#39;avatar_passage&#39;,variables().avatar_passage);
           &lt;&lt;/script&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
