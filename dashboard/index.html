@@ -606,7 +606,8 @@ window.makeComments = async function(character) {
         }
         return sentences;
     };
-    const approachingSentences = Object.values(approaching);  
+    const approachingSentences = Object.values(approaching);
+    const approachingFinal = approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
 
 
     // Generate random sentences for observes and soundscape
@@ -639,7 +640,8 @@ window.makeComments = async function(character) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
         } else if (currentSegment === totalSegments-1) {
-          variables().avatar_comment=approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
+          variables().avatar_comment=approachingFinal;
+          //variables().avatar_comment=approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
           //console.log(storyComment);
         } else {
             variables().avatar_comment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
