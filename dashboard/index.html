@@ -1045,7 +1045,7 @@ console.log(&quot;Avatar coment: &quot;+variables().avatar_comment);
     	&lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
 		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
         &lt;&lt;script&gt;&gt;
-            var container = document.querySelector(&#39;#stories .passages .passage-main .bottomContainer #avatarStory&#39;);
+            var container = document.querySelector(&#39;stories .passages .passage-main .bottomContainer #avatarStory&#39;);
             var passageText = container.textContent.trim();
             var renderedText = Wikifier.wikifyEval(passageText);
             console.log(&quot;Rendered&quot;+renderedText);
