@@ -1030,7 +1030,6 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="sentences" tags="" position="1100,400" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
-&lt;&lt;set $avatar_comment to &quot;Hello&quot;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;Avatar&#39;);
@@ -1038,17 +1037,18 @@ console.log(variables().avatar_comment);
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;live $avatar_comment&gt;&gt;
 
-&lt;&lt;set  $prevComment to $avatar_comment&gt;&gt;
-
+&lt;&lt;set  $prevComment to $avatar_comment &gt;&gt;
 &lt;&lt;repeat 500ms&gt;&gt;
 	&lt;&lt;set  $currentComment to $avatar_comment&gt;&gt;
 	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
 		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
+        &lt;&lt;set avatar_passage to &lt;&lt;/print $avatar_comment&gt;&gt; &gt;&gt;
           &lt;&lt;script&gt;&gt;
-          	writeToAvatar(&#39;avatar_passage&#39;,variables().avatar_comment);
+          	writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
           &lt;&lt;/script&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
+
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
