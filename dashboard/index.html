@@ -636,7 +636,7 @@ window.makeComments = async function(character) {
       	console.log("Total segments: "+totalSegments+" Current segment: "+currentSegment);
 
         // Display the text for the current segment only
-        if (currentSegment === 0) {
+        if (currentSegment === 0 || currentSegment === 1) {
             variables().avatar_comment = ""; // Set to empty string
         } else if (currentSegment >= totalSegments) {
             // Reset the initial checkpoint for the next segment
@@ -794,8 +794,8 @@ Loading variables...
 &lt;&lt;set $storyTime to &#39;&#39;&gt;&gt;
 &lt;&lt;set $hachi_storyStop to &#39;&#39;&gt;&gt;
 &lt;&lt;set $avatar_storyStop to &#39;&#39;&gt;&gt;
-&lt;&lt;set $avatar_speed to &#39;&#39;&gt;&gt;
-&lt;&lt;set $hachi_speed to &#39;&#39;&gt;&gt;
+&lt;&lt;set $avatar_walking_speed to &#39;&#39;&gt;&gt;
+&lt;&lt;set $hachi_walking_speed to &#39;&#39;&gt;&gt;
 &lt;&lt;set $hachi_amenity to &#39;&#39;&gt;&gt;
 &lt;&lt;set $avatar_amenity to &#39;&#39;&gt;&gt;
 
@@ -815,8 +815,8 @@ Promise.all([
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
   writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
   variables().storyTime = getTimeOfDay();
-  variables().avatar_speed = avatarSpeed;
-  variables().hachi_speed = hachiSpeed;
+  variables().avatar_walking_speed = avatarSpeed;
+  variables().hachi_walking_speed = hachiSpeed;
   variables().avatar_amenity = avatarAmenity;
   variables().hachi_amenity = hachiAmenity;
   console.log(&quot;Time of day is: &quot; + variables().storyTime);
@@ -1040,11 +1040,10 @@ console.log(variables().avatar_comment);
 
 &lt;&lt;set  $prevComment to $avatar_comment&gt;&gt;
 
-&lt;&lt;repeat 1s&gt;&gt;
+&lt;&lt;repeat 500ms&gt;&gt;
 	&lt;&lt;set  $currentComment to $avatar_comment&gt;&gt;
 	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
 		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
-        writing
           &lt;&lt;script&gt;&gt;
           	writeToAvatar(&#39;avatar_passage&#39;,variables().avatar_comment);
           &lt;&lt;/script&gt;&gt;
