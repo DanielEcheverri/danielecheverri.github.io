@@ -82,7 +82,7 @@
 		"observation38": "In " + $storyWeather + " " + $storyTime + ", he's amidst city smells on " + $avatar_street + ".",
 		"observation39": "Despite " + $storyWeather + ", Hachi trots confidently on " + $avatar_street + ".",
 		"observation40": "Steps slow on " + $avatar_street + " " + $avatar_heading + ", Hachi's ears twitching as he takes in the vibrant sounds of city life in " + $storyTime + " " + $storyWeather + "."
-	}
+	},
 	"soundscape": {
 		"sound1": "Car horns blend with chatter, creating a lively atmosphere.",
 		"sound2": "Street performers fill the air with melodies, adding vibrancy.",
