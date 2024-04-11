@@ -609,8 +609,9 @@ window.makeComments = async function(character) {
 
     // Generate random sentences for observes and soundscape
     if (randomSentences.length === 0) {
-        randomSentences = randomSentences.concat(generateRandomSentences(observes, 20));
-        randomSentences = randomSentences.concat(generateRandomSentences(soundscape, 20));
+        randomSentences = randomSentences.concat(generateRandomSentences(observes, 10));
+        randomSentences = randomSentences.concat(generateRandomSentences(soundscape, 10));
+        randomSentences = randomSentences.concat(generateRandomSentences(approaching, 10)); // Generate for approaching data
         // Shuffle the array to ensure randomness
         randomSentences = randomSentences.sort(() => Math.random() - 0.5);
     }
