@@ -1040,7 +1040,7 @@ console.log(variables().avatar_comment);
 &lt;&lt;set  $prevComment to $avatar_comment &gt;&gt;
 &lt;&lt;repeat 500ms&gt;&gt;
 	&lt;&lt;set  $currentComment to $avatar_comment&gt;&gt;
-    &lt;&lt;set $avatar_passage to variables().avatar_comment&gt;&gt;
+    &lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
 	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
 		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
           &lt;&lt;script&gt;&gt;
