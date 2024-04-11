@@ -1028,23 +1028,18 @@ $avatar_passage
 writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="sentences" tags="" position="1100,400" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;div id=&quot;renderedTextContainer&quot;&gt;&lt;/div&gt;
-
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
-console.log(document.getElementById(&#39;bottomContainer&#39;)); // Check if bottomContainer is found
-console.log(document.getElementById(&#39;bottomContainer&#39;).querySelector(&#39;#avatarStory&#39;)); // Check if avatarStory is found
 makeComments(&#39;Avatar&#39;);
-console.log(variables().avatar_comment);
+console.log(&quot;Avatar coment: &quot;+variables().avatar_comment);
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;live $avatar_comment&gt;&gt;
 
 &lt;&lt;set  $prevComment to $avatar_comment &gt;&gt;
 &lt;&lt;repeat 500ms&gt;&gt;
-
 	&lt;&lt;set  $currentComment to $avatar_comment&gt;&gt;
 	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
     	&lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
@@ -1052,7 +1047,7 @@ console.log(variables().avatar_comment);
             var container = document.querySelector(&#39;#stories .passages .passage-main .bottomContainer #avatarStory&#39;);
             var passageText = container.textContent.trim();
             var renderedText = Wikifier.wikifyEval(passageText);
-			console.log(renderedText);
+			console.log(&quot;Rendered&quot;+renderedText);
           	writeToAvatar(&#39;avatar_passage&#39;,renderedText);
           &lt;&lt;/script&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
