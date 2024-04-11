@@ -606,6 +606,8 @@ window.makeComments = async function(character) {
         }
         return sentences;
     };
+    const approachingSentences = Object.values(approaching);  
+
 
     // Generate random sentences for observes and soundscape
     if (randomSentences.length === 0) {
@@ -637,7 +639,6 @@ window.makeComments = async function(character) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
         } else if (currentSegment === totalSegments-1) {
-          const approachingSentences = Object.values(approaching);  
           variables().avatar_comment=approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
           //console.log(storyComment);
         } else {
