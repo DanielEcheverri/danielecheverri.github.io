@@ -611,7 +611,6 @@ window.makeComments = async function(character) {
     if (randomSentences.length === 0) {
         randomSentences = randomSentences.concat(generateRandomSentences(observes, 10));
         randomSentences = randomSentences.concat(generateRandomSentences(soundscape, 10));
-        randomSentences = randomSentences.concat(generateRandomSentences(approaching, 10)); // Generate for approaching data
         // Shuffle the array to ensure randomness
         randomSentences = randomSentences.sort(() => Math.random() - 0.5);
     }
@@ -638,7 +637,8 @@ window.makeComments = async function(character) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
         } else if (currentSegment === totalSegments-1) {
-            variables().avatar_comment=approaching[Math.floor(Math.random() * approaching.length)];
+          const approachingSentences = Object.values(approaching);  
+          variables().avatar_comment=approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
           //console.log(storyComment);
         } else {
             variables().avatar_comment=randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
