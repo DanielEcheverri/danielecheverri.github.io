@@ -1042,7 +1042,7 @@ console.log(variables().avatar_comment);
 	&lt;&lt;set  $currentComment to $avatar_comment&gt;&gt;
 	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
     	&lt;&lt;set $tmp_avatar_passage to $avatar_comment&gt;&gt;
-        &lt;&lt;capture $avatar_passage&gt;&gt;&lt;&lt;print $tmp_avatar_passage&gt;&gt;&lt;&lt;/capture&gt;&gt;
+        &lt;&lt;capture $avatar_passage&gt;&gt;$tmp_avatar_passage&lt;&lt;/capture&gt;&gt;
 		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
           &lt;&lt;script&gt;&gt;
           	writeToAvatar(&#39;avatar_passage&#39;,variables().avatar_passage);
