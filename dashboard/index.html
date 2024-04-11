@@ -1034,7 +1034,7 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;Avatar&#39;);
-console.log(&quot;Avatar coment: &quot;+variables().avatar_comment);
+console.log(variables().avatar_comment);
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;live $avatar_comment&gt;&gt;
 
@@ -1044,13 +1044,9 @@ console.log(&quot;Avatar coment: &quot;+variables().avatar_comment);
 	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
     	&lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
 		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
-        &lt;&lt;script&gt;&gt;
-            var container = document.querySelector(&#39;stories .passages .passage-main .bottomContainer #avatarStory&#39;);
-            var passageText = container.textContent.trim();
-            var renderedText = Wikifier.wikifyEval(passageText);
-            console.log(&quot;Rendered&quot;+renderedText);
-            writeToAvatar(&#39;avatar_passage&#39;,renderedText);
-        &lt;&lt;/script&gt;&gt;
+          &lt;&lt;script&gt;&gt;
+          	writeToAvatar(&#39;avatar_passage&#39;,variables().avatar_passage);
+          &lt;&lt;/script&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
