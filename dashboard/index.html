@@ -637,7 +637,7 @@ window.makeComments = async function(character) {
             characterData[character].initialCheckpoint = currentDistance;
         } else if (currentSegment === characterData[character].totalSegments - 1) {
             variables()[`${character}_comment`] = approachingFinal;
-        } else if (currentSegment > characterData[character].totalSegments) {
+        } else if (currentSegment < 0) {
             // Character is distancing away from the next checkpoint
             variables()[`${character}_comment`] = "It seems you are distancing away from the next checkpoint";
         } else {
