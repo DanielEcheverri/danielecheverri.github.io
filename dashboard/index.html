@@ -572,8 +572,10 @@ let sentencesSource = 'sentences.json';
 let cachedSentences;
 let characterSentenceHistory = [];
 let initialCheckpoint;
-let randomSentences = []; // Array to store pre-generated random sentences
-let totalSegments;
+let avatar_randomSentences = []; // Array to store pre-generated random sentences
+let hachi_randomSentences = []; // Array to store pre-generated random sentences
+let avatar_totalSegments;
+let hachi_totalSegments;
 var storyComment;
 
 window.makeComments = async function(character) {
@@ -613,26 +615,34 @@ window.makeComments = async function(character) {
     // Generate random sentences for observes and soundscape
     if (randomSentences.length === 0) {
       if (character === 'Avatar') {
-        randomSentences = randomSentences.concat(generateRandomSentences(observes, 10));
-        randomSentences = randomSentences.concat(generateRandomSentences(soundscape, 10));
+        avatar_randomSentences = avatar_randomSentences.concat(generateRandomSentences(observes, 10));
+        avatar_randomSentences = avatar_randomSentences.concat(generateRandomSentences(soundscape, 10));
+        // Shuffle the array to ensure randomness
+      	avatar_randomSentences = avatar_randomSentences.sort(() => Math.random() - 0.5);
       } else if (character === 'Hachi') {
-        randomSentences = randomSentences.concat(generateRandomSentences(observes, 10));
-        randomSentences = randomSentences.concat(generateRandomSentences(soundscape, 10));
+        hachi_randomSentences = hachi_randomSentences.concat(generateRandomSentences(observes, 10));
+        hachi_randomSentences = hachi_randomSentences.concat(generateRandomSentences(soundscape, 10));
+        // Shuffle the array to ensure randomness
+      	hachi_randomSentences = hachi_randomSentences.sort(() => Math.random() - 0.5);
       }
-      // Shuffle the array to ensure randomness
-      randomSentences = randomSentences.sort(() => Math.random() - 0.5);
     }
-
 
     // Set up a timer to periodically check for updates in checkpoint distances
     setInterval(() => {
         // Take a snapshot of the initial checkpoint distance if it's not already defined
         if (!initialCheckpoint) {
-            initialCheckpoint = character === 'Avatar' ? avatar_checkpoint_dist : hachi_checkpoint_dist;
-            // Calculate the total number of segments based on the initial checkpoint distance
-            totalSegments = Math.ceil(initialCheckpoint / 15);
+            if (character === 'Avatar') {
+                initialCheckpoint = avatar_checkpoint_dist;
+                avatar_totalSegments = Math.ceil(avatar_checkpoint_dist / 15);
+            } else if (character === 'Hachi') {
+                initialCheckpoint = hachi_checkpoint_dist;
+                hachi_totalSegments = Math.ceil(hachi_checkpoint_dist / 15);
+            } else {
+                console.error('Invalid character parameter');
+                return;
+            }
         }
-
+      
         // Determine the current distance and progress made
         let currentDistance = character === 'Avatar' ? avatar_checkpoint_dist : hachi_checkpoint_dist;
         let progress = initialCheckpoint - currentDistance;
@@ -659,9 +669,9 @@ window.makeComments = async function(character) {
             }
         } else {
             if (character === 'Avatar') {
-                variables().avatar_comment = randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
+                variables().avatar_comment = avatar_randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
             } else if (character === 'Hachi') {
-                variables().hachi_comment = randomSentences[currentSegment - 2]; // Set Hachi's comment to random sentence
+                variables().hachi_comment = hachi_randomSentences[currentSegment - 2]; // Set Hachi's comment to random sentence
             }
         }
     }, 1000); // Check for updates every second
