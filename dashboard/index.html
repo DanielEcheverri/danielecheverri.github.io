@@ -612,11 +612,17 @@ window.makeComments = async function(character) {
 
     // Generate random sentences for observes and soundscape
     if (randomSentences.length === 0) {
+      if (character === 'Avatar') {
         randomSentences = randomSentences.concat(generateRandomSentences(observes, 10));
         randomSentences = randomSentences.concat(generateRandomSentences(soundscape, 10));
-        // Shuffle the array to ensure randomness
-        randomSentences = randomSentences.sort(() => Math.random() - 0.5);
+      } else if (character === 'Hachi') {
+        randomSentences = randomSentences.concat(generateRandomSentences(observes, 10));
+        randomSentences = randomSentences.concat(generateRandomSentences(soundscape, 10));
+      }
+      // Shuffle the array to ensure randomness
+      randomSentences = randomSentences.sort(() => Math.random() - 0.5);
     }
+
 
     // Set up a timer to periodically check for updates in checkpoint distances
     setInterval(() => {
