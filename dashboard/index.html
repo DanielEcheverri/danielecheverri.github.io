@@ -1038,12 +1038,12 @@ console.log(variables().avatar_comment);
 
 &lt;&lt;live $avatar_comment&gt;&gt;
 
-&lt;&lt;set  $prevComment to $avatar_comment &gt;&gt;
+&lt;&lt;set  $avatar_prevComment to $avatar_comment &gt;&gt;
 &lt;&lt;repeat 500ms&gt;&gt;
-	&lt;&lt;set  $currentComment to $avatar_comment&gt;&gt;
-	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
+	&lt;&lt;set  $avatar_currentComment to $avatar_comment&gt;&gt;
+	&lt;&lt;if  $avatar_currentComment !== $avatar_prevComment&gt;&gt;
     	&lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
-		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
+		&lt;&lt;set $avatar_prevComment to $avatar_currentComment&gt;&gt;
           &lt;&lt;script&gt;&gt;
           var passage_temp = variables().avatar_passage;
           const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
@@ -1063,12 +1063,12 @@ console.log(variables().hachi_comment);
 
 &lt;&lt;live $hachi_comment&gt;&gt;
 
-&lt;&lt;set  $prevComment to $hachi_comment &gt;&gt;
+&lt;&lt;set  $hachi_prevComment to $hachi_comment &gt;&gt;
 &lt;&lt;repeat 500ms&gt;&gt;
-	&lt;&lt;set  $currentComment to $hachi_comment&gt;&gt;
-	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
+	&lt;&lt;set  $hachi_currentComment to $hachi_comment&gt;&gt;
+	&lt;&lt;if  $hachi_currentComment !== $hachi_prevComment&gt;&gt;
     	&lt;&lt;set $hachi_passage to $hachi_comment&gt;&gt;
-		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
+		&lt;&lt;set $hachi_prevComment to $hachi_currentComment&gt;&gt;
           &lt;&lt;script&gt;&gt;
           var passage_temp = variables().hachi_passage;
           const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
