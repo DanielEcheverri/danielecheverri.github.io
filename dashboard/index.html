@@ -783,7 +783,7 @@ Loading variables...
 
 &lt;div id=&quot;bottomContainer&quot;&gt;
 	&lt;div id=&quot;avatar_story&quot;&gt;
-		&lt;&lt;include &quot;sentences&quot;&gt;&gt;
+		&lt;&lt;include &quot;avatar_1&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
        		 &lt;&lt;include &quot;hachi_1&quot;&gt;&gt;
@@ -1036,7 +1036,6 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 makeComments(&#39;Avatar&#39;);
 console.log(variables().avatar_comment);
 &lt;&lt;/script&gt;&gt;
-&lt;&lt;live $avatar_comment&gt;&gt;
 
 &lt;&lt;set  $prevComment to $avatar_comment &gt;&gt;
 &lt;&lt;repeat 500ms&gt;&gt;
@@ -1045,7 +1044,7 @@ console.log(variables().avatar_comment);
     	&lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
 		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
           &lt;&lt;script&gt;&gt;
-         	var renderedText = Wikifier.wikifyEval(variables().avatar_passage);
+          	const renderedText = $((document).createDocumentFragment()).wiki(variables().avatar_passage).text();
             console.log(renderedText);
           	writeToAvatar(&#39;avatar_passage&#39;,variables().avatar_passage);
           &lt;&lt;/script&gt;&gt;
