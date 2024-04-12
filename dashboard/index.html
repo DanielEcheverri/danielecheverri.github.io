@@ -637,14 +637,26 @@ window.makeComments = async function(character) {
 
         // Display the text for the current segment only
         if (currentSegment === 0 || currentSegment === 1) {
-            variables().avatar_comment = ""; // Set to empty string
+            if (character === 'Avatar') {
+                variables().avatar_comment = ""; // Set to empty string
+            } else if (character === 'Hachi') {
+                variables().hachi_comment = ""; // Set Hachi's comment to empty string
+            }
         } else if (currentSegment >= totalSegments) {
             // Reset the initial checkpoint for the next segment
             initialCheckpoint = currentDistance;
         } else if (currentSegment === totalSegments - 1) {
-            variables().avatar_comment = approachingFinal;
+            if (character === 'Avatar') {
+                variables().avatar_comment = approachingFinal;
+            } else if (character === 'Hachi') {
+                variables().hachi_comment = approachingFinal; // Set Hachi's comment to approachingFinal
+            }
         } else {
-            variables().avatar_comment = randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
+            if (character === 'Avatar') {
+                variables().avatar_comment = randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
+            } else if (character === 'Hachi') {
+                variables().hachi_comment = randomSentences[currentSegment - 2]; // Set Hachi's comment to random sentence
+            }
         }
     }, 1000); // Check for updates every second
 };
