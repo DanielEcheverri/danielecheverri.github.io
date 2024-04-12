@@ -570,32 +570,19 @@ window.fetchStops = async function(latitude, longitude) {
   
 let sentencesSource = 'sentences.json';
 let cachedSentences;
-let characterSentenceHistory = [];
-let initialCheckpoint;
-let avatar_randomSentences = []; // Array to store pre-generated random sentences
-let hachi_randomSentences = []; // Array to store pre-generated random sentences
-let avatar_totalSegments;
-let hachi_totalSegments;
-var storyComment;
+let characterData = {}; // Object to store data for each character
+let storyComment;
 
 window.makeComments = async function(character) {
     // Fetch JSON data
     const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
 
     // Extract data based on the character parameter
-    let observes, approaching, soundscape;
-    if (character === 'Avatar') {
-        observes = jsonData.avatar_observes;
-    } else if (character === 'Hachi') {
-        observes = jsonData.hachi_observes;
-    } else {
-        console.error('Invalid character parameter');
-        return;
-    }
-    approaching = jsonData.approaching;
-    soundscape = jsonData.soundscape;
+    const observes = jsonData[`${character}_observes`];
+    const approaching = jsonData.approaching;
+    const soundscape = jsonData.soundscape;
 
-    // Function to generate random sentences upfront and store them in an array
+    // Function to generate random sentences upfront and store them in an object
     const generateRandomSentences = (obj, count) => {
         let sentences = [];
         let keys = Object.keys(obj);
@@ -608,74 +595,46 @@ window.makeComments = async function(character) {
         }
         return sentences;
     };
+
+    // Initialize character data if not already initialized
+    if (!characterData[character]) {
+        characterData[character] = {};
+		characterData[character].initialCheckpoint = window[`${character}_checkpoint_dist`];
+        characterData[character].randomSentences = {};
+        characterData[character].randomSentences.observes = generateRandomSentences(observes, 10);
+        characterData[character].randomSentences.soundscape = generateRandomSentences(soundscape, 10);
+        // Shuffle the arrays to ensure randomness
+        characterData[character].randomSentences.observes = characterData[character].randomSentences.observes.sort(() => Math.random() - 0.5);
+        characterData[character].randomSentences.soundscape = characterData[character].randomSentences.soundscape.sort(() => Math.random() - 0.5);
+        // Calculate the total number of segments based on the initial checkpoint distance
+        characterData[character].totalSegments = Math.ceil(characterData[character].initialCheckpoint / 15);
+    }
+
     const approachingSentences = Object.values(approaching);
     const approachingFinal = approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
 
-
-    // Generate random sentences for observes and soundscape
-    if (randomSentences.length === 0) {
-      if (character === 'Avatar') {
-        avatar_randomSentences = avatar_randomSentences.concat(generateRandomSentences(observes, 10));
-        avatar_randomSentences = avatar_randomSentences.concat(generateRandomSentences(soundscape, 10));
-        // Shuffle the array to ensure randomness
-      	avatar_randomSentences = avatar_randomSentences.sort(() => Math.random() - 0.5);
-      } else if (character === 'Hachi') {
-        hachi_randomSentences = hachi_randomSentences.concat(generateRandomSentences(observes, 10));
-        hachi_randomSentences = hachi_randomSentences.concat(generateRandomSentences(soundscape, 10));
-        // Shuffle the array to ensure randomness
-      	hachi_randomSentences = hachi_randomSentences.sort(() => Math.random() - 0.5);
-      }
-    }
-
     // Set up a timer to periodically check for updates in checkpoint distances
     setInterval(() => {
-        // Take a snapshot of the initial checkpoint distance if it's not already defined
-        if (!initialCheckpoint) {
-            if (character === 'Avatar') {
-                initialCheckpoint = avatar_checkpoint_dist;
-                avatar_totalSegments = Math.ceil(avatar_checkpoint_dist / 15);
-            } else if (character === 'Hachi') {
-                initialCheckpoint = hachi_checkpoint_dist;
-                hachi_totalSegments = Math.ceil(hachi_checkpoint_dist / 15);
-            } else {
-                console.error('Invalid character parameter');
-                return;
-            }
-        }
-      
         // Determine the current distance and progress made
-        let currentDistance = character === 'Avatar' ? avatar_checkpoint_dist : hachi_checkpoint_dist;
-        let progress = initialCheckpoint - currentDistance;
-
+        let currentDistance = characterData[character].initialCheckpoint; // Assuming initialCheckpoint[character] is defined elsewhere
+        let progress = characterData[character].initialCheckpoint - currentDistance;
         // Determine the current segment based on the progress
         let currentSegment = Math.ceil(progress / 15);
-        console.log("Total segments: " + (character === 'Avatar' ? avatar_totalSegments : hachi_totalSegments) + " Current segment: " + currentSegment);
-
+        console.log("Total segments: " + characterData[character].totalSegments + " Current segment: " + currentSegment);
         // Display the text for the current segment only
-       if (currentSegment === 0 || currentSegment === 1) {
-          if (character === 'Avatar') {
-              variables().avatar_comment = ""; // Set to empty string
-          } else if (character === 'Hachi') {
-              variables().hachi_comment = ""; // Set Hachi's comment to empty string
-          }
-      } else if (currentSegment >= avatar_totalSegments || currentSegment >= hachi_totalSegments) {
-          // Reset the initial checkpoint for the next segment
-          initialCheckpoint = currentDistance;
-      } else if (currentSegment === avatar_totalSegments - 1 || currentSegment === hachi_totalSegments - 1) {
-          if (character === 'Avatar') {
-              variables().avatar_comment = approachingFinal;
-          } else if (character === 'Hachi') {
-              variables().hachi_comment = approachingFinal; // Set Hachi's comment to approachingFinal
-          }
-      } else {
-          if (character === 'Avatar') {
-              variables().avatar_comment = avatar_randomSentences[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
-          } else if (character === 'Hachi') {
-              variables().hachi_comment = hachi_randomSentences[currentSegment - 2]; // Set Hachi's comment to random sentence
-          }
-      }
+        if (currentSegment === 0 || currentSegment === 1) {
+            variables()[`${character}_comment`] = ""; // Set to empty string
+        } else if (currentSegment >= characterData[character].totalSegments) {
+            // Reset the initial checkpoint for the next segment
+            characterData[character].initialCheckpoint = currentDistance;
+        } else if (currentSegment === characterData[character].totalSegments - 1) {
+            variables()[`${character}_comment`] = approachingFinal;
+        } else {
+            variables()[`${character}_comment`] = characterData[character].randomSentences.observes[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
+        }
     }, 1000); // Check for updates every second
 };
+
 
   //Last line of the function. KEEP
 })
@@ -1060,7 +1019,7 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
-makeComments(&#39;Avatar&#39;);
+makeComments(&#39;avatar&#39;);
 console.log(variables().avatar_comment);
 &lt;&lt;/script&gt;&gt;
 
@@ -1085,7 +1044,7 @@ console.log(variables().avatar_comment);
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
-makeComments(&#39;Hachi&#39;);
+makeComments(&#39;hachi&#39;);
 console.log(variables().hachi_comment);
 &lt;&lt;/script&gt;&gt;
 
