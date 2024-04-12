@@ -783,10 +783,10 @@ Loading variables...
 
 &lt;div id=&quot;bottomContainer&quot;&gt;
 	&lt;div id=&quot;avatar_story&quot;&gt;
-		&lt;&lt;include &quot;sentences&quot;&gt;&gt;
+		&lt;&lt;include &quot;avatar_comments&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-       		 &lt;&lt;include &quot;hachi_1&quot;&gt;&gt;
+       		 &lt;&lt;include &quot;hachi_comments&quot;&gt;&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 
@@ -1027,9 +1027,8 @@ $avatar_passage
 &lt;&lt;script&gt;&gt;
 writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
 &lt;&lt;/script&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="sentences" tags="" position="1100,400" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="avatar_comments" tags="" position="1100,400" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
-&lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
@@ -1050,6 +1049,31 @@ console.log(variables().avatar_comment);
           const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
           console.log(renderedText);
           writeToAvatar(&#39;avatar_passage&#39;,renderedText);
+          &lt;&lt;/script&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
+&lt;&lt;/repeat&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="hachi_comments" tags="" position="1225,400" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
+&lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
+
+&lt;&lt;script&gt;&gt;
+makeComments(&#39;Hachi&#39;);
+console.log(variables().hachi_comment);
+&lt;&lt;/script&gt;&gt;
+
+&lt;&lt;live $hachi_comment&gt;&gt;
+
+&lt;&lt;set  $prevComment to $hachi_comment &gt;&gt;
+&lt;&lt;repeat 500ms&gt;&gt;
+	&lt;&lt;set  $currentComment to $hachi_comment&gt;&gt;
+	&lt;&lt;if  $currentComment !== $prevComment&gt;&gt;
+    	&lt;&lt;set $hachi_passage to $hachi_comment&gt;&gt;
+		&lt;&lt;set $prevComment to $currentComment&gt;&gt;
+          &lt;&lt;script&gt;&gt;
+          var passage_temp = variables().hachi_passage;
+          const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
+          console.log(renderedText);
+          writeToHachi(&#39;hachi_passage&#39;,renderedText);
           &lt;&lt;/script&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
