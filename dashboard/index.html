@@ -500,13 +500,13 @@ window.fetchStops = async function(latitude, longitude) {
   window.fetchSpeed = function(speed) {
     if (speed <= 0.1) {
         return "Not moving";
-    } else if (speed <= 0.5) {
+    } else if (speed <= 0.3) {
         return "Walking slowly";
-    } else if (speed <= 1.5) {
+    } else if (speed <= 0.6) {
         return "Walking at a moderate pace";
-    } else if (speed <= 2.5) {
+    } else if (speed <= 1.0) {
         return "Walking briskly";
-    } else if (speed <= 3.5) {
+    } else if (speed <= 1.5) {
         return "Walking quickly";
     } else {
         return "Walking very fast";
@@ -780,10 +780,10 @@ Loading variables...
 
 &lt;div id=&quot;bottomContainer&quot;&gt;
 	&lt;div id=&quot;avatar_story&quot;&gt;
-		&lt;&lt;include &quot;avatar_comments&quot;&gt;&gt;
+		&lt;&lt;include &quot;avatar_1&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-       		 &lt;&lt;include &quot;hachi_comments&quot;&gt;&gt;
+       		 &lt;&lt;include &quot;hachi_1&quot;&gt;&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 
@@ -1014,6 +1014,9 @@ writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
   &lt;&lt;script&gt;&gt;
   	writeToAvatar(&#39;avatar_passage&#39;,avatar_passage);
   &lt;&lt;/script&gt;&gt;
+  &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
+&lt;&lt;include&quot;avatar_coment&quot;&gt;&gt;
+&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
