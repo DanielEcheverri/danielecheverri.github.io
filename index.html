@@ -641,25 +641,28 @@
 					var messageDisplayDiv = document.getElementById("messageDisplayDiv");
 					var delimiterIndex = message.indexOf("/"); // Find the index of the delimiter "/"
 
+					// Check if speaking is true, if so, exit early.
+					if (speaking) {
+						return;
+					}
+
 					if (delimiterIndex !== -1) { // Check if the delimiter exists
 						messageID = message.substring(0, delimiterIndex); // Store the message ID globally
 						console.log(messageID);
 						var fullMessage = message.substring(delimiterIndex + 1); // Extract the message text after the delimiter
 						console.log(fullMessage);
+						clearTimeout(timeoutID);
+						speakMessage(fullMessage);
+						updateDisplay(fullMessage);
 					} else { // If the delimiter does not exist
 						messageID = ""; // Set message ID to an empty string globally
 						console.log(messageID);
 						var fullMessage = message; // The full message is the entire input
 						console.log(fullMessage);
+						clearTimeout(timeoutID);
+						speakMessage(fullMessage);
+						updateDisplay(fullMessage);
 					}
-
-					// Check if speaking is true, if so, exit early.
-					if (speaking) {
-						return;
-					}
-					clearTimeout(timeoutID);
-					speakMessage(fullMessage);
-					updateDisplay(fullMessage);
 				}
 
 
