@@ -1169,7 +1169,41 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;/liveblock&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="hachi_act1" tags="" position="1825,625" size="100,200">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;	</tw-passagedata><tw-passagedata pid="59" name="hachi_act1" tags="" position="1825,625" size="100,200">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
+&lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
+
+&lt;&lt;script&gt;&gt;
+makeComments(&#39;hachi&#39;,&#39;observes&#39;);
+console.log(variables().hachi_comment);
+&lt;&lt;/script&gt;&gt;
+
+&lt;&lt;live $hachi_comment&gt;&gt;
+
+&lt;&lt;set  $hachi_prevComment to $hachi_comment &gt;&gt;
+&lt;&lt;repeat 500ms&gt;&gt;
+	&lt;&lt;set  $hachi_currentComment to $hachi_comment&gt;&gt;
+	&lt;&lt;if  $hachi_currentComment !== $hachi_prevComment&gt;&gt;
+    	&lt;&lt;set $hachi_passage to $hachi_comment&gt;&gt;
+		&lt;&lt;set $hachi_prevComment to $hachi_currentComment&gt;&gt;
+          &lt;&lt;script&gt;&gt;
+          var passage_temp = variables().hachi_passage;
+          const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
+          console.log(renderedText);
+          writeTohachi(&#39;hachi_passage&#39;,renderedText);
+          &lt;&lt;/script&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
+&lt;&lt;/repeat&gt;&gt;
+
+&lt;&lt;liveblock&gt;&gt;
+&lt;&lt;if $hachi_checkpoint == &quot;Checkpoint 1B”&gt;&gt;
+  &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+  	&lt;&lt;include&quot;hachi_act1_1&quot;&gt;&gt;
+  &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;
+
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="avatar_act1" tags="" position="1975,625" size="100,200">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 
@@ -1201,8 +1235,9 @@ console.log(variables().avatar_comment);
   	&lt;&lt;include&quot;avatar_act1_1&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;
 
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="avatar_act1" tags="" position="1975,625" size="100,200"></tw-passagedata><tw-passagedata pid="61" name="hachi_act1_1" tags="" position="1700,625" size="100,100">HACHI 1_1
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="hachi_act1_1" tags="" position="1700,625" size="100,100">HACHI 1_1
 </tw-passagedata><tw-passagedata pid="62" name="hachi_act1_2" tags="" position="1700,750" size="100,100"></tw-passagedata><tw-passagedata pid="63" name="avatar_act1_1" tags="" position="2100,625" size="100,100">ACT 1_1</tw-passagedata><tw-passagedata pid="64" name="avatar_act1_2" tags="" position="2100,750" size="100,100"></tw-passagedata><tw-passagedata pid="65" name="both_end" tags="" position="1850,1500" size="200,100"></tw-passagedata><tw-passagedata pid="66" name="avatar_end" tags="" position="1725,1625" size="200,200"></tw-passagedata><tw-passagedata pid="67" name="hachi_end" tags="" position="1975,1625" size="200,200"></tw-passagedata><tw-passagedata pid="68" name="PassageFooter" tags="" position="1175,100" size="200,100">&lt;&lt;liveblock&gt;&gt;
 
 &lt;&lt;if $prev_avatar_passage !== $avatar_passage&gt;&gt;
