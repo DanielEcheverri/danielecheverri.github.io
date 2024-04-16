@@ -648,17 +648,13 @@
 
 					if (delimiterIndex !== -1) { // Check if the delimiter exists
 						messageID = message.substring(0, delimiterIndex); // Store the message ID globally
-						console.log(messageID);
 						var fullMessage = message.substring(delimiterIndex + 1).trim(); // Extract the message text after the delimiter
-						console.log(fullMessage);
 						clearTimeout(timeoutID);
 						speakMessage(fullMessage);
 						updateDisplay(fullMessage);
 					} else { // If the delimiter does not exist
 						messageID = ""; // Set message ID to an empty string globally
-						console.log(messageID);
 						var fullMessage = message.trim(); // The full message is the entire input
-						console.log(fullMessage);
 						clearTimeout(timeoutID);
 						speakMessage(fullMessage);
 						updateDisplay(fullMessage);
@@ -669,12 +665,13 @@
 				function updateDisplay(displayMessage) {
 					try {
 						// Set the text content
-						messageDisplayDiv.textContent = fullMessage;
+						console.log(displayMessage);
+						messageDisplayDiv.textContent = displayMessage;
 
 						// Check if message is not empty to show the overlay
-						messageDisplayDiv.style.display = fullMessage.trim() !== "" ? "block" : "none";
+						messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
 
-						if (fullMessage.trim() !== "") {
+						if (displayMessage.trim() !== "") {
 							// Create a close button
 							var closeButton = document.createElement("dismissButton");
 							closeButton.classList.add("button"); // Add your button class here
