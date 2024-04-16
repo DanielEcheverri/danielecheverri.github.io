@@ -68,7 +68,7 @@
 		]
 	},
 	{
-		"patternName": "Howling",
+		"patternName": "Bark",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "up" },
 			{ "partMoving": "head", "directionMoving": "down" },

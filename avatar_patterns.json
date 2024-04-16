@@ -125,6 +125,22 @@
 		]
 	},
 	{
+		"patternName": "Looking",
+		"pattern": [
+			{ "partMoving": "head", "directionMoving": "up" },
+			{ "partMoving": "head", "directionMoving": "down" },
+			{ "partMoving": "head", "directionMoving": "up" }
+		]
+	},
+	{
+		"patternName": "Looking",
+		"pattern": [
+			{ "partMoving": "head", "directionMoving": "down" },
+			{ "partMoving": "head", "directionMoving": "up" },
+			{ "partMoving": "head", "directionMoving": "down" }
+		]
+	},
+	{
 		"patternName": "Keeping",
 		"pattern": [
 			{ "partMoving": "left shoulder", "directionMoving": "up" },

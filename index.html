@@ -635,10 +635,23 @@
 				var timeOfDay;
 
 				var fullMessage;
+				var messageID = ""; // Global variable to store the message ID
 
 				function displayText(message) {
 					var messageDisplayDiv = document.getElementById("messageDisplayDiv");
-					fullMessage = message;
+					var delimiterIndex = message.indexOf("/"); // Find the index of the delimiter "/"
+
+					if (delimiterIndex !== -1) { // Check if the delimiter exists
+						messageID = message.substring(0, delimiterIndex); // Store the message ID globally
+						console.log(messageID);
+						var fullMessage = message.substring(delimiterIndex + 1); // Extract the message text after the delimiter
+						console.log(fullMessage);
+					} else { // If the delimiter does not exist
+						messageID = ""; // Set message ID to an empty string globally
+						console.log(messageID);
+						var fullMessage = message; // The full message is the entire input
+						console.log(fullMessage);
+					}
 
 					// Check if speaking is true, if so, exit early.
 					if (speaking) {
@@ -648,6 +661,7 @@
 					speakMessage(fullMessage);
 					updateDisplay(fullMessage);
 				}
+
 
 				// Update display
 				function updateDisplay(displayMessage) {
@@ -920,6 +934,7 @@
 			let prevHeading = null;
 			let prevStatus = null;
 			let prevSpeed = null;
+			let prevSpeaking = null
 
 
 			// Function to write data to the database
@@ -933,6 +948,7 @@
 			         patternMovement !== prevMovement ||
 			         tagID !== prevTagInteraction ||
 					 blueToothStatus !== prevStatus ||
+					 speaking !== prevSpeaking ||
 			         directionText !== prevHeading) {
 
 			            // Update previous values
@@ -944,6 +960,7 @@
 						prevHeading = directionText;
 						prevStatus = blueToothStatus;
 						prevSpeed = speed;
+						prevSpeaking = speaking;
 			            // Determine the database name based on the deviceName
 			            const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
 
@@ -959,6 +976,7 @@
 						const tagInteractionVar = (deviceName === 'hachi_BT') ? 'hachi_tag' :'avatar_tag' ;
 						const statusVar = (deviceName === 'hachi_BT') ? 'hachi_status' :'avatar_status' ;
 						const speedVar = (deviceName === 'hachi_BT') ? 'hachi_speed' :'avatar_speed' ;
+						const speakingVar = (deviceName === 'hachi_BT') ? 'hachi_narrating' :'avatar_narrating' ;
 
 			            // Write variables to the database
 			            update(ref(database, databaseName), {
@@ -972,7 +990,8 @@
 							[dirMovementVar]: directionMoving,
 							[tagInteractionVar]: tagID,
 							[statusVar]: blueToothStatus,
-							[speedVar]: speed.toFixed(2)
+							[speedVar]: speed.toFixed(2),
+							[speakingVar]: speaking
 			            }).then(() => {
 			                //console.log("Variables written to the database successfully!");
 			            }).catch((error) => {
