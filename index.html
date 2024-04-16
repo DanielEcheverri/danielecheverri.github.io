@@ -665,7 +665,6 @@
 					}
 				}
 
-
 				// Update display
 				function updateDisplay(displayMessage) {
 					try {
@@ -703,8 +702,6 @@
 						console.error("An error occurred:", error);
 					}
 				}
-
-				// Function to compose the message
 
 				async function fetchJSONFile(filename, cachedVariable) {
 					try {
@@ -994,7 +991,7 @@
 							[tagInteractionVar]: tagID,
 							[statusVar]: blueToothStatus,
 							[speedVar]: speed.toFixed(2),
-							[speakingVar]: speaking
+							[speakingVar]: messageID+speaking
 			            }).then(() => {
 			                //console.log("Variables written to the database successfully!");
 			            }).catch((error) => {
