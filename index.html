@@ -853,12 +853,14 @@
 								console.log('Current Checkpoint Set:', currentCheckpointKey);
 
 								// Process checkpoints within the current set
-								for (const checkpoint of checkpoints[currentCheckpointKey]) {
+								const checkpointSet = checkpoints[currentCheckpointKey];
+								const checkpointIndex = deviceName === "hachi_BT" ? 1 : 0;
+
+								if (checkpointSet && checkpointSet.length > checkpointIndex) {
+									const checkpoint = checkpointSet[checkpointIndex];
 									const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
 									chkPointDistance = distance.toFixed(2);
-									console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude,'Distance:', chkPointDistance );
-									//console.log();
-									//console.log('Distance:', distance);
+									console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude, 'Distance:', chkPointDistance);
 
 									if (distance <= radius) {
 										console.log('Checkpoint reached:', checkpoint.text);
@@ -868,6 +870,7 @@
 										return; // Exit the function when a checkpoint is reached
 									}
 								}
+
 								//console.log("No checkpoints reached in the current set.");
 							} else {
 								console.log("No more checkpoint sets to check.");
