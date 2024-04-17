@@ -1351,12 +1351,13 @@ $avatar_passage
 
 &lt;&lt;liveblock&gt;&gt;
 &lt;&lt;if $prev_avatar_comment !== $avatar_comment&gt;&gt;
-&lt;&lt;if $avatar_movement is not &quot;Jumping&quot;&gt;&gt;
-   &lt;&lt;script&gt;&gt;
-        makeShortComments(&#39;avatar&#39;,&#39;notmoving&#39;);
-        console.log(variables().avatar_comment);
-    &lt;&lt;/script&gt;&gt;
-    &lt;&lt;set $prev_avatar_comment to $avatar_comment&gt;&gt;
+  &lt;&lt;if $avatar_movement is not &quot;Jumping&quot;&gt;&gt;
+     &lt;&lt;script&gt;&gt;
+          makeShortComments(&#39;avatar&#39;,&#39;notmoving&#39;);
+          console.log(variables().avatar_comment);
+      &lt;&lt;/script&gt;&gt;
+      &lt;&lt;set $prev_avatar_comment to $avatar_comment&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 
