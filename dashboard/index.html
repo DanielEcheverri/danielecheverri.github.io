@@ -1287,19 +1287,19 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_02false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_act1_02A/What should Buro do? Should he manover around the crowd? Or should he wait for the tram to leave?&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he manover around the crowd? Or should he wait for the tram to leave?&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_narrating == &quot;avatar_act1_02Afalse&quot; and $avatar_movement == &quot;Jumping&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03A/Buro tries to skip his way through the crowd, but the crowd makes it difficult. &quot;Excuse me, pardon me,&quot; he says politely, attempting to get a clearer view.&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot; or $avatar_narrating == &quot;avatar_act1_04Bfalse&quot;) and $avatar_movement == &quot;Jumping&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_act1_04A/Buro tries to skip his way through the crowd, but the crowd makes it difficult. &quot;Excuse me, pardon me,&quot; he says politely, attempting to get a clearer view.&quot;&gt;&gt;
   &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if ($avatar_narrating == &quot;avatar_act1_02false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03B/Buro decides to wait patiently, hoping for a clearer view. &quot;I&#39;ll wait here for Hachi,&quot; he murmurs, scanning the area. &quot;Once this crowd clears, I&#39;ll have a better chance of spotting him,&quot; he adds with determination.&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_act1_04B/Buro decides to wait patiently, hoping for a clearer view. &quot;I&#39;ll wait here for Hachi,&quot; he murmurs, scanning the area. &quot;Once this crowd clears, I&#39;ll have a better chance of spotting him,&quot; he adds with determination.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_nextAct is true and (avatar_narrating == &quot;avatar_act1_03Afalse&quot; or avatar_narrating == &quot;avatar_act1_03Bfalse&quot;&gt;&gt;
+&lt;&lt;if $avatar_nextAct is true and (avatar_narrating == &quot;avatar_act1_04Afalse&quot; or avatar_narrating == &quot;avatar_act1_04Bfalse&quot;)&gt;&gt;
     &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2&quot;&gt;&gt;
         &lt;&lt;set $avatar_nextAct to false&gt;&gt;
