@@ -81,9 +81,21 @@
 					if (checkbox.checked) {
 						deviceName = "hachi_BT";
 						console.log("Setting to "+deviceName);
+						console.log("Loading settings for Hachi_BT");
+						moveSource = 'hachi_moves.json';
+						movePatterns = 'hachi_patterns.json';
+						sentenceSource = 'hachi_sentences.json';
+						tagSource = 'tags.json';
+						initializeSounds();
 					} else {
 						deviceName = "avatar_BT";
 						console.log("Setting to "+deviceName);
+						console.log("Loading settings for Avatar_BT");
+						moveSource = 'avatar_moves.json';
+						movePatterns = 'avatar_patterns.json';
+						sentenceSource = 'avatar_sentences.json';
+						tagSource = 'tags.json';
+						initializeSounds();
 					}
 				}
 
