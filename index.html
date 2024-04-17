@@ -25,7 +25,7 @@
 			</button>
 			<!-- Checkbox for Hachi -->
 			<label>
-				<input type="checkbox" id="hachiCheckbox" />
+				<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName()" />
 				Hachi
 			</label>
 		</div>
@@ -74,6 +74,17 @@
 						}
 					} catch (error) {
 						console.error('Error initializing sounds:', error);
+					}
+				}
+
+				function toggleDeviceName() {
+					var checkbox = document.getElementById("hachiCheckbox");
+					if (checkbox.checked) {
+						deviceName = "hachi_BT";
+						console.log("Setting to "+deviceName "
+					} else {
+						deviceName = "avatar_BT";
+						console.log("Setting to "+deviceName "
 					}
 				}
 
