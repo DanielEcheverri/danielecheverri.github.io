@@ -23,6 +23,11 @@
 			<button id="connectButton" class="button" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('Connecting')">
 				<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
 			</button>
+			<!-- Checkbox for Hachi -->
+			<label>
+				<input type="checkbox" id="hachiCheckbox" />
+				Hachi
+			</label>
 		</div>
 		<!-- Div to display status of Avatar BT shop -->
 		<div id="closestShop"></div>
@@ -870,7 +875,6 @@
 										return; // Exit the function when a checkpoint is reached
 									}
 								}
-
 								//console.log("No checkpoints reached in the current set.");
 							} else {
 								console.log("No more checkpoint sets to check.");
