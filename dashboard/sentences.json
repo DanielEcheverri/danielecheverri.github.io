@@ -146,5 +146,39 @@
 		"sentence18": "Nearing journey's end.",
 		"sentence19": "Just about to arrive, almost there.",
 		"sentence20": "Approaching, nearly made it."
+	},
+	"hachi_notmoving": {
+		"sentence1": "Approaching the destination.",
+		"sentence2": "Getting close now.",
+		"sentence3": "Approaching the doorstep.",
+		"sentence4": "Just a stone's throw away now.",
+		"sentence5": "Nearing the destination.",
+		"sentence6": "Just a few steps more to go.",
+		"sentence7": "Approaching within reach.",
+		"sentence8": "Close now, almost there.",
+		"sentence9": "Just ahead, almost arrived.",
+		"sentence10": "Nearing home.",
+		"sentence11": "Approaching the final stretch, keep going.",
+		"sentence12": "Just on the horizon, nearly there.",
+		"sentence13": "Approaching within sight.",
+		"sentence14": "Just up ahead, almost there.",
+		"sentence15": "Just a moment longer, you're almost there.",
+		"sentence16": "Approaching the finish line.",
+		"sentence17": "Just about there, almost arrived.",
+		"sentence18": "Nearing journey's end.",
+		"sentence19": "Just about to arrive, almost there.",
+		"sentence20": "Approaching, nearly made it."
+	},
+	"avatar_notmoving": {
+		"sentence1": "Approaching the destination.",
+		"sentence2": "Getting close now.",
+		"sentence3": "Approaching the doorstep.",
+		"sentence4": "Just a stone's throw away now.",
+		"sentence5": "Nearing the destination.",
+		"sentence6": "Just a few steps more to go.",
+		"sentence7": "Approaching within reach.",
+		"sentence8": "Close now, almost there.",
+		"sentence9": "Just ahead, almost arrived.",
+		"sentence10": "Nearing home."
 	}
 }
