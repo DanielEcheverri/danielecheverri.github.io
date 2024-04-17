@@ -1102,12 +1102,13 @@ Each day, they meet at small park and explore their city. But today, fate interv
 Today, will be a different day.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-$avatar_passage
+$avatar_passage  $hachi_passage
 &lt;&lt;if $avatar_narrating == &quot;both_00false&quot;&gt;&gt;
   &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_preamble&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
   &lt;&lt;/if&gt;&gt;
+
   &lt;&lt;if $hachi_narrating == &quot;both_00false&quot;&gt;&gt;
    &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_preamble&quot;&gt;&gt;
@@ -1283,11 +1284,11 @@ $hachi_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_01false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_act1_02/Buro strains to get a better view of the surrounding area, hoping to catch sight of Hachi&#39;s distinctive caramel and white fur. However, his view is suddenly obstructed by people getting of a tram dropping off passengers.&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_act1_02/Buro strains to get a better view of the surrounding area, hoping to catch sight of Hachi&#39;s distinctive caramel and white fur. However, his view is suddenly obstructed by a tram dropping off passengers.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_02false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he manover around the crowd? Or should he wait for the tram to leave?&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he manouver around the crowd? Or should he wait for the tram to leave?&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($avatar_narrating == &quot;avatar_act1_03false&quot; or $avatar_narrating == &quot;avatar_act1_04Bfalse&quot;) and $avatar_movement == &quot;Jumping&quot;&gt;&gt;
