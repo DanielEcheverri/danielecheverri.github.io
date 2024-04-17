@@ -112,6 +112,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
         justify-content: left;
         width: 100%;
       	background-color: #48494b;
+        overflow-y: hidden;
     }
 
     #topContainer {
@@ -121,14 +122,14 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
         top: 0;
       	left: 0;
         width: 100%;
-        height: 80%;
-        align-items: center; /* Vertically center items */
+        height: 75%;
+        align-items: center;
     }
 
     #refreshArea {
         width: 100%;
         height: 85%;
-       	background-color: #48494b; /* Adjust styling as needed */
+       	background-color: #48494b; 
        	font-size: 15px;
      	overflow-y: auto;
       	display: flex;
@@ -164,28 +165,37 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
     }
 
     #avatar_story {
-        background-color: #DEC20B; /* Adjust styling as needed */
+        background-color: #DEC20B;
     }
 
     #hachi_story {
-        background-color: #C99700; /* Adjust styling as needed */
+        background-color: #C99700;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
       	border: 0px solid #ddd;
+      	table-layout: fixed;
     }
 
     th, td {
-        padding: 8px;
+        padding: 4px;
         border: 0px solid #ddd;
         text-align: center;
+       	text-overflow: ellipsis;
+        overflow: hidden;
+       	white-space: nowrap;
+      	max-width: 100px;
     }
 
     th {
-        background-color: black; /* Header background color */
+        background-color: black;
     }
+
+	td {
+      line-height: 21px;
+	}
 
     tr:nth-child(even) {
         background-color: #808080;
@@ -201,7 +211,7 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 	border: none;
 	padding: 15px 32px;
 	text-align: center;
-   font-weight: bold;
+    font-weight: bold;
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
@@ -738,7 +748,7 @@ Loading variables...
    &quot;hachi_status&quot;, &quot;hachi_checkpoint&quot;, &quot;hachi_checkpoint_dist&quot;, &quot;hachi_speed&quot;,&quot;hachi_heading&quot;, &quot;hachi_latitude&quot;, 
     &quot;hachi_longitude&quot;, &quot;hachi_street&quot;, &quot;hachi_movement&quot;, &quot;hachi_part_dir&quot;, &quot;hachi_part_mov&quot;, &quot;hachi_tag&quot;, &quot;hachi_passage&quot;, &quot;hachi_narrating&quot;
 ]&gt;&gt;
-&lt;&lt;set _table = &quot;&lt;table border=&#39;1&#39;&gt;&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Avatar&lt;/th&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Hachi&lt;/th&gt;&lt;/tr&gt;&quot; &gt;&gt;
+&lt;&lt;set _table = &quot;&lt;table class=&#39;variables-table&#39;&gt;&lt;table border=&#39;1&#39;&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;AVATAR&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;HACHI&lt;/th&gt;&lt;/tr&gt;&quot; &gt;&gt;
 
 &lt;&lt;for _variable range _variables&gt;&gt;
     &lt;&lt;if _variable.indexOf(&quot;avatar&quot;) !== -1&gt;&gt;
