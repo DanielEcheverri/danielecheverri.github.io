@@ -1349,6 +1349,8 @@ $avatar_passage
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 
+&lt;&lt;set  $prev_avatar_comment to $avatar_comment &gt;&gt;
+
 &lt;&lt;liveblock&gt;&gt;
 &lt;&lt;if $prev_avatar_comment !== $avatar_comment&gt;&gt;
   &lt;&lt;if $avatar_movement isnot &quot;Jumping&quot;&gt;&gt;
