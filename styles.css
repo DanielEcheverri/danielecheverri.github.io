@@ -101,13 +101,10 @@ h1 {
 	cursor: not-allowed;
 }
 
-#findClosestShopButton[disabled] {
-	background-color: #dddddd; /* Light gray */
-	color: #aaaaaa; /* Dark gray */
-	cursor: not-allowed;
-}
-
-/* Find Closest Shop button style */
-#findClosestShopButton {
-	background-color: #6eb183; /* Green */
+.hachiLabel {
+	position: fixed;
+	bottom: 10px;
+	left: 10px;
+	font-size: 14px;
+	color: #333;
 }

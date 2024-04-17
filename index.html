@@ -13,6 +13,11 @@
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
+		<!-- Checkbox for Hachi -->
+		<label>
+			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName()" />
+			Hachi
+		</label>
 		<!-- Console output-->
 		<div id="consoleOutput"></div>
 		<div id="logoSpace">
@@ -23,11 +28,6 @@
 			<button id="connectButton" class="button" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('Connecting')">
 				<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
 			</button>
-			<!-- Checkbox for Hachi -->
-			<label>
-				<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName()" />
-				Hachi
-			</label>
 		</div>
 		<!-- Div to display status of Avatar BT shop -->
 		<div id="closestShop"></div>
