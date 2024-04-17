@@ -101,10 +101,13 @@ h1 {
 	cursor: not-allowed;
 }
 
-.hachiLabel {
+#hachiCheckboxContainer {
 	position: fixed;
 	bottom: 10px;
 	left: 10px;
+}
+
+.hachiLabel {
 	font-size: 14px;
 	color: #333;
 }
