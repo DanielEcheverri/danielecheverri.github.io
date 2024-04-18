@@ -658,22 +658,46 @@ window.makeComments = async function(character, key, distance) {
 };
   
 window.makeShortComments = async function(character, key) {
-    // Fetch JSON data
-    const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
+    // Log function entry
+    console.log("makeShortComments function called with character:", character, "and key:", key);
 
-    // Extract observes data based on the character and key parameters
-    const observes = jsonData[`${character}_${key}`];
+    try {
+        // Fetch JSON data
+        const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
+        // Log successful JSON data retrieval
+        console.log("JSON data fetched successfully:", jsonData);
 
-    // Function to generate a random sentence from the observes array
-    const generateRandomSentence = () => {
-        return observes[Math.floor(Math.random() * observes.length)];
-    };
+        // Extract observes data based on the character and key parameters
+        const observes = jsonData[`${character}_${key}`];
+        // Log observes data
+        console.log("Observes data for character:", character, "and key:", key, ":", observes);
 
-    // Generate a random sentence from the observes array
-    const randomSentence = generateRandomSentence();
-    // Store the random sentence in the character's comment variable
-    variables()[`${character}_comment`] = randomSentence;
+        if (!observes || !Array.isArray(observes) || observes.length === 0) {
+            // Log error if observes data is missing or invalid
+            console.error("Error: Observes data is missing, not an array, or empty.");
+            return;
+        }
+
+        // Function to generate a random sentence from the observes array
+        const generateRandomSentence = () => {
+            return observes[Math.floor(Math.random() * observes.length)];
+        };
+
+        // Generate a random sentence from the observes array
+        const randomSentence = generateRandomSentence();
+        // Log randomly selected sentence
+        console.log("Randomly selected sentence:", randomSentence);
+
+        // Store the random sentence in the character's comment variable
+        variables()[`${character}_comment`] = randomSentence;
+        // Log successful storing of comment
+        console.log("Comment stored successfully for character:", character);
+    } catch (error) {
+        // Log any errors that occur during the process
+        console.error("An error occurred:", error);
+    }
 };
+
 
   //Last line of the function. KEEP
 })
