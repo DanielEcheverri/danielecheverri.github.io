@@ -847,7 +847,7 @@ Loading variables...
 		&lt;&lt;include &quot;avatar_act1_1&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-       		 &lt;&lt;include &quot;both_preamble&quot;&gt;&gt;
+       		 &lt;&lt;include &quot;&quot;&gt;&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 
@@ -1342,13 +1342,13 @@ $avatar_passage
   &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he manouver around the crowd? Or should he wait for the tram to leave?&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if ($avatar_narrating == &quot;avatar_act1_03false&quot; or $avatar_narrating == &quot;avatar_act1_04Bfalse&quot;)&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot; or $avatar_narrating == &quot;avatar_act1_04Bfalse&quot;&gt;&gt;
   &lt;&lt;if $avatar_movement == &quot;Jumping&quot;&gt;&gt;
       &lt;&lt;set $avatar_passage to &quot;avatar_act1_04A/Buro tries to skip his way through the crowd, but the crowd makes it difficult. &#39;Excuse me, pardon me,&#39; he says politely, attempting to get a clearer view.&quot;&gt;&gt;
       &lt;&lt;set $avatar_nextAct to true&gt;&gt;
    &lt;&lt;else&gt;&gt;
       &lt;&lt;set $key_movement == &quot;Jumping&quot;&gt;&gt;
-      &lt;&lt;include &quot;hachi_short_comments&gt;&gt;
+      &lt;&lt;include &quot;avatar_short_comments&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1357,7 +1357,7 @@ $avatar_passage
   		&lt;&lt;set $avatar_passage to &quot;avatar_act1_04B/Buro decides to wait patiently, hoping for a clearer view. &#39;I&#39;ll wait here for Hachi,&#39; he murmurs, scanning the area. &#39;Once this crowd clears, I&#39;ll have a better chance of spotting him,&#39; he adds with determination.&quot;&gt;&gt;
   &lt;&lt; else&gt;&gt;
   	&lt;&lt;set $key_movement == &quot;Looking&quot;&gt;&gt;
-	&lt;&lt;include &quot;hachi_short_comments&gt;&gt;
+	&lt;&lt;include &quot;avatari_short_comments&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
