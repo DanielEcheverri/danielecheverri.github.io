@@ -672,19 +672,25 @@ window.makeShortComments = async function(character, key) {
         // Log observes data
         console.log("Observes data for character:", character, "and key:", key, ":", observes);
 
-        if (!observes || !Array.isArray(observes) || observes.length === 0) {
-            // Log error if observes data is missing or invalid
-            console.error("Error: Observes data is missing, not an array, or empty.");
+        if (!observes) {
+            // Log error if observes data is missing
+            console.error("Error: Observes data is missing for character:", character, "and key:", key);
             return;
         }
 
-        // Function to generate a random sentence from the observes array
-        const generateRandomSentence = () => {
-            return observes[Math.floor(Math.random() * observes.length)];
-        };
+        // Get the number of sentences available
+        const numSentences = Object.keys(observes).length;
 
-        // Generate a random sentence from the observes array
-        const randomSentence = generateRandomSentence();
+        if (numSentences === 0) {
+            // Log error if there are no sentences available
+            console.error("Error: No sentences found for character:", character, "and key:", key);
+            return;
+        }
+
+        // Randomly select a sentence key
+        const randomSentenceKey = `sentence${Math.floor(Math.random() * numSentences) + 1}`;
+        // Get the randomly selected sentence
+        const randomSentence = observes[randomSentenceKey];
         // Log randomly selected sentence
         console.log("Randomly selected sentence:", randomSentence);
 
@@ -697,6 +703,7 @@ window.makeShortComments = async function(character, key) {
         console.error("An error occurred:", error);
     }
 };
+
 
 
   //Last line of the function. KEEP
