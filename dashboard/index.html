@@ -844,7 +844,7 @@ Loading variables...
 
 &lt;div id=&quot;bottomContainer&quot;&gt;
 	&lt;div id=&quot;avatar_story&quot;&gt;
-		&lt;&lt;include &quot;comments&quot;&gt;&gt;
+		&lt;&lt;include &quot;avatar_act1_1&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
        		 &lt;&lt;include &quot;&quot;&gt;&gt;
@@ -1356,9 +1356,22 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot;&gt;&gt;
-  &lt;&lt;if $avatar_movement !== &quot;Jumping&quot; || $avatar_movement !== &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;include &quot;comments&quot;&gt;&gt;
-  &lt;&lt;/if&gt;&gt;
+	&lt;&lt;if _prevAvatarMovement !== $avatar_movement &amp;&amp; $avatar_movement !== $key_movement&gt;&gt;
+		&lt;&lt;script&gt;&gt;
+			makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;);
+			console.log(variables().avatar_comment);
+		&lt;&lt;/script&gt;&gt;
+		&lt;&lt;set _prevAvatarMovement to variables().avatar_movement&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
+	&lt;&lt;if $avatar_comment !== _prevAvatarComment&gt;&gt;
+		&lt;&lt;set _prevAvatarComment to $avatar_comment&gt;&gt;
+		&lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
+		&lt;&lt;script&gt;&gt;
+			var passage_temp = variables().avatar_passage;
+			console.log(passage_temp); // Ensure passage_temp is correct
+			writeToAvatar(&#39;avatar_passage&#39;, passage_temp);
+		&lt;&lt;/script&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_nextAct is true and (avatar_narrating == &quot;avatar_act1_04Afalse&quot; or avatar_narrating == &quot;avatar_act1_04Bfalse&quot;)&gt;&gt;
