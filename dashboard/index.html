@@ -1355,7 +1355,7 @@ $avatar_passage
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot; and ($avatar_movement == &quot;Looking&quot; || $avatar_movement == &quot;Jumping&quot;) &gt;&gt;
 	&lt;&lt;if _prevAvatarMovement !== $avatar_movement &amp;&amp; $avatar_movement !== $key_movement&gt;&gt;
 		&lt;&lt;script&gt;&gt;
 			makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;);
