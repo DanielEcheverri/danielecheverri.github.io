@@ -60,7 +60,7 @@
 		]
 	},
 	{
-		"patternName": "Sniffing down",
+		"patternName": "Sniffing",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "down" },
 			{ "partMoving": "head", "directionMoving": "up" },
@@ -68,7 +68,7 @@
 		]
 	},
 	{
-		"patternName": "Bark",
+		"patternName": "Barking",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "up" },
 			{ "partMoving": "head", "directionMoving": "down" },
