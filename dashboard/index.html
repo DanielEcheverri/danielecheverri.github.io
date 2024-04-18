@@ -1356,8 +1356,9 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot;&gt;&gt;
-&lt;&lt;if $avatar_movement !== &quot;Jumping&quot; || $avatar_movement !== &quot;Looking&quot;&gt;&gt;
-&lt;&lt;include &quot;comments&quot;&gt;&gt;
+  &lt;&lt;if $avatar_movement !== &quot;Jumping&quot; || $avatar_movement !== &quot;Looking&quot;&gt;&gt;
+  &lt;&lt;include &quot;comments&quot;&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_nextAct is true and (avatar_narrating == &quot;avatar_act1_04Afalse&quot; or avatar_narrating == &quot;avatar_act1_04Bfalse&quot;)&gt;&gt;
