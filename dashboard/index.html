@@ -1386,42 +1386,30 @@ $avatar_passage
     &lt;&lt;set $prev_hachi_passage to $hachi_passage&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="avatar_short_comments" tags="" position="300,1025" size="100,100">SHORT
-&lt;&lt;nobr&gt;&gt;
-    &lt;&lt;set $prev_avatarMovement to $avatar_movement&gt;&gt;
-
+&lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="avatar_short_comments" tags="" position="300,1025" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set _prevAvatarMovement to $avatar_movement&gt;&gt;
+&lt;&lt;set _prevAvatarComment to &quot;&quot;&gt;&gt;
 &lt;&lt;liveblock&gt;&gt;
-SHORT 2
-&lt;&lt;if $prev_avatarMovement !== $avatar_movement&gt;&gt;
-  &lt;&lt;if $avatar_movement !== $key_movement&gt;&gt;
-      &lt;&lt;script&gt;&gt;
-        makeShortComments(&#39;avatar&#39;,&#39;notmoving&#39;);
-        console.log(variables().avatar_comment);
-      &lt;&lt;/script&gt;&gt;
-      &lt;&lt;set $prev_avatarMovement to $avatar_movement&gt;&gt;
-      &lt;&lt;else&gt;&gt;
-      	&lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
-  &lt;&lt;/if&gt;&gt;
-&lt;&lt;/liveblock&gt;&gt;
-
-&lt;&lt;live $avatar_comment&gt;&gt;
-
-&lt;&lt;set  $avatar_prevComment to $avatar_comment &gt;&gt;
-&lt;&lt;repeat 500ms&gt;&gt;
-	&lt;&lt;set  $avatar_currentComment to $avatar_comment&gt;&gt;
-	&lt;&lt;if  $avatar_currentComment !== $avatar_prevComment&gt;&gt;
-    	&lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
-		&lt;&lt;set $avatar_prevComment to $avatar_currentComment&gt;&gt;
-          &lt;&lt;script&gt;&gt;
-          var passage_temp = variables().avatar_passage;
-          const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
-          console.log(renderedText);
-          writeToAvatar(&#39;avatar_passage&#39;,renderedText);
-          &lt;&lt;/script&gt;&gt;
+$avatar_comment
+	&lt;&lt;if _prevAvatarMovement !== $avatar_movement &amp;&amp; $avatar_movement !== $key_movement&gt;&gt;
+		&lt;&lt;script&gt;&gt;
+			makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;);
+			console.log(variables().avatar_comment);
+		&lt;&lt;/script&gt;&gt;
+		&lt;&lt;set _prevAvatarMovement to $avatar_movement&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
-&lt;&lt;/repeat&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="hachi_short_comments" tags="" position="450,1025" size="100,100">&lt;&lt;nobr&gt;&gt;
+	&lt;&lt;if $avatar_comment !== _prevAvatarComment&gt;&gt;
+		&lt;&lt;set _prevAvatarComment to $avatar_comment&gt;&gt;
+		&lt;&lt;set $avatar_passage to $avatar_comment&gt;&gt;
+		&lt;&lt;script&gt;&gt;
+			var passage_temp = variables().avatar_passage;
+			console.log(passage_temp); // Ensure passage_temp is correct
+			writeToAvatar(&#39;avatar_passage&#39;, passage_temp);
+		&lt;&lt;/script&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;
+</tw-passagedata><tw-passagedata pid="68" name="hachi_short_comments" tags="" position="450,1025" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
 
 &lt;&lt;set $prev_hachiMovement to $hachi_movement&gt;&gt;
