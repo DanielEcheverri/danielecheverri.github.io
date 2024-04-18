@@ -1369,9 +1369,10 @@ $avatar_passage
 		&lt;&lt;script&gt;&gt;
 			var passage_temp = variables().avatar_passage;
 			const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
-          console.log(renderedText);
-			writeToAvatar(&#39;avatar_passage&#39;, renderedText);
+            console.log(renderedText);
+            variables().avatar_passage = renderedText;
 		&lt;&lt;/script&gt;&gt;
+         &lt;&lt;set $avatar_passage to variables().avatar_passage&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
