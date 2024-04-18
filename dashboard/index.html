@@ -1366,9 +1366,8 @@ $avatar_passage
       &lt;&lt;/if&gt;&gt;
       &lt;&lt;if $avatar_comment !== _prevAvatarComment&gt;&gt;
           &lt;&lt;set _prevAvatarComment to $avatar_comment&gt;&gt;
-          &lt;&lt;set $avatar_passage_tmp to $avatar_comment&gt;&gt;
           &lt;&lt;script&gt;&gt;
-              var passage_temp = variables().avatar_passage_tmp;
+              var passage_temp = variables().avatar_comment;
               const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
               console.log(renderedText);
               variables().avatar_passage = renderedText;
