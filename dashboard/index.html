@@ -1321,7 +1321,7 @@ $hachi_passage
 
 &lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Afalse&quot;)&gt;&gt;
   &lt;&lt;if $hachi_movement !== &quot;Barking&quot;&gt;&gt;
-   	&lt;&lt;if _prevhachiMovement === &#39;undefined&#39;&gt;&gt;&lt;&lt;set _prevhachiMovement to $hachi_movement&gt;&gt;&lt;&lt;/if&gt;&gt;
+   	&lt;&lt;if _prevhachiMovement === &quot;undefined&quot;&gt;&gt;&lt;&lt;set _prevhachiMovement to $hachi_movement&gt;&gt;&lt;&lt;/if&gt;&gt;
       &lt;&lt;if _prevhachiMovement !== $hachi_movement&gt;&gt;&lt;&lt;script&gt;&gt;makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;);console.log(variables().hachi_comment);&lt;&lt;/script&gt;&gt;&lt;&lt;set _prevhachiMovement to variables().hachi_movement&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;if $hachi_comment !== _prevhachiComment&gt;&gt;&lt;&lt;set _prevhachiComment to $hachi_comment&gt;&gt;&lt;&lt;script&gt;&gt;var passage_temp = variables().hachi_comment; const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text(); console.log(renderedText);variables().hachi_passage = renderedText;&lt;&lt;/script&gt;&gt;&lt;&lt;set $hachi_passage to variables().hachi_passage&gt;&gt;&lt;&lt;/if&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
