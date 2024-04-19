@@ -847,7 +847,7 @@ Loading variables...
 		&lt;&lt;include &quot;avatar_act1_1&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-       		 &lt;&lt;include &quot;&quot;&gt;&gt;
+       		 &lt;&lt;include &quot;hachi_act1_1&quot;&gt;&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 
@@ -1319,6 +1319,12 @@ $hachi_passage
   &lt;&lt;set $hachi_passage to &quot;hachi_act1_03B/Hachi&#39;s barks echo through the square, but there&#39;s no response, prompting him to continue his search.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
+&lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Afalse&quot;)&gt;&gt;
+  &lt;&lt;if $hachi_movement !== &quot;Barking&quot;&gt;&gt;
+      &lt;&lt;if _prevhachiMovement !== $hachi_movement&gt;&gt;&lt;&lt;script&gt;&gt;makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;);console.log(variables().hachi_comment);&lt;&lt;/script&gt;&gt;&lt;&lt;set _prevhachiMovement to variables().hachi_movement&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;if $hachi_comment !== _prevhachiComment&gt;&gt;&lt;&lt;set _prevhachiComment to $hachi_comment&gt;&gt;&lt;&lt;script&gt;&gt;var passage_temp = variables().hachi_comment; const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text(); console.log(renderedText);variables().hachi_passage = renderedText;&lt;&lt;/script&gt;&gt;&lt;&lt;set $hachi_passage to variables().hachi_passage&gt;&gt;&lt;&lt;/if&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
 &lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_act1_03Afalse&quot;&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act2&quot;&gt;&gt;
@@ -1357,8 +1363,7 @@ $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot;&gt;&gt;
   &lt;&lt;if $avatar_movement !== &quot;Looking&quot; and $avatar_movement !== &quot;Jumping&quot;&gt;&gt;
-      &lt;&lt;if _prevAvatarMovement !== $avatar_movement&gt;&gt;&lt;&lt;script&gt;&gt;makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;);console.log(variables().avatar_comment);&lt;&lt;/script&gt;&gt;&lt;&lt;set _prevAvatarMovement to variables().avatar_movement&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;if $avatar_comment !== _prevAvatarComment&gt;&gt;&lt;&lt;set _prevAvatarComment to $avatar_comment&gt;&gt;&lt;&lt;script&gt;&gt;var passage_temp = variables().avatar_comment; const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text(); console.log(renderedText);variables().avatar_passage = renderedText;&lt;&lt;/script&gt;&gt;&lt;&lt;set $avatar_passage to variables().avatar_passage&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
+      &lt;&lt;if _prevAvatarMovement !== $avatar_movement&gt;&gt;&lt;&lt;script&gt;&gt;makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;);console.log(variables().avatar_comment);&lt;&lt;/script&gt;&gt;&lt;&lt;set _prevAvatarMovement to variables().avatar_movement&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;if $avatar_comment !== _prevAvatarComment&gt;&gt;&lt;&lt;set _prevAvatarComment to $avatar_comment&gt;&gt;&lt;&lt;script&gt;&gt;var passage_temp = variables().avatar_comment; const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text(); console.log(renderedText);variables().avatar_passage = renderedText;&lt;&lt;/script&gt;&gt;&lt;&lt;set $avatar_passage to variables().avatar_passage&gt;&gt;&lt;&lt;/if&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
