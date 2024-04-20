@@ -1077,13 +1077,6 @@
 			});
 			}
 
-			setInterval(() => {
-				toggleDeviceName2();
-				console.log(deviceName);
-				writeToDatabase();
-				readFromDatabase(deviceName); // Read data after writing
-			}, 1000);
-
 			function toggleDeviceName2() {
 				var checkbox = document.getElementById("hachiCheckbox");
 				if (checkbox.checked) {
@@ -1092,6 +1085,13 @@
 					//database.ref('hachi_data').off();
 				}
 			}
+
+			setInterval(() => {
+				toggleDeviceName2();
+				console.log(deviceName);
+				writeToDatabase();
+				readFromDatabase(deviceName); // Read data after writing
+			}, 1000);
 		</script>
 	</body>
 </html>
