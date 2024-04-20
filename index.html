@@ -91,9 +91,7 @@
 						sentenceSource = 'hachi_sentences.json';
 						tagSource = 'tags.json';
 						initializeSounds();
-						if (avatarListenerHandle) {
-							off(ref(database, 'avatar_data'), 'value', avatarListenerHandle);
-						}
+						off(ref(database, 'avatar_data'), 'value');
 					} else {
 						deviceName = "avatar_BT";
 						console.log("Setting to "+deviceName);
@@ -103,10 +101,7 @@
 						sentenceSource = 'avatar_sentences.json';
 						tagSource = 'tags.json';
 						initializeSounds();
-						// Disconnect from the Hachi_BT database if it's connected
-						if (hachiListenerHandle) {
-							off(ref(database, 'hachi_data'), 'value', hachiListenerHandle);
-						}
+						off(ref(database, 'hachi_data'), 'value');
 					}
 				}
 
