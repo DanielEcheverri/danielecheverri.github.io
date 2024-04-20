@@ -1076,6 +1076,7 @@
 				}
 			});
 			}
+
 			setInterval(() => {
 				toggleDeviceName2();
 				console.log(deviceName);
@@ -1084,13 +1085,17 @@
 			}, 1000);
 
 			function toggleDeviceName2() {
-					var checkbox = document.getElementById("hachiCheckbox");
-					if (checkbox.checked) {
-						database.ref('avatar_data').off();
-					} else {
-						database.ref('hachi_data').off();
-					}
+				var checkbox = document.getElementById("hachiCheckbox");
+				if (checkbox.checked) {
+					const avatarDataRef = ref(database, 'avatar_data');
+					const unsubscribe = onValue(hachiDataRef, (snapshot) => {
+						console.log(snapshot.val());
+					});
+					off(avatarDataRef, unsubscribe);
+				} else {
+					database.ref('hachi_data').off();
 				}
+			}
 		</script>
 	</body>
 </html>
