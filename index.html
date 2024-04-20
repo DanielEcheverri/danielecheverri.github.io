@@ -1086,9 +1086,9 @@
 			function toggleDeviceName2() {
 					var checkbox = document.getElementById("hachiCheckbox");
 					if (checkbox.checked) {
-						database.ref('avatar_data').off();
+						off(ref(database, 'avatar_data'), 'value');
 					} else {
-						database.ref('hachi_data').off();
+						off(ref(database, 'hachi_data'), 'value');
 					}
 				}
 		</script>
