@@ -15,7 +15,7 @@
 	<body>
 		<!-- Checkbox for Hachi -->
 		<div id="hachiCheckboxContainer">
-			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName()" />
+			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName(), toggleDeviceName2()" />
 		</div>
 		<!-- Console output-->
 		<div id="consoleOutput"></div>
@@ -1080,19 +1080,20 @@
 				const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
 				if (checkbox.checked) {
 					off(ref(database, databaseName));
-					//database.ref('avatar_data').off();
+					readFromDatabase(deviceName); // Read data after writing
+
 				} else {
 					off(ref(database, databaseName));
-					//database.ref('hachi_data').off();
-				}
+					readFromDatabase(deviceName); // Read data after writing
+			}
 			}
 
 			setInterval(() => {
 				toggleDeviceName2();
 				console.log(deviceName);
 				writeToDatabase();
-				readFromDatabase(deviceName); // Read data after writing
 			}, 1000);
+			readFromDatabase(deviceName); // Read data after writing
 		</script>
 	</body>
 </html>
