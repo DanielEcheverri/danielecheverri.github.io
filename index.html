@@ -15,7 +15,7 @@
 	<body>
 		<!-- Checkbox for Hachi -->
 		<div id="hachiCheckboxContainer">
-			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName()" />
+			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName(); toggleDeviceName2()" />
 		</div>
 		<!-- Console output-->
 		<div id="consoleOutput"></div>
@@ -87,7 +87,6 @@
 						sentenceSource = 'hachi_sentences.json';
 						tagSource = 'tags.json';
 						initializeSounds();
-						toggleDeviceName2();
 					} else {
 						deviceName = "avatar_BT";
 						console.log("Setting to "+deviceName);
@@ -97,7 +96,6 @@
 						sentenceSource = 'avatar_sentences.json';
 						tagSource = 'tags.json';
 						initializeSounds();
-						toggleDeviceName2();
 					}
 				}
 
