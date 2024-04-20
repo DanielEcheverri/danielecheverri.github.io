@@ -665,16 +665,16 @@ window.makeShortComments = async function(character, key) {
         // Fetch JSON data
         const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
         // Log successful JSON data retrieval
-        console.log("JSON data fetched successfully:", jsonData);
+        //console.log("JSON data fetched successfully:", jsonData);
 
         // Extract observes data based on the character and key parameters
         const observes = jsonData[`${character}_${key}`];
         // Log observes data
-        console.log("Observes data for character:", character, "and key:", key, ":", observes);
+        //console.log("Observes data for character:", character, "and key:", key, ":", observes);
 
         if (!observes) {
             // Log error if observes data is missing
-            console.error("Error: Observes data is missing for character:", character, "and key:", key);
+            //console.error("Error: Observes data is missing for character:", character, "and key:", key);
             return;
         }
 
@@ -683,7 +683,7 @@ window.makeShortComments = async function(character, key) {
 
         if (numSentences === 0) {
             // Log error if there are no sentences available
-            console.error("Error: No sentences found for character:", character, "and key:", key);
+            //console.error("Error: No sentences found for character:", character, "and key:", key);
             return;
         }
 
@@ -692,7 +692,7 @@ window.makeShortComments = async function(character, key) {
         // Get the randomly selected sentence
         const randomSentence = observes[randomSentenceKey];
         // Log randomly selected sentence
-        console.log("Randomly selected sentence:", randomSentence);
+        //console.log("Randomly selected sentence:", randomSentence);
 
         // Store the random sentence in the character's comment variable
         variables()[`${character}_comment`] = randomSentence;
@@ -844,10 +844,10 @@ Loading variables...
 
 &lt;div id=&quot;bottomContainer&quot;&gt;
 	&lt;div id=&quot;avatar_story&quot;&gt;
-		&lt;&lt;include &quot;avatar_act1_1&quot;&gt;&gt;
+		&lt;&lt;include &quot;both_preamble&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-       		 &lt;&lt;include &quot;hachi_act1_1&quot;&gt;&gt;
+       		 &lt;&lt;include &quot;both_preamble&quot;&gt;&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 
