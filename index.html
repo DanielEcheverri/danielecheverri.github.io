@@ -76,28 +76,7 @@
 					}
 				}
 
-				function toggleDeviceName() {
-					var checkbox = document.getElementById("hachiCheckbox");
-					if (checkbox.checked) {
-						deviceName = "hachi_BT";
-						console.log("Setting to "+deviceName);
-						console.log("Loading settings for Hachi_BT");
-						moveSource = 'hachi_moves.json';
-						movePatterns = 'hachi_patterns.json';
-						sentenceSource = 'hachi_sentences.json';
-						tagSource = 'tags.json';
-						initializeSounds();
-					} else {
-						deviceName = "avatar_BT";
-						console.log("Setting to "+deviceName);
-						console.log("Loading settings for Avatar_BT");
-						moveSource = 'avatar_moves.json';
-						movePatterns = 'avatar_patterns.json';
-						sentenceSource = 'avatar_sentences.json';
-						tagSource = 'tags.json';
-						initializeSounds();
-					}
-				}
+
 
 				async function connectToDevice() {
 					try {
@@ -1077,6 +1056,32 @@
 				writeToDatabase();
 			}, 1000);
 			readFromDatabase(deviceName); // Read data after writing
+
+
+			function toggleDeviceName() {
+					var checkbox = document.getElementById("hachiCheckbox");
+					if (checkbox.checked) {
+						deviceName = "hachi_BT";
+						console.log("Setting to "+deviceName);
+						console.log("Loading settings for Hachi_BT");
+						moveSource = 'hachi_moves.json';
+						movePatterns = 'hachi_patterns.json';
+						sentenceSource = 'hachi_sentences.json';
+						tagSource = 'tags.json';
+						initializeSounds();
+						readFromDatabase(deviceName);
+					} else {
+						deviceName = "avatar_BT";
+						console.log("Setting to "+deviceName);
+						console.log("Loading settings for Avatar_BT");
+						moveSource = 'avatar_moves.json';
+						movePatterns = 'avatar_patterns.json';
+						sentenceSource = 'avatar_sentences.json';
+						tagSource = 'tags.json';
+						initializeSounds();
+						readFromDatabase(deviceName);
+					}
+				}
 		</script>
 	</body>
 </html>
