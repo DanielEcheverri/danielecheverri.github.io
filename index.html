@@ -1077,11 +1077,12 @@
 
 			function toggleDeviceName2() {
 				var checkbox = document.getElementById("hachiCheckbox");
+				const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
 				if (checkbox.checked) {
-					const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
 					off(ref(database, databaseName));
 					//database.ref('avatar_data').off();
 				} else {
+					off(ref(database, databaseName));
 					//database.ref('hachi_data').off();
 				}
 			}
@@ -1090,8 +1091,8 @@
 				toggleDeviceName2();
 				console.log(deviceName);
 				writeToDatabase();
-				readFromDatabase(deviceName); // Read data after writing
 			}, 1000);
+			readFromDatabase(deviceName); // Read data after writing
 		</script>
 	</body>
 </html>
