@@ -844,6 +844,7 @@ Loading variables...
 
 &lt;div id=&quot;bottomContainer&quot;&gt;
 	&lt;div id=&quot;avatar_story&quot;&gt;
+    
 		&lt;&lt;include &quot;both_preamble&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
@@ -1151,7 +1152,13 @@ Each day, they meet at small park and explore their city. But today, fate interv
 Today, will be a different day.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-$avatar_passage  $hachi_passage
+&lt;div id=&quot;#avatarStory&quot;&gt;
+$avatar_passage 
+&lt;/div&gt;
+&lt;div id=&quot;#hachiStory&quot;&gt;
+ $hachi_passage
+ &lt;/div&gt;
+
 &lt;&lt;if $avatar_narrating == &quot;both_00false&quot;&gt;&gt;
   &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_preamble&quot;&gt;&gt;
@@ -1212,7 +1219,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_pre_03false&quot; and $avatar_speed &gt;=&quot;0.2&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04/Buro sees Hachi in the distance: What should Buro do? Should he call Hachi&#39;s name or should he Stand on one leg to get a better view?&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04/Buro sees Hachi in the distance: What should Buro do? Should he look up and call Hachi&#39;s name or should he Stand on one leg to get a better view?&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($avatar_narrating == &quot;avatar_pre_04false&quot; or $avatar_narrating == &quot;avatar_04Bfalse&quot;) and $avatar_part_mov == &quot;head&quot; and $avatar_part_dir == &quot;up&quot;&gt;&gt;
@@ -1225,6 +1232,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $nextAct is true and $avatar_narrating== &quot;avatar_pre_04Bfalse&quot; &gt;&gt;
+ &lt;&lt;set $avatar_passage to &quot;avatar_pre_05/Then, Buro starts walking again.&quot;&gt;&gt;
     &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act1&quot;&gt;&gt;
         &lt;&lt;set $nextAct to false&gt;&gt;
@@ -1345,7 +1353,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_02false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he manouver around the crowd? Or should he wait for the tram to leave?&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he manouver and jump around the crowd? Or should just look at the people until the tram leaves?&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot;&gt;&gt;
@@ -1357,7 +1365,7 @@ $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot;&gt;&gt;
 	&lt;&lt;if $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  		&lt;&lt;set $avatar_passage to &quot;avatar_act1_04B/Buro decides to wait patiently, hoping for a clearer view. &#39;I&#39;ll wait here for Hachi,&#39; he murmurs, scanning the area. &#39;Once this crowd clears, I&#39;ll have a better chance of spotting him,&#39; he adds with determination.&quot;&gt;&gt;
+  		&lt;&lt;set $avatar_passage to &quot;avatar_act1_04B/Buro decides to wait patiently, hoping for a clearer view. &#39;I&#39;ll wait here for Hachi,&#39; he murmurs, scanning the area. &#39;Once this crowd clears, I&#39;ll have a better chance of spotting him&#39;.&quot;&gt;&gt;
         &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
