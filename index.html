@@ -1078,10 +1078,10 @@
 			}
 
 			function toggleDeviceName2() {
+				const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
 				var checkbox = document.getElementById("hachiCheckbox");
 				if (checkbox.checked) {
-					const hachiDataRef = ref(database, 'avatar_data');
-					off(hachiDataRef);
+					off(ref(database, databaseName));
 					//database.ref('avatar_data').off();
 				} else {
 					//database.ref('hachi_data').off();
