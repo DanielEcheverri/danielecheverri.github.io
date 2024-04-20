@@ -15,7 +15,7 @@
 	<body>
 		<!-- Checkbox for Hachi -->
 		<div id="hachiCheckboxContainer">
-			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName(); toggleDeviceName2();" />
+			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName()" />
 		</div>
 		<!-- Console output-->
 		<div id="consoleOutput"></div>
@@ -1090,10 +1090,16 @@
 
 			setInterval(() => {
 				//toggleDeviceName2();
-				console.log(deviceName);
 				writeToDatabase();
 			}, 1000);
 			readFromDatabase(deviceName); // Read data after writing,
+
+			document.addEventListener('DOMContentLoaded', function() {
+				var checkbox = document.getElementById("hachiCheckbox");
+				checkbox.addEventListener('click', function() {
+					toggleDeviceName2();
+				});
+			});
 		</script>
 	</body>
 </html>
