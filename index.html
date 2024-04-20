@@ -1075,6 +1075,8 @@
 			}
 			setInterval(() => {
 				console.log(deviceName);
+				console.log(databaseName);
+				console.log(myPassage);
 				writeToDatabase();
 				readFromDatabase(deviceName); // Read data after writing
 			}, 1000);
