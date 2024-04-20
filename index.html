@@ -76,10 +76,6 @@
 					}
 				}
 
-				// Define variables to hold the listener handles
-				let hachiListenerHandle;
-				let avatarListenerHandle;
-
 				function toggleDeviceName() {
 					var checkbox = document.getElementById("hachiCheckbox");
 					if (checkbox.checked) {
@@ -1081,10 +1077,20 @@
 			});
 			}
 			setInterval(() => {
+				toggleDeviceName2()
 				console.log(deviceName);
 				writeToDatabase();
 				readFromDatabase(deviceName); // Read data after writing
 			}, 1000);
+
+			function toggleDeviceName2() {
+					var checkbox = document.getElementById("hachiCheckbox");
+					if (checkbox.checked) {
+						database.ref('avatar_data').off();
+					} else {
+						database.ref('hachi_data').off();
+					}
+				}
 		</script>
 	</body>
 </html>
