@@ -91,7 +91,7 @@
 						sentenceSource = 'hachi_sentences.json';
 						tagSource = 'tags.json';
 						initializeSounds();
-						off(ref(database, 'avatar_data'), 'value');
+						database.ref('avatar_data').off();
 					} else {
 						deviceName = "avatar_BT";
 						console.log("Setting to "+deviceName);
@@ -101,8 +101,7 @@
 						sentenceSource = 'avatar_sentences.json';
 						tagSource = 'tags.json';
 						initializeSounds();
-						off(ref(database, 'hachi_data'), 'value');
-					}
+						database.ref('hachi_data').off();
 				}
 
 				async function connectToDevice() {
