@@ -842,21 +842,26 @@ Loading variables...
       &lt;div id=&quot;refreshArea&quot;&gt;	&lt;/div&gt;
 &lt;/div&gt;
 
+&lt;&lt;set $avatar_check ==false&gt;&gt;
+&lt;&lt;set $hachi_check ==false&gt;&gt;
+
 &lt;div id=&quot;bottomContainer&quot;&gt;
-&lt;&lt;liveblock&gt;&gt;
-&lt;&lt;if $avatar_status is &quot;Online&quot; and $avatar_check is false&gt;&gt;
 	&lt;div id=&quot;avatar_story&quot;&gt;
-		&lt;&lt;include &quot;both_preamble&quot;&gt;&gt;
+    	&lt;&lt;repeat 1s&gt;&gt;
+        &lt;&lt;if $avatar_check == false and $avatar_status == &quot;Online&quot;&gt;&gt;
+          &lt;&lt;include &quot;both_preamble&quot;&gt;&gt;
+          &lt;&lt;stop&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+        &lt;&lt;/repeat&gt;&gt;
 	&lt;/div&gt;
-    &lt;&lt;set $avatar_check == true&gt;&gt;
-  &lt;&lt;/if&gt;&gt;
-  &lt;&lt;if $hachi_status is &quot;Online&quot; and $hachi_check is false&gt;&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-       	 &lt;&lt;include &quot;hachi_act1&quot;&gt;&gt;
+        &lt;&lt;repeat 1s&gt;&gt;
+        &lt;&lt;if $hachi_check ==false and $hachi_status == &quot;Online&quot;&gt;&gt;
+           &lt;&lt;include &quot;hachi_act1&quot;&gt;&gt;	
+           &lt;&lt;stop&gt;&gt;
+         &lt;&lt;/if&gt;&gt;
+        &lt;&lt;/repeat&gt;&gt;
 	&lt;/div&gt;
-     &lt;&lt;set $hachi_check == true&gt;&gt;
-  &lt;&lt;/if&gt;&gt;
-&lt;&lt;/liveblock&gt;&gt;
 &lt;/div&gt;
 
 &lt;&lt;set $storyWeather to &#39;&#39;&gt;&gt;
