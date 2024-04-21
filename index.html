@@ -975,9 +975,13 @@
 			         tagID !== prevTagInteraction ||
 					 blueToothStatus !== prevStatus ||
 					 speaking !== prevSpeaking ||
+					 directionMoving !== prevDirectionMoving ||
+					 partMoving !==prevPartMoving ||
 			         directionText !== prevHeading) {
 
 			            // Update previous values
+						prevPartMoving = partMoving;
+						prevDirectionMoving = directionMoving;
 			            prevLatitude = latitude;
 			            prevLongitude = longitude;
 			            prevCurrentCheckpoint = currentCheckpoint;
