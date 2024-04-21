@@ -547,7 +547,7 @@
 							if (match) {
 								partMoving = condition.partMoving;
 								directionMoving = condition.directionMoving;
-								setTimeout(resetVariables, 4000); // 3000 milliseconds = 3 seconds
+								setTimeout(resetVariables, 8000); // 3000 milliseconds = 3 seconds
 							}
 						});
 
@@ -604,7 +604,7 @@
 								}
 								// Clear the buffer after a match
 								movementBuffer = [];
-								setTimeout(resetVariables("patternMovement"), 4000); // 3000 milliseconds = 3 seconds
+								setTimeout(resetVariables(), 4000); // 3000 milliseconds = 3 seconds
 								return;
 							}
 						}
@@ -613,27 +613,11 @@
 					}
 				}
 
-				function resetVariables(patternMovement) {
-					if (patternMovement == "patternMovement") {
-						directionMoving = "none";
-						partMoving = "none";
-						patternMovement = "none";
-					} else {
-						directionMoving = "none";
-						partMoving = "none";
-					}
-					// Your code to reset the variables goes here
-					// For example:
-					// directionMoving = directionMoving;
-					// partMoving = partMoving;
-					// patternMovement = patternMovement;
+				function resetVariables() {
+					directionMoving = "none";
+					partMoving = "none";
+					patternMovement = "none";
 				}
-
-				// function resetVariables() {
-				// 	directionMoving = "none";
-				// 	partMoving = "none";
-				// 	patternMovement = "none";
-				// }
 
 				// Function to check if a pattern exists in the movement buffer
 				function checkPatternInBuffer(pattern) {
