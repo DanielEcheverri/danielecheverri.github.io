@@ -125,7 +125,7 @@
 								sentenceSource = 'hachi_sentences.json';
 								tagSource = 'tags.json';
 								initializeSounds();
-								document.getElementById("hachiCheckbox").checked = true;
+								document.getElementById("hachiCheckbox").click();
 							} else {
 								console.log("Loading settings for Avatar_BT");
 								labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
@@ -134,7 +134,6 @@
 								sentenceSource = 'avatar_sentences.json';
 								tagSource = 'tags.json';
 								initializeSounds();
-								document.getElementById("hachiCheckbox").checked = false;
 							}
 							// Listen for characteristic value changes
 							characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -1087,6 +1086,7 @@
 				var checkbox = document.getElementById("hachiCheckbox");
 				const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
 				if (checkbox.checked) {
+					console.log("clicked");
 					off(ref(database, databaseName));
 					readFromDatabase(deviceName); // Read data after writing
 
