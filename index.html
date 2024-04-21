@@ -229,13 +229,13 @@
 					updateConsoleOutput();
 				};
 
-				// Override console.error to append error messages to the div
-				console.error = function(...args) {
-					originalConsoleError(...args);
-					var consoleMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '); // Convert objects to strings
-					errorMessages.push("<strong>DEBUG CONSOLE ERROR:</strong> " + consoleMessage);
-					updateConsoleOutput();
-				};
+				// // Override console.error to append error messages to the div
+				// console.error = function(...args) {
+				// 	originalConsoleError(...args);
+				// 	var consoleMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '); // Convert objects to strings
+				// 	errorMessages.push("<strong>DEBUG CONSOLE ERROR:</strong> " + consoleMessage);
+				// 	updateConsoleOutput();
+				// };
 
 				// Function to update the console output with the last two messages
 				function updateConsoleOutput() {
