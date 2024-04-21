@@ -862,13 +862,14 @@
 				async function checkCheckpoints() {
 					console.debug("Checking checkpoint");
 					const radius = 10; // 10 meters radius
+					let checkpointsKey = deviceName === "hachi_BT" ? "hachi_checkpoints" : "avatar_checkpoints";
 
 					// Load checkpoints from the JSON file
 					const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
 					// Ensure locations is an array and not empty
 					if (Array.isArray(locations) && locations.length > 0) {
-						const checkpoints = locations[0].checkpoints;
+						const checkpoints = locations[0][checkpointsKey];
 
 						// Ensure checkpoints is an object
 						if (typeof checkpoints === 'object' && checkpoints !== null) {
@@ -897,13 +898,14 @@
 										return; // Exit the function when a checkpoint is reached
 									}
 								}
-								//console.log("No checkpoints reached in the current set.").;
+								//console.log("No checkpoints reached in the current set.");
 							} else {
 								console.log("No more checkpoint sets to check.");
 							}
 						}
 					}
 				}
+
 
 				function setupColors() {
 					lineColors[0] = color(204, 204, 0); // Dark Yellow
