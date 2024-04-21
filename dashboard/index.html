@@ -1146,18 +1146,19 @@ console.log(variables().hachi_comment);
 &lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to 4 different places where he will meet four different, colorfoul characters.  The nearby tram stop, the fountain by the park, the stairs of an old building, and the bank on the corner of the street.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
+$hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2false&quot; and $hachi_partMoving !== &quot;none&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_01/&#39;Greetings, furry friend! I am Lucia, guardian of this enchanted flower. You must be Hachi, the loyal Akita. Fate has brought you to me for a special purpose.
  &#39;Hachi&#39;s ears perk up with interest as Lucia explains the reason for their meeting.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_01false&quot; and $hachi_partMoving !== &quot;none&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_01false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_02/&#39;Life has brought us together for a reason, dear Hachi. Your companion, Buro, is facing a journey of his own, and you must learn more about him to understand why you were destined to be together.&#39;
 Lucia gives Hachi a mission to seek out four colorful characters across the city, each with unique insights into Buro&#39;s life and their shared bond.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_02false&quot; and $hachi_partMoving !== &quot;none&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_02false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_03/&#39;Visit the tram stop, the fountain, the stairs of the old building, and the bank. There, you will meet the people who hold the keys to unraveling your friendship.
 With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro and their unbreakable bond.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1186,13 +1187,7 @@ With a sense of purpose, Hachi feels ready to embark on an adventure that will d
 &lt;&lt;/nobr&gt;&gt;
 
 </tw-passagedata><tw-passagedata pid="23" name="avatar_act2" tags="" position="2400,1100" size="100,100">AVATAR_ACT2</tw-passagedata><tw-passagedata pid="24" name="hachi_tram_2" tags="" position="1025,1000" size="100,100"></tw-passagedata><tw-passagedata pid="25" name="hachi_tram_1" tags="" position="1025,875" size="100,100"></tw-passagedata><tw-passagedata pid="26" name="hachi_tram_4" tags="" position="1150,1000" size="100,100"></tw-passagedata><tw-passagedata pid="27" name="hachi_tram_3" tags="" position="1150,875" size="100,100"></tw-passagedata><tw-passagedata pid="28" name="hachi_stairs_1" tags="" position="1025,1200" size="100,100"></tw-passagedata><tw-passagedata pid="29" name="hachi_stairs_3" tags="" position="1025,1325" size="100,100"></tw-passagedata><tw-passagedata pid="30" name="hachi_stairs_2" tags="" position="1150,1200" size="100,100"></tw-passagedata><tw-passagedata pid="31" name="hachi_stairs_4" tags="" position="1150,1325" size="100,100"></tw-passagedata><tw-passagedata pid="32" name="hachi_bank_4" tags="" position="1775,1350" size="100,100"></tw-passagedata><tw-passagedata pid="33" name="hachi_bank_3" tags="" position="1775,1225" size="100,100"></tw-passagedata><tw-passagedata pid="34" name="hachi_bank_1" tags="" position="1650,1225" size="100,100"></tw-passagedata><tw-passagedata pid="35" name="hachi_bank_2" tags="" position="1650,1350" size="100,100"></tw-passagedata><tw-passagedata pid="36" name="hachi_fountain_2" tags="" position="1650,1000" size="100,100"></tw-passagedata><tw-passagedata pid="37" name="hachi_fountain_1" tags="" position="1650,875" size="100,100"></tw-passagedata><tw-passagedata pid="38" name="hachi_fountain_3" tags="" position="1775,875" size="100,100"></tw-passagedata><tw-passagedata pid="39" name="hachi_fountain_4" tags="" position="1775,1000" size="100,100"></tw-passagedata><tw-passagedata pid="40" name="avatar_tobacco_4" tags="" position="2150,1000" size="100,100"></tw-passagedata><tw-passagedata pid="41" name="avatar_tobacco_2" tags="" position="2150,875" size="100,100"></tw-passagedata><tw-passagedata pid="42" name="avatar_tobacco_1" tags="" position="2025,875" size="100,100"></tw-passagedata><tw-passagedata pid="43" name="avatar_tobacco_3" tags="" position="2025,1000" size="100,100"></tw-passagedata><tw-passagedata pid="44" name="avatar_bakery_3" tags="" position="2650,1000" size="100,100"></tw-passagedata><tw-passagedata pid="45" name="avatar_bakery_1" tags="" position="2650,875" size="100,100"></tw-passagedata><tw-passagedata pid="46" name="avatar_bakery_2" tags="" position="2775,875" size="100,100"></tw-passagedata><tw-passagedata pid="47" name="avatar_bakery_4" tags="" position="2775,1000" size="100,100"></tw-passagedata><tw-passagedata pid="48" name="avatar_bank_3" tags="" position="2150,1225" size="100,100"></tw-passagedata><tw-passagedata pid="49" name="avatar_bank_4" tags="" position="2150,1350" size="100,100"></tw-passagedata><tw-passagedata pid="50" name="avatar_bank_2" tags="" position="2025,1350" size="100,100"></tw-passagedata><tw-passagedata pid="51" name="avatar_bank_1" tags="" position="2025,1225" size="100,100"></tw-passagedata><tw-passagedata pid="52" name="avatar_church_1" tags="" position="2650,1200" size="100,100"></tw-passagedata><tw-passagedata pid="53" name="avatar_church_2" tags="" position="2650,1325" size="100,100"></tw-passagedata><tw-passagedata pid="54" name="avatar_church_3" tags="" position="2775,1200" size="100,100"></tw-passagedata><tw-passagedata pid="55" name="avatar_church_4" tags="" position="2775,1325" size="100,100"></tw-passagedata><tw-passagedata pid="56" name="both_preamble" tags="" position="1850,375" size="200,100">&lt;&lt;nobr&gt;&gt;
-&lt;div id=&quot;#avatarStory&quot;&gt;
-$avatar_passage 
-&lt;/div&gt;
-&lt;div id=&quot;#hachiStory&quot;&gt;
- $hachi_passage
- &lt;/div&gt;
- 
+
 &lt;&lt;set $avatar_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years.
 Each day, they meet at small park and explore their city. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
 Today, will be a different day.&quot;&gt;&gt;
@@ -1214,6 +1209,14 @@ Today, will be a different day.&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
+
+&lt;div id=&quot;#avatarStory&quot;&gt;
+$avatar_passage 
+&lt;/div&gt;
+&lt;div id=&quot;#hachiStory&quot;&gt;
+ $hachi_passage
+ &lt;/div&gt;
+ 
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="hachi_preamble" tags="" position="1825,500" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;hachi_pre_01/While playing in the park, Hachi&#39;s nose twitches, catching a scent that pulls him away from Buro. He sniffs the air, curiosity piqued by the provocative smell. Buro&#39;s voice echoes in his mind, but the scent drags him deeper.&quot;&gt;&gt;
 
@@ -1253,6 +1256,7 @@ $hachi_passage
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
+
 &lt;&lt;if $avatar_narrating == &quot;avatar_pre_01false&quot; and $hachi_speed &gt;= &quot;0.4&quot; &gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_pre_02/Buro&#39;s heart races as he notices that Hachi is no longer there and starts searching around for any sign of his friend.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
