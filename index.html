@@ -961,6 +961,7 @@
 			let prevSpeaking = null
 			let prevPartMoving = null;
 			let prevDirectionMoving = null;
+			let prevBlueToothStatus = null;
 
 			// Function to write data to the database
 			function writeToDatabase() {
@@ -976,6 +977,7 @@
 					 speaking !== prevSpeaking ||
 					 directionMoving !== prevDirectionMoving ||
 					 partMoving !==prevPartMoving ||
+					 blueToothStatus !== prevBlueToothStatus ||
 			         directionText !== prevHeading) {
 
 			            // Update previous values
