@@ -1,76 +1,78 @@
 [
 	{
-		"hachi_check": {
+		"hachi_checkpoints": {
 			"checkpoint_1": [
 				{
 					"latitude": 49.19219,
 					"longitude": 16.60249,
-					"text": "Checkpoint 1A"
+					"text": "Hachi Checkpoint 1A"
 				},
 				{
 					"latitude": 49.21023,
 					"longitude": 16.59933,
-					"text": "Checkpoint 1B"
+					"text": "Hachi Checkpoint 1B"
 				}
 			],
 			"checkpoint_2": [
 				{
 					"latitude": 49.1923,
 					"longitude": 16.60376,
-					"text": "Checkpoint 2A"
+					"text": "Hachi Checkpoint 2A"
 				},
 				{
 					"latitude": 49.20985,
 					"longitude": 16.59915,
-					"text": "Checkpoint 2B"
+					"text": "Hachi Checkpoint 2B"
 				}
 			],
 			"checkpoint_3": [
 				{
 					"latitude": 49.19231,
 					"longitude": 16.60494,
-					"text": "Checkpoint 3A"
+					"text": "Hachi Checkpoint 3A"
 				},
 				{
 					"latitude": 49.21015,
 					"longitude": 16.59891,
-					"text": "Checkpoint 3B"
+					"text": "Hachi Checkpoint 3B"
 				}
-			],
-			"checkpoint_4": [
+			]
+		},
+		"avatar_checkpoints": {
+			"checkpoint_1": [
 				{
-					"latitude": 49.1928,
-					"longitude": 16.60487,
-					"text": "Checkpoint 4A"
+					"latitude": 49.1945,
+					"longitude": 16.6005,
+					"text": "Avatar Checkpoint 1A"
 				},
 				{
-					"latitude": 49.2098,
-					"longitude": 16.59878,
-					"text": "Checkpoint 4B"
+					"latitude": 49.211,
+					"longitude": 16.597,
+					"text": "Avatar Checkpoint 1B"
 				}
 			],
-			"checkpoint_5": [
+			"checkpoint_2": [
 				{
-					"latitude": 49.19401,
-					"longitude": 16.60447,
-					"text": "Checkpoint 5A"
+					"latitude": 49.1947,
+					"longitude": 16.601,
+					"text": "Avatar Checkpoint 2A"
 				},
 				{
-					"latitude": 49.20994,
-					"longitude": 16.5995,
-					"text": "Checkpoint 5B"
+					"latitude": 49.2105,
+					"longitude": 16.598,
+					"text": "Avatar Checkpoint 2B"
 				}
 			],
-			"checkpoint_6": [
+			"checkpoint_3": [
 				{
-					"latitude": 49.19664,
-					"longitude": 16.60319,
-					"text": "Checkpoint 6A"
+					"latitude": 49.195,
+					"longitude": 16.602,
+					"text": "Avatar Checkpoint 3A"
 				},
 				{
-					"latitude": 49.2109,
-					"longitude": 16.6,
-					"text": "Checkpoint 6B"
+					"latitude": 49.2107,
+					"longitude": 16.5989,
+					"text": "Avatar Checkpoint 3B"
 				}
 			]
 		}
