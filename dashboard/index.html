@@ -832,11 +832,20 @@ Loading variables...
 &lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/silently&gt;&gt;
 
+&lt;&lt;liveblock&gt;&gt;
+&lt;&lt;if $avatar_status == &quot;Online&quot; and $hachi_status==&quot;Online&quot;&gt;&gt;
+&lt;&lt;set _buttonCaption to &quot;GO&quot;&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;set _buttonCaption to &quot;RELOAD&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;
+
 &lt;div id=&quot;topContainer&quot;&gt;
   &lt;div id=&quot;buttonArea&quot;&gt;
       &lt;img src=&quot;https://danielecheverri.github.io/logo.svg&quot; alt=&quot;Searching for us&quot; class=&quot;svg-logo&quot;&gt;
-          &lt;&lt;button RESTART&gt;&gt;
+          &lt;&lt;button &#39;&lt;&lt;live _buttonCaption&gt;&gt;&#39; &gt;&gt;
               &lt;&lt;run Engine.restart()&gt;&gt;
+              &lt;&lt;set _buttonCaption to &quot;RELOAD&quot;&gt;&gt;
           &lt;&lt;/button&gt;&gt;
       &lt;/div&gt;
       &lt;div id=&quot;refreshArea&quot;&gt;	&lt;/div&gt;
@@ -848,7 +857,7 @@ Loading variables...
           &lt;&lt;include &quot;both_preamble&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-           &lt;&lt;include &quot;hachi_act1&quot;&gt;&gt;	
+           &lt;&lt;include &quot;both_preamble&quot;&gt;&gt;	
 	&lt;/div&gt;
 &lt;/div&gt;
 &lt;&lt;/if&gt;&gt;
