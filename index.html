@@ -125,6 +125,7 @@
 								sentenceSource = 'hachi_sentences.json';
 								tagSource = 'tags.json';
 								initializeSounds();
+								toggleDeviceName2();
 							} else {
 								console.log("Loading settings for Avatar_BT");
 								labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
@@ -133,6 +134,7 @@
 								sentenceSource = 'avatar_sentences.json';
 								tagSource = 'tags.json';
 								initializeSounds();
+								toggleDeviceName2();
 							}
 							// Listen for characteristic value changes
 							characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
