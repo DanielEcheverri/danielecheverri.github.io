@@ -3,8 +3,8 @@
 		"hachi_checkpoints": {
 			"checkpoint_1": [
 				{
-					"latitude": 49.19219,
-					"longitude": 16.60249,
+					"latitude": 49.1918,
+					"longitude": 16.6005,
 					"text": "Hachi Checkpoint 1A"
 				},
 				{
@@ -20,8 +20,8 @@
 					"text": "Hachi Checkpoint 2A"
 				},
 				{
-					"latitude": 49.20985,
-					"longitude": 16.59915,
+					"latitude": 49.1918,
+					"longitude": 16.6005,
 					"text": "Hachi Checkpoint 2B"
 				}
 			],
@@ -43,36 +43,36 @@
 				{
 					"latitude": 49.1945,
 					"longitude": 16.6005,
-					"text": "Avatar Checkpoint 1A"
+					"text": "Checkpoint 1A"
 				},
 				{
 					"latitude": 49.1918,
 					"longitude": 16.6005,
-					"text": "Avatar Checkpoint 1B"
+					"text": "Checkpoint 1B"
 				}
 			],
 			"checkpoint_2": [
 				{
 					"latitude": 49.1918,
 					"longitude": 16.6005,
-					"text": "Avatar Checkpoint 2A"
+					"text": "Checkpoint 2A"
 				},
 				{
 					"latitude": 49.2105,
 					"longitude": 16.598,
-					"text": "Avatar Checkpoint 2B"
+					"text": "Checkpoint 2B"
 				}
 			],
 			"checkpoint_3": [
 				{
 					"latitude": 49.195,
 					"longitude": 16.602,
-					"text": "Avatar Checkpoint 3A"
+					"text": "Checkpoint 3A"
 				},
 				{
 					"latitude": 49.2107,
 					"longitude": 16.5989,
-					"text": "Avatar Checkpoint 3B"
+					"text": "Checkpoint 3B"
 				}
 			]
 		}
