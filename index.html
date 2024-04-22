@@ -592,7 +592,6 @@
 						}
 
 						const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
-						//const patterns = await fetchMovementPatterns();
 						for (const pattern of patterns) {
 							if (checkPatternInBuffer(pattern.pattern)) {
 								window.success_Sound.play();
@@ -603,8 +602,8 @@
 								}
 								// Clear the buffer after a match
 								movementBuffer = [];
-								setTimeout(resetVariables(), 4000); // 3000 milliseconds = 3 seconds
 								return;
+								setTimeout(resetVariables(), 4000); // 3000 milliseconds = 3 seconds
 							}
 						}
 					} catch (error) {
