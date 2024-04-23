@@ -621,13 +621,16 @@ window.makeComments = async function(character, key, distance) {
         // Calculate the total number of segments based on the initial checkpoint distance
         characterData[character].totalSegments = Math.ceil(characterData[character].initialCheckpoint / distance);
         console.log(`Total segments for ${character}:`, characterData[character].totalSegments);
+    } else {
+        // Clear any existing interval timer for the character
+        clearInterval(characterData[character].intervalId);
     }
 
     const approachingSentences = Object.values(approaching);
     const approachingFinal = approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
 
     // Set up a timer to periodically check for updates in checkpoint distances
-    setInterval(() => {
+    characterData[character].intervalId = setInterval(() => {
         // Determine the current distance and progress made
         let currentDistance = window[`${character}_checkpoint_dist`]; // Assuming checkpoint_dist is updated elsewhere
         let progress = characterData[character].initialCheckpoint - currentDistance;
@@ -640,14 +643,13 @@ window.makeComments = async function(character, key, distance) {
             characterData[character].totalSegments = Math.ceil(currentDistance / distance);
             console.log(`Total segments for ${character} updated to:`, characterData[character].totalSegments);
         }
-        /// Display the text for the current segment only
+        // Display the text for the current segment only
         if (currentSegment === 0 || currentSegment === 1) {
             variables()[`${character}_comment`] = ""; // Set to empty string
-        } else if (currentSegment >= characterData[character].totalSegments) {
-            // Reset the initial checkpoint for the next segment
-            characterData[character].initialCheckpoint = currentDistance;
         } else if (currentSegment === characterData[character].totalSegments - 1) {
             variables()[`${character}_comment`] = approachingFinal;
+        } else if (currentSegment === characterData[character].totalSegments) {
+            clearInterval(characterData[character].intervalId); // Stop the interval timer
         } else if (currentSegment < 0) {
             // Character is distancing away from the next checkpoint
             variables()[`${character}_comment`] = "It seems you are distancing away from the next checkpoint";
@@ -857,7 +859,7 @@ Loading variables...
           &lt;&lt;include &quot;both_preamble&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-           &lt;&lt;include &quot;hachi_act2&quot;&gt;&gt;	
+           &lt;&lt;include &quot;hachi_act2_transition&quot;&gt;&gt;	
 	&lt;/div&gt;
 &lt;/div&gt;
 &lt;&lt;/if&gt;&gt;
