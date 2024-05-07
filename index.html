@@ -667,6 +667,7 @@
 
 				var fullMessage;
 				var messageID = ""; // Global variable to store the message ID
+				var oldMessageID;
 
 				function displayText(message) {
 					var messageDisplayDiv = document.getElementById("messageDisplayDiv");
@@ -679,12 +680,13 @@
 
 					if (delimiterIndex !== -1) { // Check if the delimiter exists
 						messageID = message.substring(0, delimiterIndex); // Store the message ID globally
+						oldMessageID=messageID;
 						var fullMessage = message.substring(delimiterIndex + 1).trim(); // Extract the message text after the delimiter
 						clearTimeout(timeoutID);
 						speakMessage(fullMessage);
 						updateDisplay(fullMessage);
 					} else { // If the delimiter does not exist
-						//messageID = ""; // Set message ID to an empty string globally
+						messageID = oldMessageID; // Set message ID to an empty string globally
 						var fullMessage = message.trim(); // The full message is the entire input
 						clearTimeout(timeoutID);
 						speakMessage(fullMessage);
