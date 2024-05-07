@@ -1334,7 +1334,7 @@ $hachi_passage
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_00false&quot; and ($hachi_movement == &quot;Sniffing&quot; || $hachi_movement == &quot;Standing back legs)&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_00false&quot; and ($hachi_movement == &quot;Sniffing&quot; || $hachi_movement == &quot;Standing back legs&quot;)&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_stairs1_01/Hachi explores the area around the old building, sniffing for any familiar scents or signs of Buro&#39;s presence. He sees a wrapper and grabs it with his mouth.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1904,7 +1904,6 @@ console.log(variables().hachi_comment);
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_05false&quot;&gt;&gt;
     &lt;&lt;if $hachi_checkpoint is &quot;hachi_tram&quot;&gt;&gt;
         &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
             &lt;&lt;include &quot;hachi_tram_1&quot;&gt;&gt;
@@ -1922,7 +1921,6 @@ console.log(variables().hachi_comment);
             &lt;&lt;include &quot;hachi_bank_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
