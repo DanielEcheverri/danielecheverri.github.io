@@ -28,7 +28,7 @@
 		]
 	},
 	{
-		"patternName": "Grabbing down",
+		"patternName": "Grabbing something",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "down" },
 			{ "partMoving": "front leg", "directionMoving": "up" },
@@ -36,7 +36,7 @@
 		]
 	},
 	{
-		"patternName": "Grabbing down",
+		"patternName": "Grabbing something",
 		"pattern": [
 			{ "partMoving": "front leg", "directionMoving": "up" },
 			{ "partMoving": "front leg", "directionMoving": "down" },
@@ -44,7 +44,7 @@
 		]
 	},
 	{
-		"patternName": "Grabbing up",
+		"patternName": "Grabbing something",
 		"pattern": [
 			{ "partMoving": "head", "directionMoving": "up" },
 			{ "partMoving": "front leg", "directionMoving": "up" },
@@ -52,7 +52,7 @@
 		]
 	},
 	{
-		"patternName": "Grabbing up",
+		"patternName": "Grabbing something",
 		"pattern": [
 			{ "partMoving": "front leg", "directionMoving": "up" },
 			{ "partMoving": "front leg", "directionMoving": "down" },
