@@ -1368,13 +1368,13 @@ $hachi_passage
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_stairs3_00false&quot; and ($hachi_movement == &quot;Barking&quot; || $hachi_movement == &quot;Sniffing&quot;)&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs3_00false&quot; and $hachi_movement == &quot;Barking&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_stairs3_01/Hachi barking: &#39;Squawk! Squawk! Like this, Blue? Hehe!, Hachi thought to himself&#39;&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_stairs3_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_movement !==&quot;Sniffing&quot; and $hachi_movement !==&quot;Barking&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
+  &lt;&lt;if $hachi_movement !==&quot;Barking&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
   &lt;&lt;if typeof _prevhachiMovement === &#39;undefined&#39;&gt;&gt;&lt;&lt;set _prevhachiMovement to $hachi_movement&gt;&gt;&lt;&lt;elseif _prevhachiMovement !== $hachi_movement&gt;&gt;&lt;&lt;script&gt;&gt;makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;); console.log(variables().hachi_comment); &lt;&lt;/script&gt;&gt;&lt;&lt;set _prevhachiMovement to variables().hachi_movement&gt;&gt;&lt;&lt;if $hachi_comment !== _prevhachiComment&gt;&gt;&lt;&lt;set _prevhachiComment to $hachi_comment&gt;&gt;&lt;&lt;script&gt;&gt;var passage_temp = variables().hachi_comment;const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();console.log(renderedText);variables().hachi_passage = renderedText;&lt;&lt;/script&gt;&gt;&lt;&lt;set $hachi_passage to variables().hachi_passage&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;/if&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1392,13 +1392,13 @@ $hachi_passage
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_stairs2_00false&quot; and $hachi_movement == &quot;Barking&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs2_00false&quot; and $hachi_movement == &quot;Wiggling tail&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_stairs2_01/Mr. Al Mansouri: &#39;Welcome, little friend! Sit with us and hear tales of adventure on the high seas. Once upon a time, in the heart of the Gulf Sea...&#39;&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_stairs2_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_movement !==&quot;Barking&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
+  &lt;&lt;if $hachi_movement !==&quot;Wiggling tail&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
   &lt;&lt;if typeof _prevhachiMovement === &#39;undefined&#39;&gt;&gt;&lt;&lt;set _prevhachiMovement to $hachi_movement&gt;&gt;&lt;&lt;elseif _prevhachiMovement !== $hachi_movement&gt;&gt;&lt;&lt;script&gt;&gt;makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;); console.log(variables().hachi_comment); &lt;&lt;/script&gt;&gt;&lt;&lt;set _prevhachiMovement to variables().hachi_movement&gt;&gt;&lt;&lt;if $hachi_comment !== _prevhachiComment&gt;&gt;&lt;&lt;set _prevhachiComment to $hachi_comment&gt;&gt;&lt;&lt;script&gt;&gt;var passage_temp = variables().hachi_comment;const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();console.log(renderedText);variables().hachi_passage = renderedText;&lt;&lt;/script&gt;&gt;&lt;&lt;set $hachi_passage to variables().hachi_passage&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;/if&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1412,17 +1412,17 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="hachi_stairs_4" tags="" position="1150,1325" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_stairs2_00/As Mr. Al Mansouri continues his story, he notices Hachi&#39;s anxious behavior and realizes that Buro is not with him.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_stairs4_00/As Mr. Al Mansouri continues his story, he notices Hachi&#39;s anxious behavior and realizes that Buro is not with him.&quot;&gt;&gt;
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_stairs2_00false&quot; and $hachi_movement == &quot;Barking&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_fountain2_01/Mr. Al Mansouri: &#39;Wait a moment... Where&#39;s your friend, Buro? I usually see you two together. Ah, I see. Well then, perhaps you should visit the fountain or the bank. Someone there may have seen him today.&#39;&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs4_00false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_stairs4_01/Mr. Al Mansouri: &#39;Wait a moment... Where&#39;s your friend, Buro? I usually see you two together. Ah, I see. Well then, perhaps you should visit the fountain or the bank. Someone there may have seen him today.&#39;&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_stairs4_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_movement !==&quot;Barking&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
+  &lt;&lt;if $hachi_movement !==&quot;Sniffing&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
   &lt;&lt;if typeof _prevhachiMovement === &#39;undefined&#39;&gt;&gt;&lt;&lt;set _prevhachiMovement to $hachi_movement&gt;&gt;&lt;&lt;elseif _prevhachiMovement !== $hachi_movement&gt;&gt;&lt;&lt;script&gt;&gt;makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;); console.log(variables().hachi_comment); &lt;&lt;/script&gt;&gt;&lt;&lt;set _prevhachiMovement to variables().hachi_movement&gt;&gt;&lt;&lt;if $hachi_comment !== _prevhachiComment&gt;&gt;&lt;&lt;set _prevhachiComment to $hachi_comment&gt;&gt;&lt;&lt;script&gt;&gt;var passage_temp = variables().hachi_comment;const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();console.log(renderedText);variables().hachi_passage = renderedText;&lt;&lt;/script&gt;&gt;&lt;&lt;set $hachi_passage to variables().hachi_passage&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;/if&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
