@@ -1153,6 +1153,8 @@ console.log(variables().hachi_comment);
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="hachi_tram" tags="" position="1275,900" size="100,200"></tw-passagedata><tw-passagedata pid="15" name="hachi_fountain" tags="" position="1525,900" size="100,200"></tw-passagedata><tw-passagedata pid="16" name="hachi_bank" tags="" position="1525,1225" size="100,200"></tw-passagedata><tw-passagedata pid="17" name="hachi_stairs" tags="" position="1275,1200" size="100,200"></tw-passagedata><tw-passagedata pid="18" name="avatar_tobacco" tags="" position="2275,900" size="100,200"></tw-passagedata><tw-passagedata pid="19" name="avatar_bakery" tags="" position="2525,900" size="100,200"></tw-passagedata><tw-passagedata pid="20" name="avatar_bank" tags="" position="2275,1225" size="100,200"></tw-passagedata><tw-passagedata pid="21" name="avatar_church" tags="" position="2525,1200" size="100,200"></tw-passagedata><tw-passagedata pid="22" name="hachi_act2" tags="" position="1400,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $hachi_turn to 0&gt;&gt;
+
 &lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to 4 different places where he will meet four different, colorfoul characters. The nearby tram stop, the fountain by the park, the stairs of an old building, and the bank on the corner of the street.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
@@ -1254,18 +1256,12 @@ $hachi_passage
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="hachi_tram_1" tags="" position="1025,875" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;hachi_tram1_00/Hachi arrives at the tram stop, where he encounters a friendly tram conductor named Leo. Leo shares stories about Buro&#39;s daily commute and how he always boards the tram at the same time each morning.&quot;&gt;&gt;
 
-&lt;&lt;if $hachi_turn == 3&gt;&gt;
-&lt;&lt;set $hachi_bank to &quot;Or you can also visit the bank. It recently opened&quot;&gt;&gt;
-&lt;&lt;else&gt;&gt;
-&lt;&lt;set $hachi_bank to &quot;&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_tram1_00false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_tram1_01/Hachi sniffs the air, detecting the approach of Leo, the friendly tram conductor whose shift was ending.
-After getting of the tram, Leo said to Hachi, &#39;Well, well, if it isn&#39;t Hachi! What&#39;s got your nose twitching today, buddy?&#39;&quot; + $hachi_bank&gt;&gt;
+After getting of the tram, Leo said to Hachi, &#39;Well, well, if it isn&#39;t Hachi! What&#39;s got your nose twitching today, buddy?&#39;&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1296,7 +1292,7 @@ After getting of the tram, Leo said to Hachi, &#39;Well, well, if it isn&#39;t H
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_tram4_00false&quot; and ($hachi_movement == &quot;Barking&quot; || $hachi_movement == &quot;Sniffing&quot; || $hachi_movement == &quot;Wiggling tail&quot;)&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_tram4_01/You and Buro make quite the pair, Hachi. You know, I&#39;ve seen him chatting with Mr. Al Mansouri. Maybe you should go check there! Or maybe you can visit Mrs. Novakova near the fountain, I am sure she might have seen him too.&#39;&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_tram4_01/You and Buro make quite the pair, Hachi. You know, I&#39;ve seen him chatting with Mr. Al Mansouri. Maybe you should go check there! Or maybe you can visit Mrs. Novakova near the fountain, I am sure she might have seen him too.&#39;&quot;+$hachi_bank&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1307,6 +1303,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_tram4_01false&quot; &gt;&gt;
+	&lt;&lt;set $hachi_turn == $hachi_turn+1&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -1425,11 +1422,18 @@ $hachi_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="hachi_stairs_4" tags="" position="1150,1325" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;hachi_stairs4_00/As Mr. Al Mansouri continues his story, he notices Hachi&#39;s anxious behavior and realizes that Buro is not with him.&quot;&gt;&gt;
+
+&lt;&lt;if $hachi_turn == 3&gt;&gt;
+&lt;&lt;set $hachi_bank to &quot;Or you can also visit the bank. It recently opened&quot;&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;set $hachi_bank to&quot;&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_stairs4_00false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_stairs4_01/Mr. Al Mansouri: &#39;Wait a moment... Where&#39;s your friend, Buro? I usually see you two together. Ah, I see. Well then, perhaps you should visit the fountain or the tram stop. Someone there may have seen him today.&#39;&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_stairs4_01/Mr. Al Mansouri: &#39;Wait a moment... Where&#39;s your friend, Buro? I usually see you two together. Ah, I see. Well then, perhaps you should visit the fountain or the tram stop. Someone there may have seen him today.&#39;&quot;+$hachi_bank&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1440,6 +1444,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_stairs4_01false&quot; &gt;&gt;
+  &lt;&lt;set $hachi_turn == $hachi_turn+1&gt;&gt;
   &lt;&lt;set $hachi_nextAct to false&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act2_transition&quot;&gt;&gt;
@@ -1532,11 +1537,17 @@ $hachi_passage
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="hachi_fountain_4" tags="" position="1775,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;hachi_fountain4_00/Mrs. Novakova spots a shiny coin near the fountain&#39;s edge and encourages Hachi to retrieve it.&quot;&gt;&gt;
 
+&lt;&lt;if $hachi_turn == 3&gt;&gt;
+&lt;&lt;set $hachi_bank to &quot;Or you can also visit the bank. It recently opened&quot;&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;set $hachi_bank to&quot;&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_fountain4_00false&quot; and $hachi_movement == &quot;Wiggling tail&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_fountain4_01/Ah, look what I found! Perhaps a little luck will come your way if you fetch it, my furry friend. Maybe it belongs to someone going to the tram stop or buying some gum in the shop at the old building close by.&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_fountain4_01/Ah, look what I found! Perhaps a little luck will come your way if you fetch it, my furry friend. Maybe it belongs to someone going to the tram stop or buying some gum in the shop at the old building close by.&quot;+$hachi_bank&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1547,7 +1558,8 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_fountain4_01false&quot; &gt;&gt;
-  &lt;&lt;set $hachi_nextAct to false&gt;&gt;
+ &lt;&lt;set $hachi_turn == $hachi_turn+1&gt;&gt;
+ &lt;&lt;set $hachi_nextAct to false&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -1891,8 +1903,7 @@ if (window.$avatar_comment !== window._prevAvatarComment) {
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="70" name="hachi_act2_transition" tags="" position="1400,1175" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
-&lt;&lt;set $hachi_turn to 2&gt;&gt;
-
+$hachi_turn
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;hachi&#39;,&#39;observes&#39;,40);
 console.log(variables().hachi_comment);
