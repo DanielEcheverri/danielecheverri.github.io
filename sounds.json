@@ -4,5 +4,6 @@
 	"connecting_Sound": { "src": "audio/ui_loading.mp3" },
 	"barking_Sound": { "src": "audio/barking.mp3" },
 	"fountain_Sound": { "src": "audio/fountain1.mp3" },
+	"tram_Sound": { "src": "audio/fountain1.mp3" },
 	"talking_Sound": { "src": "audio/talking.mp3" }
 }
