@@ -689,7 +689,7 @@
 							clearTimeout(timeoutID);
 							speakMessage(fullMessage);
 							updateDisplay(fullMessage);
-							window.[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable
+							window[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable
 						} else { // If the second delimiter does not exist or is the same as the first one
 							var fullMessage = message.substring(delimiterIndex + 1).trim(); // Extract the message text after the first delimiter
 							clearTimeout(timeoutID);
