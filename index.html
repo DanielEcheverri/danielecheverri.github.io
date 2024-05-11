@@ -671,22 +671,32 @@
 
 				function displayText(message) {
 					var messageDisplayDiv = document.getElementById("messageDisplayDiv");
-					var delimiterIndex = message.indexOf("/"); // Find the index the delimiter "/"
+					var delimiterIndex = message.indexOf("/"); // Find the index of the first delimiter "/"
 
 					// Check if speaking is true, if so, exit early.
 					if (speaking) {
 						return;
 					}
 
-					if (delimiterIndex !== -1) { // Check if the delimiter exists
-						messageID = message.substring(0, delimiterIndex); // Store the message ID globally
-						oldMessageID=messageID;
-						var fullMessage = message.substring(delimiterIndex + 1).trim(); // Extract the message text after the delimiter
-						clearTimeout(timeoutID);
-						speakMessage(fullMessage);
-						updateDisplay(fullMessage);
-					} else { // If the delimiter does not exist
-						messageID = oldMessageID; // Set message ID to an empty string globally
+					if (delimiterIndex !== -1) { // Check if the first delimiter exists
+						var messageID = message.substring(0, delimiterIndex); // Store the message ID
+						var secondDelimiterIndex = message.lastIndexOf("/"); // Find the index of the second delimiter "/"
+
+						if (secondDelimiterIndex !== -1 && secondDelimiterIndex !== delimiterIndex) { // Check if the second delimiter exists and is not the same as the first one
+							var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the delimiters
+							var audioSoundscape = message.substring(secondDelimiterIndex + 1).trim(); // Extract the audioSoundscape variable
+
+							clearTimeout(timeoutID);
+							speakMessage(fullMessage);
+							updateDisplay(fullMessage);
+							window.[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable
+						} else { // If the second delimiter does not exist or is the same as the first one
+							var fullMessage = message.substring(delimiterIndex + 1).trim(); // Extract the message text after the first delimiter
+							clearTimeout(timeoutID);
+							speakMessage(fullMessage);
+							updateDisplay(fullMessage);
+						}
+					} else { // If the first delimiter does not exist
 						var fullMessage = message.trim(); // The full message is the entire input
 						clearTimeout(timeoutID);
 						speakMessage(fullMessage);
