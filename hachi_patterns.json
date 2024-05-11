@@ -76,7 +76,7 @@
 		]
 	},
 	{
-		"patternName": "Wagging the tail",
+		"patternName": "Wagging its tail",
 		"pattern": [
 			{ "partMoving": "tail", "directionMoving": "down" },
 			{ "partMoving": "back leg", "directionMoving": "up" },
@@ -85,7 +85,7 @@
 		]
 	},
 	{
-		"patternName": "Wagging the tail",
+		"patternName": "Wagging its tail",
 		"pattern": [
 			{ "partMoving": "tail", "directionMoving": "up" },
 			{ "partMoving": "back leg", "directionMoving": "down" },
@@ -94,7 +94,7 @@
 		]
 	},
 	{
-		"patternName": "Standing on the back leg",
+		"patternName": "Standing on its back leg",
 		"pattern": [
 			{ "partMoving": "front leg", "directionMoving": "up" },
 			{ "partMoving": "front leg", "directionMoving": "down" },
@@ -102,7 +102,7 @@
 		]
 	},
 	{
-		"patternName": "Standing on the front leg",
+		"patternName": "Standing on its front leg",
 		"pattern": [
 			{ "partMoving": "back leg", "directionMoving": "up" },
 			{ "partMoving": "back leg", "directionMoving": "down" },

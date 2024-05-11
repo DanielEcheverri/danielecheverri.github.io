@@ -671,7 +671,7 @@
 
 				function displayText(message) {
 					var messageDisplayDiv = document.getElementById("messageDisplayDiv");
-					var delimiterIndex = message.indexOf("/"); // Find the index of the delimiter "/"
+					var delimiterIndex = message.indexOf("/"); // Find the index the delimiter "/"
 
 					// Check if speaking is true, if so, exit early.
 					if (speaking) {
@@ -770,10 +770,11 @@
 					}
 					// Create a new instance of SpeechSynthesisUtterance.
 					const utterance = new SpeechSynthesisUtterance(fullMessage);
-					// Filter available voices to find Karen's voice in Australian English
+					// Filter available voices to find Samanthas's voice in Australian English
 					const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Samantha' && voice.lang === 'en-US');
 					// Set the voice to Karen's voice if found, otherwise use the default voice
 					utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+					console.log("Using standard voice");
 					// Speak the message
 					speechSynthesis.speak(utterance);
 					utterance.onstart = function() {
