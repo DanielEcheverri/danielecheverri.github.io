@@ -679,7 +679,8 @@
 					}
 
 					if (delimiterIndex !== -1) { // Check if the first delimiter exists
-						var messageID = message.substring(0, delimiterIndex); // Store the message ID
+						messageID = message.substring(0, delimiterIndex); // Store the message ID
+						oldMessageID=messageID;
 						var secondDelimiterIndex = message.lastIndexOf("/"); // Find the index of the second delimiter "/"
 
 						if (secondDelimiterIndex !== -1 && secondDelimiterIndex !== delimiterIndex) { // Check if the second delimiter exists and is not the same as the first one
@@ -698,6 +699,7 @@
 						}
 					} else { // If the first delimiter does not exist
 						var fullMessage = message.trim(); // The full message is the entire input
+						messageID = oldMessageID; // Set message ID to an empty string globally
 						clearTimeout(timeoutID);
 						speakMessage(fullMessage);
 						updateDisplay(fullMessage);
