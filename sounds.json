@@ -2,11 +2,8 @@
 	"alert_Sound": { "src": "audio/alert_high-intensity.mp3" },
 	"success_Sound": { "src": "audio/navigation_selection-complete-celebration.mp3" },
 	"connecting_Sound": { "src": "audio/ui_loading.mp3" },
-	"barking_Sound": { "src": "audio/hachi/barking.mp3" },
-	"fountain_Sound": { "src": "audio/fountain1.mp3" },
-	"tram_Sound": { "src": "audio/tramdepart.mp3" },
-	"sniffing_Sound": { "src": "audio/hachi/sniffing.mp3" },
-	"talking_Sound": { "src": "audio/talking.mp3" },
+	"fountain_Sound": { "src": "audio/environment/fountain.mp3" },
+	"tram_Sound": { "src": "audio/environment/tramdepart.mp3" },
 	"f_aha_Sound": { "src": "audio/female/AHA_OHF4.mp3" },
 	"f_cheeree_Sound": { "src": "audio/female/CHEEREE_LAUGHF4.mp3" },
 	"f_compliment_Sound": { "src": "audio/female/COMPLIMENTEE_APPRECIF5.mp3" },
@@ -36,5 +33,10 @@
 	"m_heysh3_Sound": { "src": "audio/male/HEYSHM4.mp3" },
 	"m_intrigued_Sound": { "src": "audio/male/INTRIGUED_HMMM4.mp3" },
 	"m_sing_Sound": { "src": "audio/male/SING_SERENADEM1.mp3" },
-	"m_agreeable_Sound": { "src": "audio/male/YES_AGREEABLEM1.mp3" }
+	"m_agreeable_Sound": { "src": "audio/male/YES_AGREEABLEM1.mp3" },
+	"sniffing_Sound": { "src": "audio/hachi/sniffing.mp3" },
+	"barking1_Sound": { "src": "audio/hachi/barking.mp3" },
+	"barking2_Sound": { "src": "audio/hachi/DOGDAY8.mp3" },
+	"barking3_Sound": { "src": "audio/hachi/DOGMRN4.mp3" },
+	"barking4_Sound": { "src": "audio/hachi/DOGMRN10.mp3" }
 }
