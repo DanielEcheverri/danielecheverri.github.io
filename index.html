@@ -64,7 +64,7 @@
 							if (sounds.hasOwnProperty(key)) {
 							window[key] = new Howl({
 								src: [sounds[key].src],
-								volume: 0.5, // Set volume to 50% (you can adjust this value as needed)
+								volume: 0.3, // Set volume to 50% (you can adjust this value as needed)
 								onloaderror: function(error) { console.error('Error loading audio:', error); }
 							});
 							}
