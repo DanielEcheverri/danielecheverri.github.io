@@ -1172,7 +1172,7 @@ Lucia gives Hachi a mission to seek out four colorful characters across the city
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_02false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_03/&#39;Visit the tram stop, the fountain, the stairs of the old building, and the bank. There, you will meet the people who hold the keys to unraveling your friendship.&#39;
-With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro and their unbreakable bond./talking1&quot;&gt;&gt;
+With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro./talking1&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_03false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
@@ -1254,7 +1254,7 @@ $hachi_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="hachi_tram_1" tags="" position="1025,875" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_turn to 0&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_tram1_00/Hachi arrives at the tram stop, where he encounters a friendly tram conductor named Leo. Leo shares stories about Buro&#39;s daily commute and how he always boards the tram at the same time each morning./tram&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_tram1_00/Hachi arrives at the tram stop, where he encounters a friendly tram conductor named Leo. He always shares stories about Buro&#39;s daily commute and how he always boards the tram at the same time each morning./tram&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -1281,7 +1281,7 @@ After getting of the tram, Leo said to Hachi, &#39;Well, well, if it isn&#39;t H
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="hachi_tram_4" tags="" position="1150,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_turn = $hachi_turn+1&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_tram4_00/Leo recognizes Hachi and Buro’s friendship and tells Hachi about Lina, the bank teller and Ms. Novakova at the fountain./m_talk4&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_tram4_00/Leo rembers Hachi and Buro’s friendship and tells Hachi about Lina, the bank teller and Ms. Novakova at the fountain./m_talk4&quot;&gt;&gt;
 
 &lt;&lt;if $hachi_turn == 3&gt;&gt;
 &lt;&lt;set $hachi_bank to &quot;Or you can also visit the bank. It recently opened&quot;&gt;&gt;
@@ -1353,7 +1353,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_01false&quot; and $hachi_movement == &quot;Grabbing something&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_stairs1_02/Hachi thought for himself: &#39;Let&#39;s check around here. Maybe I can follow this trail of gum wrappers trail!&#39;&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_stairs1_02/Hachi thought for himself: &#39;Let&#39;s check around here. Maybe I can follow this trail of gum wrappers trail!&#39;/sniffing&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1434,7 +1434,7 @@ $hachi_passage
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_stairs4_00false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_stairs4_01/Mr. Al Mansouri: &#39;Wait a moment... Where&#39;s your friend, Buro? I usually see you two together. Ah, I see. Well then, perhaps you should visit the fountain or the tram stop. Someone there may have seen him today.&#39;&quot;+$hachi_bank&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_stairs4_01/Mr. Al Mansouri said: &#39;Wait a moment... Where&#39;s your friend, Buro? I usually see you two together. Ah, I see. Well then, perhaps you should visit the fountain or the tram stop. Someone there may have seen him today.&#39;&quot;+$hachi_bank&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 

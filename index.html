@@ -64,6 +64,7 @@
 							if (sounds.hasOwnProperty(key)) {
 							window[key] = new Howl({
 								src: [sounds[key].src],
+								volume: 0.5, // Set volume to 50% (you can adjust this value as needed)
 								onloaderror: function(error) { console.error('Error loading audio:', error); }
 							});
 							}
@@ -841,7 +842,6 @@
 							if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
 								// Update previousTagID to the current tagID
 								previousTagID = tagID;
-								//success_Sound.play();
 								window.success_Sound.play();
 								console.log(tagID);
 
@@ -859,8 +859,6 @@
 									window[tagData.variable] = tagData.boolean;
 								}
 								displayText(tagData.displayText);
-								//partMoving = tagData.partMoving;
-								//directionMoving = tagData.directionMoving;
 
 							} else {
 								window.alert_Sound.play();
