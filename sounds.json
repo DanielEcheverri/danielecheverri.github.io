@@ -56,5 +56,6 @@
 	"park2_Sound": { "src": "audio/environment/park2.mp3" },
 	"pigeon1_Sound": { "src": "audio/environment/pigeon1.mp3" },
 	"pigeon2_Sound": { "src": "audio/environment/pigeon2.mp3" },
+	"magic_Sound": { "src": "audio/environment/magic.mp3" },
 	"tramdepart_Sound": { "src": "audio/environment/tramdepart.mp3" }
 }
