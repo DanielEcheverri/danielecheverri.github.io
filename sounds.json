@@ -58,5 +58,6 @@
 	"pigeon2_Sound": { "src": "audio/environment/pigeon2.mp3" },
 	"magic1_Sound": { "src": "audio/environment/magic1.mp3" },
 	"magic2_Sound": { "src": "audio/environment/magic2.mp3" },
+	"street_Sound": { "src": "audio/environment/street.mp3" },
 	"tramdepart_Sound": { "src": "audio/environment/tramdepart.mp3" }
 }
