@@ -857,7 +857,7 @@ Loading variables...
           &lt;&lt;include &quot;empty&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-           &lt;&lt;include &quot;hachi_act2_transition&quot;&gt;&gt;	
+           &lt;&lt;include &quot;both_preamble&quot;&gt;&gt;	
 	&lt;/div&gt;
 &lt;/div&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1686,22 +1686,28 @@ $hachi_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="avatar_tobacco_4" tags="" position="2150,1000" size="100,100"></tw-passagedata><tw-passagedata pid="41" name="avatar_tobacco_2" tags="" position="2150,875" size="100,100"></tw-passagedata><tw-passagedata pid="42" name="avatar_tobacco_1" tags="" position="2025,875" size="100,100"></tw-passagedata><tw-passagedata pid="43" name="avatar_tobacco_3" tags="" position="2025,1000" size="100,100"></tw-passagedata><tw-passagedata pid="44" name="avatar_bakery_3" tags="" position="2650,1000" size="100,100"></tw-passagedata><tw-passagedata pid="45" name="avatar_bakery_1" tags="" position="2650,875" size="100,100"></tw-passagedata><tw-passagedata pid="46" name="avatar_bakery_2" tags="" position="2775,875" size="100,100"></tw-passagedata><tw-passagedata pid="47" name="avatar_bakery_4" tags="" position="2775,1000" size="100,100"></tw-passagedata><tw-passagedata pid="48" name="avatar_bank_3" tags="" position="2150,1225" size="100,100"></tw-passagedata><tw-passagedata pid="49" name="avatar_bank_4" tags="" position="2150,1350" size="100,100"></tw-passagedata><tw-passagedata pid="50" name="avatar_bank_2" tags="" position="2025,1350" size="100,100"></tw-passagedata><tw-passagedata pid="51" name="avatar_bank_1" tags="" position="2025,1225" size="100,100"></tw-passagedata><tw-passagedata pid="52" name="avatar_church_1" tags="" position="2650,1200" size="100,100"></tw-passagedata><tw-passagedata pid="53" name="avatar_church_2" tags="" position="2650,1325" size="100,100"></tw-passagedata><tw-passagedata pid="54" name="avatar_church_3" tags="" position="2775,1200" size="100,100"></tw-passagedata><tw-passagedata pid="55" name="avatar_church_4" tags="" position="2775,1325" size="100,100"></tw-passagedata><tw-passagedata pid="56" name="both_preamble" tags="" position="1850,375" size="200,100">&lt;&lt;nobr&gt;&gt;
 
-&lt;&lt;set $avatar_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years.
-Each day, they meet at small park and explore their city. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
-Today, will be a different day.&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
 
-&lt;&lt;set $hachi_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years of friendship.
-Each day, they meet at small park and explore their city. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
-Today, will be a different day.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 &lt;&lt;if $avatar_narrating == &quot;both_00false&quot;&gt;&gt;
+	&lt;&lt;set $avatar_passage to &quot;both_01/Each day, they meet at small park and explore their city. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
+Today, will be a different day./park3&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+  
+  &lt;&lt;if $hachi_narrating == &quot;both_00false&quot;&gt;&gt;
+	&lt;&lt;set $hachi_passage to &quot;both_01/Each day, they meet at small park and explore their city. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
+Today, will be a different day./park3&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+  
+&lt;&lt;if $avatar_narrating == &quot;both_01false&quot;&gt;&gt;
   &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_preamble&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 
-  &lt;&lt;if $hachi_narrating == &quot;both_00false&quot;&gt;&gt;
+  &lt;&lt;if $hachi_narrating == &quot;both_01false&quot;&gt;&gt;
    &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_preamble&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
