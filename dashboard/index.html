@@ -1155,33 +1155,32 @@ console.log(variables().hachi_comment);
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="hachi_tram" tags="" position="1275,900" size="100,200"></tw-passagedata><tw-passagedata pid="15" name="hachi_fountain" tags="" position="1525,900" size="100,200"></tw-passagedata><tw-passagedata pid="16" name="hachi_bank" tags="" position="1525,1225" size="100,200"></tw-passagedata><tw-passagedata pid="17" name="hachi_stairs" tags="" position="1275,1200" size="100,200"></tw-passagedata><tw-passagedata pid="18" name="avatar_tobacco" tags="" position="2275,900" size="100,200"></tw-passagedata><tw-passagedata pid="19" name="avatar_bakery" tags="" position="2525,900" size="100,200"></tw-passagedata><tw-passagedata pid="20" name="avatar_bank" tags="" position="2275,1225" size="100,200"></tw-passagedata><tw-passagedata pid="21" name="avatar_church" tags="" position="2525,1200" size="100,200"></tw-passagedata><tw-passagedata pid="22" name="hachi_act2" tags="" position="1400,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_turn to 0&gt;&gt;
 
-&lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to 4 different places where he will meet four different, colorfoul characters. The nearby tram stop, the fountain by the park, the stairs of an old building, and the bank on the corner of the street.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to 4 different places where he will meet four different, colorfoul characters.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_01/&#39;Greetings, furry friend! I am Lucia, guardian of this enchanted flower. You must be Hachi, the loyal Akita. Fate has brought you to me for a special purpose.
- &#39;Hachi&#39;s ears perk up with interest as Lucia explains the reason for their meeting.&quot;&gt;&gt;
+ &#39;Hachi&#39;s ears perk up with interest as Lucia explains the reason for their meeting./talking2&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_01false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_02/&#39;Life has brought us together for a reason, dear Hachi. Your human friend, Buro, is facing a journey of his own, and you must learn more about him to understand why you were destined to be together.&#39;
-Lucia gives Hachi a mission to seek out four colorful characters across the city, each with unique insights into Buro&#39;s life and their shared bond.&quot;&gt;&gt;
+Lucia gives Hachi a mission to seek out four colorful characters across the city, each with unique insights into Buro&#39;s life and their shared bond./panting&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_02false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_03/&#39;Visit the tram stop, the fountain, the stairs of the old building, and the bank. There, you will meet the people who hold the keys to unraveling your friendship.&#39;
-With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro and their unbreakable bond.&quot;&gt;&gt;
+With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro and their unbreakable bond./talking1&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_03false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_04/ Each character will teach Hachi a bit more about Buro: He always rides the same tram along with Ms. Suarez, who works at the bank. He has always been secretly attracted to her. At the stairs of the building, he likes to buy a pack of gum and talk about war stories with Mr. Al Mansouri. Buro always throws one coin to the fountain hoping for one of his many wishes to come true. It seems that the wishing fairy might finally grante one. Hachi starts walking...&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_04/ Each character will teach Hachi a bit more about Buro: He always rides the same tram along with Ms. Suarez, who works at the bank. He has always been secretly attracted to her. At the stairs of the building, he likes to buy a pack of gum and talk about war stories with Mr. Al Mansouri. Buro always throws one coin to the fountain hoping for one of his many wishes to come true. It seems that the wishing fairy might finally grante one. Hachi starts walking.../panting&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_04false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_05/&#39;Visit the tram stop, the fountain, the stairs of the old building, and the bank.&#39;
-With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro and their unbreakable bond. Where will he go?&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_05/&#39;Where is Hachi going next?/talking2&quot;&gt;&gt;
  &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1235,7 +1234,7 @@ $avatar_passage
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_tram2_00false&quot; and $hachi_part_mov == &quot;tail&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_tram2_01/Hachi greets Leo wagging his tail and eager barks, happy to see a familiar face. Somehow it was like Hachi was trying to say: &#39;Hi, Leo! I&#39;m looking for Buro. Have you seen him today?&#39;/barking1&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_tram2_01/Hachi greets Leo wagging his tail and eager barks, happy to see a familiar face. Somehow it was like Hachi was trying to say: &#39;Hi, Leo! I&#39;m looking for Buro. Have you seen him today?&#39;/talking1&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1373,7 +1372,7 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="hachi_stairs_3" tags="" position="1025,1325" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_stairs3_00/Hachi attempts to mimic Blue&#39;s squawks, adding to the lively conversation and earning a laugh from Mr. Al Mansouri./f_cheeree&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_stairs3_00/Hachi attempts to mimic Blue&#39;s squawks, adding to the lively conversation and earning a laugh from Mr. Al Mansouri./m_cheeree&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -1454,13 +1453,13 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="hachi_bank_4" tags="" position="1775,1350" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_bank4_00/Hachi explores the area around the ATMs, searching for any clues that might help him locate Buro.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_bank4_00/Hachi explores the area around the ATMs, searching for any clues that might help him locate Buro./whine&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_bank4_00false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_bank4_01/What&#39;s got you so curious, Hachi? This old reception? Maybe Buro left a clue nearby.&quot;&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_bank4_01/What&#39;s got you so curious, Hachi? This old reception? Maybe Buro left a clue nearby./f_intrigued&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1471,7 +1470,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_bank4_01false&quot; and $hachi_movement == &quot;Grabbing down&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_bank4_02/ As Hachi continues to search around the ATMs, Lina notices a flyer for the nearby garden and suggests they check it. &#39;You know, there&#39;s a lovely garden nearby. Buro might have wandered over there. Let&#39;s go take a look!&#39; With his mouth, Hachi grabs the flyer and starts walking along Lina&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_bank4_02/ As Hachi continues to search around the ATMs, Lina notices a flyer for the nearby garden and suggests they check it. &#39;You know, there&#39;s a lovely garden nearby. Buro might have wandered over there. Let&#39;s go take a look!&#39; With his mouth, Hachi grabs the flyer and starts walking along Lina/talking3&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1491,13 +1490,13 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="33" name="hachi_bank_3" tags="" position="1775,1225" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_bank3_00/Hachi sniffs around the bank notes, hoping to catch a familiar scent that might lead him to Buro.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_bank3_00/Hachi sniffs around the bank notes, hoping to catch a familiar scent that might lead him to Buro./sniffing&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_bank3_00false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_bank3_01/Sniffing around, are we, Hachi? Maybe Buro left his scent behind on one of those bills. The ATM might be a good place to look. Keep searching!&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_bank3_01/Sniffing around, are we, Hachi? Maybe Buro left his scent behind on one of those bills. The ATM might be a good place to look. Keep searching!/f_compliment&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1516,13 +1515,13 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="hachi_bank_1" tags="" position="1650,1225" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_bank1_00/Finally, Hachi arrives at the bank, where he meets Ms.Suarez, the bank teller. She recognizes Hachi after seeing him and Buro playing in the park. She mentions how Buro always brightens her day with his friendly smile when leaving the tram every morning.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_bank1_00/Finally, Hachi arrives at the bank, where he meets Ms.Suarez, the bank teller. She recognizes Hachi after seeing him and Buro playing in the park. She mentions how Buro always brightens her day with his friendly smile when leaving the tram every morning./panting&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_bank1_00false&quot; and ($hachi_movement == &quot;Barking&quot; || $hachi_part_mov == &quot;tail&quot;)&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_bank1_01/Hachi approaches Ms. Suarez, the bank teller, with a friendly wag of his tail, silently conveying his question about Buro&#39;s whereabouts. &#39;Well hello there, Hachi! I&#39;m Lina.&#39; said Ms. Suarez with a big smile. You seem a bit lost without Buro. Haven&#39;t seen him today, I&#39;m afraid.&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_bank1_01/Hachi approaches Ms. Suarez, the bank teller, with a friendly wag of his tail, silently conveying his question about Buro&#39;s whereabouts. &#39;Well hello there, Hachi! I&#39;m Lina.&#39; said Ms. Suarez with a big smile. You seem a bit lost without Buro. Haven&#39;t seen him today, I&#39;m afraid./f_intrigued&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1541,13 +1540,13 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="hachi_bank_2" tags="" position="1650,1350" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_bank2_00/Hachi watches Lina as she works, noting her warm interactions with customers and hoping they might offer a clue about Buro. He sits down for while looking at her stamp some papers&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_bank2_00/Hachi watches Lina as she works, noting her warm interactions with customers and hoping they might offer a clue about Buro. He sits down for while looking at her stamp some papers/talking2&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_bank2_00false&quot; and $hachi_movement == &quot;Standing on its back leg&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_bank2_01/You&#39;re quite the observant one, aren&#39;t you, Hachi? Buro always brightens my day too. Maybe he&#39;s off on one of his adventures.&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_bank2_01/You&#39;re quite the observant one, aren&#39;t you, Hachi? Buro always brightens my day too. Maybe he&#39;s off on one of his adventures./f_heysh3&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1717,28 +1716,28 @@ $avatar_passage
  &lt;/div&gt;
  
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="hachi_preamble" tags="" position="1825,500" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_pre_01/While playing in the park, Hachi&#39;s nose twitches, catching a scent that pulls him away from Buro. He sniffs the air, curiosity piqued by the provocative smell. Buro&#39;s voice echoes in his mind, but the scent drags him deeper.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_pre_01/While playing in the park, Hachi&#39;s nose twitches, catching a scent that pulls him away from Buro. He sniffs the air, curiosity piqued by the provocative smell. Buro&#39;s voice echoes in his mind, but the scent drags him deeper./park1&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_pre_01false&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_pre_02/Hachi catches a scent pulling him away: What should Hachi do? Should he continue sniffing or start walking and follow the scent deeper into the city&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_pre_02/Hachi catches a scent pulling him away: What should Hachi do? Should he continue sniffing or start walking and follow the scent deeper into the city/magic1&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_pre_02false&quot;&gt;&gt;
   &lt;&lt;if $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
-    &lt;&lt;set $hachi_passage to &quot;hachi_pre_02A/He sniffs the air, detecting subtle hints of the scent&#39;s origin. Then he follows the sweet trail of the smell towards a nearby statue.&quot;&gt;&gt;
+    &lt;&lt;set $hachi_passage to &quot;hachi_pre_02A/He sniffs the air, detecting subtle hints of the scent&#39;s origin. Then he follows the sweet trail of the smell towards a nearby statue./magic2&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($hachi_narrating == &quot;hachi_pre_02false&quot; || $hachi_narrating == &quot;hachi_pre_02Afalse&quot;)  and hachi_speed &gt;= &quot;0.2&quot; &gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_pre_02B/Determined to uncover the source of the tempting aroma, Hachi follows his instincts, venturing into the city. He starts walking towards a nearby statue.&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_pre_02B/Determined to uncover the source of the tempting aroma, Hachi follows his instincts, venturing into the city. He starts walking towards a nearby statue/panting.&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_pre_02Bfalse&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_pre_04/Lost amidst the city&#39;s pathways, Hachi and Buro must rely on their instincts to reunite. Their journey will take them through streets, squares, and parks, where they will encounter challenges, make new friends, and ultimately rediscover the true meaning of loyalty and friendship.&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_pre_04/Lost amidst the city&#39;s pathways, Hachi and Buro must rely on their instincts to reunite. Their journey will take them through streets, squares, and parks, where they will encounter challenges, make new friends, and ultimately rediscover the true meaning of loyalty and friendship./crowd2&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1855,22 +1854,22 @@ console.log(variables().avatar_comment);
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="hachi_act1_1" tags="" position="1700,625" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_act1_01/Hachi&#39;s determination to find the source of the tempting scent leads him deeper. As he follows the streets, the aroma grows stronger, filling his senses with eagerness. Finally, Hachi comes across a statue in a small square. The scent seems to be coming from the base of the statue.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_act1_01/Hachi&#39;s determination to find the source of the tempting scent leads him deeper. As he follows the streets, the aroma grows stronger, filling his senses with eagerness. Finally, Hachi comes across a statue in a small square. The scent seems to be coming from the base of the statue./park2&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act1_01false&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act1_02/Hachi reaches the statue: What should Hachi do? Bark, to see who replies? Or, get a closer look at the tiny flower in the base of the statue? &quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act1_02/Hachi reaches the statue: What should Hachi do? Bark, to see who replies? Or, get a closer look at the tiny flower in the base of the statue?/whine&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Bfalse&quot;) and $hachi_tag == &quot;16&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act1_03A/He discovers a tiny fairy nestled among the petals of the flower. &#39;Wow, a fairy!&#39; Hachi exclaims, his tail wagging with excitement.&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act1_03A/He discovers a tiny fairy nestled among the petals of the flower. &#39;Wow, a fairy!&#39; Hachi exclaims, his tail wagging with excitement./talking2&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Afalse&quot;) and $hachi_movement == &quot;Barking&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act1_03B/Hachi&#39;s barks echo through the square, but there&#39;s no response, prompting him to continue his search.&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act1_03B/Hachi&#39;s barks echo through the square, but there&#39;s no response, prompting him to continue his search./barking4&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Afalse&quot;)&gt;&gt;
