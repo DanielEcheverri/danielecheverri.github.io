@@ -38,5 +38,17 @@
 	"barking1_Sound": { "src": "audio/hachi/barking.mp3" },
 	"barking2_Sound": { "src": "audio/hachi/DOGDAY8.mp3" },
 	"barking3_Sound": { "src": "audio/hachi/DOGMRN4.mp3" },
-	"barking4_Sound": { "src": "audio/hachi/DOGMRN10.mp3" }
+	"barking4_Sound": { "src": "audio/hachi/DOGMRN10.mp3" },
+	"church_Sound": { "src": "audio/environment/church.mp3" },
+	"crowd1_Sound": { "src": "audio/environment/crowd1.mp3" },
+	"crowd2_Sound": { "src": "audio/environment/crowd2.mp3" },
+	"falcon_Sound": { "src": "audio/environment/falcon.mp3" },
+	"fastfood_Sound": { "src": "audio/environment/fastfood.mp3" },
+	"gulls_Sound": { "src": "audio/environment/gulls.mp3" },
+	"PARK_Sound": { "src": "audio/environment/PARK.mp3" },
+	"park1_Sound": { "src": "audio/environment/park1.mp3" },
+	"park2_Sound": { "src": "audio/environment/park2.mp3" },
+	"pigeon1_Sound": { "src": "audio/environment/pigeon1.mp3" },
+	"pigeon2_Sound": { "src": "audio/environment/pigeon2.mp3" },
+	"tramdepart_Sound": { "src": "audio/environment/tramdepart.mp3" }
 }
