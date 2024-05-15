@@ -1342,7 +1342,7 @@ $hachi_passage
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_00false&quot; and ($hachi_movement == &quot;Sniffing&quot; || $hachi_movement == &quot;Standing on its back leg&quot;)&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_00false&quot; and $hachi_tag == &quot;25&quot;)&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_stairs1_01/Hachi explores the area around the old building, sniffing for any familiar scents or signs of Buro&#39;s presence. He sees a wrapper and grabs it with his mouth.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1571,7 +1571,7 @@ $hachi_passage
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_fountain2_00false&quot; and $hachi_movement == &quot;Barking&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_fountain2_01/Mrs. Novakova: &#39;Look at them, dear. Majestic creatures, aren&#39;t they? They remind me of my days on stage, gliding and twirling with grace,&#39; drawing a smile in her face. Come, stand next to me./f_compliment&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_fountain2_01/Mrs. Novakova said: &#39;Look at them, dear. Majestic creatures, aren&#39;t they? They remind me of my days on stage, gliding and twirling with grace,&#39; drawing a smile in her face. Come, stand next to me./f_compliment&quot;&gt;&gt;
  &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1606,7 +1606,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_fountain1_01false&quot; and $hachi_part_dir == &quot;down&quot; and $hachi_part_mov == &quot;head&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_fountain1_02/Mrs. Novakova: &#39;Ah, hello there, furry one. Lay next to me and let me tell you about the days of my youth, dancing across stages far and wide,&#39; while petting Hachi’s head./f_sing&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_fountain1_02/Mrs. Novakova whispered: &#39;Ah, hello there, furry one. Lay next to me and let me tell you about the days of my youth, dancing across stages far and wide,&#39; while petting Hachi’s head./f_sing&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
