@@ -2128,7 +2128,9 @@ async function getClosestStopsAndDepartures(longitude, latitude, radius) {
     tripHeadSign = firstDeparture.trip.trip_headsign;
     routeShortName = firstDeparture.trip.route.route_short_name;
     const scheduledDepartureTimeString = firstDeparture.departure.scheduled;
+    console.log(&quot;Scheduled Departure Time String:&quot;, scheduledDepartureTimeString);
     const scheduledDepartureTime = new Date(scheduledDepartureTimeString).getTime();
+    console.log(&quot;Scheduled Departure Time:&quot;, scheduledDepartureTime);
     const currentTime = new Date().getTime();
     minutesUntilDeparture = Math.round((scheduledDepartureTime - currentTime) / (1000 * 60));
     stopName = firstStopWithType0.stop_name;
