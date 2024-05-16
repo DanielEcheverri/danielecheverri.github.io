@@ -12,11 +12,17 @@
 		},
 		"2": {
 			"displayText": "Good boy!",
-			"function": "window.barking_Sound.play();"
+			"function": "window.talking1_Sound.play();"
 		},
 		"21": {
 			"displayText": "Good human!",
-			"function": "window.talking_Sound.play();"
+			"function": "window.m_giftgiver_Sound.play();"
+		},
+		"23": {
+			"function": "window.f_sing_Sound.play();"
+		},
+		"24": {
+			"function": "window.m_aha_Sound.play();"
 		}
 	}
 }
