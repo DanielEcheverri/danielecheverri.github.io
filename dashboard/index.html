@@ -1166,21 +1166,27 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_01false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_02/&#39;Life has brought us together for a reason, dear Hachi. Your human friend, Buro, is facing a journey of his own, and you must learn more about him to understand why you were destined to be together.&#39;
-Lucia gives Hachi a mission to seek out four colorful characters across the city, each with unique insights into Buro&#39;s life and their shared bond./panting&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_02/&#39;Life has brought us together for a reason, dear Hachi. Your human friend, Buro, is facing a journey of his own, and you must learn more about him to understand why you are destined to be together.&#39;/whine&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_02false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_03/&#39;Visit the tram stop, the fountain, the stairs of the old building, and the bank. There, you will meet the people who hold the keys to unraveling your friendship.&#39;
-With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro./talking1&quot;&gt;&gt;
+  
+&lt;&lt; if $hachi_narrating == &quot;hachi_act2_02fasle&quot;&gt;&gt;
+	&lt;&lt;set $hachi_passage to &quot;hachi_act2_03/Lucia gives Hachi a mission to seek out four colorful characters across the city, each with unique insights into Buro&#39;s life and their shared bond./f_aha&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_03false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_04/ Each character will teach Hachi a bit more about Buro: He always rides the same tram along with Ms. Suarez, who works at the bank. He has always been secretly attracted to her. At the stairs of the building, he likes to buy a pack of gum and talk about war stories with Mr. Al Mansouri. Buro always throws one coin to the fountain hoping for one of his many wishes to come true. It seems that the wishing fairy might finally grante one. Hachi starts walking.../panting&quot;&gt;&gt;
+	&lt;&lt;set $hachi_passage to &quot;hachi_act2_04/Visit the tram stop, the fountain, the stairs of the old building, and the bank. There, you will meet the people who hold the keys to unraveling your friendship./street&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+  
+&lt;&lt; if $hachi_narrating == &quot;hachi_act2_04fasle&quot;&gt;&gt;
+	&lt;&lt;set $hachi_passage to &quot;hachi_act2_05/With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro./barking3&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_04false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_05/&#39;Where is Hachi going next?/talking2&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_05false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_06/ Each character will teach Hachi a bit more about Buro: He always rides the same tram along with Ms. Suarez, who works at the bank. At the stairs of the building, he likes to buy a pack of gum and talk about sea stories with Mr. Al Mansouri. Buro always throws one coin at the fountain close to his faculty hoping for one of his many wishes to come true. There, every morning,  he always greets Ms. Novakova while she feeds the pigeons. Hachi starts walking.../panting&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_06false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_07/&#39;Where is Hachi going next?/talking2&quot;&gt;&gt;
  &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
