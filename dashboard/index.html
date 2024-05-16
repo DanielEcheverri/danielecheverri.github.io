@@ -2126,13 +2126,15 @@ async function getClosestStopsAndDepartures(longitude, latitude, radius) {
     const firstDeparture = departures[0];
     tripHeadSign = firstDeparture.trip.trip_headsign;
     routeShortName = firstDeparture.trip.route.route_short_name;
-    departureTime = firstDeparture.departure.scheduled;
+    const scheduledDepartureTime = new Date(firstDeparture.departure.scheduled).getTime();
+    const currentTime = new Date().getTime();
+    minutesUntilDeparture = Math.round((scheduledDepartureTime - currentTime) / (1000 * 60));
     stopName = firstStopWithType0.stop_name;
 
     // Log departure information
     console.log(&quot;Trip Head Sign:&quot;, tripHeadSign);
     console.log(&quot;Route Short Name:&quot;, routeShortName);
-    console.log(&quot;Departure Time:&quot;, departureTime);
+    console.log(&quot;Departure Time:&quot;, minutesUntilDeparture);
     console.log(&quot;Stop Name:&quot;, stopName);
 
     // You can return departure information if you want to do something with it outside this function
