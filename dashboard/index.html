@@ -928,19 +928,19 @@ Promise.all([
   variables().hachi_amenity = hachiAmenity;
 
   // Check avatarStops is not null and extract variables
-  if (avatarStops) {
-    variables().avatar_heading = avatarStops.tripHeadSign;
-    variables().avatar_route = avatarStops.routeShortName;
-    variables().avatar_stop = avatarStops.stopName;
-  }
+  //if (avatarStops) {
+    //variables().avatar_heading = avatarStops.tripHeadSign;
+    //variables().avatar_route = avatarStops.routeShortName;
+    //variables().avatar_stop = avatarStops.stopName;
+  //}
   console.log(&quot;Time of day is: &quot; + variables().storyTime);
   console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
   console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
   console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
-  console.log(&quot;Avatar trip head sign is: &quot; + variables().avatar_heading);
-  console.log(&quot;Avatar route short name is: &quot; + variables().avatar_route);
-  console.log(&quot;Avatar stop name is: &quot; + variables().avatar_stop);
+ // console.log(&quot;Avatar trip head sign is: &quot; + variables().avatar_heading);
+ // console.log(&quot;Avatar route short name is: &quot; + variables().avatar_route);
+  //console.log(&quot;Avatar stop name is: &quot; + variables().avatar_stop);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
