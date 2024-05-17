@@ -907,7 +907,6 @@ Loading variables...
 
 &lt;&lt;repeat 20000ms&gt;&gt;
 &lt;&lt;script&gt;&gt;
-
 Promise.all([
   fetchWeather(avatar_latitude, avatar_longitude),
   fetchStreetName(avatar_latitude, avatar_longitude),
@@ -916,10 +915,9 @@ Promise.all([
   fetchSpeed(hachi_speed),
   fetchAmenity(avatar_latitude, avatar_longitude),
   fetchAmenity(hachi_latitude, hachi_longitude),
-  fetchStops(avatar_latitude, avatar_longitude),
-  fetchStops(hachi_latitude, hachi_longitude)
+  fetchStops(avatar_latitude, avatar_longitude) // Add fetchStops here
 ])
-.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity, avatarStop,avatarHeading, avatarRoute, hachiStop,hachiHeading, hachiRoute]) =&gt; {
+.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity, stopsData]) =&gt; {
   variables().storyWeather = weatherDescription;
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
   writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
@@ -928,30 +926,22 @@ Promise.all([
   variables().hachi_walking_speed = hachiSpeed;
   variables().avatar_amenity = avatarAmenity;
   variables().hachi_amenity = hachiAmenity;
-  
-  // Store stops information
-  variables().avatar_route = avatarRoute;
-  variables().avatar_stop = avatarStop;
-  variables().avatar_heading = avatarHeading;
-  
-  variables().hachi_route = hachiRoute;
-  variables().hachi_stop = hachiStop;
-  variables().hachi_heading = hachiHeading;
-  
+
+  // Check if stopsData is not null and extract variables
+  if (stopsData) {
+    variables().avatarHeading = stopsData.tripHeadSign;
+    variables().avatarRoute = stopsData.routeShortName;
+    variables().avatarStop = stopsData.stopName;
+  }
+
   console.log(&quot;Time of day is: &quot; + variables().storyTime);
   console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
   console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
   console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
-  
-  // Log stops variables
-  console.log(&quot;Avatar route:&quot;, variables().avatar_route);
-  console.log(&quot;Avatar stop:&quot;, variables().avatar_stop);
-  console.log(&quot;Avatar heading:&quot;, variables().avatar_heading);
-  
-  console.log(&quot;Hachi route:&quot;, variables().hachi_route);
-  console.log(&quot;Hachi stop:&quot;, variables().hachi_stop);
-  console.log(&quot;Hachi heading:&quot;, variables().hachi_heading);
+  console.log(&quot;Avatar trip head sign is: &quot; + variables().avatarHeading);
+  console.log(&quot;Avatar route short name is: &quot; + variables().avatarRoute);
+  console.log(&quot;Avatar stop name is: &quot; + variables().avatarStop);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
