@@ -918,7 +918,7 @@ Promise.all([
   fetchStops(avatar_latitude, avatar_longitude),
   fetchStops(hachi_latitude, hachi_longitude)
 ])
-.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop,hachiStop]) =&gt; {
+.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop]) =&gt; {
   variables().storyWeather = weatherDescription;
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
   writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
@@ -936,7 +936,7 @@ Promise.all([
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
   console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
   console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
-  console.log(&quot;Avatar closest stop is: &quot; +  variables().avatar_t_stop;
+  console.log(&quot;Avatar closest stop is: &quot; +  variables().avatar_t_stop);
   console.log(&quot;Avatar heading: &quot; +   variables().avatar_t_heading);
   console.log(&quot;Avatar route: &quot; +  variables().avatar_t_route);
 })
