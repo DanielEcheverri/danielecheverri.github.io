@@ -915,7 +915,7 @@ Promise.all([
   fetchSpeed(hachi_speed),
   fetchAmenity(avatar_latitude, avatar_longitude),
   fetchAmenity(hachi_latitude, hachi_longitude),
-  fetchStops(avatar_latitude, avatar_longitude)
+  fetchStops(avatar_latitude, avatar_longitude),
   fetchStops(hachi_latitude, hachi_longitude)
 ])
 .then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop,hachiStop]) =&gt; {
