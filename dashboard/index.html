@@ -926,11 +926,13 @@ Promise.all([
   variables().hachi_walking_speed = hachiSpeed;
   variables().avatar_amenity = avatarAmenity;
   variables().hachi_amenity = hachiAmenity;
+  variables().avatar_stop=avatarStop;
   console.log(&quot;Time of day is: &quot; + variables().storyTime);
   console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
   console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
   console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
+  console.log(&quot;Avatar closest stop is: &quot; + variables().avatar_stop);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
