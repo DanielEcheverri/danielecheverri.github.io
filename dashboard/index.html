@@ -917,8 +917,8 @@ Promise.all([
   fetchSpeed(hachi_speed),
   fetchAmenity(avatar_latitude, avatar_longitude),
   fetchAmenity(hachi_latitude, hachi_longitude),
-  fetchStops(avatar_latitude, avatar_longitude),
-  fetchStops(hachi_latitude, hachi_longitude)
+  fetchStops(avatar_latitude, avatar_longitude, radius), // Add fetchStops here for avatar
+  fetchStops(hachi_latitude, hachi_longitude, radius)   // Add fetchStops here for hachi
 ])
 .then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity, avatarStops, hachiStops]) =&gt; {
   variables().storyWeather = weatherDescription;
@@ -927,8 +927,6 @@ Promise.all([
   variables().storyTime = getTimeOfDay();
   variables().avatar_walking_speed = avatarSpeed;
   variables().hachi_walking_speed = hachiSpeed;
-  
-  //Closest amenity information
   variables().avatar_amenity = avatarAmenity;
   variables().hachi_amenity = hachiAmenity;
   
@@ -946,17 +944,19 @@ Promise.all([
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
   console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
   console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
-  console.log(&quot;Avatar next route:&quot;, variables().avatar_route);
-  console.log(&quot;Avatar neares stop:&quot;, variables().avatar_stop);
-  console.log(&quot;Avatar route heading:&quot;, variables().avatar_heading);
-  console.log(&quot;Hachi next route:&quot;, variables().hachi_route);
-  console.log(&quot;Hachi nearest stop:&quot;, variables().hachi_stop);
-  console.log(&quot;Hachi route heading:&quot;, variables().hachi_heading);
+  
+  // Log stops variables
+  console.log(&quot;Avatar route:&quot;, variables().avatar_route);
+  console.log(&quot;Avatar stop:&quot;, variables().avatar_stop);
+  console.log(&quot;Avatar heading:&quot;, variables().avatar_heading);
+  
+  console.log(&quot;Hachi route:&quot;, variables().hachi_route);
+  console.log(&quot;Hachi stop:&quot;, variables().hachi_stop);
+  console.log(&quot;Hachi heading:&quot;, variables().hachi_heading);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
 });
-}
 
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
