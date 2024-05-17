@@ -915,7 +915,7 @@ Promise.all([
   fetchSpeed(hachi_speed),
   fetchAmenity(avatar_latitude, avatar_longitude),
   fetchAmenity(hachi_latitude, hachi_longitude),
-  fetchStops(avatar_latitude, avatar_longitude) // Add fetchStops here
+  fetchStops(avatar_latitude, avatar_longitude)
 ])
 .then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity, avatarStops]) =&gt; {
   variables().storyWeather = weatherDescription;
@@ -938,9 +938,9 @@ Promise.all([
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
   console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
   console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
-  console.log(&quot;Avatar trip head sign is: &quot; + variables().avatarHeading);
-  console.log(&quot;Avatar route short name is: &quot; + variables().avatarRoute);
-  console.log(&quot;Avatar stop name is: &quot; + variables().avatarStop);
+  console.log(&quot;Avatar trip head sign is: &quot; + variables().avatar_heading);
+  console.log(&quot;Avatar route short name is: &quot; + variables().avatar_route);
+  console.log(&quot;Avatar stop name is: &quot; + variables().avatar_stop);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
