@@ -522,7 +522,7 @@ window.fetchStops = async function(latitude, longitude) {
     // Log departure information in a single sentence
     console.log(`Trip Head Sign: ${tripHeadSign}, Route Short Name: ${routeShortName}, Departure Time: ${departureTime}, Stop Name: ${stopName}`);
 
-    // You can return departure information if you want to do something with it outside this function
+    //return  information 
     return {
       tripHeadSign,
       routeShortName,
@@ -848,7 +848,16 @@ Loading variables...
 
 
 
-</tw-passagedata><tw-passagedata pid="3" name="main" tags="" position="1150,675" size="200,100">&lt;&lt;nobr&gt;&gt;
+</tw-passagedata><tw-passagedata pid="3" name="main" tags="" position="1150,675" size="200,100">find  /Users/danielecheverri/Desktop/husky -type f -name &#39;*.wav&#39; -exec ffmpeg -i {} -ac 1 -b:a 96k {}.mp3 \;
+
+
+https://api.transit.land/api/v2/rest/stops/s-u2ezcy3ydb-hrnčířská/departures?apikey=gYW4HBUHK9kB5j8wDxwxGglMKrWl9P9J&amp;limit=1
+
+s-u2ezcy3z84-hrnčířská
+s-u2ezcy3ydb-hrnčířská
+
+
+&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
 &lt;&lt;silently&gt;&gt;
@@ -915,7 +924,7 @@ Promise.all([
   fetchSpeed(hachi_speed),
   fetchAmenity(avatar_latitude, avatar_longitude),
   fetchAmenity(hachi_latitude, hachi_longitude),
-  fetchStops(avatar_latitude, avatar_longitude)
+  fetchStops(avatar_latitude, avatar_longitue)
 ])
 .then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity]) =&gt; {
   variables().storyWeather = weatherDescription;
@@ -926,25 +935,16 @@ Promise.all([
   variables().hachi_walking_speed = hachiSpeed;
   variables().avatar_amenity = avatarAmenity;
   variables().hachi_amenity = hachiAmenity;
-
-  // Check avatarStops is not null and extract variables
-  //if (avatarStops) {
-    //variables().avatar_heading = avatarStops.tripHeadSign;
-    //variables().avatar_route = avatarStops.routeShortName;
-    //variables().avatar_stop = avatarStops.stopName;
-  //}
   console.log(&quot;Time of day is: &quot; + variables().storyTime);
   console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
   console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
   console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
- // console.log(&quot;Avatar trip head sign is: &quot; + variables().avatar_heading);
- // console.log(&quot;Avatar route short name is: &quot; + variables().avatar_route);
-  //console.log(&quot;Avatar stop name is: &quot; + variables().avatar_stop);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
 });
+
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="avatar_1" tags="" position="300,525" size="100,100">&lt;&lt;nobr&gt;&gt;
