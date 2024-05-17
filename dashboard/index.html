@@ -469,45 +469,74 @@ window.writeToHachi = function(databaseNode, hachiData) {
       }
     }
   
-var radius = 100;
+var tripHeadSign;
+var routeShortName;
+var departureTime;
+var stopName;
+var radius = 200;
+  
 window.fetchStops = async function(latitude, longitude) {
-    const apiKey = 'gYW4HBUHK9kB5j8wDxwxGglMKrWl9P9J';
-    const url = `https://api.transit.land/api/v2/rest/stops?lat=${latitude}&lon=${longitude}&radius=${radius}&limit=1&apikey=${apiKey}`;
+  const apiKey = 'gYW4HBUHK9kB5j8wDxwxGglMKrWl9P9J';
 
-      // Create an AbortController instance
-    const controller = new AbortController();
-    const signal = controller.signal;
+  try {
+    // API URL for the first call to get closest stops
+    const closestStopsUrl = `https://api.transit.land/api/v2/rest/stops?lon=${longitude}&lat=${latitude}&radius=${radius}&apikey=${apiKey}`;
 
-    // Set a timeout of 15 seconds
-    const timeoutId = setTimeout(() => {
-        controller.abort(); // Abort the fetch request
-      	const firstStopName = "unknown stop";
-        console.log(firstStopName);
-      	return firstStopName;
-    }, 15000);
-  
-    return fetch(url)
-      .then(response => response.json())
-      .then(dataStops => {
-      if (dataStops.error) {
-        throw new Error(dataStops.error.message);
-      }
-      // Extract the stops array from the response data
-      const stops = dataStops.stops;
-      if (stops.length > 0) {
-        // Extract the stop_name property from the first stop
-        const firstStopName = stops[0].stop_name;
-        console.log(firstStopName); // Print the first stopName to the console
-        // Return only the first stop name
-        return firstStopName;
-      } else {
-        console.log("No stops found in the response data");
-        // Return null if no stops are found
-        return null;
-      }
-    });
-	}
-  
+    // First API call to get closest stops
+    const closestStopsResponse = await fetch(closestStopsUrl);
+    const closestStopsData = await closestStopsResponse.json();
+    const stops = closestStopsData.stops;
+
+    // Find the first entry where location_type is equal to 0
+    const firstStopWithType0 = stops.find(stop => stop.location_type === 0);
+
+    // Check if such entry exists
+    if (!firstStopWithType0) {
+      console.error('No stop with location_type equal to 0 found');
+      return null;
+    }
+
+    const onestop_id = firstStopWithType0.onestop_id;
+
+    // API URL for the second call to get departures
+    const departuresUrl = `https://api.transit.land/api/v2/rest/stops/${onestop_id}/departures?apikey=${apiKey}&limit=1`;
+
+    // Second API call to get departures
+    const departuresResponse = await fetch(departuresUrl);
+    const departuresData = await departuresResponse.json();
+    const departures = departuresData.stops[0]?.departures || [];
+
+    // Check if departures exist
+    if (departures.length === 0) {
+      console.error('No departures found for the stop');
+      return null;
+    }
+
+    // Extract relevant departure information
+    const firstDeparture = departures[0];
+    const tripHeadSign = firstDeparture.trip.trip_headsign;
+    const routeShortName = firstDeparture.trip.route.route_short_name;
+    const departureTime = firstDeparture.departure.scheduled;
+    const stopName = firstStopWithType0.stop_name;
+
+    // Log departure information in a single sentence
+    console.log(`Trip Head Sign: ${tripHeadSign}, Route Short Name: ${routeShortName}, Departure Time: ${departureTime}, Stop Name: ${stopName}`);
+
+    // You can return departure information if you want to do something with it outside this function
+    return {
+      tripHeadSign,
+      routeShortName,
+      departureTime,
+      stopName
+    };
+  } catch (error) {
+    // Handle errors
+    console.error('Error fetching data:', error);
+    return null;
+  }
+};
+
+
   window.fetchSpeed = function(speed) {
     if (speed <= 0.1) {
         return "Not moving";
@@ -870,9 +899,16 @@ Loading variables...
 &lt;&lt;set $hachi_walking_speed to &#39;&#39;&gt;&gt;
 &lt;&lt;set $hachi_amenity to &#39;&#39;&gt;&gt;
 &lt;&lt;set $avatar_amenity to &#39;&#39;&gt;&gt;
+&lt;&lt;set $hachi_stop to &#39;&#39;&gt;&gt;
+&lt;&lt;set $avatar_stop to &#39;&#39;&gt;&gt;
+&lt;&lt;set $hachi_heading to &#39;&#39;&gt;&gt;
+&lt;&lt;set $avatar_heading to &#39;&#39;&gt;&gt;
+&lt;&lt;set $hachi_route to &#39;&#39;&gt;&gt;
+&lt;&lt;set $avatar_route to &#39;&#39;&gt;&gt;
 
 &lt;&lt;repeat 20000ms&gt;&gt;
 &lt;&lt;script&gt;&gt;
+
 Promise.all([
   fetchWeather(avatar_latitude, avatar_longitude),
   fetchStreetName(avatar_latitude, avatar_longitude),
@@ -880,26 +916,47 @@ Promise.all([
   fetchSpeed(avatar_speed),
   fetchSpeed(hachi_speed),
   fetchAmenity(avatar_latitude, avatar_longitude),
-  fetchAmenity(hachi_latitude, hachi_longitude)
+  fetchAmenity(hachi_latitude, hachi_longitude),
+  fetchStops(avatar_latitude, avatar_longitude),
+  fetchStops(hachi_latitude, hachi_longitude)
 ])
-.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity]) =&gt; {
+.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity, avatarStops, hachiStops]) =&gt; {
   variables().storyWeather = weatherDescription;
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
   writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
   variables().storyTime = getTimeOfDay();
   variables().avatar_walking_speed = avatarSpeed;
   variables().hachi_walking_speed = hachiSpeed;
+  
+  //Closest amenity information
   variables().avatar_amenity = avatarAmenity;
   variables().hachi_amenity = hachiAmenity;
+  
+  // Store stops information
+  variables().avatar_route = avatarStops.tripHeadSign;
+  variables().avatar_stop = avatarStops.stopName;
+  variables().avatar_heading = avatarStops.routeShortName;
+  
+  variables().hachi_route = hachiStops.tripHeadSign;
+  variables().hachi_stop = hachiStops.stopName;
+  variables().hachi_heading = hachiStops.routeShortName;
+  
   console.log(&quot;Time of day is: &quot; + variables().storyTime);
   console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
   console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
   console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
+  console.log(&quot;Avatar next route:&quot;, variables().avatar_route);
+  console.log(&quot;Avatar neares stop:&quot;, variables().avatar_stop);
+  console.log(&quot;Avatar route heading:&quot;, variables().avatar_heading);
+  console.log(&quot;Hachi next route:&quot;, variables().hachi_route);
+  console.log(&quot;Hachi nearest stop:&quot;, variables().hachi_stop);
+  console.log(&quot;Hachi route heading:&quot;, variables().hachi_heading);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
 });
+
 
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
@@ -2080,7 +2137,6 @@ console.log(variables().hachi_comment);
 let tripHeadSign;
 let routeShortName;
 let departureTime;
-let minutesUntilDeparture;
 let stopName;
 let longitude = 16.60062;
 let latitude =49.19177;
@@ -2131,12 +2187,13 @@ async function getStop(longitude, latitude, radius) {
     stopName = firstStopWithType0.stop_name;
 
     // Log departure information
-    console.log(&quot;Trip Head Sign:&quot;, tripHeadSign);
-    console.log(&quot;Route Short Name:&quot;, routeShortName);
-    console.log(&quot;Departure Time:&quot;, departureTime);
-    console.log(&quot;Stop Name:&quot;, stopName);
+    console.log(
+      &quot;Trip Head Sign:&quot;, tripHeadSign,
+      &quot;\nRoute Short Name:&quot;, routeShortName,
+      &quot;\nDeparture Time:&quot;, departureTime,
+      &quot;\nStop Name:&quot;, stopName
+    );
 
-    // You can return departure information if you want to do something with it outside this function
     return {
       tripHeadSign,
       routeShortName,
@@ -2150,7 +2207,7 @@ async function getStop(longitude, latitude, radius) {
   }
 }
 
-getStop(longitude, latitude, radius)
+getStop(longitude, latitude, radius);
 
 &lt;&lt;/script&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
