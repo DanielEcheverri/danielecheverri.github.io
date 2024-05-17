@@ -928,12 +928,11 @@ Promise.all([
   variables().hachi_amenity = hachiAmenity;
 
   // Check avatarStops is not null and extract variables
-  if (stopsData) {
+  if (avatarStops) {
     variables().avatar_heading = avatarStops.tripHeadSign;
     variables().avatar_route = avatarStops.routeShortName;
     variables().avatar_stop = avatarStops.stopName;
   }
-
   console.log(&quot;Time of day is: &quot; + variables().storyTime);
   console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
@@ -946,7 +945,6 @@ Promise.all([
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
 });
-
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="avatar_1" tags="" position="300,525" size="100,100">&lt;&lt;nobr&gt;&gt;
