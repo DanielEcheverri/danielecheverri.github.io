@@ -917,7 +917,7 @@ Promise.all([
   fetchAmenity(hachi_latitude, hachi_longitude),
   fetchStops(avatar_latitude, avatar_longitude) // Add fetchStops here
 ])
-.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity, stopsData]) =&gt; {
+.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity, avatarStops]) =&gt; {
   variables().storyWeather = weatherDescription;
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
   writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
@@ -927,11 +927,11 @@ Promise.all([
   variables().avatar_amenity = avatarAmenity;
   variables().hachi_amenity = hachiAmenity;
 
-  // Check if stopsData is not null and extract variables
+  // Check avatarStops is not null and extract variables
   if (stopsData) {
-    variables().avatarHeading = stopsData.tripHeadSign;
-    variables().avatarRoute = stopsData.routeShortName;
-    variables().avatarStop = stopsData.stopName;
+    variables().avatar_heading = avatarStops.tripHeadSign;
+    variables().avatar_route = avatarStops.routeShortName;
+    variables().avatar_stop = avatarStops.stopName;
   }
 
   console.log(&quot;Time of day is: &quot; + variables().storyTime);
