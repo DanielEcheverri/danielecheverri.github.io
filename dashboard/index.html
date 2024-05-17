@@ -848,16 +848,7 @@ Loading variables...
 
 
 
-</tw-passagedata><tw-passagedata pid="3" name="main" tags="" position="1150,675" size="200,100">find  /Users/danielecheverri/Desktop/husky -type f -name &#39;*.wav&#39; -exec ffmpeg -i {} -ac 1 -b:a 96k {}.mp3 \;
-
-
-https://api.transit.land/api/v2/rest/stops/s-u2ezcy3ydb-hrnčířská/departures?apikey=gYW4HBUHK9kB5j8wDxwxGglMKrWl9P9J&amp;limit=1
-
-s-u2ezcy3z84-hrnčířská
-s-u2ezcy3ydb-hrnčířská
-
-
-&lt;&lt;nobr&gt;&gt;
+</tw-passagedata><tw-passagedata pid="3" name="main" tags="" position="1150,675" size="200,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
 &lt;&lt;silently&gt;&gt;
@@ -926,7 +917,7 @@ Promise.all([
   fetchAmenity(hachi_latitude, hachi_longitude),
   fetchStops(avatar_latitude, avatar_longitude)
 ])
-.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity]) =&gt; {
+.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop,avatarRoute,avatarHeading]) =&gt; {
   variables().storyWeather = weatherDescription;
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
   writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
