@@ -933,6 +933,8 @@ Promise.all([
   console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
   console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
   console.log(&quot;Avatar closest stop is: &quot; + avatarStop.stopName);
+  console.log(&quot;Avatar heading: &quot; + avatarStop.tripHeadSign);
+  console.log(&quot;Avatar route: &quot; + avatarStop.routeShortName);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
