@@ -473,14 +473,14 @@ var tripHeadSign;
 var routeShortName;
 var departureTime;
 var stopName;
-var radius = 200;
+var stopRadius = 200;
   
 window.fetchStops = async function(latitude, longitude) {
   const apiKey = 'gYW4HBUHK9kB5j8wDxwxGglMKrWl9P9J';
 
   try {
     // API URL for the first call to get closest stops
-    const closestStopsUrl = `https://api.transit.land/api/v2/rest/stops?lon=${longitude}&lat=${latitude}&radius=${radius}&apikey=${apiKey}`;
+    const closestStopsUrl = `https://api.transit.land/api/v2/rest/stops?lon=${longitude}&lat=${latitude}&radius=${stopRadius}&apikey=${apiKey}`;
 
     // First API call to get closest stops
     const closestStopsResponse = await fetch(closestStopsUrl);
@@ -526,7 +526,6 @@ window.fetchStops = async function(latitude, longitude) {
     return {
       tripHeadSign,
       routeShortName,
-      departureTime,
       stopName
     };
   } catch (error) {
@@ -917,8 +916,8 @@ Promise.all([
   fetchSpeed(hachi_speed),
   fetchAmenity(avatar_latitude, avatar_longitude),
   fetchAmenity(hachi_latitude, hachi_longitude),
-  fetchStops(avatar_latitude, avatar_longitude, radius), // Add fetchStops here for avatar
-  fetchStops(hachi_latitude, hachi_longitude, radius)   // Add fetchStops here for hachi
+  fetchStops(avatar_latitude, avatar_longitude),
+  fetchStops(hachi_latitude, hachi_longitude)
 ])
 .then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity, avatarStops, hachiStops]) =&gt; {
   variables().storyWeather = weatherDescription;
