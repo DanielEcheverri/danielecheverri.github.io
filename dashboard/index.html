@@ -537,7 +537,7 @@ window.fetchStops = async function(latitude, longitude) {
 
   window.fetchSpeed = function(speed) {
     if (speed <= 0.1) {
-        return "Not moving";
+        return "Standing still";
     } else if (speed <= 0.3) {
         return "Walking slowly";
     } else if (speed <= 0.6) {
@@ -611,6 +611,7 @@ let cachedSentences;
 let characterData = {}; // Object to store data for each character
 let storyComment;
 
+//this function is for walking
 window.makeComments = async function(character, key, distance) {
     // Fetch JSON data
     const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
@@ -686,6 +687,7 @@ window.makeComments = async function(character, key, distance) {
     }, 1000); // Check for updates every second
 };
   
+//This function is for movements
 window.makeShortComments = async function(character, key) {
     // Log function entry
     console.log("makeShortComments function called with character:", character, "and key:", key);
@@ -693,17 +695,13 @@ window.makeShortComments = async function(character, key) {
     try {
         // Fetch JSON data
         const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
-        // Log successful JSON data retrieval
-        //console.log("JSON data fetched successfully:", jsonData);
 
         // Extract observes data based on the character and key parameters
         const observes = jsonData[`${character}_${key}`];
-        // Log observes data
-        //console.log("Observes data for character:", character, "and key:", key, ":", observes);
+ 
 
         if (!observes) {
             // Log error if observes data is missing
-            //console.error("Error: Observes data is missing for character:", character, "and key:", key);
             return;
         }
 
@@ -712,7 +710,6 @@ window.makeShortComments = async function(character, key) {
 
         if (numSentences === 0) {
             // Log error if there are no sentences available
-            //console.error("Error: No sentences found for character:", character, "and key:", key);
             return;
         }
 
@@ -720,8 +717,6 @@ window.makeShortComments = async function(character, key) {
         const randomSentenceKey = `sentence${Math.floor(Math.random() * numSentences) + 1}`;
         // Get the randomly selected sentence
         const randomSentence = observes[randomSentenceKey];
-        // Log randomly selected sentence
-        //console.log("Randomly selected sentence:", randomSentence);
 
         // Store the random sentence in the character's comment variable
         variables()[`${character}_comment`] = randomSentence;
@@ -884,15 +879,13 @@ Loading variables...
           &lt;&lt;include &quot;empty&quot;&gt;&gt;
 	&lt;/div&gt;
 	&lt;div id=&quot;hachi_story&quot;&gt;
-           &lt;&lt;include &quot;stops&quot;&gt;&gt;	
+           &lt;&lt;include &quot;hachi_act_1&quot;&gt;&gt;	
 	&lt;/div&gt;
 &lt;/div&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;set $storyWeather to &#39;&#39;&gt;&gt;
 &lt;&lt;set $storyTime to &#39;&#39;&gt;&gt;
-&lt;&lt;set $hachi_storyStop to &#39;&#39;&gt;&gt;
-&lt;&lt;set $avatar_storyStop to &#39;&#39;&gt;&gt;
 &lt;&lt;set $avatar_walking_speed to &#39;&#39;&gt;&gt;
 &lt;&lt;set $hachi_walking_speed to &#39;&#39;&gt;&gt;
 &lt;&lt;set $hachi_amenity to &#39;&#39;&gt;&gt;
