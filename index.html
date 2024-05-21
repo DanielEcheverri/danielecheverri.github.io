@@ -196,28 +196,6 @@
 							}
 				}
 
-				function displayUrlParameter() {
-					// Function to get the value of a URL parameter
-					function getUrlParameter(name) {
-						let urlParams = new URLSearchParams(window.location.search);
-						return urlParams.get(name);
-					}
-
-					// Get the value of the 'variable' parameter
-					let variableValue = getUrlParameter('variable');
-
-					// Check if the parameter exists and log it or display it
-					if (variableValue !== null) {
-						console.log('Variable:', variableValue);
-						// Display the parameter value in the span element
-						document.getElementById('variable-value').textContent = variableValue;
-					} else {
-						console.log('Variable parameter is not present in the URL');
-					}
-				}
-
-				document.addEventListener('DOMContentLoaded', displayUrlParameter);
-
 				function checkVariables() {
 					// Check if latitude, longitude, and weatherDescription are not null
 					if (latitude !== null && longitude !== null) {
