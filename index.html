@@ -77,6 +77,8 @@
 					}
 				}
 
+
+
 				function toggleDeviceName() {
 					var checkbox = document.getElementById("hachiCheckbox");
 					if (checkbox.checked) {
@@ -193,6 +195,28 @@
 								console.warn('Wake lock API not supported');
 							}
 				}
+
+				function displayUrlParameter() {
+					// Function to get the value of a URL parameter
+					function getUrlParameter(name) {
+						let urlParams = new URLSearchParams(window.location.search);
+						return urlParams.get(name);
+					}
+
+					// Get the value of the 'variable' parameter
+					let variableValue = getUrlParameter('variable');
+
+					// Check if the parameter exists and log it or display it
+					if (variableValue !== null) {
+						console.log('Variable:', variableValue);
+						// Display the parameter value in the span element
+						document.getElementById('variable-value').textContent = variableValue;
+					} else {
+						console.log('Variable parameter is not present in the URL');
+					}
+				}
+
+				window.onload = displayUrlParameter;
 
 				function checkVariables() {
 					// Check if latitude, longitude, and weatherDescription are not null
@@ -604,7 +628,7 @@
 								}
 								// Clear the buffer after a match
 								movementBuffer = [];
-								setTimeout(resetVariables, 4000); // 3000 milliseconds = 3 seconds
+								setTimeout(resetVariables, 4000); // 4 seconds
 								return;
 							}
 						}
@@ -785,7 +809,7 @@
 					const utterance = new SpeechSynthesisUtterance(fullMessage);
 					// Filter available voices to find Samanthas's voice in Australian English
 					const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Samantha' && voice.lang === 'en-US');
-					// Set the voice to Karen's voice if found, otherwise use the default voice
+					// Set the voice to Samantha's voice if found, otherwise use the default voice
 					utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
 					console.log("Using standard voice");
 					// Speak the message
