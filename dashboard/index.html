@@ -612,13 +612,12 @@ let characterData = {}; // Object to store data for each character
 let storyComment;
 
 //this function is for walking
-window.makeComments = async function(character, key, distance) {
+window.makeComments = async function(character, key) {
     // Fetch JSON data
     const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
 
     // Extract data based on the character parameter
     const observes = jsonData[`${character}_${key}`];
-    const approaching = jsonData.approaching;
     const soundscape = jsonData.soundscape;
 
     // Function to generate random sentences upfront and store them in an object
@@ -635,56 +634,28 @@ window.makeComments = async function(character, key, distance) {
         return sentences;
     };
 
-    // Initialize character data if not already initialized
-    if (!characterData[character]) {
-        characterData[character] = {};
-        characterData[character].initialCheckpoint = window[`${character}_checkpoint_dist`];
-        console.log(`Initial checkpoint for ${character}:`, characterData[character].initialCheckpoint);
-        characterData[character].randomSentences = {};
-        characterData[character].randomSentences.observes = generateRandomSentences(observes, 10);
-        characterData[character].randomSentences.soundscape = generateRandomSentences(soundscape, 10);
-        // Shuffle the arrays to ensure randomness
-        characterData[character].randomSentences.observes = characterData[character].randomSentences.observes.sort(() => Math.random() - 0.5);
-        characterData[character].randomSentences.soundscape = characterData[character].randomSentences.soundscape.sort(() => Math.random() - 0.5);
-        // Calculate the total number of segments based on the initial checkpoint distance
-        characterData[character].totalSegments = Math.ceil(characterData[character].initialCheckpoint / distance);
-        console.log(`Total segments for ${character}:`, characterData[character].totalSegments);
-    } else {
-        // Clear any existing interval timer for the character
+    // Clear any existing interval timer and reset character data
+    if (characterData[character]) {
         clearInterval(characterData[character].intervalId);
+        delete characterData[character];
     }
 
-    const approachingSentences = Object.values(approaching);
-    const approachingFinal = approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
+    // Initialize character data
+    characterData[character] = {};
+    characterData[character].randomSentences = {};
+    characterData[character].randomSentences.observes = generateRandomSentences(observes, 10);
+    characterData[character].randomSentences.soundscape = generateRandomSentences(soundscape, 10);
+    // Shuffle the arrays to ensure randomness
+    characterData[character].randomSentences.observes = characterData[character].randomSentences.observes.sort(() => Math.random() - 0.5);
+    characterData[character].randomSentences.soundscape = characterData[character].randomSentences.soundscape.sort(() => Math.random() - 0.5);
 
-    // Set up a timer to periodically check for updates in checkpoint distances
+    // Set up a timer to display a random sentence every 15 seconds
     characterData[character].intervalId = setInterval(() => {
-        // Determine the current distance and progress made
-        let currentDistance = window[`${character}_checkpoint_dist`]; // Assuming checkpoint_dist is updated elsewhere
-        let progress = characterData[character].initialCheckpoint - currentDistance;
-        // Determine the current segment based on the progress
-        let currentSegment = Math.ceil(progress / distance);
-        console.log(`Total segments for ${character}:`, characterData[character].totalSegments);
-        console.log(`Current segment for ${character}:`, currentSegment);
-        // Update total segments if necessary
-        if (currentSegment === 0) {
-            characterData[character].totalSegments = Math.ceil(currentDistance / distance);
-            console.log(`Total segments for ${character} updated to:`, characterData[character].totalSegments);
-        }
-        // Display the text for the current segment only
-        if (currentSegment === 0 || currentSegment === 1) {
-            variables()[`${character}_comment`] = ""; // Set to empty string
-        } else if (currentSegment === characterData[character].totalSegments - 1) {
-            variables()[`${character}_comment`] = approachingFinal;
-        } else if (currentSegment === characterData[character].totalSegments) {
-            clearInterval(characterData[character].intervalId); // Stop the interval timer
-        } else if (currentSegment < 0) {
-            // Character is distancing away from the next checkpoint
-            variables()[`${character}_comment`] = "It seems you are distancing away from the next checkpoint";
-        } else {
-            variables()[`${character}_comment`] = characterData[character].randomSentences.observes[currentSegment - 2]; // Subtract 2 because the first segment is 1-based
-        }
-    }, 1000); // Check for updates every second
+        const randomSentence = Math.random() < 0.5
+            ? characterData[character].randomSentences.observes[Math.floor(Math.random() * characterData[character].randomSentences.observes.length)]
+            : characterData[character].randomSentences.soundscape[Math.floor(Math.random() * characterData[character].randomSentences.soundscape.length)];
+        variables()[`${character}_comment`] = randomSentence;
+    }, 15000); // 15000 milliseconds = 15 seconds
 };
   
 //This function is for movements
@@ -1222,7 +1193,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_05false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_06/ Each character will teach Hachi a bit more about Buro: He always rides the same tram along with Ms. Suarez, who works at the bank. At the stairs of the building, he likes to buy a pack of gum and talk about sea stories with Mr. Al Mansouri. Buro always throws one coin at the fountain close to his faculty hoping for one of his many wishes to come true. There, every morning,  he always greets Ms. Novakova while she feeds the pigeons. Hachi starts walking.../panting&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_06/ Each character will teach Hachi a bit more about Buro: He always rides the same tram along with Ms. Suarez, who works at the bank. At the stairs of the building, he likes to buy a pack of gum and talk about sea stories with Mr. Al Mansouri. Buro also likes to throw one coin at the fountain close to his faculty hoping for one of his many wishes to come true. There, every morning,  he always greets Ms. Novakova while she feeds the pigeons. Hachi starts walking.../panting&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_06false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
@@ -1390,12 +1361,6 @@ $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_00false&quot; and $hachi_tag == 25&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_stairs1_01/Hachi explores the area around the old building, sniffing for any familiar scents or signs of Buro&#39;s presence. He sees a wrapper and grabs it with his mouth.&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_movement !== &quot;Sniffing&quot; and $hachi_movement !== &quot;Standing on its back leg&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
-	&lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
-  &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_01false&quot; and $hachi_movement == &quot;Grabbing something&quot;&gt;&gt;
@@ -1842,7 +1807,7 @@ $avatar_passage
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
-makeComments(&#39;hachi&#39;,&#39;observes&#39;,40);
+makeComments(&#39;hachi&#39;,&#39;observes&#39;);
 console.log(variables().hachi_comment);
 &lt;&lt;/script&gt;&gt;
 
@@ -2074,7 +2039,7 @@ if (window.$avatar_comment !== window._prevAvatarComment) {
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
 &lt;&lt;script&gt;&gt;
-makeComments(&#39;hachi&#39;,&#39;observes&#39;,40);
+makeComments(&#39;hachi&#39;,&#39;observes&#39;);
 console.log(variables().hachi_comment);
 &lt;&lt;/script&gt;&gt;
 
