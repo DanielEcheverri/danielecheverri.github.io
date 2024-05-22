@@ -1196,7 +1196,7 @@ console.log(variables().hachi_comment);
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="hachi_tram" tags="" position="1275,900" size="100,200"></tw-passagedata><tw-passagedata pid="15" name="hachi_fountain" tags="" position="1525,900" size="100,200"></tw-passagedata><tw-passagedata pid="16" name="hachi_bank" tags="" position="1525,1225" size="100,200"></tw-passagedata><tw-passagedata pid="17" name="hachi_stairs" tags="" position="1275,1200" size="100,200"></tw-passagedata><tw-passagedata pid="18" name="avatar_tobacco" tags="" position="2275,900" size="100,200"></tw-passagedata><tw-passagedata pid="19" name="avatar_bakery" tags="" position="2525,900" size="100,200"></tw-passagedata><tw-passagedata pid="20" name="avatar_bank" tags="" position="2275,1225" size="100,200"></tw-passagedata><tw-passagedata pid="21" name="avatar_church" tags="" position="2525,1200" size="100,200"></tw-passagedata><tw-passagedata pid="22" name="hachi_act2" tags="" position="1400,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_turn to 0&gt;&gt;
 
-&lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to 4 different places where he will meet four different, colorfoul characters.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to four different places where he will meet four different, colorfoul characters.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -1213,7 +1213,7 @@ $hachi_passage
 	&lt;&lt;set $hachi_passage to &quot;hachi_act2_03/Lucia gives Hachi a mission to seek out four colorful characters across the city, each with unique insights into Buro&#39;s life and their shared bond./f_aha&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_03false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_03false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
 	&lt;&lt;set $hachi_passage to &quot;hachi_act2_04/Visit the tram stop, the fountain, the stairs of the old building, and the bank. There, you will meet the people who hold the keys to unraveling your friendship./street&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
   
@@ -1221,11 +1221,11 @@ $hachi_passage
 	&lt;&lt;set $hachi_passage to &quot;hachi_act2_05/With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro./barking3&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_05false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_05false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_06/ Each character will teach Hachi a bit more about Buro: He always rides the same tram along with Ms. Suarez, who works at the bank. At the stairs of the building, he likes to buy a pack of gum and talk about sea stories with Mr. Al Mansouri. Buro always throws one coin at the fountain close to his faculty hoping for one of his many wishes to come true. There, every morning,  he always greets Ms. Novakova while she feeds the pigeons. Hachi starts walking.../panting&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_06false&quot; and $hachi_part_mov!== &quot;none&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_06false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_07/&#39;Where is Hachi going next?/talking2&quot;&gt;&gt;
  &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -2096,20 +2096,24 @@ console.log(variables().hachi_comment);
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-    &lt;&lt;if $hachi_checkpoint is &quot;hachi_tram&quot;&gt;&gt;
+    &lt;&lt;if $hachi_checkpoint is &quot;hachi_tram&quot; and $previousHachi_checkpoint !== hachi_checkpoint&gt;&gt;
         &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+        	&lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint&gt;&gt;
             &lt;&lt;include &quot;hachi_tram_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;elseif $hachi_checkpoint is &quot;hachi_fountain&quot;&gt;&gt;
+    &lt;&lt;elseif $hachi_checkpoint is &quot;hachi_fountain&quot; and $previousHachi_checkpoint !== hachi_checkpoint&gt;&gt;
         &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+        	&lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint&gt;&gt;
             &lt;&lt;include &quot;hachi_fountain_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;elseif $hachi_checkpoint is &quot;hachi_stairs&quot;&gt;&gt;
+    &lt;&lt;elseif $hachi_checkpoint is &quot;hachi_stairs&quot; and $previousHachi_checkpoint !== hachi_checkpoint&gt;&gt;
         &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+        	&lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint &gt;&gt;
             &lt;&lt;include &quot;hachi_stairs_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;elseif $hachi_checkpoint is &quot;hachi_bank&quot;&gt;&gt;
+    &lt;&lt;elseif $hachi_checkpoint is &quot;hachi_bank&quot;  and $previousHachi_checkpoint !== hachi_checkpoint&gt;&gt;
         &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+       	 	&lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint&gt;&gt;
             &lt;&lt;include &quot;hachi_bank_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/if&gt;&gt;
