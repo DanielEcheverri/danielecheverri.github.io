@@ -611,7 +611,7 @@ let cachedSentences;
 let characterData = {}; // Object to store data for each character
 let storyComment;
 
-//this function is for walking
+// Function to start making comments for a character
 window.makeComments = async function(character, key) {
     // Fetch JSON data
     const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
@@ -645,18 +645,43 @@ window.makeComments = async function(character, key) {
     characterData[character].randomSentences = {};
     characterData[character].randomSentences.observes = generateRandomSentences(observes, 10);
     characterData[character].randomSentences.soundscape = generateRandomSentences(soundscape, 10);
+
     // Shuffle the arrays to ensure randomness
     characterData[character].randomSentences.observes = characterData[character].randomSentences.observes.sort(() => Math.random() - 0.5);
     characterData[character].randomSentences.soundscape = characterData[character].randomSentences.soundscape.sort(() => Math.random() - 0.5);
 
+    // Initialize indices to track current position in arrays
+    characterData[character].currentIndex = { observes: 0, soundscape: 0 };
+
+    // Helper function to get the next sentence without repetition
+    const getNextSentence = (type) => {
+        let sentence;
+        if (type === 'observes') {
+            sentence = characterData[character].randomSentences.observes[characterData[character].currentIndex.observes];
+            characterData[character].currentIndex.observes = (characterData[character].currentIndex.observes + 1) % characterData[character].randomSentences.observes.length;
+        } else {
+            sentence = characterData[character].randomSentences.soundscape[characterData[character].currentIndex.soundscape];
+            characterData[character].currentIndex.soundscape = (characterData[character].currentIndex.soundscape + 1) % characterData[character].randomSentences.soundscape.length;
+        }
+        return sentence;
+    };
+
     // Set up a timer to display a random sentence every 15 seconds
     characterData[character].intervalId = setInterval(() => {
-        const randomSentence = Math.random() < 0.5
-            ? characterData[character].randomSentences.observes[Math.floor(Math.random() * characterData[character].randomSentences.observes.length)]
-            : characterData[character].randomSentences.soundscape[Math.floor(Math.random() * characterData[character].randomSentences.soundscape.length)];
+        const randomType = Math.random() < 0.5 ? 'observes' : 'soundscape';
+        const randomSentence = getNextSentence(randomType);
         variables()[`${character}_comment`] = randomSentence;
     }, 15000); // 15000 milliseconds = 15 seconds
 };
+
+// Function to stop making comments for a character
+window.stopComments = function(character) {
+    if (characterData[character]) {
+        clearInterval(characterData[character].intervalId);
+        delete characterData[character];
+    }
+};
+
   
 //This function is for movements
 window.makeShortComments = async function(character, key) {
@@ -1830,6 +1855,9 @@ console.log(variables().hachi_comment);
 
 &lt;&lt;liveblock&gt;&gt;
 &lt;&lt;if $hachi_checkpoint == &quot;hachi_statue&quot;&gt;&gt;
+  &lt;&lt;script&gt;&gt;
+  stopComments(&#39;hachi&#39;);
+  &lt;&lt;/script&gt;&gt;
   &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   	&lt;&lt;include &quot;hachi_act1_1&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
