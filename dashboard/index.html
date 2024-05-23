@@ -2113,6 +2113,7 @@ console.log(variables().hachi_comment);
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="empty" tags="" position="450,1150" size="100,100">EMPTY</tw-passagedata><tw-passagedata pid="72" name="commentMovement_hachi" tags="" position="1050,200" size="200,100"> &lt;&lt;if typeof _prevhachiMovement === &#39;undefined&#39;&gt;&gt;&lt;&lt;set _prevhachiMovement to $hachi_movement&gt;&gt;&lt;&lt;elseif _prevhachiMovement !== $hachi_movement&gt;&gt;&lt;&lt;script&gt;&gt;makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;); console.log(variables().hachi_comment); &lt;&lt;/script&gt;&gt;&lt;&lt;set _prevhachiMovement to variables().hachi_movement&gt;&gt;&lt;&lt;if $hachi_comment !== _prevhachiComment&gt;&gt;&lt;&lt;set _prevhachiComment to $hachi_comment&gt;&gt;&lt;&lt;script&gt;&gt;var passage_temp = variables().hachi_comment;const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();console.log(renderedText);variables().hachi_passage = renderedText;&lt;&lt;/script&gt;&gt;&lt;&lt;set $hachi_passage to variables().hachi_passage&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="commentMovement_avatar" tags="" position="1275,200" size="200,100">&lt;&lt;if typeof _prevavatarMovement === &#39;undefined&#39;&gt;&gt;&lt;&lt;set _prevavatarMovement to $avatar_movement&gt;&gt;&lt;&lt;elseif _prevavatarMovement !== $avatar_movement&gt;&gt;&lt;&lt;script&gt;&gt;makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;); console.log(variables().avatar_comment); &lt;&lt;/script&gt;&gt;&lt;&lt;set _prevavatarMovement to variables().avatar_movement&gt;&gt;&lt;&lt;if $avatar_comment !== _prevavatarComment&gt;&gt;&lt;&lt;set _prevavatarComment to $avatar_comment&gt;&gt;&lt;&lt;script&gt;&gt;var passage_temp = variables().avatar_comment;const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();console.log(renderedText);variables().avatar_passage = renderedText;&lt;&lt;/script&gt;&gt;&lt;&lt;set $avatar_passage to variables().avatar_passage&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="eval_dist" tags="" position="300,1275" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;liveblock&gt;&gt;
 &lt;&lt;set $distances to $avatar_checkpoint_dist.split(&quot;,&quot;).map(function(item) {
     return parseFloat(item);
 })&gt;&gt;
@@ -2126,6 +2127,7 @@ console.log(variables().hachi_comment);
     All values are 20 or greater.
 &lt;&lt;/if&gt;&gt;
 $avatar_checkpoint_dist
+&lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
