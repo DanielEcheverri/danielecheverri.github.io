@@ -1111,9 +1111,9 @@
 				}
 			}
 
-			//setInterval(() => {
+			setInterval(() => {
 				writeToDatabase();
-			//}, 1000);
+			}, 200);
 			readFromDatabase(deviceName); // Read data after writing,
 
 			document.addEventListener('DOMContentLoaded', function() {
