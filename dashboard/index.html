@@ -2119,7 +2119,7 @@ console.log(variables().hachi_comment);
 &lt;&lt;set $avatar_arriving to false&gt;&gt;
 &lt;&lt;script&gt;&gt;
 console.log(variables().avatar_checkpoint_dist);
-let valuesArray = variables().avatar_checkpoint_dist.split(&#39;,&#39;);
+let valuesArray = variables().avatar_checkpoint_dist;
 let atLeastOneEqualTo20 = valuesArray.some(value =&gt; parseInt(value) &gt;= 20);
 if (atLeastOneEqualTo20) {
 	variables().avatar_arriving=true;
