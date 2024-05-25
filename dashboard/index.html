@@ -669,7 +669,7 @@ window.makeComments = async function(character, key) {
   // Set up a timer to display a random sentence every 15 seconds
   characterData[character].intervalId = setInterval(() => {
       let randomSentence;
-      if (variables().[`${character}_arriving`] {
+      if (variables().[`${character}_arriving`]) {
           randomSentence = approachingFinal;
       } else {
           const randomType = Math.random() < 0.5 ? 'observes' : 'soundscape';
