@@ -676,7 +676,7 @@ window.makeComments = async function(character, key) {
       let randomSentence;
       if (variables()[`${character}_arriving`]) {
           randomSentence = approachingFinal;
-         	stopComments(`${character}`);
+        	stopComments(`${character}`);
       } else {
           const randomType = Math.random() < 0.5 ? 'observes' : 'soundscape';
           randomSentence = getNextSentence(randomType);
@@ -1870,11 +1870,6 @@ console.log(variables().hachi_comment);
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-&lt;&lt;if $hachi_arriving == true&gt;&gt;
-  &lt;&lt;script&gt;&gt;
-  stopComments(&#39;hachi&#39;);
-  &lt;&lt;/script&gt;&gt;
-&lt;&lt;/if&gt;&gt;
 &lt;&lt;if $hachi_checkpoint == &quot;hachi_statue&quot;&gt;&gt;
   &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   	&lt;&lt;include &quot;hachi_act1_1&quot;&gt;&gt;
