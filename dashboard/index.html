@@ -1845,7 +1845,7 @@ $avatar_passage
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-&lt;&lt;include &quot;evalDist_hachi&quot;&gt;&gt;
+	&lt;&lt;include &quot;evalDist_hachi&quot;&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;hachi&#39;,&#39;observes&#39;);
@@ -2140,14 +2140,12 @@ if (atLeastOneEqualTo20) {
 &lt;&lt;set $hachi_arriving to false&gt;&gt;
 &lt;&lt;script&gt;&gt;
 let valuesArray = variables().hachi_checkpoint_dist;
-console.log(valuesArray);
+//console.log(valuesArray);
 let atLeastOneEqualTo20 = valuesArray.some(value =&gt; parseInt(value) &lt; 20);
 if (atLeastOneEqualTo20) {
 	variables().hachi_arriving=true;
-    console.log(&quot;Arriving&quot;);
 } else {
 	variables().hachi_arriving=false;
-    console.log(&quot;Not Arriving&quot;);
 }
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
