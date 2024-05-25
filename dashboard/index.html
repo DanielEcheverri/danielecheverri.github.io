@@ -676,6 +676,7 @@ window.makeComments = async function(character, key) {
       let randomSentence;
       if (variables()[`${character}_arriving`]) {
           randomSentence = approachingFinal;
+         	stopComments(`${character}`);
       } else {
           const randomType = Math.random() < 0.5 ? 'observes' : 'soundscape';
           randomSentence = getNextSentence(randomType);
