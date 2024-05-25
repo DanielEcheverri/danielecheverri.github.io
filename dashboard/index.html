@@ -893,6 +893,7 @@ Loading variables...
 &lt;&lt;set $hachi_t_heading to &#39;&#39;&gt;&gt;
 &lt;&lt;set $hachi_t_route to &#39;&#39;&gt;&gt;
 
+&lt;!-- 
 &lt;&lt;repeat 20000ms&gt;&gt;
 &lt;&lt;script&gt;&gt;
 Promise.all([
@@ -940,6 +941,7 @@ Promise.all([
 
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
+--&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="avatar_1" tags="" position="300,525" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_online to false&gt;&gt;
 
@@ -2116,6 +2118,7 @@ console.log(variables().hachi_comment);
 &lt;&lt;liveblock&gt;&gt;
 &lt;&lt;set $avatar_arriving to false&gt;&gt;
 &lt;&lt;script&gt;&gt;
+console.log(variables().avatar_checkpoint_dist);
 let valuesArray = variables().avatar_checkpoint_dist.split(&#39;,&#39;);
 let atLeastOneEqualTo20 = valuesArray.some(value =&gt; parseInt(value) &gt;= 20);
 if (atLeastOneEqualTo20) {
