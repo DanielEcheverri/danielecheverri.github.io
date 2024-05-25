@@ -898,7 +898,7 @@ Loading variables...
 &lt;&lt;set $hachi_t_heading to &#39;&#39;&gt;&gt;
 &lt;&lt;set $hachi_t_route to &#39;&#39;&gt;&gt;
 
-&lt;!--
+/%
 &lt;&lt;repeat 20000ms&gt;&gt;
 &lt;&lt;script&gt;&gt;
 Promise.all([
@@ -946,7 +946,7 @@ Promise.all([
 
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
---&gt;
+%/
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="avatar_1" tags="" position="300,525" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_online to false&gt;&gt;
 
@@ -2137,11 +2137,14 @@ if (atLeastOneEqualTo20) {
 &lt;&lt;set $hachi_arriving to false&gt;&gt;
 &lt;&lt;script&gt;&gt;
 let valuesArray = variables().hachi_checkpoint_dist;
+console.log(valuesArray);
 let atLeastOneEqualTo20 = valuesArray.some(value =&gt; parseInt(value) &lt; 20);
 if (atLeastOneEqualTo20) {
 	variables().hachi_arriving=true;
+    console.log(&quot;Arriving&quot;);
 } else {
 	variables().hachi_arriving=false;
+    console.log(&quot;Not Arriving&quot;);
 }
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata></tw-storydata>
