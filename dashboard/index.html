@@ -619,6 +619,8 @@ window.makeComments = async function(character, key) {
     // Extract data based on the character parameter
     const observes = jsonData[`${character}_${key}`];
     const soundscape = jsonData.soundscape;
+    const approaching = jsonData.approaching;
+
 
     // Function to generate random sentences upfront and store them in an object
     const generateRandomSentences = (obj, count) => {
@@ -639,6 +641,9 @@ window.makeComments = async function(character, key) {
         clearInterval(characterData[character].intervalId);
         delete characterData[character];
     }
+  
+    const approachingSentences = Object.values(approaching);
+    const approachingFinal = approachingSentences[Math.floor(Math.random() * approachingSentences.length)];
 
     // Initialize character data
     characterData[character] = {};
