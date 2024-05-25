@@ -898,7 +898,7 @@ Loading variables...
 &lt;&lt;set $hachi_t_heading to &#39;&#39;&gt;&gt;
 &lt;&lt;set $hachi_t_route to &#39;&#39;&gt;&gt;
 
-&lt;--
+&lt;!--
 &lt;&lt;repeat 20000ms&gt;&gt;
 &lt;&lt;script&gt;&gt;
 Promise.all([
@@ -1838,6 +1838,9 @@ $avatar_passage
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
 
+&lt;&lt;liveblock&gt;&gt;
+&lt;&lt;include &quot;evalDist_hachi&quot;&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;hachi&#39;,&#39;observes&#39;);
 console.log(variables().hachi_comment);
@@ -1861,7 +1864,6 @@ console.log(variables().hachi_comment);
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-&lt;&lt;include &quot;evalDist_hachi&quot;&gt;&gt;
 &lt;&lt;if $hachi_checkpoint == &quot;hachi_statue&quot;&gt;&gt;
   &lt;&lt;script&gt;&gt;
   stopComments(&#39;hachi&#39;);
