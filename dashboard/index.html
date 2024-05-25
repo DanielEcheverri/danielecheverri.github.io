@@ -768,17 +768,47 @@ window.makeShortComments = async function(character, key) {
 
 &lt;&lt;script&gt;&gt;
 Promise.all([
-    fetchWeather(avatar_latitude, avatar_longitude),
-    fetchStreetName(avatar_latitude, avatar_longitude),
-    fetchStreetName(hachi_latitude, hachi_longitude)
-]).then(([weatherDescription, avatarStreetName, hachiStreetName]) =&gt; {
-    variables().storyWeather = weatherDescription;
-    writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
-    writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
-    variables().storyTime = getTimeOfDay();
-    console.log(&quot;Time of day is:&quot; + variables().storyTime);
-});
+  fetchWeather(avatar_latitude, avatar_longitude),
+  fetchStreetName(avatar_latitude, avatar_longitude),
+  fetchStreetName(hachi_latitude, hachi_longitude),
+  fetchSpeed(avatar_speed),
+  fetchSpeed(hachi_speed),
+  fetchAmenity(avatar_latitude, avatar_longitude),
+  fetchAmenity(hachi_latitude, hachi_longitude),
+  fetchStops(avatar_latitude, avatar_longitude),
+  fetchStops(hachi_latitude, hachi_longitude)
+])
+.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop, hachiStop]) =&gt; {
+  variables().storyWeather = weatherDescription;
+  writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
+  writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
+  variables().storyTime = getTimeOfDay();
+  variables().avatar_walking_speed = avatarSpeed;
+  variables().hachi_walking_speed = hachiSpeed;
+  variables().avatar_amenity = avatarAmenity;
+  variables().hachi_amenity = hachiAmenity;
+  variables().avatar_t_stop=avatarStop.stopName;
+  variables().avatar_t_route=avatarStop.routeShortName;
+  variables().avatar_t_heading=avatarStop.tripHeadSign;
+  variables().hachi_t_stop=hachiStop.stopName;
+  variables().hachi_t_route=hachiStop.routeShortName;
+  variables().hachi_t_heading=hachiStop.tripHeadSign;
 
+  console.log(&quot;Time of day is: &quot; + variables().storyTime);
+  console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
+  console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
+  console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
+  console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
+  console.log(&quot;Avatar transit closest stop is: &quot; +  variables().avatar_t_stop);
+  console.log(&quot;Avatar transit heading: &quot; +   variables().avatar_t_heading);
+  console.log(&quot;Avatar transit route: &quot; +  variables().avatar_t_route);
+  console.log(&quot;Hachi transit closest stop is: &quot; +  variables().hachi_t_stop);
+  console.log(&quot;Hachi transit heading: &quot; +   variables().hachi_t_heading);
+  console.log(&quot;Hachi transit route: &quot; +  variables().hachi_t_route);
+})
+.catch((error) =&gt; {
+  console.error(&quot;Error:&quot;, error.message);
+});
 &lt;&lt;/script&gt;&gt;
 
 Ok!
@@ -1877,7 +1907,7 @@ console.log(variables().hachi_comment);
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="avatar_act1" tags="" position="2100,500" size="100,200">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="avatar_act1" tags="" position="1975,625" size="100,200">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 
@@ -1911,7 +1941,7 @@ console.log(variables().avatar_comment);
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="hachi_act1_1" tags="" position="1700,625" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="hachi_act1_1" tags="" position="1700,725" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;hachi_act1_01/Hachi&#39;s determination to find the source of the tempting scent leads him deeper. As he follows the streets, the aroma grows stronger, filling his senses with eagerness. Finally, Hachi comes across a statue in a small square. The scent seems to be coming from the base of the statue./park2&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
@@ -1945,7 +1975,7 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-</tw-passagedata><tw-passagedata pid="62" name="avatar_act1_1" tags="" position="1975,625" size="100,100">&lt;&lt;nobr&gt;&gt;
+</tw-passagedata><tw-passagedata pid="62" name="avatar_act1_1" tags="" position="2100,725" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_passage to &quot;avatar_act1_01/As Buro calls out to Hachi, he realizes that Hachi isn&#39;t responding. He worries, as he looks at the street, searching for any sign of his furry friend. &quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
@@ -2079,6 +2109,10 @@ if (window.$avatar_comment !== window._prevAvatarComment) {
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="70" name="hachi_act2_transition" tags="" position="1400,1175" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
+
+&lt;&lt;liveblock&gt;&gt;
+	&lt;&lt;include &quot;evalDist_hachi&quot;&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;hachi&#39;,&#39;observes&#39;);
 console.log(variables().hachi_comment);
