@@ -552,7 +552,7 @@ window.fetchStops = async function(latitude, longitude) {
 
   window.fetchSpeed = function(speed) {
     if (speed <= 0.1) {
-        return "Standing still";
+        return "";
     } else if (speed <= 0.3) {
         return "Walking slowly";
     } else if (speed <= 0.6) {

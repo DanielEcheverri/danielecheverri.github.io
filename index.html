@@ -292,24 +292,24 @@
 
 							if (speed >= speedThreshold) {
 								if (heading >= 337.5 || heading < 22.5) {
-									directionText = "North";
+									directionText = "north";
 								} else if (heading >= 22.5 && heading < 67.5) {
-									directionText = "Northeast";
+									directionText = "northeast";
 								} else if (heading >= 67.5 && heading < 112.5) {
-									directionText = "East";
+									directionText = "east";
 								} else if (heading >= 112.5 && heading < 157.5) {
-									directionText = "Southeast";
+									directionText = "southeast";
 								} else if (heading >= 157.5 && heading < 202.5) {
-									directionText = "South";
+									directionText = "south";
 								} else if (heading >= 202.5 && heading < 247.5) {
-									directionText = "Southwest";
+									directionText = "southwest";
 								} else if (heading >= 247.5 && heading < 292.5) {
-									directionText = "West";
+									directionText = "west";
 								} else if (heading >= 292.5 && heading < 337.5) {
-									directionText = "Northwest";
+									directionText = "northwest";
 								}
 							} else {
-								directionText = "Still";
+								directionText = "";
 							}
 							checkCheckpoints();
 							// Update the HTML element with different navigation variables
