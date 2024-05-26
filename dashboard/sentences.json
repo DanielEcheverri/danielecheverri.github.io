@@ -80,7 +80,7 @@
 		"observation36": "Walking in the $storyWeather, Hachi speeds up on $hachi_heading $hachi_street street. 'Gotta keep moving,' Hachi pants, picking up the pace.",
 		"observation37": "As the $storyTime sets, Hachi navigates $storyNeighborhood on $hachi_street street. 'Getting late,' Hachi whines softly, feeling a bit uneasy.",
 		"observation38": "In $storyWeather, Hachi enjoys the city smells on $hachi_street street. 'So many scents,' while sniffing the air, trying to identify each one.",
-		"observation39": "Steps slow on $hachi_heading $hachi_street steet, Hachi's ears twitching as he takes in the vibrant sounds of $storyNeighborhood's life in the $storyTime. 'Home soon,' Hachi wags his tail, feeling content."
+		"observation39": "Steps slow on $hachi_heading $hachi_street street, Hachi's ears twitching as he takes in the vibrant sounds of $storyNeighborhood's life in the $storyTime. 'Home soon,' Hachi wags his tail, feeling content."
 	},
 	"soundscape": {
 		"sound1": "Car horns blend with chatter, creating a lively atmosphere amidst $storyNeighborhood's bustle.",
