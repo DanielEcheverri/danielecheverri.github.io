@@ -594,12 +594,12 @@ window.fetchAmenity = function(latitude, longitude) {
             }
         }
         // If no amenity is found, throw an error.
-        //throw new Error("No amenity found nearby");
+        throw new Error("No amenity found nearby");
+    	return "an odd window";
     })
     .catch((error) => {
         // Handle errors
         console.error("Error fetching amenity:", error);
-        return "an odd window";
     });
 };
 
