@@ -613,8 +613,8 @@ window.fetchCity = function(latitude, longitude) {
   return fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
-    	const city = "the city";
-    	const neighborhood = "the neighborhood";
+    	let city = "the city";
+    	let neighborhood = "the neighborhood";
       // Check if the response contains any results
       if (data && data.address) {
         city = data.address.city || data.address.town || data.address.village || data.address.hamlet;
