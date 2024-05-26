@@ -493,7 +493,12 @@ window.fetchStops = async function(latitude, longitude) {
     // Check if such entry exists
     if (!firstStopWithType0) {
       console.error('No stop with location_type equal to 0 found');
-      return null;
+       return {
+        tripHeadSign: "to the airport",
+        routeShortName: "six",
+        departureTime: "soon",
+        stopName: "closest"
+      };
     }
 
     const onestop_id = firstStopWithType0.onestop_id;
@@ -509,7 +514,12 @@ window.fetchStops = async function(latitude, longitude) {
     // Check if departures exist
     if (departures.length === 0) {
       console.error('No departures found for the stop');
-      return null;
+      return {
+        tripHeadSign: "to the airport",
+        routeShortName: "six",
+        departureTime: "soon",
+        stopName: firstStopWithType0.stop_name || "closest"
+      };
     }
 
     // Extract relevant departure information
@@ -530,7 +540,12 @@ window.fetchStops = async function(latitude, longitude) {
   } catch (error) {
     // Handle errors
     console.error('Error fetching data:', error);
-    return null;
+      return {
+        tripHeadSign: "to the airport",
+        routeShortName: "six",
+        departureTime: "soon",
+        stopName: "closest"
+      };
   }
 };
 
@@ -579,12 +594,12 @@ window.fetchAmenity = function(latitude, longitude) {
             }
         }
         // If no amenity is found, throw an error.
-        throw new Error("No amenity found nearby");
+        //throw new Error("No amenity found nearby");
     })
     .catch((error) => {
         // Handle errors
         console.error("Error fetching amenity:", error);
-        return "an unknown amenity";
+        return "an odd window";
     });
 };
 
@@ -607,6 +622,7 @@ window.fetchCity = function(latitude, longitude) {
         return { city, neighborhood }; // Return an object containing city and neighborhood 
         
       } else {
+        return { city: "the city", neighborhood: "the neighborhood" };
         console.error("No results found");
       }
     })
