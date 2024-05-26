@@ -450,6 +450,57 @@ window.writeToHachi = function(databaseNode, hachiData) {
     return weatherPromise;
   }
   
+  var airPollutionData = null;
+
+window.fetchPollution = function(latitude, longitude) {
+  return new Promise((resolve, reject) => {
+    const apiKey = '21b99074efb73ba35f476f78f1b018ec';
+    const apiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+
+    // Fetch data from OpenWeather API
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch air pollution data');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Extract the AQI value
+        const aqiValue = data.list[0].main.aqi;
+
+        // Map the AQI value to a qualitative description
+        let qualitativeDescription;
+        switch (aqiValue) {
+          case 1:
+            qualitativeDescription = 'fresh air';
+            break;
+          case 2:
+            qualitativeDescription = 'clean air';
+            break;
+          case 3:
+            qualitativeDescription = 'slightly hazy air';
+            break;
+          case 4:
+            qualitativeDescription = 'smokey air';
+            break;
+          case 5:
+            qualitativeDescription = 'thick polluted air';
+            break;
+          default:
+            qualitativeDescription = 'air';
+        }
+
+        // Resolve the promise with the qualitative description
+        resolve(qualitativeDescription);
+      console.log(qualitativeDescription);
+      })
+      .catch(error => {
+        console.error('Error fetching air pollution data:', error);
+        reject(error); // Reject the promise if there's an error
+      });
+  });
+}
   
   // Function to determine if it's day or night
     window.getTimeOfDay=function() {
@@ -821,9 +872,10 @@ Promise.all([
   fetchAmenity(hachi_latitude, hachi_longitude),
   fetchStops(avatar_latitude, avatar_longitude),
   fetchStops(hachi_latitude, hachi_longitude),
-  fetchCity(avatar_latitude, avatar_longitude)
+  fetchCity(avatar_latitude, avatar_longitude),
+  fetchPollution(avatar_latitude, avatar_longitude)
 ])
-.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop, hachiStop, cityNeighborhood]) =&gt; {
+.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop, hachiStop, cityNeighborhood, cityPollution]) =&gt; {
   variables().storyWeather = weatherDescription;
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
   writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
@@ -840,6 +892,7 @@ Promise.all([
   variables().hachi_t_heading=hachiStop.tripHeadSign;
   variables().storyCity = cityNeighborhood.city;
   variables().storyNeighborhood = cityNeighborhood.neighborhood;
+  variables().storyPollution = cityPollution;
 
   console.log(&quot;Time of day is: &quot; + variables().storyTime);
   console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
@@ -854,6 +907,7 @@ Promise.all([
   console.log(&quot;Hachi transit route: &quot; +  variables().hachi_t_route);
   console.log(&quot;Story city: &quot; + variables().storyCity);
   console.log(&quot;Story neighborhood: &quot; + variables().storyNeighborhood);
+  console.log(&quot;Story pollution: &quot; + variables().storyPollution);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
