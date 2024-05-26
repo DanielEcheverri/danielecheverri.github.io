@@ -581,7 +581,6 @@ window.fetchAmenity = function(latitude, longitude) {
         // Construct Overpass API query to find the first amenity within 100 meters
         var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:100," + latitude + "," + longitude + ")[amenity];out body qt 1;";
         // Fetch data from Overpass API
-      console.log(overpassQuery);
         return fetch(overpassQuery);
     })
     .then((response) => response.json())
@@ -614,11 +613,12 @@ window.fetchCity = function(latitude, longitude) {
   return fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
+    	const city = "the city";
+    	const neighborhood = "the neighborhood";
       // Check if the response contains any results
       if (data && data.address) {
-        const city = data.address.city || data.address.town || data.address.village || data.address.hamlet;
-        const neighborhood = data.address.neighbourhood || data.address.suburb || data.address.locality;
-        
+        city = data.address.city || data.address.town || data.address.village || data.address.hamlet;
+        neighborhood = data.address.neighbourhood || data.address.suburb || data.address.locality;
         return { city, neighborhood }; // Return an object containing city and neighborhood 
         
       } else {
