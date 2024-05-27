@@ -77,7 +77,7 @@
 		"observation33": "He trots among car horns on $hachi_street street. 'So loud!' Hachi yips softly, dodging a passing car.",
 		"observation34": "Trotting $hachi_walking_speed on $hachi_street street, Hachi absorbs city smells. 'What's that scent?' Hachi sniffs the $storyPollution, intrigued by a distant aroma.",
 		"observation35": "In the $storyTime's $storyWeather sky, he hears a group of street performers on $hachi_street street. 'Music!' Hachi's tail wags as he listens to the melodies.",
-		"observation36": "Walking in the $storyWeather, Hachi speeds up on $hachi_heading $hachi_street street. 'Gotta keep moving,' Hachi pants, picking up the pace.",
+		"observation36": "Walking in the $storyWeather, Hachi speeds up $hachi_heading $hachi_street street. 'Gotta keep moving,' Hachi pants, picking up the pace.",
 		"observation37": "As the $storyTime sets, Hachi navigates $storyNeighborhood on $hachi_street street. 'Getting late,' Hachi whines softly, feeling a bit uneasy.",
 		"observation38": "In $storyWeather, Hachi enjoys the city smells on $hachi_street street. 'So many scents,' while sniffing the air, trying to identify each one.",
 		"observation39": "Steps slow on $hachi_heading $hachi_street street, Hachi's ears twitching as he takes in the vibrant sounds of $storyNeighborhood's life in the $storyTime. 'Home soon,' Hachi wags his tail, feeling content."
