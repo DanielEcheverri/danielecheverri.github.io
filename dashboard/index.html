@@ -1076,9 +1076,11 @@ Promise.all([
   variables().avatar_t_stop=avatarStop.stopName;
   variables().avatar_t_route=avatarStop.routeShortName;
   variables().avatar_t_heading=avatarStop.tripHeadSign;
+  variables().avatar_t_type=avatarStop.routeType;
   variables().hachi_t_stop=hachiStop.stopName;
   variables().hachi_t_route=hachiStop.routeShortName;
   variables().hachi_t_heading=hachiStop.tripHeadSign;
+  variables().hachi_t_type=hachiStop.routeType;
 
   console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
@@ -1087,9 +1089,11 @@ Promise.all([
   console.log(&quot;Avatar transit closest stop is: &quot; +  variables().avatar_t_stop);
   console.log(&quot;Avatar transit heading: &quot; +   variables().avatar_t_heading);
   console.log(&quot;Avatar transit route: &quot; +  variables().avatar_t_route);
+  console.log(&quot;Avatar transit type: &quot; +  variables().avatar_t_type);
   console.log(&quot;Hachi transit closest stop is: &quot; +  variables().hachi_t_stop);
   console.log(&quot;Hachi transit heading: &quot; +   variables().hachi_t_heading);
   console.log(&quot;Hachi transit route: &quot; +  variables().hachi_t_route);
+  console.log(&quot;Hachi transit type: &quot; +  variables().hachi_t_type);
 })
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
