@@ -559,7 +559,8 @@ window.fetchStops = async function(latitude, longitude) {
        return {
         tripHeadSign: "to the airport",
         routeShortName: "six",
-        stopName: "closest"
+        stopName: "closest",
+        routeType: "route"
       };
     }
 
@@ -580,7 +581,7 @@ window.fetchStops = async function(latitude, longitude) {
       return {
         tripHeadSign: "to the airport",
         routeShortName: "six",
-        stopName: firstStopWithType0.stop_name || "closest"
+        stopName: firstStopWithType0.stop_name || "closest",
         routeType: "route" // Default value
       };
     }
