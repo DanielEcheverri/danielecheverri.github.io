@@ -1047,10 +1047,9 @@ Promise.all([
   fetchStops(avatar_latitude, avatar_longitude),
   fetchStops(hachi_latitude, hachi_longitude)
 ])
-.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop, hachiStop]) =&gt; {
+.then(([avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop, hachiStop]) =&gt; {
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
   writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
-  variables().storyTime = getTimeOfDay();
   variables().avatar_walking_speed = avatarSpeed;
   variables().hachi_walking_speed = hachiSpeed;
   variables().avatar_amenity = avatarAmenity;
