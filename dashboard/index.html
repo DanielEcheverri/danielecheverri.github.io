@@ -528,6 +528,18 @@ var stopRadius = 400;
   
 window.fetchStops = async function(latitude, longitude) {
   const apiKey = 'gYW4HBUHK9kB5j8wDxwxGglMKrWl9P9J';
+  const routeTypeMapping = {
+    0: 'Tram',
+    1: 'Metro',
+    2: 'Train',
+    3: 'Bus',
+    4: 'Ferry',
+    5: 'Cable tram',
+    6: 'Cable car',
+    7: 'Funicular',
+    11: 'Trolleybus',
+    12: 'Monorail'
+  };
 
   try {
     // API URL for the first call to get closest stops
@@ -560,6 +572,7 @@ window.fetchStops = async function(latitude, longitude) {
     const departuresResponse = await fetch(departuresUrl);
     const departuresData = await departuresResponse.json();
     const departures = departuresData.stops[0]?.departures || [];
+    
 
     // Check if departures exist
     if (departures.length === 0) {
@@ -568,6 +581,7 @@ window.fetchStops = async function(latitude, longitude) {
         tripHeadSign: "to the airport",
         routeShortName: "six",
         stopName: firstStopWithType0.stop_name || "closest"
+        routeType: "route" // Default value
       };
     }
 
@@ -575,16 +589,15 @@ window.fetchStops = async function(latitude, longitude) {
     const firstDeparture = departures[0];
     const tripHeadSign = firstDeparture.trip.trip_headsign;
     const routeShortName = firstDeparture.trip.route.route_short_name;
-    const departureTime = firstDeparture.departure.scheduled;
     const stopName = firstStopWithType0.stop_name;
-
-    //console.log(`Trip Head Sign: ${tripHeadSign}, Route Short Name: ${routeShortName}, Departure Time: ${departureTime}, Stop Name: ${stopName}`);
-
+    const routeType = routeTypeMapping[firstDeparture.trip.route.route_type] || 'route';
+    
     //return  information 
     return {
       tripHeadSign,
       routeShortName,
-      stopName
+      stopName,
+      routeType
     };
   } catch (error) {
     // Handle errors
@@ -592,7 +605,8 @@ window.fetchStops = async function(latitude, longitude) {
       return {
         tripHeadSign: "to the airport",
         routeShortName: "six",
-        stopName: "closest"
+        stopName: "closest",
+        routeType: "route"
       };
   }
 };
@@ -884,9 +898,11 @@ Promise.all([
   variables().avatar_t_stop=avatarStop.stopName;
   variables().avatar_t_route=avatarStop.routeShortName;
   variables().avatar_t_heading=avatarStop.tripHeadSign;
+  variables().avatar_t_type=avatarStop.routeType;
   variables().hachi_t_stop=hachiStop.stopName;
   variables().hachi_t_route=hachiStop.routeShortName;
   variables().hachi_t_heading=hachiStop.tripHeadSign;
+  variables().hachi_t_type=hachiStop.routeType;
   variables().storyCity = cityNeighborhood.city;
   variables().storyNeighborhood = cityNeighborhood.neighborhood;
   variables().storyPollution = cityPollution;
@@ -899,9 +915,11 @@ Promise.all([
   console.log(&quot;Avatar transit closest stop is: &quot; +  variables().avatar_t_stop);
   console.log(&quot;Avatar transit heading: &quot; +   variables().avatar_t_heading);
   console.log(&quot;Avatar transit route: &quot; +  variables().avatar_t_route);
+  console.log(&quot;Avatar transit type: &quot; +  variables().avatar_t_type);
   console.log(&quot;Hachi transit closest stop is: &quot; +  variables().hachi_t_stop);
   console.log(&quot;Hachi transit heading: &quot; +   variables().hachi_t_heading);
   console.log(&quot;Hachi transit route: &quot; +  variables().hachi_t_route);
+  console.log(&quot;Hachi transit type: &quot; +  variables().hachi_t_type);
   console.log(&quot;Story city: &quot; + variables().storyCity);
   console.log(&quot;Story neighborhood: &quot; + variables().storyNeighborhood);
   console.log(&quot;Story pollution: &quot; + variables().storyPollution);
