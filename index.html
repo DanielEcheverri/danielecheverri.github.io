@@ -772,7 +772,60 @@
 				let lastSpokenMessage = '';
 				let speaking = false;
 
-				function speakMessage(fullMessage) {
+				async function speakMessage(fullMessage) {
+					// Check if the message is the same as the last spoken message
+					if (fullMessage === lastSpokenMessage) {
+						console.log("Message already spoken.");
+						return; // Exit the function without speaking again
+					}
+					// Check if currently speaking
+					if (speaking) {
+						console.log("Already speaking, new message ignored.");
+						return;
+					}
+
+					const url = `http://172.26.7.86:5002/api/tts?text=${encodeURIComponent(fullMessage)}&speaker_id=p323&style_wav=&language=en`;
+
+					try {
+						// Make a fetch request to the Coqui TTS API
+						const response = await fetch(url);
+
+						if (!response.ok) {
+							throw new Error(`HTTP error! status: ${response.status}`);
+						}
+
+						// Convert response to a Blob for audio playback
+						const audioBlob = await response.blob();
+						const audioUrl = URL.createObjectURL(audioBlob);
+
+						// Create an audio element and play the audio
+						const audio = new Audio(audioUrl);
+						speaking = true;
+						audio.play();
+
+						audio.onplay = function() {
+							console.log("Currently speaking");
+							// Update the last spoken message
+							lastSpokenMessage = fullMessage;
+						};
+
+						audio.onended = function() {
+							console.log("End speaking");
+							speaking = false;
+						};
+
+						audio.onerror = function(event) {
+							speaking = false; // Reset speaking flag
+							console.error("Audio playback error:", event);
+						};
+					} catch (error) {
+						speaking = false; // Reset speaking flag
+						console.error("Error with TTS API:", error);
+					}
+				}
+
+
+				function speakMessage2(fullMessage) {
 				// Check if the message is the same as the last spoken message
 					if (fullMessage === lastSpokenMessage) {
 						console.log("Message already spoken.");
