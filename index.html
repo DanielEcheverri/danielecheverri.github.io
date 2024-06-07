@@ -784,7 +784,7 @@
 						return;
 					}
 
-					const url = `http://147.251.58.149:5002/api/tts?text=${encodeURIComponent(fullMessage)}&speaker_id=p323&style_wav=&language=en`;
+					const url = `http://147.251.58.149:5002/api/tts?text=${(fullMessage)}&speaker_id=p323&style_wav=&language=en`;
 
 					try {
 						// Make a fetch request to the Coqui TTS API
