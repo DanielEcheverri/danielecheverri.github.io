@@ -827,7 +827,6 @@
 						const audio = new Audio(audioUrl);
 						currentAudio = audio;
 						speaking = true;
-						audio.play();
 
 						audio.onplay = function() {
 							console.log("Currently speaking");
@@ -846,6 +845,7 @@
 							currentAudio = null;
 							console.error("Audio playback error:", event);
 						};
+						audio.play();
 					} catch (error) {
 						speaking = false; // Reset speaking flag
 						currentAudio = null;
