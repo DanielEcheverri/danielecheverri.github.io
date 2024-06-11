@@ -52,6 +52,7 @@
 				let sentenceSource = null;
 				let tagSource = null;
 				let checkpointsSource = 'points.json';
+				let characterName = "";
 
 				var connecting_Sound = new Howl({src: ['audio/ui_loading.mp3'],
 				onloaderror: function(error) {console.error('Error loading audio:', error);},});
@@ -89,6 +90,7 @@
 						movePatterns = 'hachi_patterns.json';
 						sentenceSource = 'hachi_sentences.json';
 						tagSource = 'tags.json';
+						characterName = "Hachi";
 						initializeSounds();
 					} else {
 						deviceName = "avatar_BT";
@@ -98,6 +100,7 @@
 						movePatterns = 'avatar_patterns.json';
 						sentenceSource = 'avatar_sentences.json';
 						tagSource = 'tags.json';
+						characterName = "Buro";
 						initializeSounds();
 					}
 				}
@@ -602,7 +605,7 @@
 								console.log(`Pattern matched: ${pattern.patternName}`);
 								patternMovement = pattern.patternName;
 								if (noNarrative){
-									displayText("Avatar is "+ patternMovement);
+									displayText(characterName + " is "+ patternMovement);
 								}
 								// Clear the buffer after a match
 								movementBuffer = [];
