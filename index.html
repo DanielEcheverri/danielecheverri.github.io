@@ -787,7 +787,9 @@
 						return;
 					}
 
-					const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${(fullMessage)}&speaker_id=&style_wav=&language=en`;
+					const encodedMessage = encodeURIComponent(fullMessage);
+			 		const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${encodedMessage}&speaker_id=&style_wav=&language=en`;
+					//const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${(fullMessage)}&speaker_id=&style_wav=&language=en`;
 
 					try {
 						// Make a fetch request to the Coqui TTS API
