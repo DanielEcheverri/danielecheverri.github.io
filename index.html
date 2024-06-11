@@ -802,7 +802,7 @@
 						return; // Exit the function without speaking again
 					}
 					// Check if currently speaking
-					if (speaking || audio.play()) {
+					if (speaking) {
 						console.log("Already speaking, new message ignored.");
 						return;
 					}
