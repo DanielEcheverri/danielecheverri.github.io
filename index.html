@@ -775,9 +775,29 @@
 				let lastSpokenMessage = '';
 				let speaking = false;
 
+				const transliterationMap = {
+					'á': 'a', 'à': 'a', 'ä': 'a', 'ã': 'a', 'â': 'a', 'å': 'a', 'č': 'c',
+					'ç': 'c', 'é': 'e', 'è': 'e', 'ë': 'e', 'ê': 'e', 'í': 'i', 'ì': 'i',
+					'ï': 'i', 'î': 'i', 'ñ': 'n', 'ó': 'o', 'ò': 'o', 'ö': 'o', 'õ': 'o',
+					'ô': 'o', 'ú': 'u', 'ù': 'u', 'ü': 'u', 'û': 'u', 'ý': 'y', 'ÿ': 'y',
+					'š': 's', 'ž': 'z', 'ř': 'r', 'ů': 'u', 'ď': 'd', 'ť': 't', 'ň': 'n',
+					'Á': 'A', 'À': 'A', 'Ä': 'A', 'Ã': 'A', 'Â': 'A', 'Å': 'A', 'Č': 'C',
+					'Ç': 'C', 'É': 'E', 'È': 'E', 'Ë': 'E', 'Ê': 'E', 'Í': 'I', 'Ì': 'I',
+					'Ï': 'I', 'Î': 'I', 'Ñ': 'N', 'Ó': 'O', 'Ò': 'O', 'Ö': 'O', 'Õ': 'O',
+					'Ô': 'O', 'Ú': 'U', 'Ù': 'U', 'Ü': 'U', 'Û': 'U', 'Ý': 'Y', 'Ÿ': 'Y',
+					'Š': 'S', 'Ž': 'Z', 'Ř': 'R', 'Ů': 'U', 'Ď': 'D', 'Ť': 'T', 'Ň': 'N'
+				};
+
+				function transliterate(text) {
+					return text.split('').map(char => transliterationMap[char] || char).join('');
+				}
+
 				async function speakMessage(fullMessage) {
+					// Transliterate the message to contain only English alphabet characters
+					const transliteratedMessage = transliterate(fullMessage);
+
 					// Check if the message is the same as the last spoken message
-					if (fullMessage === lastSpokenMessage) {
+					if (transliteratedMessage === lastSpokenMessage) {
 						console.log("Message already spoken.");
 						return; // Exit the function without speaking again
 					}
@@ -787,9 +807,8 @@
 						return;
 					}
 
-					const encodedMessage = encodeURIComponent(fullMessage);
-			 		const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${encodedMessage}&speaker_id=&style_wav=&language=en`;
-					//const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${(fullMessage)}&speaker_id=&style_wav=&language=en`;
+					const encodedMessage = encodeURIComponent(transliteratedMessage);
+					const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${encodedMessage}&speaker_id=&style_wav=&language=en`;
 
 					try {
 						// Make a fetch request to the Coqui TTS API
@@ -811,7 +830,7 @@
 						audio.onplay = function() {
 							console.log("Currently speaking");
 							// Update the last spoken message
-							lastSpokenMessage = fullMessage;
+							lastSpokenMessage = transliteratedMessage;
 						};
 
 						audio.onended = function() {
@@ -828,7 +847,6 @@
 						console.error("Error with TTS API:", error);
 					}
 				}
-
 
 				function speakMessage2(fullMessage) {
 				// Check if the message is the same as the last spoken message
