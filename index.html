@@ -824,11 +824,12 @@
 
 						// Create an audio element and play the audio
 						const audio = new Audio(audioUrl);
-						speaking = true;
+						//speaking = true;
 						audio.play();
 
 						audio.onplay = function() {
 							console.log("Currently speaking");
+							speaking = true;
 							// Update the last spoken message
 							lastSpokenMessage = transliteratedMessage;
 						};
