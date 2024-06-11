@@ -802,7 +802,7 @@
 						return; // Exit the function without speaking again
 					}
 					// Check if currently speaking
-					if (speaking) {
+					if (speaking || currentAudio) {
 						console.log("Already speaking, new message ignored.");
 						return;
 					}
@@ -824,6 +824,7 @@
 
 						// Create an audio element and play the audio
 						const audio = new Audio(audioUrl);
+						currentAudio = audio;
 						//speaking = true;
 						audio.play();
 
@@ -837,14 +838,17 @@
 						audio.onended = function() {
 							console.log("End speaking");
 							speaking = false;
+							currentAudio = null;
 						};
 
 						audio.onerror = function(event) {
 							speaking = false; // Reset speaking flag
+							currentAudio = null;
 							console.error("Audio playback error:", event);
 						};
 					} catch (error) {
 						speaking = false; // Reset speaking flag
+						currentAudio = null;
 						console.error("Error with TTS API:", error);
 					}
 				}
