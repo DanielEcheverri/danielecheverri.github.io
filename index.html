@@ -560,7 +560,7 @@
 							console.log(partMoving+" "+directionMoving);
 							if (noNarrative){
 								window.success_Sound.play();
-								displayText(partMoving+" "+directionMoving);
+								//displayText("Avatar's"+ partMoving+" "+directionMoving);
 							}
 							previousPart = partMoving;
 							previousDirection = directionMoving;
@@ -602,7 +602,7 @@
 								console.log(`Pattern matched: ${pattern.patternName}`);
 								patternMovement = pattern.patternName;
 								if (noNarrative){
-									displayText(patternMovement);
+									displayText("Avatar is "+ patternMovement);
 								}
 								// Clear the buffer after a match
 								movementBuffer = [];
