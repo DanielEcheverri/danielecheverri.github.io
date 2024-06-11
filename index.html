@@ -774,7 +774,6 @@
 				// Variable to store the last spoken message
 				let lastSpokenMessage = '';
 				let speaking = false;
-				let currentAudio = null;
 
 				const transliterationMap = {
 					'á': 'a', 'à': 'a', 'ä': 'a', 'ã': 'a', 'â': 'a', 'å': 'a', 'č': 'tch','æ':'ae',
@@ -803,7 +802,7 @@
 						return; // Exit the function without speaking again
 					}
 					// Check if currently speaking
-					if (speaking || currentAudio) {
+					if (speaking) {
 						console.log("Already speaking, new message ignored.");
 						return;
 					}
@@ -825,11 +824,12 @@
 
 						// Create an audio element and play the audio
 						const audio = new Audio(audioUrl);
-						currentAudio = audio;
-						speaking = true;
+						//speaking = true;
+						audio.play();
 
 						audio.onplay = function() {
 							console.log("Currently speaking");
+							speaking = true;
 							// Update the last spoken message
 							lastSpokenMessage = transliteratedMessage;
 						};
@@ -837,18 +837,14 @@
 						audio.onended = function() {
 							console.log("End speaking");
 							speaking = false;
-							currentAudio = null;
 						};
 
 						audio.onerror = function(event) {
 							speaking = false; // Reset speaking flag
-							currentAudio = null;
 							console.error("Audio playback error:", event);
 						};
-						audio.play();
 					} catch (error) {
 						speaking = false; // Reset speaking flag
-						currentAudio = null;
 						console.error("Error with TTS API:", error);
 					}
 				}
