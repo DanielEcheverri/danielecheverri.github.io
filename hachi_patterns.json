@@ -79,32 +79,14 @@
 		"patternName": "Wagging its tail",
 		"pattern": [
 			{ "partMoving": "tail", "directionMoving": "down" },
-			{ "partMoving": "tail", "directionMoving": "up" }
+			{ "partMoving": "back leg", "directionMoving": "up" }
 		]
 	},
 	{
 		"patternName": "Wagging its tail",
 		"pattern": [
-			{ "partMoving": "tail", "directionMoving": "up" },
-			{ "partMoving": "tail", "directionMoving": "down" }
-		]
-	},
-	{
-		"patternName": "Wagging its tail",
-		"pattern": [
-			{ "partMoving": "tail", "directionMoving": "down" },
-			{ "partMoving": "back leg", "directionMoving": "up" },
 			{ "partMoving": "tail", "directionMoving": "up" },
 			{ "partMoving": "back leg", "directionMoving": "down" }
-		]
-	},
-	{
-		"patternName": "Wagging its tail",
-		"pattern": [
-			{ "partMoving": "tail", "directionMoving": "up" },
-			{ "partMoving": "back leg", "directionMoving": "down" },
-			{ "partMoving": "tail", "directionMoving": "down" },
-			{ "partMoving": "back leg", "directionMoving": "up" }
 		]
 	},
 	{
