@@ -842,10 +842,7 @@
 						},
 						});
 
-						// Attempt to start audio playback
-						sound.once("unlock", () => {
-						sound.play();
-						});
+						window.sound.play();
 
 						// Trigger the "unlock" event
 						if (Howler.ctx.state === "suspended") {
