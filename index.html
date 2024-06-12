@@ -842,13 +842,6 @@
 						},
 						});
 						sound.play();
-
-						// Trigger the "unlock" event
-						if (Howler.ctx.state === "suspended") {
-						Howler.ctx.resume();
-						} else {
-						Howler.unlockAudio();
-						}
 					} catch (error) {
 						speaking = false; // Reset speaking flag
 						console.error("Error with TTS API:", error);
