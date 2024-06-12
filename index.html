@@ -801,6 +801,7 @@
 						console.log("Message already spoken.");
 						return; // Exit the function without speaking again
 					}
+
 					// Check if currently speaking
 					if (speaking) {
 						console.log("Already speaking, new message ignored.");
@@ -815,39 +816,61 @@
 						const response = await fetch(url);
 
 						if (!response.ok) {
-							throw new Error(`HTTP error! status: ${response.status}`);
+						throw new Error(`HTTP error! status: ${response.status}`);
 						}
 
 						// Convert response to a Blob for audio playback
 						const audioBlob = await response.blob();
 						const audioUrl = URL.createObjectURL(audioBlob);
 
-						// Create an audio element and play the audio
+						// Create an audio element
 						const audio = new Audio(audioUrl);
-						//speaking = true;
-						audio.play();
 
-						audio.onplay = function() {
+						// Attempt to start audio playback
+						const playPromise = audio.play();
+
+						if (playPromise !== undefined) {
+						playPromise
+							.then(() => {
+							// Audio playback started successfully
 							console.log("Currently speaking");
 							speaking = true;
-							// Update the last spoken message
 							lastSpokenMessage = transliteratedMessage;
+							})
+							.catch((error) => {
+							// Handle the error case
+							if (error.name === "NotAllowedError") {
+								console.error("Audio playback not allowed. Please interact with the page first.");
+							} else {
+								console.error("Audio playback error:", error);
+							}
+							speaking = false;
+							});
+						}
+
+						// Add event handlers
+						audio.onplay = function() {
+						audio.removeEventListener("play", this); // Remove the event listener to avoid multiple calls
+						audio.resume(); // Resume audio playback after the user interaction
+						console.log("Currently speaking");
+						speaking = true;
+						lastSpokenMessage = transliteratedMessage;
 						};
 
 						audio.onended = function() {
-							console.log("End speaking");
-							speaking = false;
+						console.log("End speaking");
+						speaking = false;
 						};
 
 						audio.onerror = function(event) {
-							speaking = false; // Reset speaking flag
-							console.error("Audio playback error:", event);
+						speaking = false; // Reset speaking flag
+						console.error("Audio playback error:", event);
 						};
 					} catch (error) {
 						speaking = false; // Reset speaking flag
 						console.error("Error with TTS API:", error);
 					}
-				}
+					}
 
 				function speakMessage2(fullMessage) {
 				// Check if the message is the same as the last spoken message
