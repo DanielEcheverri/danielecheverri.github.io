@@ -816,7 +816,7 @@
 						const response = await fetch(url);
 
 						if (!response.ok) {
-						throw new Error(`HTTP error! status: ${response.status}`);
+							throw new Error(`HTTP error! status: ${response.status}`);
 						}
 
 						// Convert response to a Blob for audio playback
@@ -825,23 +825,29 @@
 
 						// Create a Howler.js sound object
 						const sound = new Howl({
-						src: [audioUrl],
-						html5: true, // Force HTML5 audio playback
-						onplay: () => {
-							console.log("Currently speaking");
-							speaking = true;
-							lastSpokenMessage = transliteratedMessage;
-						},
-						onend: () => {
-							console.log("End speaking");
-							speaking = false;
-						},
-						onloaderror: (id, err) => {
-							console.error("Audio playback error:", err);
-							speaking = false;
-						},
+							src: [audioUrl],
+							html5: true, // Force HTML5 audio playback
+							onplay: () => {
+								console.log("Currently speaking");
+								speaking = true;
+								lastSpokenMessage = transliteratedMessage;
+							},
+							onend: () => {
+								console.log("End speaking");
+								speaking = false;
+							},
+							onloaderror: (id, err) => {
+								console.error("Audio playback error:", err);
+								speaking = false;
+							},
 						});
+
 						sound.play();
+
+						// Trigger the "unlock" event if necessary
+						if (Howler.ctx.state === "suspended") {
+							Howler.ctx.resume();
+						}
 					} catch (error) {
 						speaking = false; // Reset speaking flag
 						console.error("Error with TTS API:", error);
