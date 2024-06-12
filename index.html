@@ -823,55 +823,41 @@
 						const audioBlob = await response.blob();
 						const audioUrl = URL.createObjectURL(audioBlob);
 
-						// Create an HTMLMediaElement
-						const audioElement = document.createElement("audio");
-						audioElement.src = audioUrl;
-
-						// Attempt to start audio playback
-						const playPromise = audioElement.play();
-
-						if (playPromise !== undefined) {
-						playPromise
-							.then(() => {
-							// Audio playback started successfully
+						// Create a Howler.js sound object
+						const sound = new Howl({
+						src: [audioUrl],
+						html5: true, // Force HTML5 audio playback
+						onplay: () => {
 							console.log("Currently speaking");
 							speaking = true;
 							lastSpokenMessage = transliteratedMessage;
-							})
-							.catch((error) => {
-							// Handle the error case
-							if (error.name === "NotAllowedError") {
-								console.error("Audio playback not allowed. Please interact with the page first.");
-							} else {
-								console.error("Audio playback error:", error);
-							}
+						},
+						onend: () => {
+							console.log("End speaking");
 							speaking = false;
-							});
+						},
+						onloaderror: (id, err) => {
+							console.error("Audio playback error:", err);
+							speaking = false;
+						},
+						});
+
+						// Attempt to start audio playback
+						sound.once("unlock", () => {
+						sound.play();
+						});
+
+						// Trigger the "unlock" event
+						if (Howler.ctx.state === "suspended") {
+						Howler.ctx.resume();
+						} else {
+						Howler.unlockAudio();
 						}
-
-						// Add event handlers
-						audioElement.addEventListener("play", () => {
-						audioElement.removeEventListener("play", this); // Remove the event listener to avoid multiple calls
-						audioElement.play(); // Resume audio playback after the user interaction
-						console.log("Currently speaking");
-						speaking = true;
-						lastSpokenMessage = transliteratedMessage;
-						});
-
-						audioElement.addEventListener("ended", () => {
-						console.log("End speaking");
-						speaking = false;
-						});
-
-						audioElement.addEventListener("error", (event) => {
-						speaking = false; // Reset speaking flag
-						console.error("Audio playback error:", event);
-						});
 					} catch (error) {
 						speaking = false; // Reset speaking flag
 						console.error("Error with TTS API:", error);
 					}
-				}
+					}
 
 				function speakMessage2(fullMessage) {
 				// Check if the message is the same as the last spoken message
