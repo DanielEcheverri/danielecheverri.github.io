@@ -826,7 +826,7 @@
 						// Create a Howler.js sound object
 						const sound = new Howl({
 						src: [audioUrl],
-						//html5: true, // Force HTML5 audio playback
+						html5: true, // Force HTML5 audio playback
 						onplay: () => {
 							console.log("Currently speaking");
 							speaking = true;
@@ -841,7 +841,6 @@
 							speaking = false;
 						},
 						});
-
 						window.sound.play();
 
 						// Trigger the "unlock" event
