@@ -823,11 +823,12 @@
 						const audioBlob = await response.blob();
 						const audioUrl = URL.createObjectURL(audioBlob);
 
-						// Create an audio element
-						const audio = new Audio(audioUrl);
+						// Create an HTMLMediaElement
+						const audioElement = document.createElement("audio");
+						audioElement.src = audioUrl;
 
 						// Attempt to start audio playback
-						const playPromise = audio.play();
+						const playPromise = audioElement.play();
 
 						if (playPromise !== undefined) {
 						playPromise
@@ -849,28 +850,28 @@
 						}
 
 						// Add event handlers
-						audio.onplay = function() {
-						audio.removeEventListener("play", this); // Remove the event listener to avoid multiple calls
-						audio.resume(); // Resume audio playback after the user interaction
+						audioElement.addEventListener("play", () => {
+						audioElement.removeEventListener("play", this); // Remove the event listener to avoid multiple calls
+						audioElement.play(); // Resume audio playback after the user interaction
 						console.log("Currently speaking");
 						speaking = true;
 						lastSpokenMessage = transliteratedMessage;
-						};
+						});
 
-						audio.onended = function() {
+						audioElement.addEventListener("ended", () => {
 						console.log("End speaking");
 						speaking = false;
-						};
+						});
 
-						audio.onerror = function(event) {
+						audioElement.addEventListener("error", (event) => {
 						speaking = false; // Reset speaking flag
 						console.error("Audio playback error:", event);
-						};
+						});
 					} catch (error) {
 						speaking = false; // Reset speaking flag
 						console.error("Error with TTS API:", error);
 					}
-					}
+				}
 
 				function speakMessage2(fullMessage) {
 				// Check if the message is the same as the last spoken message
