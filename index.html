@@ -841,7 +841,7 @@
 							speaking = false;
 						},
 						});
-						window.sound.play();
+						sound.play();
 
 						// Trigger the "unlock" event
 						if (Howler.ctx.state === "suspended") {
@@ -853,7 +853,7 @@
 						speaking = false; // Reset speaking flag
 						console.error("Error with TTS API:", error);
 					}
-					}
+				}
 
 				function speakMessage2(fullMessage) {
 				// Check if the message is the same as the last spoken message
