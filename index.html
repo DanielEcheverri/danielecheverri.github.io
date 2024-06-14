@@ -236,14 +236,6 @@
 					updateConsoleOutput();
 				};
 
-				// // Override console.error to append error messages to the div
-				// console.error = function(...args) {
-				// 	originalConsoleError(...args);
-				// 	var consoleMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '); // Convert objects to strings
-				// 	errorMessages.push("<strong>DEBUG CONSOLE ERROR:</strong> " + consoleMessage);
-				// 	updateConsoleOutput();
-				// };
-
 				// Function to update the console output with the last two messages
 				function updateConsoleOutput() {
 					var combinedMessages = logMessages.concat(errorMessages);
@@ -892,22 +884,22 @@
 					};
 				}
 
-				function checkSpeechSynthesis() {
-					// Check if speechSynthesis object is available
-					if ('speechSynthesis' in window) {
-						// Check if speaking flag is true
-						if (speechSynthesis.speaking) {
-							speaking = true;
-						} else {
-							speaking = false;
-						}
-					} else {
-						console.log("Speech synthesis is not supported in this browser.");
-					}
-				}
+				// function checkSpeechSynthesis() {
+				// 	// Check if speechSynthesis object is available
+				// 	if ('speechSynthesis' in window) {
+				// 		// Check if speaking flag is true
+				// 		if (speechSynthesis.speaking) {
+				// 			speaking = true;
+				// 		} else {
+				// 			speaking = false;
+				// 		}
+				// 	} else {
+				// 		console.log("Speech synthesis is not supported in this browser.");
+				// 	}
+				// }
 
-				// Call the function periodically (e.g., every 5 seconds).
-				setInterval(checkSpeechSynthesis, 1000); // Adjust the interval as needed
+				// // Call the function periodically (e.g., every 5 seconds).
+				// setInterval(checkSpeechSynthesis, 1000); // Adjust the interval as needed
 
 				let weatherDescription = null;
 
