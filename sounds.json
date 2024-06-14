@@ -34,6 +34,8 @@
 	"m_intrigued_Sound": { "src": "audio/male/INTRIGUED_HMMM4.mp3" },
 	"m_sing_Sound": { "src": "audio/male/SING_SERENADEM1.mp3" },
 	"m_agreeable_Sound": { "src": "audio/male/YES_AGREEABLEM1.mp3" },
+	"m_cough1_Sound": { "src": "audio/male/COUGHM1.mp3" },
+	"m_cough2_Sound": { "src": "audio/male/COUGHM2.mp3" },
 	"sniffing_Sound": { "src": "audio/hachi/sniffing.mp3" },
 	"talking4_Sound": { "src": "audio/hachi/talking4.mp3" },
 	"barking1_Sound": { "src": "audio/hachi/barking1.mp3" },

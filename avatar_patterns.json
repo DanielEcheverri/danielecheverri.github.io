@@ -28,7 +28,7 @@
 		]
 	},
 	{
-		"patternName": "Greeting left",
+		"patternName": "Greeting",
 		"pattern": [
 			{ "partMoving": "left forearm", "directionMoving": "left" },
 			{ "partMoving": "left forearm", "directionMoving": "right" },
@@ -36,7 +36,7 @@
 		]
 	},
 	{
-		"patternName": "Greeting right",
+		"patternName": "Greeting",
 		"pattern": [
 			{ "partMoving": "right forearm", "directionMoving": "left" },
 			{ "partMoving": "right forearm", "directionMoving": "right" },
