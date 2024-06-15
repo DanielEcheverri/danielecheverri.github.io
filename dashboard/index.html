@@ -2277,13 +2277,13 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="avatar_preamble" tags="" position="1975,500" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_pre_00/While playing in the park, Hachi&#39;s nose twitches, catching a scent that pulls him away from Buro. He sniffs the air, curiosity piqued by the provocative smell. Buro&#39;s voice echoes in his mind, but the scent drags him deeper.&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_pre_00/While playing in the park, Hachi&#39;s nose twitches, catching a scent that pulls him away from Buro. He sniffs the air, curiosity piqued by the provocative smell. Buro&#39;s voice echoes in his mind, but the scent drags him deeper./park&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_pre_00false&quot; and $hachi_speed &gt;= &quot;0.4&quot; &gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_pre_01/Buro&#39;s heart races as he notices that Hachi is no longer there and starts searching around for any sign of his friend.&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_pre_01/Buro&#39;s heart races as he notices that Hachi is no longer there and starts searching around &quot; + $storyNeighborhood +&quot; for any sign of his friend./crowd&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_pre_01false&quot;&gt;&gt;
@@ -2291,15 +2291,15 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_pre_02false&quot; and $avatar_speed &gt;=&quot;0.2&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_pre_03/Buro sees Hachi in the distance: What should Buro do? Should he look up and call Hachi&#39;s name or should he Stand on one leg to get a better view?&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_pre_03/Buro sees Hachi in the distance. What should Buro do? Should he look up and call Hachi&#39;s name? or should he Stand on one leg to get a better view?&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($avatar_narrating == &quot;avatar_pre_03false&quot; or $avatar_narrating == &quot;avatar_04Bfalse&quot;) and $avatar_part_mov == &quot;head&quot; and $avatar_part_dir == &quot;up&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04A/&#39;Hachi! Over here!&#39; Buro calls out, his voice filled with excitement... but nothing happens&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04A/&#39;Hachi! Over here!&#39; Buro calls out, his voice filled with excitement... but nothing happens./m_cheeree&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($avatar_narrating == &quot;avatar_pre_04false&quot; or $avatar_narrating == &quot;avatar_pre_04Afalse&quot;) and ($avatar_movement == &quot;Standing left leg&quot; or $avatar_movement == &quot;Standing right leg&quot;) &gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04B/He stands on one leg, straining to get a better view of Hachi walking away through the city streets.&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04B/He stands on one leg, straining to get a better view of Hachi walking away through the &quot;+storyCity+&quot; streets.&quot;&gt;&gt;
   &lt;&lt;set $nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
