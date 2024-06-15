@@ -73,12 +73,14 @@ h1 {
 	background-color: #4caf50; /* Green */
 	color: white; /* Text color */
 	margin-right: 4%; /* Adjust spacing between buttons */
+	width: 48%; /* Adjusted width for each button */
 }
 
 .interact-button {
 	background-color: #008cba; /* Blue */
 	color: white; /* Text color */
 	margin-left: 4%; /* Adjust spacing between buttons */
+	width: 48%; /* Adjusted width for each button */
 }
 
 .logo {
