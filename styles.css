@@ -20,7 +20,6 @@ h1 {
 	width: 100vw;
 	position: relative;
 }
-#closestShop,
 #consoleOutput,
 #currentLocation {
 	width: 90%;
@@ -68,6 +67,18 @@ h1 {
 	cursor: pointer;
 	border-radius: 8px;
 	font-family: "Roboto", sans-serif;
+}
+
+.listen-button {
+	background-color: #4caf50; /* Green */
+	color: white; /* Text color */
+	margin-right: 4%; /* Adjust spacing between buttons */
+}
+
+.interact-button {
+	background-color: #008cba; /* Blue */
+	color: white; /* Text color */
+	margin-left: 4%; /* Adjust spacing between buttons */
 }
 
 .logo {

@@ -22,9 +22,14 @@
 		<div id="logoSpace">
 			<img class="logo" src="logo.svg" alt="Logo" />
 		</div>
-		<div id="avatarBTdiv">
+		<div id="avatarBTdiv" style="position: relative;">
+			<!-- Listen Button (left half) -->
+			<button id="listenButton" class="button listen-button" onclick="listenFunction()">Listen</button>
+
+			<!-- Interact Button (right half) -->
+			<button id="interactButton" class="button interact-button" onclick="interactFunction()">Interact</button>
 			<!-- Connect Button. -->
-			<button id="connectButton" class="button" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('Connecting')">
+			<button id="connectButton" class="button" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('Connecting...')">
 				<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
 			</button>
 		</div>
