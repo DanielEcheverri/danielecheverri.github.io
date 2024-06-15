@@ -18,6 +18,7 @@ h1 {
 #avatarBTdiv {
 	margin-bottom: 20px;
 	width: 100vw;
+	height 20w;
 	position: relative;
 }
 
@@ -82,8 +83,8 @@ h1 {
 .listen-button {
 	background-color: #4caf50; /* Green */
 	color: white; /* Text color */
-	margin-right: 4%; /* Adjust spacing between buttons */
-	width: 40%; /* Adjusted width for each button */
+	margin-right: 2%; /* Adjust spacing between buttons */
+	width: 43%; /* Adjusted width for each button */
 	display: inline-block;
 	box-sizing: border-box; /* Ensure padding and border are included in width */
 }
@@ -91,8 +92,8 @@ h1 {
 .interact-button {
 	background-color: #008cba; /* Blue */
 	color: white; /* Text color */
-	margin-left: 4%; /* Adjust spacing between buttons */
-	width: 40%; /* Adjusted width for each button */
+	margin-left: 2%; /* Adjust spacing between buttons */
+	width: 43%; /* Adjusted width for each button */
 	display: inline-block;
 	box-sizing: border-box; /* Ensure padding and border are included in width */
 }
