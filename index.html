@@ -804,13 +804,31 @@
 					const encodedMessage = encodeURIComponent(transliteratedMessage);
 					const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${encodedMessage}&speaker_id=&style_wav=&language=en`;
 
+					async function fetchWithRetry(url, retries = 3, delay = 1000) {
+						for (let attempt = 1; attempt <= retries; attempt++) {
+							try {
+								const response = await fetch(url);
+								if (response.ok) {
+									return response;
+								} else {
+									console.log(`Attempt ${attempt} failed. Retrying in ${delay / 1000} seconds...`);
+								}
+							} catch (error) {
+								console.log(`Attempt ${attempt} encountered an error: ${error.message}`);
+							}
+							await new Promise(resolve => setTimeout(resolve, delay));
+						}
+						throw new Error(`Failed to fetch after ${retries} attempts`);
+					}
+
 					try {
 						// Make a fetch request to the Coqui TTS API
-						const response = await fetch(url);
+						//const response = await fetch(url);
+						const response = await fetchWithRetry(url);
 
-						if (!response.ok) {
-							throw new Error(`HTTP error! status: ${response.status}`);
-						}
+						// if (!response.ok) {
+						// 	throw new Error(`HTTP error! status: ${response.status}`);
+						// }
 
 						// Convert response to a Blob for audio playback
 						const audioBlob = await response.blob();
