@@ -38,6 +38,8 @@
 			</div>
 		</div>
 		<!-- Coordinates-->
+		<div id="avatarCanvas"></div>
+		<!-- Coordinates-->
 		<div id="currentLocation"></div>
 		<!-- Movement>-->
 		<div id="messageDisplayDiv"></div>
@@ -366,7 +368,7 @@
 
 			function setup() {
 				var avatarBTCanvas = createCanvas(windowWidth, windowHeight * 0.35);
-				avatarBTCanvas.parent("avatarBTdiv");
+				avatarBTCanvas.parent("avatarCanvas");
 				potValues = [0, 0, 0, 0, 0, 0, 0, 0]; // Initialize potValues array with default values
 				lineColors = new Array(numPotentiometers);
 				backgroundColors = new Array(numPotentiometers);
