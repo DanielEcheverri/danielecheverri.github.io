@@ -83,7 +83,7 @@ h1 {
 	background-color: #4caf50; /* Green */
 	color: white; /* Text color */
 	margin-right: 4%; /* Adjust spacing between buttons */
-	width: 48%; /* Adjusted width for each button */
+	width: 45%; /* Adjusted width for each button */
 	display: inline-block;
 	box-sizing: border-box; /* Ensure padding and border are included in width */
 }
@@ -92,7 +92,7 @@ h1 {
 	background-color: #008cba; /* Blue */
 	color: white; /* Text color */
 	margin-left: 4%; /* Adjust spacing between buttons */
-	width: 48%; /* Adjusted width for each button */
+	width: 45%; /* Adjusted width for each button */
 	display: inline-block;
 	box-sizing: border-box; /* Ensure padding and border are included in width */
 }
