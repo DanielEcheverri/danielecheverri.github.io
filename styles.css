@@ -74,6 +74,8 @@ h1 {
 	color: white; /* Text color */
 	margin-right: 4%; /* Adjust spacing between buttons */
 	width: 48%; /* Adjusted width for each button */
+	display: inline-block;
+	box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
 .interact-button {
@@ -81,6 +83,8 @@ h1 {
 	color: white; /* Text color */
 	margin-left: 4%; /* Adjust spacing between buttons */
 	width: 48%; /* Adjusted width for each button */
+	display: inline-block;
+	box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
 .logo {
