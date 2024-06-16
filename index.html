@@ -1246,9 +1246,6 @@
 				const deviceName = toggleSwitch.checked ? "hachi_BT" : "avatar_BT";
 				const databaseName = deviceName === 'hachi_BT' ? 'avatar_data' : 'hachi_data';
 
-				off(ref(database, databaseName));
-				readFromDatabase(deviceName);
-
 				console.log('Listening as:', deviceName);
 
 				// Clear any existing timeout to reset the timer
@@ -1260,7 +1257,10 @@
 				hideTimeout = setTimeout(() => {
 					const topSection = document.querySelector('.top-section');
 					if (topSection) {
+						off(ref(database, databaseName));
+						readFromDatabase(deviceName);
 						topSection.style.display = 'none';
+						console.log("Database disconnected:"+deviceName);
 					}
 				}, 5000);
 			}
