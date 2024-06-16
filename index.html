@@ -34,7 +34,7 @@
 				<div id="toggleContainer" style="display: none;">
 					<span id="buroToggle">Buro</span>
 					<label class="switch">
-						<input type="checkbox" id="toggleSwitch" onchange="connecting_Sound.play(), displayText('Listening only.')">
+						<input type="checkbox" id="toggleSwitch" onchange="connecting_Sound.play()">
 						<span class="slider"></span>
 					</label>
 					<span id="hachiToggle">Hachi</span>
@@ -1247,6 +1247,15 @@
 				const deviceName = toggleSwitch.checked ? "hachi_BT" : "avatar_BT";
 				const databaseName = deviceName === 'hachi_BT' ? 'avatar_data' : 'hachi_data';
 
+				// Mapping object for deviceName to characterName
+				const deviceToCharacter = {
+					'hachi_BT': 'Hachi',
+					'avatar_BT': 'Buro'
+				};
+
+				// Get characterName from the mapping object, default to 'Unknown' if not found
+				const characterName = deviceToCharacter[deviceName] || 'Unknown';
+				
 				// Clear any existing timeout to reset the timer
 				if (hideTimeout) {
 					clearTimeout(hideTimeout);
@@ -1259,7 +1268,7 @@
 						off(ref(database, databaseName));
 						readFromDatabase(deviceName);
 						topSection.style.display = 'none';
-						console.log("Listening as: "+ deviceName);
+						displayText("Listening as"+characterName);
 					}
 				}, 5000);
 			}
