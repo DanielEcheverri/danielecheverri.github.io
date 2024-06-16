@@ -30,7 +30,7 @@
 	"m_talk3_Sound": { "src": "audio/male/CONVERSE_MEDM3.mp3" },
 	"m_talk4_Sound": { "src": "audio/male/CONVERSE_MEDM4.mp3" },
 	"m_talk5_Sound": { "src": "audio/male/CONVERSE_MEDM5.mp3" },
-	"m_sneeze_Sound": { "src": "audio/male/SNEEZEM15.mp3" },
+	"m_sneeze_Sound": { "src": "audio/male/SNEEZEM1.mp3" },
 	"m_giftgiver_Sound": { "src": "audio/male/GIFTGIVER_TADAM7.mp3" },
 	"m_heysh1_Sound": { "src": "audio/male/HEYSHM1.mp3" },
 	"m_heysh2_Sound": { "src": "audio/male/HEYSHM3.mp3" },
