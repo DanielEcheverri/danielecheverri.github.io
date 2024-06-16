@@ -1240,21 +1240,31 @@
 				}
 			}
 
+			let hideTimeout; // Variable to store the timeout ID
+
 			function toggleListening() {
 				const toggleSwitch = document.getElementById('toggleSwitch');
-					if (toggleSwitch.checked) {
-						deviceName = "hachi_BT";
-						const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
-						off(ref(database, databaseName));
-						readFromDatabase(deviceName); // Read data after writing
-					} else {
-						deviceName = "avatar_BT";
-						const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
-						off(ref(database, databaseName));
-						readFromDatabase(deviceName); // Read data after writing
-    				}
-    			console.log('Listening as:', deviceName);
+				const deviceName = toggleSwitch.checked ? "hachi_BT" : "avatar_BT";
+				const databaseName = deviceName === 'hachi_BT' ? 'avatar_data' : 'hachi_data';
+
+				off(ref(database, databaseName));
+				readFromDatabase(deviceName);
+
+				console.log('Listening as:', deviceName);
+
+				// Clear any existing timeout to reset the timer
+				if (hideTimeout) {
+					clearTimeout(hideTimeout);
 				}
+
+				// Set a new timer to hide the top-section div after 5 seconds
+				hideTimeout = setTimeout(() => {
+					const topSection = document.querySelector('.top-section');
+					if (topSection) {
+						topSection.style.display = 'none';
+					}
+				}, 5000);
+			}
 			
 			setInterval(() => {
 				if (listenClient === false ){
