@@ -40,6 +40,14 @@
 				<button id="connectButton" class="button" style="display: none;" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('Connecting...')">
 					<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
 				</button>
+				<!-- Toggle Switch -->
+				<div id="toggleContainer" style="display: none;">
+					<label class="switch">
+						<input type="checkbox" id="toggleSwitch" onchange="toggleFunction()">
+						<span class="slider"></span>
+					</label>
+					<span id="toggleLabel">Hachi</span>
+				</div>
 			</div>
 		</div>
 		<!-- Coordinates-->
@@ -103,7 +111,7 @@
 				}
 
 				function listenFunction() {
-					
+					document.getElementById('toggleContainer').style.display = 'flex';
 				}
 
 				function toggleDeviceName() {
