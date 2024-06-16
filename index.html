@@ -102,7 +102,10 @@
 					}
 				}
 
+				var listenClient = null;
+
 				function interactFunction() {
+					listenClient = true;
 					// Hide the Listen button
 					document.getElementById('listenButton').style.display = 'none';
 					// Hide the Interact button
@@ -113,6 +116,7 @@
 				}
 
 				function listenFunction() {
+					listenClient = false;
 					// Hide the Interact button
 					document.getElementById('interactButton').style.display = 'none';
 
@@ -1241,9 +1245,14 @@
 				}
 			}
 
+			
 			setInterval(() => {
-				writeToDatabase();
+				if (listenClient === false ){
+					consol.log("Writing data");
+					writeToDatabase();
+				}
 			}, 200);
+
 			readFromDatabase(deviceName); // Read data after writing,
 
 			document.addEventListener('DOMContentLoaded', function() {
