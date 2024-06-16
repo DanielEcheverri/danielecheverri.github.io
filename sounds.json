@@ -2,6 +2,8 @@
 	"alert_Sound": { "src": "audio/alert_high-intensity.mp3" },
 	"success_Sound": { "src": "audio/navigation_selection-complete-celebration.mp3" },
 	"connecting_Sound": { "src": "audio/ui_loading.mp3" },
+	"tap_Sound": { "src": "audio/ui_tap.mp3" },
+	"forward_Sound": { "src": "audio/forward.mp3" },
 	"fountain_Sound": { "src": "audio/environment/fountain.mp3" },
 	"tram_Sound": { "src": "audio/environment/tramdepart.mp3" },
 	"f_aha_Sound": { "src": "audio/female/AHA_OHF4.mp3" },

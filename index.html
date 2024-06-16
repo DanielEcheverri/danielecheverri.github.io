@@ -26,7 +26,7 @@
 		<div id="avatarBTdiv">
 			<div class="top-section">
 				<!-- Listen Button (left half) -->
-				<button id="listenButton" class="button listen-button" onclick="listenFunction()">
+				<button id="listenButton" class="button listen-button" onclick="forward_Sound.play(),listenFunction()">
 					<span class="material-symbols-outlined" style="vertical-align: middle;">hearing</span>Listen
 				</button>
 
@@ -47,7 +47,7 @@
 				</div>
 
 				<!-- Interact Button (right half) -->
-				<button id="interactButton" class="button interact-button" onclick="connecting_Sound.play(),interactFunction(), displayText('Interacting through an avatar.')">
+				<button id="interactButton" class="button interact-button" onclick="forward_Sound.play(),interactFunction(), displayText('Interacting through an avatar.')">
 					<span class="material-symbols-outlined" style="vertical-align: middle;"">back_hand</span>Interact
 				</button>
 			</div>
