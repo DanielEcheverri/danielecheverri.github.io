@@ -105,7 +105,7 @@
 				var listenClient = null;
 
 				function interactFunction() {
-					listenClient = true;
+					listenClient = false;
 					// Hide the Listen button
 					document.getElementById('listenButton').style.display = 'none';
 					// Hide the Interact button
@@ -116,7 +116,7 @@
 				}
 
 				function listenFunction() {
-					listenClient = false;
+					listenClient = true;
 					// Hide the Interact button
 					document.getElementById('interactButton').style.display = 'none';
 
@@ -1248,7 +1248,6 @@
 			
 			setInterval(() => {
 				if (listenClient === false ){
-					console.log("Writing data");
 					writeToDatabase();
 				}
 			}, 200);
