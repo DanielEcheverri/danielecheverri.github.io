@@ -1263,18 +1263,17 @@
 			readFromDatabase(deviceName); // Read data after writing,
 
 			document.addEventListener('DOMContentLoaded', function() {
-				var checkbox = document.getElementById("hachiCheckbox");
-				checkbox.addEventListener('click', function() {
+				var listenHachi = document.getElementById("hachiCheckbox");
+				listenHachi.addEventListener('click', function() {
 					toggleDeviceName2();
 				});
-			});
 
-			document.addEventListener('DOMContentLoaded', function() {
-				var checkbox = document.getElementById("toggleSwitch");
-				checkbox.addEventListener('click', function() {
+				var listenCheckbox = document.getElementById("toggleSwitch");
+				listenCheckbox.addEventListener('click', function() {
 					toggleListening();
 				});
 			});
+			
 		</script>
 	</body>
 </html>
