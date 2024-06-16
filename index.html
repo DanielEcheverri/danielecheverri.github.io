@@ -119,12 +119,18 @@
 					listenClient = true;
 					// Hide the Interact button
 					document.getElementById('interactButton').style.display = 'none';
-
+					// Show toggle
 					document.getElementById('toggleContainer').style.display = 'flex';
 				}
 
 				function toggleFunction() {
-
+				const toggleSwitch = document.getElementById('toggleSwitch');
+					if (toggleSwitch.checked) {
+						deviceName = "hachi_BT";
+					} else {
+						deviceName = "avatar_BT";
+    				}
+    			console.log('Device:', deviceName);
 				}
 				
 
