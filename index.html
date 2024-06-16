@@ -122,20 +122,6 @@
 					// Show toggle
 					document.getElementById('toggleContainer').style.display = 'flex';
 				}
-
-				function toggleListening() {
-				const toggleSwitch = document.getElementById('toggleSwitch');
-					if (toggleSwitch.checked) {
-						deviceName = "hachi_BT";
-						off(ref(database, databaseName));
-						readFromDatabase(deviceName); // Read data after writing
-					} else {
-						deviceName = "avatar_BT";
-						off(ref(database, databaseName));
-						readFromDatabase(deviceName); // Read data after writing
-    				}
-    			console.log('Listening as:', deviceName);
-				}
 				
 				function toggleDeviceName() {
 					var checkbox = document.getElementById("hachiCheckbox");
@@ -1254,6 +1240,19 @@
 				}
 			}
 
+			function toggleListening() {
+				const toggleSwitch = document.getElementById('toggleSwitch');
+					if (toggleSwitch.checked) {
+						deviceName = "hachi_BT";
+						off(ref(database, databaseName));
+						readFromDatabase(deviceName); // Read data after writing
+					} else {
+						deviceName = "avatar_BT";
+						off(ref(database, databaseName));
+						readFromDatabase(deviceName); // Read data after writing
+    				}
+    			console.log('Listening as:', deviceName);
+				}
 			
 			setInterval(() => {
 				if (listenClient === false ){
@@ -1267,6 +1266,13 @@
 				var checkbox = document.getElementById("hachiCheckbox");
 				checkbox.addEventListener('click', function() {
 					toggleDeviceName2();
+				});
+			});
+
+			document.addEventListener('DOMContentLoaded', function() {
+				var checkbox = document.getElementById("toggleSwitch");
+				checkbox.addEventListener('click', function() {
+					toggleListening();
 				});
 			});
 		</script>
