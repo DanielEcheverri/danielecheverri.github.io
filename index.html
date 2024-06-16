@@ -182,6 +182,8 @@
 								tagSource = 'tags.json';
 								initializeSounds();
 								document.getElementById("hachiCheckbox").click();
+								characterName = "Hachi";
+								window[characterName + "_Sound"].play();
 								notification_Sound.play();
 							} else {
 								console.log("Loading settings for Avatar_BT");
@@ -191,6 +193,8 @@
 								sentenceSource = 'avatar_sentences.json';
 								tagSource = 'tags.json';
 								initializeSounds();
+								characterName = "Buro";
+								window[characterName + "_Sound"].play();
 								notification_Sound.play();
 							}
 							// Listen for characteristic value changes
