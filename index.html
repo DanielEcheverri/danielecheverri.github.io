@@ -248,10 +248,9 @@
 					if (latitude !== null && longitude !== null) {
 						connectButton.disabled = false;
 						initializeSounds();
-						//displayText("Ready to connect to Avatar BT");
 					} else {
 						// If any variable is still null, wait for a short delay and check again
-						setTimeout(checkVariables, 1000); // Adjust delay as needed (here 1000 milliseconds or 1 second)
+						setTimeout(checkVariables, 1000);
 					}
 				}
 
