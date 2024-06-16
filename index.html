@@ -1272,6 +1272,7 @@
 						readFromDatabase(deviceName);
 						topSection.style.display = 'none';
 						displayText("Listening as "+characterName+".");
+						window[characterName + "_Sound"].play();
 					}
 				}, 5000);
 			}
