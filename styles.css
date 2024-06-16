@@ -206,3 +206,8 @@ input:checked + .slider:before {
 	font-family: "Roboto", sans-serif;
 	color: white;
 }
+
+.material-symbols-outlined {
+	vertical-align: middle;
+	/* Adjust other styles for the symbol as needed */
+}
