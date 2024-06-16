@@ -121,6 +121,7 @@
 					document.getElementById('interactButton').style.display = 'none';
 					// Show toggle
 					document.getElementById('toggleContainer').style.display = 'flex';
+					document.getElementById("toggleSwitch").click();
 				}
 				
 				function toggleDeviceName() {
@@ -1246,8 +1247,6 @@
 				const deviceName = toggleSwitch.checked ? "hachi_BT" : "avatar_BT";
 				const databaseName = deviceName === 'hachi_BT' ? 'avatar_data' : 'hachi_data';
 
-				console.log('Listening as:', deviceName);
-
 				// Clear any existing timeout to reset the timer
 				if (hideTimeout) {
 					clearTimeout(hideTimeout);
@@ -1260,7 +1259,6 @@
 						off(ref(database, databaseName));
 						readFromDatabase(deviceName);
 						topSection.style.display = 'none';
-						console.log("Database disconnected:"+deviceName);
 					}
 				}, 5000);
 			}
@@ -1270,7 +1268,6 @@
 					writeToDatabase();
 				}
 			}, 200);
-
 			readFromDatabase(deviceName); // Read data after writing,
 
 			document.addEventListener('DOMContentLoaded', function() {
