@@ -857,6 +857,11 @@
 						return;
 					}
 
+					if (transliteratedMessage==="") {
+						console.log("Empty text, message ignored.");
+						return;
+					}
+
 					const encodedMessage = encodeURIComponent(transliteratedMessage);
 					const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${encodedMessage}&speaker_id=&style_wav=&language=en`;
 
