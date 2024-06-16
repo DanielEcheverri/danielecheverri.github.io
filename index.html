@@ -127,8 +127,12 @@
 				const toggleSwitch = document.getElementById('toggleSwitch');
 					if (toggleSwitch.checked) {
 						deviceName = "hachi_BT";
+						off(ref(database, databaseName));
+						readFromDatabase(deviceName); // Read data after writing
 					} else {
 						deviceName = "avatar_BT";
+						off(ref(database, databaseName));
+						readFromDatabase(deviceName); // Read data after writing
     				}
     			console.log('Listening as:', deviceName);
 				}
