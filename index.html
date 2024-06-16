@@ -30,6 +30,16 @@
 					<span class="material-symbols-outlined" style="vertical-align: middle;">hearing</span> Listen only
 				</button>
 
+				<!-- Toggle Switch -->
+				<div id="toggleContainer" style="display: none;">
+					<span id="buroLabel">Buro</span>
+					<label class="switch">
+						<input type="checkbox" id="toggleSwitch" onchange="toggleFunction()">
+						<span class="slider"></span>
+					</label>
+					<span id="toggleLabel">Hachi</span>
+				</div>
+
 				<!-- Interact Button (right half) -->
 				<button id="interactButton" class="button interact-button" onclick="interactFunction()">
 					<span class="material-symbols-outlined" style="vertical-align: middle;"">back_hand</span> Interact
@@ -40,15 +50,6 @@
 				<button id="connectButton" class="button" style="display: none;" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('Connecting...')">
 					<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
 				</button>
-				<!-- Toggle Switch -->
-				<div id="toggleContainer" style="display: none;">
-					<span id="buroLabel">Buro</span>
-					<label class="switch">
-						<input type="checkbox" id="toggleSwitch" onchange="toggleFunction()">
-						<span class="slider"></span>
-					</label>
-					<span id="toggleLabel">Hachi</span>
-				</div>
 			</div>
 		</div>
 		<!-- Coordinates-->
