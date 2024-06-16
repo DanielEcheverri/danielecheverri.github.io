@@ -42,6 +42,7 @@
 				</button>
 				<!-- Toggle Switch -->
 				<div id="toggleContainer" style="display: none;">
+					<span id="buroLabel">Buro</span>
 					<label class="switch">
 						<input type="checkbox" id="toggleSwitch" onchange="toggleFunction()">
 						<span class="slider"></span>
@@ -115,9 +116,19 @@
 					document.getElementById('listenButton').style.display = 'none';
 					// Hide the Interact button
 					document.getElementById('interactButton').style.display = 'none';
-					
+
 					document.getElementById('toggleContainer').style.display = 'flex';
 				}
+
+				function toggleFunction() {
+					// Hide the Listen button
+					document.getElementById('listenButton').style.display = 'none';
+					// Hide the Interact button
+					document.getElementById('interactButton').style.display = 'none';
+
+					document.getElementById('toggleContainer').style.display = 'flex';
+				}
+				
 
 				function toggleDeviceName() {
 					var checkbox = document.getElementById("hachiCheckbox");
