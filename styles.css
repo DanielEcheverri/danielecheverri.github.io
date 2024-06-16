@@ -145,7 +145,8 @@ h1 {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-top: 20px;
+	margin: 12px;
+	width: 50%;
 }
 
 /* Toggle switch */
