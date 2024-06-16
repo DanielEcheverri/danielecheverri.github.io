@@ -1248,10 +1248,7 @@
 				const databaseName = deviceName === 'hachi_BT' ? 'avatar_data' : 'hachi_data';
 
 				// Mapping object for deviceName to characterName
-				const deviceToCharacter = {
-					'hachi_BT': 'Hachi',
-					'avatar_BT': 'Buro'
-				};
+				const deviceToCharacter = {'hachi_BT': 'Hachi','avatar_BT': 'Buro'};
 
 				// Get characterName from the mapping object, default to 'Unknown' if not found
 				const characterName = deviceToCharacter[deviceName] || 'Unknown';
@@ -1268,7 +1265,7 @@
 						off(ref(database, databaseName));
 						readFromDatabase(deviceName);
 						topSection.style.display = 'none';
-						displayText("Listening as"+characterName);
+						displayText("Listening as "+characterName+".");
 					}
 				}, 5000);
 			}
