@@ -34,14 +34,14 @@
 				<div id="toggleContainer" style="display: none;">
 					<span id="buroToggle">Buro</span>
 					<label class="switch">
-						<input type="checkbox" id="toggleSwitch" onchange="toggleFunction()">
+						<input type="checkbox" id="toggleSwitch" onchange="connecting_Sound.play(), toggleFunction(), displayText('Listening only.')">
 						<span class="slider"></span>
 					</label>
 					<span id="hachiToggle">Hachi</span>
 				</div>
 
 				<!-- Interact Button (right half) -->
-				<button id="interactButton" class="button interact-button" onclick="interactFunction()">
+				<button id="interactButton" class="button interact-button" onclick="connecting_Sound.play(),interactFunction(), displayText('Interacting with an avatar.')">
 					<span class="material-symbols-outlined" style="vertical-align: middle;"">back_hand</span> Interact
 				</button>
 			</div>
