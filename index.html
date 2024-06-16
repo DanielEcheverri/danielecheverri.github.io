@@ -1244,10 +1244,12 @@
 				const toggleSwitch = document.getElementById('toggleSwitch');
 					if (toggleSwitch.checked) {
 						deviceName = "hachi_BT";
+						const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
 						off(ref(database, databaseName));
 						readFromDatabase(deviceName); // Read data after writing
 					} else {
 						deviceName = "avatar_BT";
+						const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
 						off(ref(database, databaseName));
 						readFromDatabase(deviceName); // Read data after writing
     				}
