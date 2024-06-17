@@ -1296,7 +1296,7 @@
 			}, 200);
 			
 			//Start reading the database only once the avatar is connected
-			if (isConnected === true){ 
+			if (isConnected === true && listenClient === false){ 
 				readFromDatabase(deviceName); // Read data after writing,
 			}
 
