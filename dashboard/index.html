@@ -1401,7 +1401,7 @@ $hachi_passage
 </tw-passagedata><tw-passagedata pid="23" name="avatar_act2" tags="" position="2475,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_turn to 0&gt;&gt;
 
-&lt;&lt;set $avatar_passage to &quot;avatar_act2/Buro decides to go to different spots Hachi often visits, to see if he can find him. He will meet 4 different characters in four different places around&quot; + $storyNeighborhood + &quot;: a tobacco shop, a bakery, a bank, and a church.&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_act2/Buro decides to go to different spots Hachi often visits, to see if he can find him. He will meet 4 different characters in four different places around &quot; + $storyNeighborhood + &quot;: a tobacco shop, a bakery, a bank, and a church.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -1412,6 +1412,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_act2_01false&quot;&gt;&gt;
+ &lt;&lt;set $avatar_passage to &quot;avatar_pre_05/And so, Buro starts walking again.&quot;&gt;&gt;
     &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2_transition&quot;&gt;&gt;
         &lt;&lt;set $hachi_nextAct to false&gt;&gt;
@@ -2654,26 +2655,30 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
           var passage_temp = variables().avatar_passage;
           const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
           console.log(renderedText);
-          writeToHachi(&#39;avatar_passage&#39;,renderedText);
+          writeToAvatar(&#39;avatar_passage&#39;,renderedText);
           &lt;&lt;/script&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 &lt;&lt;if $avatar_narrating == &quot;avatar_act2_01false&quot;&gt;&gt;
-    &lt;&lt;if $avatar_checkpoint is &quot;avatar_tobaco&quot;&gt;&gt;
+    &lt;&lt;if $avatar_checkpoint is &quot;avatar_tobacco&quot;&gt;&gt;
+    	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
             &lt;&lt;include &quot;avatar_tobacco_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_bakery&quot;&gt;&gt;
+        &lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
             &lt;&lt;include &quot;avatar_bakery_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_bank&quot;&gt;&gt;
+        &lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
             &lt;&lt;include &quot;avatar_bank_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_church&quot;&gt;&gt;
+        &lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
             &lt;&lt;include &quot;avatar_church_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
