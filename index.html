@@ -142,7 +142,6 @@
 					tagSource = 'tags.json';
 					characterName = "Hachi";
 					initializeSounds();
-					startReading();
 				} else {
 					deviceName = "avatar_BT";
 					console.log("Setting to "+deviceName);
@@ -153,7 +152,6 @@
 					tagSource = 'tags.json';
 					characterName = "Buro";
 					initializeSounds();
-					startReading();
 				}
 			}
 
@@ -187,6 +185,8 @@
 							characterName = "Hachi";
 							window[characterName + "_Sound"].play();
 							notification_Sound.play();
+							startReading();
+
 						} else {
 							console.log("Loading settings for Avatar_BT");
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
@@ -198,6 +198,8 @@
 							characterName = "Buro";
 							window[characterName + "_Sound"].play();
 							notification_Sound.play();
+							startReading();
+
 						}
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -1050,7 +1052,7 @@
 								for (const checkpoint of checkpointSet) {
 									const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
 									chkPointDistance.push(distance.toFixed(2)); // Store each distance in the array
-									console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude, 'Distance:', distance.toFixed(2));
+									//console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude, 'Distance:', distance.toFixed(2));
 
 									if (distance <= radius) {
 										console.log('Checkpoint reached:', checkpoint.text);
