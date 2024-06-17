@@ -26,7 +26,7 @@
 		<div id="avatarBTdiv">
 			<div class="top-section">
 				<!-- Listen Button (left half) -->
-				<button id="listenButton" class="button listen-button" onclick="forward_Sound.play(),listenFunction()">
+				<button id="listenButton" class="button listen-button" onclick="forward_Sound.play(), wakeLock(),listenFunction()">
 					<span class="material-symbols-outlined" style="vertical-align: middle;">hearing</span>Listen
 				</button>
 
@@ -47,13 +47,13 @@
 				</div>
 
 				<!-- Interact Button (right half) -->
-				<button id="interactButton" class="button interact-button" onclick="forward_Sound.play(),interactFunction(), displayText('Interacting through an avatar.')">
+				<button id="interactButton" class="button interact-button" onclick="forward_Sound.play(),wakeLock(), interactFunction(), displayText('Interacting through an avatar.')">
 					<span class="material-symbols-outlined" style="vertical-align: middle;"">back_hand</span>Interact
 				</button>
 			</div>
 			<div class="bottom-section">
 				<!-- Connect Button. -->
-				<button id="connectButton" class="button" style="display: none;" disabled onclick="connecting_Sound.play(), wakeLock(), displayText('Connecting to an avatar.')">
+				<button id="connectButton" class="button" style="display: none;" disabled onclick="connecting_Sound.play(), displayText('Connecting...')">
 					<span class="material-icons" style="vertical-align: middle;">bluetooth_searching</span> Connect to Avatar
 				</button>
 			</div>

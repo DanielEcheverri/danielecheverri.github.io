@@ -1919,7 +1919,7 @@ Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gat
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_narrating == &quot;avatar_tobacc02_01false&quot; and ($avatar_movement == &quot;Picking down&quot; || $avatar_movement == &quot;Picking up&quot;) &gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_tobacc02_01false&quot; and ($avatar_movement == &quot;Greeting&quot;) &gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_02/Oh, excuse me. Just need to catch my breath, Buro said while grabbing a tissue/m_cough1&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -2661,7 +2661,7 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-&lt;&lt;if $avatar_narrating == &quot;avatar_act2_01false&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_act2_02false&quot;&gt;&gt;
     &lt;&lt;if $avatar_checkpoint is &quot;avatar_tobacco&quot;&gt;&gt;
     	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
