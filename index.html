@@ -185,7 +185,7 @@
 							characterName = "Hachi";
 							window[characterName + "_Sound"].play();
 							notification_Sound.play();
-							startReading ();
+							startReading();
 						} else {
 							console.log("Loading settings for Avatar_BT");
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
@@ -197,7 +197,7 @@
 							characterName = "Buro";
 							window[characterName + "_Sound"].play();
 							notification_Sound.play();
-							startReading ();
+							startReading();
 						}
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
