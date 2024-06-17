@@ -1063,8 +1063,8 @@ Promise.all([
   fetchSpeed(hachi_speed),
   fetchAmenity(avatar_latitude, avatar_longitude),
   fetchAmenity(hachi_latitude, hachi_longitude),
-  fetchStops(avatar_latitude, avatar_longitude),
-  fetchStops(hachi_latitude, hachi_longitude)
+  //fetchStops(avatar_latitude, avatar_longitude),
+  //fetchStops(hachi_latitude, hachi_longitude)
 ])
 .then(([avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop, hachiStop]) =&gt; {
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
@@ -1367,7 +1367,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
   
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_02false&quot;&gt;&gt;
-	&lt;&lt;set $hachi_passage to &quot;hachi_act2_03/Lucia gives Hachi a mission to seek out four colorful characters across the city, each with unique insights into Buro&#39;s life and their shared bond./f_aha&quot;&gt;&gt;
+	&lt;&lt;set $hachi_passage to &quot;hachi_act2_03/Lucia gives Hachi a mission to seek out four colorful characters across &quot; + $storyNeighborhood + &quot;, each with unique insights into Buro&#39;s life and their shared bond./f_aha&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_03false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
@@ -1400,7 +1400,7 @@ $hachi_passage
 </tw-passagedata><tw-passagedata pid="23" name="avatar_act2" tags="" position="2475,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_turn to 0&gt;&gt;
 
-&lt;&lt;set $avatar_passage to &quot;avatar_act2/Buro decides to go to different spots Hachi often visits, to see if he can find him. He will meet 4 different characters in four different places: a tobacco shop, a bakery, a bank, and a church.&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_act2/Buro decides to go to different spots Hachi often visits, to see if he can find him. He will meet 4 different characters in four different places around&quot; + $storyNeighborhood + &quot;: a tobacco shop, a bakery, a bank, and a church.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -1884,7 +1884,7 @@ $hachi_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco4_00false&quot; and $avatar_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_01/Ah, young man, I recall seeing a dog similar to your description wandering near the bakery down the street. Or perhaps, if you&#39;re feeling adventurous, you could check the churchyard nearby. Sometimes, stray dogs seek refuge there./m_aha&quot;+$avatar_bank&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_01/Ah, young man, I recall seeing a dog similar to your description wandering near the bakery down &quot; +$avatar_street+&quot; street. Or perhaps, if you&#39;re feeling adventurous, you could check the churchyard nearby. Sometimes, stray dogs seek refuge there./m_aha&quot;+$avatar_bank&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco4_01false&quot;&gt;&gt;
@@ -1988,13 +1988,13 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="avatar_bakery_3" tags="" position="2725,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery2_00/Buro notices Lopez, the resident cat, prowling around the bakery. Lopez seems to take a liking to Buro, rubbing against his legs as he engages in conversation with Mrs. Lopez, the shop owner./m_talk2&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery3_00/&#39;Excuse me, Mrs. Lopez, I&#39;m terribly sorry, but I seem to have a slight allergy to cats. Mind if I jump over there while we chat?&#39;/m_sneeze&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery3_00false&quot; and $avatar_movement == &quot;Jumping&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery3_01/&#39;Excuse me, Mrs. Lopez, I&#39;m terribly sorry, but I seem to have a slight allergy to cats. Mind if I jump over there while we chat?.&#39;/m_sneeze&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery3_01/Buro steps away from Lopez the cat, trying to stifle his sneezes as he converses with Mrs. Lopez about Hachi&#39;s visits to the bakery.&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2005,7 +2005,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery3_01false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery3_02/Buro steps away from Lopez the cat, trying to stifle his sneezes as he converses with Mrs. Lopez about Hachi&#39;s visits to the bakery. To what Mrs. Lopez replied: &#39;Of course, dear. No need to apologize. Now, about that dog of yours...&#39;/f_aha&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery3_02/ To what Mrs. Lopez replied: &#39;Of course, dear. No need to apologize. Now, about that dog of yours...&#39;/f_aha&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2049,13 +2049,13 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="avatar_bakery_2" tags="" position="2850,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery2_00/Buro notices Lopez, the resident cat, prowling around the bakery. Lopez seems to take a liking to Buro, rubbing against his legs as he engages in conversation with Mrs. Lopez, the shop owner./m_talk2&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery2_00/Buro notices Lopez, the resident cat, prowling around the bakery. Lopez seems to take a liking to Buro, rubbing against his legs as he engages in conversation with Mrs. Lopez, the shop owner./meow&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery2_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery2_01/&#39;Ah, you&#39;ve met Lopez, our friendly neighborhood cat. He seems to have taken a liking to you!&#39; Buro briefly plays with Lopez, remembering pretty quick about his allergy to cat fur.&#39; /crowd2&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery2_01/&#39;Ah, you&#39;ve met Lopez, our friendly neighborhood cat. He seems to have taken a liking to you!&#39; Buro briefly plays with Lopez, remembering pretty quick about his allergy to cat fur.&#39; /m_sneeze&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2207,18 +2207,18 @@ $avatar_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="both_preamble" tags="" position="1850,375" size="200,100">&lt;&lt;nobr&gt;&gt;
 
-&lt;&lt;set $avatar_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of &quot; + $storyCity +&quot; ,small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
 
-&lt;&lt;set $hachi_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of &quot; + $storyCity +&quot; ,small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 &lt;&lt;if $avatar_narrating == &quot;both_00false&quot;&gt;&gt;
-	&lt;&lt;set $avatar_passage to &quot;both_01/Each day, they meet at small park and explore their city. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
+	&lt;&lt;set $avatar_passage to &quot;both_01/Each day, they meet at small park and explore &quot; + $storyCity + &quot;. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
 Today, will be a different day./park3&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
   
   &lt;&lt;if $hachi_narrating == &quot;both_00false&quot;&gt;&gt;
-	&lt;&lt;set $hachi_passage to &quot;both_01/Each day, they meet at small park and explore their city. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
+	&lt;&lt;set $hachi_passage to &quot;both_01/Each day, they meet at small park and explore  &quot; + $storyCity + &quot;. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
 Today, will be a different day./park3&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
   
@@ -2299,7 +2299,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($avatar_narrating == &quot;avatar_pre_04false&quot; or $avatar_narrating == &quot;avatar_pre_04Afalse&quot;) and ($avatar_movement == &quot;Standing left leg&quot; or $avatar_movement == &quot;Standing right leg&quot;) &gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04B/He stands on one leg, straining to get a better view of Hachi walking away through the &quot;+storyCity+&quot; streets.&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04B/He stands on one leg, straining to get a better view of Hachi walking away through the&quot; + $storyCity +&quot; streets.&quot;&gt;&gt;
   &lt;&lt;set $nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2419,17 +2419,17 @@ $hachi_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 </tw-passagedata><tw-passagedata pid="62" name="avatar_act1_1" tags="" position="2100,725" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_act1_01/As Buro calls out to Hachi, he realizes that Hachi isn&#39;t responding. He worries, as he looks at the street, searching for any sign of his furry friend. &quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_act1_01/As Buro calls out to Hachi, he realizes that Hachi isn&#39;t responding. He worries, as he looks at &quot; + $avatar_street +&quot;, searching for any sign of his furry friend. &quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_01false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_act1_02/Buro strains to get a better view of the surrounding area, hoping to catch sight of Hachi&#39;s distinctive caramel and white fur. However, his view is suddenly obstructed by a tram dropping off passengers.&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_act1_02/Buro strains to get a better view of the surrounding area, hoping to catch sight of Hachi&#39;s distinctive caramel and white fur. However, his view is suddenly obstructed by a &quot; + $avatar_t_type + &quot; dropping off passengers.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_02false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he manouver and jump around the crowd? Or should just look at the people until the tram leaves?&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he manouver and jump around the crowd? Or should just look at the people until the &quot; + $avatar_t_type+&quot; leaves?&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot;&gt;&gt;
