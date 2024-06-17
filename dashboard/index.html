@@ -1056,6 +1056,7 @@ Loading variables...
 
 &lt;&lt;repeat 20000ms&gt;&gt;
 &lt;&lt;script&gt;&gt;
+/*
 Promise.all([
   fetchStreetName(avatar_latitude, avatar_longitude),
   fetchStreetName(hachi_latitude, hachi_longitude),
@@ -1073,14 +1074,14 @@ Promise.all([
   variables().hachi_walking_speed = hachiSpeed;
   variables().avatar_amenity = avatarAmenity;
   variables().hachi_amenity = hachiAmenity;
-  //variables().avatar_t_stop=avatarStop.stopName;
-  //variables().avatar_t_route=avatarStop.routeShortName;
-  //variables().avatar_t_heading=avatarStop.tripHeadSign;
-  //variables().avatar_t_type=avatarStop.routeType;
-  //variables().hachi_t_stop=hachiStop.stopName;
-  //variables().hachi_t_route=hachiStop.routeShortName;
-  //variables().hachi_t_heading=hachiStop.tripHeadSign;
-  //variables().hachi_t_type=hachiStop.routeType;
+  variables().avatar_t_stop=avatarStop.stopName;
+  variables().avatar_t_route=avatarStop.routeShortName;
+  variables().avatar_t_heading=avatarStop.tripHeadSign;
+  variables().avatar_t_type=avatarStop.routeType;
+  variables().hachi_t_stop=hachiStop.stopName;
+  variables().hachi_t_route=hachiStop.routeShortName;
+  variables().hachi_t_heading=hachiStop.tripHeadSign;
+  variables().hachi_t_type=hachiStop.routeType;
 
   console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
   console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
@@ -1098,7 +1099,7 @@ Promise.all([
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
 });
-
+*/
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="avatar_1" tags="" position="300,525" size="100,100">&lt;&lt;nobr&gt;&gt;
