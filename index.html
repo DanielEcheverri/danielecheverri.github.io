@@ -142,6 +142,7 @@
 					tagSource = 'tags.json';
 					characterName = "Hachi";
 					initializeSounds();
+					startReading();
 				} else {
 					deviceName = "avatar_BT";
 					console.log("Setting to "+deviceName);
@@ -152,6 +153,7 @@
 					tagSource = 'tags.json';
 					characterName = "Buro";
 					initializeSounds();
+					startReading();
 				}
 			}
 
@@ -185,7 +187,6 @@
 							characterName = "Hachi";
 							window[characterName + "_Sound"].play();
 							notification_Sound.play();
-							startReading();
 						} else {
 							console.log("Loading settings for Avatar_BT");
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
@@ -197,7 +198,6 @@
 							characterName = "Buro";
 							window[characterName + "_Sound"].play();
 							notification_Sound.play();
-							startReading();
 						}
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -1303,7 +1303,7 @@
 			
 			//Start reading the database only once the avatar is connected
 			
-			function startReading () {
+			function startReading() {
 				if (isConnected === true && listenClient === false){ 
 					console.log("Reading from one");
 					readFromDatabase(deviceName); // Read data after writing,
