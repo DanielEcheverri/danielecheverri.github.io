@@ -185,6 +185,7 @@
 							characterName = "Hachi";
 							window[characterName + "_Sound"].play();
 							notification_Sound.play();
+							startReading ();
 						} else {
 							console.log("Loading settings for Avatar_BT");
 							labels = ["LEFT FOREARM", "LEFT SHOULDER", "HEAD", "RIGHT SHOULDER", "RIGHT FOREARM", "WAIST", "LEFT LEG", "RIGHT LEG"];
@@ -196,6 +197,7 @@
 							characterName = "Buro";
 							window[characterName + "_Sound"].play();
 							notification_Sound.play();
+							startReading ();
 						}
 						// Listen for characteristic value changes
 						characteristic.addEventListener("characteristicvaluechanged", handleCharacteristicValueChanged);
@@ -1300,9 +1302,12 @@
 			}, 200);
 			
 			//Start reading the database only once the avatar is connected
-			if (isConnected === true){ 
-				console.log("Reading from one");
-				readFromDatabase(deviceName); // Read data after writing,
+			
+			function startReading () {
+				if (isConnected === true && listenClient === false){ 
+					console.log("Reading from one");
+					readFromDatabase(deviceName); // Read data after writing,
+				}
 			}
 
 			document.addEventListener('DOMContentLoaded', function() {
