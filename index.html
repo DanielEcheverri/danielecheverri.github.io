@@ -1294,7 +1294,11 @@
 					writeToDatabase();
 				}
 			}, 200);
-			readFromDatabase(deviceName); // Read data after writing,
+			
+			//Start reading the database only once the avatar is connected
+			if (isConnected === true){ 
+				readFromDatabase(deviceName); // Read data after writing,
+			}
 
 			document.addEventListener('DOMContentLoaded', function() {
 				var listenHachi = document.getElementById("hachiCheckbox");
