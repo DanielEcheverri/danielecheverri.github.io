@@ -846,7 +846,12 @@ window.makeShortComments = async function(character, key) {
 
   //Last line of the function. KEEP
 })
-</script><tw-passagedata pid="1" name="init" tags="" position="1050,450" size="200,200">&lt;&lt;nobr&gt;&gt;&lt;&lt;set _timerRunning = true&gt;&gt;&lt;&lt;timed 3s&gt;&gt;&lt;&lt;set _timerRunning = false&gt;&gt;
+</script><tw-passagedata pid="1" name="init" tags="" position="1050,450" size="200,200">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
+&lt;&lt;set _timerRunning = true&gt;&gt;
+&lt;&lt;timed 4s&gt;&gt;
+&lt;&lt;set _timerRunning = false&gt;&gt;
 &lt;&lt;set $avatar_checkpoint to avatar_checkpoint&gt;&gt;
 &lt;&lt;set $avatar_checkpoint_dist to avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_heading to avatar_heading&gt;&gt;
@@ -930,7 +935,6 @@ Promise.all([
 .catch((error) =&gt; {
   console.error(&quot;Error:&quot;, error.message);
 });
-
 &lt;&lt;/script&gt;&gt;
 
 Ok!
