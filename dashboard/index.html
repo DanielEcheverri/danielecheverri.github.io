@@ -1919,13 +1919,13 @@ Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gat
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_narrating == &quot;avatar_tobacc02_01false&quot; and ($avatar_movement == &quot;Greeting&quot;) &gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_tobacco2_01false&quot; and $avatar_part_mov == &quot;head&quot; &gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_02/Oh, excuse me. Just need to catch my breath, Buro said while grabbing a tissue/m_cough1&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avayar_narrating == &quot;avatar_tobacco2_01false&quot;&gt;&gt;
-  &lt;&lt;if $avatar_movement !== &quot;Picking down&quot; and $avatar_movement !== &quot;Picking up&quot;  and $avatar_movement !==&quot;none&quot; and $avatar_movement !== &quot;&quot;&gt;&gt;
+  &lt;&lt;if $avatar_part_mov !== &quot;head&quot;  and $avatar_part_mov !==&quot;none&quot; and $avatar_part_mov !== &quot;&quot;&gt;&gt;
 	&lt;&lt;include &quot;commentMovement_avatar&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1976,7 +1976,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco3_00false&quot;&gt;&gt;
-  &lt;&lt;if $avatar_part_mov !== &quot;Head&quot; and $avatar_part_mov !==&quot;none&quot; and $avatar_part_mov !== &quot;&quot;&gt;&gt;
+  &lt;&lt;if $avatar_part_mov !== &quot;head&quot; and $avatar_part_mov !==&quot;none&quot; and $avatar_part_mov !== &quot;&quot;&gt;&gt;
 	&lt;&lt;include &quot;commentMovement_avatar&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
