@@ -340,7 +340,7 @@ window.writeToAvatar = function(databaseNode, avatarData) {
     const avatarRef = firebase.database().ref(avatarDatabase + databaseNode);
     return avatarRef.set(avatarData)
         .then(() => {
-            console.log("Successfully updated " + avatarData + " in " + avatarDatabase + " node " + databaseNode);
+            //console.log("Successfully updated " + avatarData + " in " + avatarDatabase + " node " + databaseNode);
         })
         .catch(error => {
             console.error("Error updating data:", error);
@@ -352,7 +352,7 @@ window.writeToHachi = function(databaseNode, hachiData) {
     const hachiRef = firebase.database().ref(hachiDatabase + databaseNode);
     return hachiRef.set(hachiData)
         .then(() => {
-            console.log("Successfully updated " + hachiData + " in " + hachiDatabase + " node " + databaseNode);
+            //console.log("Successfully updated " + hachiData + " in " + hachiDatabase + " node " + databaseNode);
         })
         .catch(error => {
             console.error("Error updating data:", error);
@@ -801,17 +801,17 @@ window.stopComments = function(character) {
   	console.log("Stopping comments");
 };
 
-  
+let cachedShortSentences;
+
 //This function is for movements
 window.makeShortComments = async function(character, key) {
     // Log function entry
-    	console.log("This is makeShortComments");
-
-    console.log("makeShortComments function called with character:", character, "and key:", key);
+    //console.log("This is makeShortComments");
+    //console.log("makeShortComments function called with character:", character, "and key:", key);
 
     try {
         // Fetch JSON data
-        const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
+        const jsonData = await fetchJSONFile(sentencesSource, cachedShortSentences);
 
         // Extract observes data based on the character and key parameters
         const observes = jsonData[`${character}_${key}`];
