@@ -322,7 +322,7 @@
 						function (position) {
 							latitude = position.coords.latitude.toFixed(6); // Store latitude globally
 							longitude = position.coords.longitude.toFixed(6); // Store longitude globally
-							console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
+							//console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
 							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
 							speed = position.coords.speed || 0; // Speed in meters per second
 							// Reset total distance if speed is less than threshold
@@ -1016,7 +1016,7 @@
 				let chkPointDistance = [];
 
 				async function checkCheckpoints() {
-					console.debug("Checking checkpoint");
+					//console.debug("Checking checkpoint");
 					const radius = 10; // 10 meters radius
 					let checkpointsKey = deviceName === "hachi_BT" ? "hachi_checkpoints" : "avatar_checkpoints";
 
@@ -1034,7 +1034,7 @@
 							// Ensure lastCheckedIndex is within bounds
 							if (lastCheckedIndex < checkpointKeys.length) {
 								const currentCheckpointKey = checkpointKeys[lastCheckedIndex];
-								console.log('Current Checkpoint Set:', currentCheckpointKey);
+								//console.log('Current Checkpoint Set:', currentCheckpointKey);
 
 								// Process checkpoints within the current set
 								const checkpointSet = checkpoints[currentCheckpointKey];
@@ -1059,7 +1059,7 @@
 								}
 
 								// Now chkPointDistance contains distances to all checkpoints in the current set
-								console.log('Distances to all checkpoints:', chkPointDistance);
+								console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
 							} else {
 								console.log("No more checkpoint sets to check.");
 							}

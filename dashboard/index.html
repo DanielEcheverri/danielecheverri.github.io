@@ -1886,7 +1886,7 @@ $hachi_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco4_00false&quot; and $avatar_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_01/Ah, young man, I recall seeing a dog similar to your description wandering near the bakery down &quot; +$avatar_street+&quot; street. Or perhaps, if you&#39;re feeling adventurous, you could check the churchyard nearby. Sometimes, stray dogs seek refuge there./m_aha&quot;+$avatar_bank&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_01/Ah, young man, I recall seeing a dog similar to your description wandering near the bakery down &quot; +$avatar_street+&quot; street. Or perhaps, if you&#39;re feeling adventurous, you could check the churchyard nearby. Sometimes, stray dogs seek refuge there. &quot;+$avatar_bank&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco4_01false&quot;&gt;&gt;
@@ -1965,7 +1965,7 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="avatar_tobacco_3" tags="" position="2100,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_tobacco3_00/Buro approaches Mr. Wei once his coughing fit subsides and engages in conversation, hoping to gather information about Hachi&#39;s recent whereabouts./m_talk1&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_tobacco3_00/Buro approaches Mr. Wei once his coughing fit subsides and engages in conversation, hoping to gather information about Hachi./m_talk1&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -2031,7 +2031,7 @@ $avatar_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery1_00false&quot; and ($avatar_part_mov== &quot;right shoulder&quot; || $avatar_part_mov== &quot;left shoulder&quot;)&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery1_01/Upon entering the bakery, Buro takes a moment to look at the busy scene, hoping to spot any familiar signs or clues that might lead him to Hachi. &#39;Let&#39;s see if there&#39;s anything here that might give me a clue about where Hachi might be&#39;. /crowd2&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery1_01/Upon entering the bakery, Buro takes a moment to look at the busy scene, hoping to spot any familiar signs or clues that might lead him to Hachi. &#39;Let&#39;s see if there&#39;s anything here that can give me a clue about where Hachi might be&#39;. /crowd2&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2050,7 +2050,7 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="avatar_bakery_2" tags="" position="2850,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery2_00/Buro notices Lopez, the resident cat, prowling around the bakery. Lopez seems to take a liking to Buro, rubbing against his legs as he engages in conversation with Mrs. Lopez, the shop owner./meow&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery2_00/Buro notices Lopez, the resident cat, prowling around the bakery. Lopez seems to take a liking to Buro, rubbing against his legs as he engages in conversation with Mrs. Lopez, the local baker./meow&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -2076,7 +2076,7 @@ $avatar_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="avatar_bakery_4" tags="" position="2850,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_turn = $avatar_turn+1&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery4_00/As Buro converses with Mrs. Lopez, or Sofia as her friends call her, she shares stories about Hachi&#39;s fondness for old bread crusts, often found near the bakery&#39;s dumpster in the mornings./panting&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery4_00/As Buro converses with Mrs. Lopez, or Sofia as her friends call her, she shares stories about Hachi&#39;s fondness for old bread crusts, often found near the bakery&#39;s dumpster in the mornings./f_talk3&quot;&gt;&gt;
 
 &lt;&lt;if $avatar_turn == 3&gt;&gt;
   &lt;&lt;set $avatar_bank to &quot;Or you can also visit the bank. It recently opened&quot;&gt;&gt;
@@ -2088,7 +2088,7 @@ $avatar_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery4_00false&quot; and $avatar_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery4_01/&#39;You know, I&#39;ve seen a dog similar to your description hanging around the churchyard down the street and the tobacco shop too. Might be worth a look if you&#39;re searching for your furry friend&#39;./f_heysh1&quot;+$avatar_bank&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery4_01/&#39;You know, I&#39;ve seen a dog similar to your description hanging around the churchyard down the street and the tobacco shop too. Might be worth a look if you&#39;re searching for your furry friend&#39;.&quot;+$avatar_bank&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery4_01false&quot;&gt;&gt;
@@ -2112,7 +2112,7 @@ $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_church1_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_church1_01/Buro steps close to the big arch framing the doors to the church. He scans the steps, the nearby trees, and the stained-glass windows, searching for any trace of Hachi&#39;s presence.
-As he approach, Buro said to himself, &#39;Let&#39;s see if there&#39;s any sign of Hachi here. Maybe he&#39;s left a clue behind&#39;./m_heysh2&quot;&gt;&gt;
+As he approach, Buro said to himself, &#39;Let&#39;s see if there&#39;s any sign of Hachi here. Maybe he&#39;s left a clue behind&#39;./m_aha&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2131,7 +2131,7 @@ As he approach, Buro said to himself, &#39;Let&#39;s see if there&#39;s any sign
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="avatar_church_2" tags="" position="2725,1325" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_church2_00/Buro sees Father Kent approaching, the wise and worldly priest of the church, and engages in conversation about Hachi&#39;s visits. Buro said to him, &#39;Father Kent, I&#39;ve been searching for my dog buddy, Hachi. Have you seen him around the church lately?&#39;/m_talk1&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_church2_00/Buro sees Father Kent approaching, the wise and worldly priest of the church, and engages in conversation about Hachi&#39;s visits. Buro said to him, &#39;Father Kent, I&#39;ve been searching for my dog, Hachi. Have you seen him around the church lately?&#39;/m_talk1&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -2156,7 +2156,7 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="avatar_church_3" tags="" position="2850,1200" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_church3_00/Father Kent drifts from the conversation to offer a glimpse into his past, recounting tales of his travels and experiences as a preacher before finding his calling in the rust belt near Akron&#39;./m_talk2&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_church3_00/Father Kent drifts from the conversation to offer a glimpse into his past, recounting tales of his travels and experiences as a preacher before finding his calling in the rust belt./m_talk2&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -2182,7 +2182,7 @@ $avatar_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="avatar_church_4" tags="" position="2850,1325" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_turn = $avatar_turn+1&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_church4_00/: Moved by Father Kent&#39;s stories and seeking guidance, Buro expresses his gratitude and asks for advice on where to search for Hachi next. &#39;Father Kent—said Buro— your wisdom is invaluable to me. Where do you suggest I look next for Hachi?&#39;./panting&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_church4_00/ Moved by Father Kent&#39;s stories and seeking guidance, Buro expresses his gratitude and asks for advice on where to search for Hachi next. &#39;Father Kent—said Buro, your wisdom is invaluable to me. Where do you suggest I look next for Hachi?&#39;./m_compliment&quot;&gt;&gt;
 
 &lt;&lt;if $avatar_turn == 3&gt;&gt;
   &lt;&lt;set $avatar_bank to &quot;Or you can also visit the bank. I am sure it recently opened&quot;&gt;&gt;
@@ -2194,7 +2194,7 @@ $avatar_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_church4_00false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_church4_01/Father Kent offers a suggestion based on his knowledge of Hachi&#39;s habits and the community. &#39;My son—he said, Hachi&#39;s spirit is resilient, and his presence is felt throughout this neighborhood. I believe you may find him near the Tobacco Shop, or even the bakery. Seek him there, and may your reunion be blessed.&quot;+$avatar_bank&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_church4_01/Father Kent offers a suggestion based on his knowledge of Hachi&#39;s habits and the community. &#39;My son—he said, Hachi&#39;s spirit is resilient, and his presence is felt throughout this neighborhood. I believe you may find him near the Tobacco Shop, or even the bakery. Seek him there, and may your reunion be blessed. &quot;+$avatar_bank&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
