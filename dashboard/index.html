@@ -1890,7 +1890,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco4_01false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_02/With Mr. Wei&#39;s words in mind, Buro thanks him for the tip and considers his options, debating whether to visit the bakery or the church in search of Hachi...or even the bank if its open/m_sing&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_02/With Mr. Wei&#39;s words in mind, Buro thanks him for the tip and considers his options, debating whether to visit the bakery or the church in search of Hachi...or even the bank if its open./m_aha&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1920,7 +1920,7 @@ Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gat
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco2_01false&quot; and $avatar_part_mov == &quot;head&quot; &gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_02/Oh, excuse me. Just need to catch my breath, Buro said while grabbing a tissue/m_cough1&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_02/Oh, excuse me. Just need to catch my breath, Buro said while grabbing a tissue./m_cough1&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1990,14 +1990,13 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="avatar_bakery_3" tags="" position="2725,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery3_00/&#39;Excuse me, Mrs. Lopez, I&#39;m terribly sorry, but I seem to have a slight allergy to cats. Mind if I jump over there while we chat?&#39;/m_sneeze&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery3_00/Excuse me, Mrs. Lopez, I&#39;m terribly sorry, but I seem to have a slight allergy to cats. Do you mind if I jump over there while we chat?/m_sneeze&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery3_00false&quot; and $avatar_movement == &quot;Jumping&quot;&gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_bakery3_01/Buro steps away from Lopez the cat, trying to stifle his sneezes as he converses with Mrs. Lopez about Hachi&#39;s visits to the bakery.&quot;&gt;&gt;
-&lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery3_00false&quot;&gt;&gt;
@@ -2020,7 +2019,7 @@ $avatar_passage
 &lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_bakery3_02false&quot; &gt;&gt;
   &lt;&lt;set $avatar_nextAct to false&gt;&gt;
     &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
-  		&lt;&lt;include&quot;avatar_bakery_3&quot;&gt;&gt;
+  		&lt;&lt;include&quot;avatar_bakery_4&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2032,7 +2031,7 @@ $avatar_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery1_00false&quot; and ($avatar_part_mov== &quot;right shoulder&quot; || $avatar_part_mov== &quot;left shoulder&quot;)&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery1_01/Upon entering the bakery, Buro takes a moment to look at the busy scene, hoping to spot any familiar signs or clues that might lead him to Hachi. &#39;Let&#39;s see if there&#39;s anything here that might give me a clue about where Hachi might be.&#39; /crowd2&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery1_01/Upon entering the bakery, Buro takes a moment to look at the busy scene, hoping to spot any familiar signs or clues that might lead him to Hachi. &#39;Let&#39;s see if there&#39;s anything here that might give me a clue about where Hachi might be&#39;. /crowd2&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2057,7 +2056,7 @@ $avatar_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery2_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery2_01/&#39;Ah, you&#39;ve met Lopez, our friendly neighborhood cat. He seems to have taken a liking to you!&#39; Buro briefly plays with Lopez, remembering pretty quick about his allergy to cat fur.&#39; /m_sneeze&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery2_01/&#39;Ah, you&#39;ve met Lopez, our friendly neighborhood cat. He seems to have taken a liking to you!&#39; Buro briefly plays with Lopez, remembering pretty quick about his allergy to cat fur&#39;. /m_sneeze&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2661,30 +2660,33 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-&lt;&lt;if $avatar_narrating == &quot;avatar_act2_02false&quot;&gt;&gt;
-    &lt;&lt;if $avatar_checkpoint is &quot;avatar_tobacco&quot;&gt;&gt;
+    &lt;&lt;if $avatar_checkpoint is &quot;avatar_tobacco&quot; and $previousAvatar_checkpoint !== avatar_checkpoint&gt;&gt;
     	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
+        	&lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint&gt;&gt;
             &lt;&lt;include &quot;avatar_tobacco_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_bakery&quot;&gt;&gt;
-        &lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
+    &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_bakery&quot; and $previousAvatar_checkpoint !== avatar_checkpoint&gt;&gt;
+    	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
+        	&lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint&gt;&gt;
             &lt;&lt;include &quot;avatar_bakery_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_bank&quot;&gt;&gt;
-        &lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
+    &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_bank&quot; and $previousAvatar_checkpoint !== avatar_checkpoint&gt;&gt;
+    	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
+        	&lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint &gt;&gt;
             &lt;&lt;include &quot;avatar_bank_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_church&quot;&gt;&gt;
-        &lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
+    &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_church&quot;  and $previousAvatar_checkpoint !== avatar_checkpoint&gt;&gt;
+    	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
+       	 	&lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint&gt;&gt;
             &lt;&lt;include &quot;avatar_church_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
+
 &lt;&lt;/nobr&gt;&gt;
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
