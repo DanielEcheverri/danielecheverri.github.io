@@ -728,7 +728,6 @@ window.makeComments = async function(character, key) {
     const soundscape = jsonData.soundscape;
     const approaching = jsonData.approaching;
 
-
     // Function to generate random sentences upfront and store them in an object
     const generateRandomSentences = (obj, count) => {
         let sentences = [];
@@ -817,7 +816,6 @@ window.makeShortComments = async function(character, key) {
 
         if (!observes) {
             // Log error if observes data is missing
-            console.warn("No observes data found for character:", character, "and key:", key);
             return;
         }
 
@@ -826,7 +824,6 @@ window.makeShortComments = async function(character, key) {
 
         if (numSentences === 0) {
             // Log error if there are no sentences available
-            console.warn("No sentences available for character:", character, "and key:", key);
             return;
         }
 
@@ -838,7 +835,6 @@ window.makeShortComments = async function(character, key) {
         // Store the random sentence in the character's comment variable
         variables()[`${character}_comment`] = randomSentence;
         // Log successful storing of comment
-        console.log("Comment stored successfully for character:", character);
     } catch (error) {
         // Log any errors that occur during the process
         console.error("An error occurred:", error);
@@ -1037,7 +1033,7 @@ Loading variables...
 &lt;&lt;if $avatar_status == &quot;Online&quot; and $hachi_status==&quot;Online&quot;&gt;&gt;
 &lt;div id=&quot;bottomContainer&quot;&gt;
 	&lt;div id=&quot;avatar_story&quot;&gt;
-          &lt;&lt;include &quot;avatar_bakery_2&quot;&gt;&gt;
+          &lt;&lt;include &quot;avatar_act2_transition&quot;&gt;&gt;
 	&lt;/div&gt;
       &lt;div id=&quot;hachi_story&quot;&gt;
              &lt;&lt;include &quot;empty&quot;&gt;&gt;	
