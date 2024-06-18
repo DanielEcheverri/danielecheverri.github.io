@@ -847,98 +847,96 @@ window.makeShortComments = async function(character, key) {
   //Last line of the function. KEEP
 })
 </script><tw-passagedata pid="1" name="init" tags="" position="1050,450" size="200,200">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
 &lt;&lt;set _timerRunning = true&gt;&gt;
 &lt;&lt;timed 4s&gt;&gt;
-&lt;&lt;set _timerRunning = false&gt;&gt;
-&lt;&lt;set $avatar_checkpoint to avatar_checkpoint&gt;&gt;
-&lt;&lt;set $avatar_checkpoint_dist to avatar_checkpoint_dist&gt;&gt;
-&lt;&lt;set $avatar_heading to avatar_heading&gt;&gt;
-&lt;&lt;set $avatar_latitude to avatar_latitude&gt;&gt;
-&lt;&lt;set $avatar_longitude to avatar_longitude&gt;&gt;
-&lt;&lt;set $avatar_movement to avatar_movement&gt;&gt;
-&lt;&lt;set $avatar_part_dir to avatar_part_dir&gt;&gt;
-&lt;&lt;set $avatar_part_mov to avatar_part_mov&gt;&gt;
-&lt;&lt;set $avatar_tag to avatar_tag&gt;&gt;
-&lt;&lt;set $avatar_passage to avatar_passage&gt;&gt;
-&lt;&lt;set $avatar_status to avatar_status&gt;&gt;
-&lt;&lt;set $avatar_speed to avatar_speed&gt;&gt;
-&lt;&lt;set $avatar_narrating to avatar_narrating&gt;&gt;
+  &lt;&lt;set _timerRunning = false&gt;&gt;
+  &lt;&lt;set $avatar_checkpoint to avatar_checkpoint&gt;&gt;
+  &lt;&lt;set $avatar_checkpoint_dist to avatar_checkpoint_dist&gt;&gt;
+  &lt;&lt;set $avatar_heading to avatar_heading&gt;&gt;
+  &lt;&lt;set $avatar_latitude to avatar_latitude&gt;&gt;
+  &lt;&lt;set $avatar_longitude to avatar_longitude&gt;&gt;
+  &lt;&lt;set $avatar_movement to avatar_movement&gt;&gt;
+  &lt;&lt;set $avatar_part_dir to avatar_part_dir&gt;&gt;
+  &lt;&lt;set $avatar_part_mov to avatar_part_mov&gt;&gt;
+  &lt;&lt;set $avatar_tag to avatar_tag&gt;&gt;
+  &lt;&lt;set $avatar_passage to avatar_passage&gt;&gt;
+  &lt;&lt;set $avatar_status to avatar_status&gt;&gt;
+  &lt;&lt;set $avatar_speed to avatar_speed&gt;&gt;
+  &lt;&lt;set $avatar_narrating to avatar_narrating&gt;&gt;
 
-&lt;&lt;set $hachi_checkpoint to hachi_checkpoint&gt;&gt;
-&lt;&lt;set $hachi_checkpoint_dist to hachi_checkpoint_dist&gt;&gt;
-&lt;&lt;set $hachi_heading to hachi_heading&gt;&gt;
-&lt;&lt;set $hachi_latitude to hachi_latitude&gt;&gt;
-&lt;&lt;set $hachi_longitude to hachi_longitude&gt;&gt;
-&lt;&lt;set $hachi_movement to hachi_movement&gt;&gt;
-&lt;&lt;set $hachi_part_dir to hachi_part_dir&gt;&gt;
-&lt;&lt;set $hachi_part_mov to hachi_part_mov&gt;&gt;
-&lt;&lt;set $hachi_tag to hachi_tag&gt;&gt;
-&lt;&lt;set $hachi_passage to hachi_passage&gt;&gt;
-&lt;&lt;set $hachi_status to hachi_status&gt;&gt;
-&lt;&lt;set $hachi_speed to hachi_speed&gt;&gt;
-&lt;&lt;set $hachi_narrating to hachi_narrating&gt;&gt;
+  &lt;&lt;set $hachi_checkpoint to hachi_checkpoint&gt;&gt;
+  &lt;&lt;set $hachi_checkpoint_dist to hachi_checkpoint_dist&gt;&gt;
+  &lt;&lt;set $hachi_heading to hachi_heading&gt;&gt;
+  &lt;&lt;set $hachi_latitude to hachi_latitude&gt;&gt;
+  &lt;&lt;set $hachi_longitude to hachi_longitude&gt;&gt;
+  &lt;&lt;set $hachi_movement to hachi_movement&gt;&gt;
+  &lt;&lt;set $hachi_part_dir to hachi_part_dir&gt;&gt;
+  &lt;&lt;set $hachi_part_mov to hachi_part_mov&gt;&gt;
+  &lt;&lt;set $hachi_tag to hachi_tag&gt;&gt;
+  &lt;&lt;set $hachi_passage to hachi_passage&gt;&gt;
+  &lt;&lt;set $hachi_status to hachi_status&gt;&gt;
+  &lt;&lt;set $hachi_speed to hachi_speed&gt;&gt;
+  &lt;&lt;set $hachi_narrating to hachi_narrating&gt;&gt;
 
-&lt;&lt;script&gt;&gt;
-Promise.all([
-  fetchWeather(avatar_latitude, avatar_longitude),
-  fetchStreetName(avatar_latitude, avatar_longitude),
-  fetchStreetName(hachi_latitude, hachi_longitude),
-  fetchSpeed(avatar_speed),
-  fetchSpeed(hachi_speed),
-  fetchAmenity(avatar_latitude, avatar_longitude),
-  fetchAmenity(hachi_latitude, hachi_longitude),
-  fetchStops(avatar_latitude, avatar_longitude),
-  fetchStops(hachi_latitude, hachi_longitude),
-  fetchCity(avatar_latitude, avatar_longitude),
-  fetchPollution(avatar_latitude, avatar_longitude)
-])
-.then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop, hachiStop, cityNeighborhood, cityPollution]) =&gt; {
-  variables().storyWeather = weatherDescription;
-  writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
-  writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
-  variables().storyTime = getTimeOfDay();
-  variables().avatar_walking_speed = avatarSpeed;
-  variables().hachi_walking_speed = hachiSpeed;
-  variables().avatar_amenity = avatarAmenity;
-  variables().hachi_amenity = hachiAmenity;
-  variables().avatar_t_stop=avatarStop.stopName;
-  variables().avatar_t_route=avatarStop.routeShortName;
-  variables().avatar_t_heading=avatarStop.tripHeadSign;
-  variables().avatar_t_type=avatarStop.routeType;
-  variables().hachi_t_stop=hachiStop.stopName;
-  variables().hachi_t_route=hachiStop.routeShortName;
-  variables().hachi_t_heading=hachiStop.tripHeadSign;
-  variables().hachi_t_type=hachiStop.routeType;
-  variables().storyCity = cityNeighborhood.city;
-  variables().storyNeighborhood = cityNeighborhood.neighborhood;
-  variables().storyPollution = cityPollution;
+  &lt;&lt;script&gt;&gt;
+  Promise.all([
+    fetchWeather(avatar_latitude, avatar_longitude),
+    fetchStreetName(avatar_latitude, avatar_longitude),
+    fetchStreetName(hachi_latitude, hachi_longitude),
+    fetchSpeed(avatar_speed),
+    fetchSpeed(hachi_speed),
+    fetchAmenity(avatar_latitude, avatar_longitude),
+    fetchAmenity(hachi_latitude, hachi_longitude),
+    fetchStops(avatar_latitude, avatar_longitude),
+    fetchStops(hachi_latitude, hachi_longitude),
+    fetchCity(avatar_latitude, avatar_longitude),
+    fetchPollution(avatar_latitude, avatar_longitude)
+  ])
+  .then(([weatherDescription, avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop, hachiStop, cityNeighborhood, cityPollution]) =&gt; {
+    variables().storyWeather = weatherDescription;
+    writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
+    writeToHachi(&#39;hachi_street&#39;, hachiStreetName);
+    variables().storyTime = getTimeOfDay();
+    variables().avatar_walking_speed = avatarSpeed;
+    variables().hachi_walking_speed = hachiSpeed;
+    variables().avatar_amenity = avatarAmenity;
+    variables().hachi_amenity = hachiAmenity;
+    variables().avatar_t_stop=avatarStop.stopName;
+    variables().avatar_t_route=avatarStop.routeShortName;
+    variables().avatar_t_heading=avatarStop.tripHeadSign;
+    variables().avatar_t_type=avatarStop.routeType;
+    variables().hachi_t_stop=hachiStop.stopName;
+    variables().hachi_t_route=hachiStop.routeShortName;
+    variables().hachi_t_heading=hachiStop.tripHeadSign;
+    variables().hachi_t_type=hachiStop.routeType;
+    variables().storyCity = cityNeighborhood.city;
+    variables().storyNeighborhood = cityNeighborhood.neighborhood;
+    variables().storyPollution = cityPollution;
 
-  console.log(&quot;Time of day is: &quot; + variables().storyTime);
-  console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
-  console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
-  console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
-  console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
-  console.log(&quot;Avatar transit closest stop is: &quot; +  variables().avatar_t_stop);
-  console.log(&quot;Avatar transit heading: &quot; +   variables().avatar_t_heading);
-  console.log(&quot;Avatar transit route: &quot; +  variables().avatar_t_route);
-  console.log(&quot;Avatar transit type: &quot; +  variables().avatar_t_type);
-  console.log(&quot;Hachi transit closest stop is: &quot; +  variables().hachi_t_stop);
-  console.log(&quot;Hachi transit heading: &quot; +   variables().hachi_t_heading);
-  console.log(&quot;Hachi transit route: &quot; +  variables().hachi_t_route);
-  console.log(&quot;Hachi transit type: &quot; +  variables().hachi_t_type);
-  console.log(&quot;Story city: &quot; + variables().storyCity);
-  console.log(&quot;Story neighborhood: &quot; + variables().storyNeighborhood);
-  console.log(&quot;Story pollution: &quot; + variables().storyPollution);
-})
-.catch((error) =&gt; {
-  console.error(&quot;Error:&quot;, error.message);
-});
-&lt;&lt;/script&gt;&gt;
+    console.log(&quot;Time of day is: &quot; + variables().storyTime);
+    console.log(&quot;Avatar walking speed is: &quot; + variables().avatar_speed);
+    console.log(&quot;Hachi walking speed is: &quot; + variables().hachi_speed);
+    console.log(&quot;Avatar closest amenity is: &quot; + variables().avatar_amenity);
+    console.log(&quot;Hachi closest amenity is: &quot; + variables().hachi_amenity);
+    console.log(&quot;Avatar transit closest stop is: &quot; +  variables().avatar_t_stop);
+    console.log(&quot;Avatar transit heading: &quot; +   variables().avatar_t_heading);
+    console.log(&quot;Avatar transit route: &quot; +  variables().avatar_t_route);
+    console.log(&quot;Avatar transit type: &quot; +  variables().avatar_t_type);
+    console.log(&quot;Hachi transit closest stop is: &quot; +  variables().hachi_t_stop);
+    console.log(&quot;Hachi transit heading: &quot; +   variables().hachi_t_heading);
+    console.log(&quot;Hachi transit route: &quot; +  variables().hachi_t_route);
+    console.log(&quot;Hachi transit type: &quot; +  variables().hachi_t_type);
+    console.log(&quot;Story city: &quot; + variables().storyCity);
+    console.log(&quot;Story neighborhood: &quot; + variables().storyNeighborhood);
+    console.log(&quot;Story pollution: &quot; + variables().storyPollution);
+  })
+  .catch((error) =&gt; {
+    console.error(&quot;Error:&quot;, error.message);
+  });
+  &lt;&lt;/script&gt;&gt;
 
-Ok!
-&lt;&lt;goto &quot;main&quot;&gt;&gt;
+  Ok!
+  &lt;&lt;goto &quot;main&quot;&gt;&gt;
 &lt;&lt;/timed&gt;&gt;&lt;&lt;if _timerRunning&gt;&gt;
 Loading variables...
 &lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;
@@ -1006,8 +1004,7 @@ Loading variables...
 
 
 </tw-passagedata><tw-passagedata pid="3" name="main" tags="" position="1150,675" size="200,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
+
 &lt;&lt;silently&gt;&gt;
 &lt;&lt;repeat 150ms&gt;&gt;
     &lt;&lt;replace &quot;#refreshArea&quot;&gt;&gt;
@@ -1071,8 +1068,8 @@ Promise.all([
   fetchSpeed(hachi_speed),
   fetchAmenity(avatar_latitude, avatar_longitude),
   fetchAmenity(hachi_latitude, hachi_longitude),
-  //fetchStops(avatar_latitude, avatar_longitude),
-  //fetchStops(hachi_latitude, hachi_longitude)
+  fetchStops(avatar_latitude, avatar_longitude),
+  fetchStops(hachi_latitude, hachi_longitude)
 ])
 .then(([avatarStreetName, hachiStreetName, avatarSpeed, hachiSpeed, avatarAmenity, hachiAmenity,avatarStop, hachiStop]) =&gt; {
   writeToAvatar(&#39;avatar_street&#39;, avatarStreetName);
@@ -1109,6 +1106,8 @@ Promise.all([
 */
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="avatar_1" tags="" position="300,525" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_online to false&gt;&gt;
 
