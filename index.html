@@ -1015,6 +1015,9 @@
 				let currentCheckpoint = "none";
 				let chkPointDistance = [];
 
+				let previousCheckpointKey = null;
+				let previousChkPointDistance = null;
+
 				async function checkCheckpoints() {
 					//console.debug("Checking checkpoint");
 					const radius = 10; // 10 meters radius
@@ -1057,9 +1060,19 @@
 										return; // Exit the function when a checkpoint is reached
 									}
 								}
+								//console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
+								
+								// Check if there is a change in currentCheckpointKey or chkPointDistance
+								const isCheckpointKeyChanged = previousCheckpointKey !== currentCheckpointKey;
+								const isChkPointDistanceChanged = JSON.stringify(previousChkPointDistance) !== JSON.stringify(chkPointDistance);
 
-								// Now chkPointDistance contains distances to all checkpoints in the current set
-								console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
+								if (isCheckpointKeyChanged || isChkPointDistanceChanged) {
+									console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
+									
+									// Update the previous values to the current values
+									previousCheckpointKey = currentCheckpointKey;
+									previousChkPointDistance = JSON.parse(JSON.stringify(chkPointDistance));
+								}
 							} else {
 								console.log("No more checkpoint sets to check.");
 							}
@@ -1285,7 +1298,6 @@
 						topSection.style.display = 'none';
 						displayText("Listening as "+characterName+".");
 						window[characterName + "_Sound"].play();
-						console.log("Reading from two");
 					}
 				}, 5000);
 			}
