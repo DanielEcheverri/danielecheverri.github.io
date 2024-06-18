@@ -722,6 +722,7 @@ let storyComment;
 window.makeComments = async function(character, key) {
     // Fetch JSON data
     const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
+  	console.log("This is makeComments");
 
     // Extract data based on the character parameter
     const observes = jsonData[`${character}_${key}`];
@@ -804,6 +805,8 @@ window.stopComments = function(character) {
 //This function is for movements
 window.makeShortComments = async function(character, key) {
     // Log function entry
+    	console.log("This is makeShortComments");
+
     console.log("makeShortComments function called with character:", character, "and key:", key);
 
     try {
