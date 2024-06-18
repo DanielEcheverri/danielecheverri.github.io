@@ -884,12 +884,7 @@
 
 					try {
 						// Make a fetch request to the Coqui TTS API
-						//const response = await fetch(url);
 						const response = await fetchWithRetry(url);
-
-						// if (!response.ok) {
-						// 	throw new Error(`HTTP error! status: ${response.status}`);
-						// }
 
 						// Convert response to a Blob for audio playback
 						const audioBlob = await response.blob();
@@ -910,10 +905,12 @@
 							onend: () => {
 								console.log("End speaking");
 								speaking = false;
+								sound.unload(); // Unload the audio object to free up resources
 							},
 							onloaderror: (id, err) => {
 								console.error("Audio playback error:", err);
 								speaking = false;
+								sound.unload(); // Unload the audio object to free up resources
 							},
 						});
 
