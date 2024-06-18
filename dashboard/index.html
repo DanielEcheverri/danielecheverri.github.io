@@ -798,6 +798,7 @@ window.stopComments = function(character) {
         clearInterval(characterData[character].intervalId);
         delete characterData[character];
     }
+  	console.log("Stopping comments");
 };
 
   
@@ -1939,6 +1940,8 @@ Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gat
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="avatar_tobacco_1" tags="" position="2100,875" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
+
 &lt;&lt;set $avatar_passage to &quot;avatar_tobacco1_00/Buro visits the tobacco shop, where he meets an elderly man named Mr. Wei. Mr. Wei, a former Hong Kong merchant of spices, tells Buro about Hachi&#39;s habit of barking at people who smoke, perhaps indicating a dislike for the smell of tobacco./m_talk2&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
@@ -2025,6 +2028,8 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="avatar_bakery_1" tags="" position="2725,875" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
+
 &lt;&lt;set $avatar_passage to &quot;avatar_bakery1_00/At the bakery, Buro encounters Lopez, the resident cat who prowls the shop. Lopez seems to take a liking to Buro, rubbing against his legs as he speaks with Mrs. Lopez, or Sofia for her friends, the local baker. Mrs. Lopez shares stories about Hachi&#39;s love for chewing on old bread crusts, often found near the bakery&#39;s dumpster in the mornings./m_talk2&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
@@ -2105,6 +2110,8 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="avatar_bank_3" tags="" position="2225,1225" size="100,100"></tw-passagedata><tw-passagedata pid="49" name="avatar_bank_4" tags="" position="2225,1350" size="100,100"></tw-passagedata><tw-passagedata pid="50" name="avatar_bank_2" tags="" position="2100,1350" size="100,100"></tw-passagedata><tw-passagedata pid="51" name="avatar_bank_1" tags="" position="2100,1225" size="100,100"></tw-passagedata><tw-passagedata pid="52" name="avatar_church_1" tags="" position="2725,1200" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
+
 &lt;&lt;set $avatar_passage to &quot;avatar_church1_00/Buro visits the church, where he meets Father Kent. Father Kent, a globe trotter evangelist hailing from the rust belt in Akron, tells Buro about Hachi&#39;s nightly visits to the church, where he finds shelter and companionship. He describes Hachi as a gentle soul, always seeking to give comfort./church2&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
@@ -2665,28 +2672,24 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
 
 &lt;&lt;liveblock&gt;&gt;
     &lt;&lt;if $avatar_checkpoint is &quot;avatar_tobacco&quot; and $previousAvatar_checkpoint !== avatar_checkpoint&gt;&gt;
-        &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
     	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
         	&lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint&gt;&gt;
             &lt;&lt;include &quot;avatar_tobacco_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_bakery&quot; and $previousAvatar_checkpoint !== avatar_checkpoint&gt;&gt;
-		&lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
     	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
         	&lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint&gt;&gt;
             &lt;&lt;include &quot;avatar_bakery_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_bank&quot; and $previousAvatar_checkpoint !== avatar_checkpoint&gt;&gt;
-        &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
     	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
         	&lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint &gt;&gt;
             &lt;&lt;include &quot;avatar_bank_1&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;elseif $avatar_checkpoint is &quot;avatar_church&quot;  and $previousAvatar_checkpoint !== avatar_checkpoint&gt;&gt;
-        &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
     	&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
        	 	&lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint&gt;&gt;
