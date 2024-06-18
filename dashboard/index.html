@@ -836,7 +836,7 @@ window.makeShortComments = async function(character, key) {
         const randomSentence = observes[randomSentenceKey];
 
         // Store the random sentence in the character's comment variable
-        variables()[`${character}_comment`] = randomSentence;
+        variables()[`${character}_shortComment`] = randomSentence;
         // Log successful storing of comment
     } catch (error) {
         // Log any errors that occur during the process
@@ -2631,22 +2631,23 @@ makeComments(&#39;hachi&#39;,&#39;observes&#39;);
 </tw-passagedata><tw-passagedata pid="73" name="commentMovement_avatar" tags="" position="1275,200" size="200,100">&lt;&lt;if typeof _prevavatarMovement === &#39;undefined&#39;&gt;&gt;
 	&lt;&lt;set _prevavatarMovement to $avatar_movement&gt;&gt;
 &lt;&lt;elseif _prevavatarMovement !== $avatar_movement&gt;&gt;
-  &lt;&lt;script&gt;&gt;
-      makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;); 
-      //console.log(variables().avatar_comment); 
-  &lt;&lt;/script&gt;&gt;
-&lt;&lt;set _prevavatarMovement to variables().avatar_movement&gt;&gt;
-&lt;&lt;if $avatar_comment !== _prevavatarComment&gt;&gt;
-	&lt;&lt;set _prevavatarComment to $avatar_comment&gt;&gt;
-    &lt;&lt;script&gt;&gt;
-    	var passage_temp = variables().avatar_comment;
-    	const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
-        console.log(renderedText);
-        variables().avatar_passage = renderedText;
-     &lt;&lt;/script&gt;&gt;
-   &lt;&lt;set $avatar_passage to variables().avatar_passage&gt;&gt;
- &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="evalDist_avatar" tags="" position="1275,75" size="200,100">&lt;&lt;nobr&gt;&gt;
+	&lt;&lt;script&gt;&gt;
+		makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;); 
+		console.log(variables().avatar_shortComment); 
+	&lt;&lt;/script&gt;&gt;
+	&lt;&lt;set _prevavatarMovement to variables().avatar_movement&gt;&gt;
+	&lt;&lt;if $avatar_shortComment !== _prevavatarShortComment&gt;&gt;
+		&lt;&lt;set _prevavatarShortComment to $avatar_shortComment&gt;&gt;
+		&lt;&lt;script&gt;&gt;
+			var passage_temp = variables().avatar_shortComment;
+			const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
+			console.log(renderedText);
+			variables().avatar_passage = renderedText;
+		&lt;&lt;/script&gt;&gt;
+		&lt;&lt;set $avatar_passage to variables().avatar_passage&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+</tw-passagedata><tw-passagedata pid="74" name="evalDist_avatar" tags="" position="1275,75" size="200,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_arriving to false&gt;&gt;
 &lt;&lt;script&gt;&gt;
 let valuesArray = variables().avatar_checkpoint_dist;
