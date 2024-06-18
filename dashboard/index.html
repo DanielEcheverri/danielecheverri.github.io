@@ -817,6 +817,7 @@ window.makeShortComments = async function(character, key) {
 
         if (!observes) {
             // Log error if observes data is missing
+            console.warn("No observes data found for character:", character, "and key:", key);
             return;
         }
 
@@ -825,6 +826,7 @@ window.makeShortComments = async function(character, key) {
 
         if (numSentences === 0) {
             // Log error if there are no sentences available
+            console.warn("No sentences available for character:", character, "and key:", key);
             return;
         }
 
@@ -1028,18 +1030,19 @@ Loading variables...
               &lt;&lt;set _buttonCaption to &quot;RELOAD&quot;&gt;&gt;
           &lt;&lt;/button&gt;&gt;
       &lt;/div&gt;
-      &lt;div id=&quot;refreshArea&quot;&gt;	&lt;/div&gt;
+      &lt;div id=&quot;refreshArea&quot;&gt;	
+      &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;&lt;if $avatar_status == &quot;Online&quot; and $hachi_status==&quot;Online&quot;&gt;&gt;
 &lt;div id=&quot;bottomContainer&quot;&gt;
 	&lt;div id=&quot;avatar_story&quot;&gt;
-          &lt;&lt;include &quot;avatar_act2&quot;&gt;&gt;
+          &lt;&lt;include &quot;avatar_bakery2&quot;&gt;&gt;
 	&lt;/div&gt;
-	&lt;div id=&quot;hachi_story&quot;&gt;
-           &lt;&lt;include &quot;empty&quot;&gt;&gt;	
+      &lt;div id=&quot;hachi_story&quot;&gt;
+             &lt;&lt;include &quot;empty&quot;&gt;&gt;	
+      &lt;/div&gt;
 	&lt;/div&gt;
-&lt;/div&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;set $storyWeather to &#39;&#39;&gt;&gt;
