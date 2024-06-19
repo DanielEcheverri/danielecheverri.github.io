@@ -934,8 +934,11 @@ window.makeShortComments = async function(character, key) {
     console.error(&quot;Error:&quot;, error.message);
   });
   &lt;&lt;/script&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
 
   Ok!
+  
   &lt;&lt;goto &quot;main&quot;&gt;&gt;
 &lt;&lt;/timed&gt;&gt;&lt;&lt;if _timerRunning&gt;&gt;
 Loading variables...
@@ -1004,10 +1007,6 @@ Loading variables...
 
 
 </tw-passagedata><tw-passagedata pid="3" name="main" tags="" position="1150,675" size="200,100">&lt;&lt;nobr&gt;&gt;
-
-&lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
-
 &lt;&lt;silently&gt;&gt;
   &lt;&lt;repeat 150ms&gt;&gt;
       &lt;&lt;replace &quot;#refreshArea&quot;&gt;&gt;
