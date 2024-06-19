@@ -1005,6 +1005,9 @@ Loading variables...
 
 </tw-passagedata><tw-passagedata pid="3" name="main" tags="" position="1150,675" size="200,100">&lt;&lt;nobr&gt;&gt;
 
+&lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
+
 &lt;&lt;silently&gt;&gt;
   &lt;&lt;repeat 150ms&gt;&gt;
       &lt;&lt;replace &quot;#refreshArea&quot;&gt;&gt;
@@ -1013,9 +1016,6 @@ Loading variables...
       &lt;&lt;/replace&gt;&gt;
   &lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/silently&gt;&gt;
-
-&lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
   &lt;&lt;if $avatar_status == &quot;Online&quot; and $hachi_status==&quot;Online&quot;&gt;&gt;
