@@ -1008,6 +1008,15 @@ Loading variables...
 
 </tw-passagedata><tw-passagedata pid="3" name="loading" tags="" position="1050,675" size="200,100">&lt;&lt;nobr&gt;&gt;
 
+&lt;&lt;silently&gt;&gt;
+  &lt;&lt;repeat 150ms&gt;&gt;
+      &lt;&lt;replace &quot;#refreshArea&quot;&gt;&gt;
+          &lt;&lt;include &quot;live_variables&quot;&gt;&gt;
+          &lt;&lt;update&gt;&gt;
+      &lt;&lt;/replace&gt;&gt;
+  &lt;&lt;/repeat&gt;&gt;
+&lt;&lt;/silently&gt;&gt;
+
 &lt;&lt;liveblock&gt;&gt;
   &lt;&lt;if $avatar_status == &quot;Online&quot; and $hachi_status==&quot;Online&quot;&gt;&gt;
       &lt;&lt;set _buttonCaption to &quot;GO&quot;&gt;&gt;
@@ -2676,6 +2685,17 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
       &lt;&lt;/replace&gt;&gt;
   &lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/silently&gt;&gt;
+
+&lt;&lt;liveblock&gt;&gt;
+  &lt;&lt;if $avatar_status == &quot;Online&quot; and $hachi_status==&quot;Online&quot;&gt;&gt;
+      &lt;&lt;set _buttonCaption to &quot;GO&quot;&gt;&gt;
+  &lt;&lt;else&gt;&gt;
+      &lt;&lt;set _buttonCaption to &quot;RELOAD&quot;&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+  &lt;&lt;if $storyReady == true&gt;&gt;
+  	  &lt;&lt;set _buttonCaption to &quot;RELOAD&quot;&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+&lt;&lt;/liveblock&gt;&gt;
 
 &lt;div id=&quot;topContainer&quot;&gt;
   &lt;div id=&quot;buttonArea&quot;&gt;
