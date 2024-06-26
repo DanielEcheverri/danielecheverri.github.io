@@ -1301,7 +1301,31 @@ console.log(variables().hachi_comment);
           &lt;&lt;/script&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="hachi_tram" tags="" position="1200,900" size="100,200"></tw-passagedata><tw-passagedata pid="15" name="hachi_fountain" tags="" position="1450,900" size="100,200"></tw-passagedata><tw-passagedata pid="16" name="hachi_bank" tags="" position="1450,1225" size="100,200"></tw-passagedata><tw-passagedata pid="17" name="hachi_stairs" tags="" position="1200,1200" size="100,200"></tw-passagedata><tw-passagedata pid="18" name="avatar_tobacco" tags="" position="2350,900" size="100,200"></tw-passagedata><tw-passagedata pid="19" name="avatar_bakery" tags="" position="2600,900" size="100,200"></tw-passagedata><tw-passagedata pid="20" name="avatar_bank" tags="" position="2350,1225" size="100,200"></tw-passagedata><tw-passagedata pid="21" name="avatar_church" tags="" position="2600,1200" size="100,200"></tw-passagedata><tw-passagedata pid="22" name="hachi_act2" tags="" position="1325,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="hachi_tram" tags="" position="1200,900" size="100,200">&lt;&lt;liveblock&gt;&gt;
+  &lt;if $hachi_tag == 23&gt;&gt;
+      &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+          &lt;&lt;include&quot;hachi_tram_1&quot;&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+   &lt;&lt;/if&gt;&gt;
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="hachi_fountain" tags="" position="1450,900" size="100,200">&lt;&lt;liveblock&gt;&gt;
+  &lt;if $hachi_tag == 24&gt;&gt;
+      &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+          &lt;&lt;include&quot;hachi_fountain_1&quot;&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+   &lt;&lt;/if&gt;&gt;
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="hachi_bank" tags="" position="1450,1225" size="100,200">&lt;&lt;liveblock&gt;&gt;
+  &lt;if $hachi_tag == 26&gt;&gt;
+      &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+          &lt;&lt;include&quot;hachi_bank_1&quot;&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+   &lt;&lt;/if&gt;&gt;
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="hachi_stairs" tags="" position="1200,1200" size="100,200">&lt;&lt;liveblock&gt;&gt;
+  &lt;if $hachi_tag == 25&gt;&gt;
+      &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+          &lt;&lt;include&quot;hachi_stairs_1&quot;&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+   &lt;&lt;/if&gt;&gt;
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="avatar_tobacco" tags="" position="2350,900" size="100,200"></tw-passagedata><tw-passagedata pid="19" name="avatar_bakery" tags="" position="2600,900" size="100,200"></tw-passagedata><tw-passagedata pid="20" name="avatar_bank" tags="" position="2350,1225" size="100,200"></tw-passagedata><tw-passagedata pid="21" name="avatar_church" tags="" position="2600,1200" size="100,200"></tw-passagedata><tw-passagedata pid="22" name="hachi_act2" tags="" position="1325,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_turn to 0&gt;&gt;
 
 &lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to four different places where he will meet four different, colorfoul characters.&quot;&gt;&gt;
@@ -1314,7 +1338,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_01false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_02/&#39;Life has brought us together for a reason, dear Hachi. Your human friend, Buro, is facing a journey of his own, and you must learn more about him to understand why you are destined to be together.&#39;/whine&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_02/&#39;Life has brought us together for a reason, dear Hachi. Your human friend, Buro, is facing a journey of his own, and you must learn more about him to understand why you are destined to be together&#39;./whine&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
   
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_02false&quot;&gt;&gt;
@@ -1845,6 +1869,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_tobacco4_02false&quot; &gt;&gt;
+	&lt;&lt;set $avatar_passage to &quot;Decided, Buro went search for the next stop.&quot;&gt;&gt;
 	    &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -1859,7 +1884,7 @@ $avatar_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco2_00false&quot; and $avatar_movement == &quot;Greeting&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_01/Ah, young man, what brings you to my humble shop today? Looking for something special, perhaps?
+  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_01/Ah, young man, what brings you to my humble shop today? Looking for something special perhaps?
 Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gather information about Hachi&#39;s recent whereabouts./m_agreeable&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2047,6 +2072,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_bakery4_02false&quot; &gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;And so Buro started walking to the next stop&quot;&gt;&gt;
 	    &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -2148,6 +2174,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_church4_01false&quot; &gt;&gt;
+	&lt;&lt;set $avatar_passage to &quot;Finally, Buro began walking again&quot;&gt;&gt;
 	    &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -2163,7 +2190,7 @@ $avatar_passage
 
 &lt;&lt;liveblock&gt;&gt;
 &lt;&lt;if $avatar_narrating == &quot;both_00false&quot;&gt;&gt;
-	&lt;&lt;set $avatar_passage to &quot;both_01/Each day, they meet at small park and explore &quot; + $storyCity + &quot;. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
+	&lt;&lt;set $avatar_passage to &quot;both_01/Each day, they meet at a small park and explore &quot; + $storyCity + &quot;. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
 Today, will be a different day./park3&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
   
@@ -2199,7 +2226,7 @@ $avatar_passage
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_pre_01false&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_pre_02/Hachi catches a scent pulling him away: What should Hachi do? Should he continue sniffing or start walking and follow the scent deeper into the city/magic1&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_pre_02/Hachi catches a scent pulling him away. What should Hachi do? Should he continue sniffing or start walking and follow the scent deeper into the city/magic1&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_pre_02false&quot;&gt;&gt;
@@ -2219,6 +2246,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_pre_04false&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;And so Hachi starts walking&quot;&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act1&quot;&gt;&gt;
         &lt;&lt;set $hachi_nextAct to false&gt;&gt;
@@ -2341,7 +2369,7 @@ console.log(variables().avatar_comment);
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act1_01false&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act1_02/Hachi reaches the statue: What should Hachi do? Bark, to see who replies? Or, get a closer look at the tiny flower in the base of the statue?/whine&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act1_02/Hachi reaches the statue. What should Hachi do? Bark, to see who replies? Or, get a closer look at the tiny flower in the base of the statue?/whine&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Bfalse&quot;) and $hachi_tag == &quot;16&quot;&gt;&gt;
@@ -2533,48 +2561,48 @@ makeComments(&#39;hachi&#39;,&#39;observes&#39;);
     	&lt;&lt;script&gt;&gt;stopComments(`hachi`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
         	&lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint&gt;&gt;
-            &lt;&lt;include &quot;hachi_tram_1&quot;&gt;&gt;
+            &lt;&lt;include &quot;hachi_tram&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;elseif $hachi_checkpoint is &quot;hachi_fountain&quot; and $previousHachi_checkpoint !== hachi_checkpoint&gt;&gt;
     	&lt;&lt;script&gt;&gt;stopComments(`hachi`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
         	&lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint&gt;&gt;
-            &lt;&lt;include &quot;hachi_fountain_1&quot;&gt;&gt;
+            &lt;&lt;include &quot;hachi_fountain&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;elseif $hachi_checkpoint is &quot;hachi_stairs&quot; and $previousHachi_checkpoint !== hachi_checkpoint&gt;&gt;
     	&lt;&lt;script&gt;&gt;stopComments(`hachi`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
         	&lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint &gt;&gt;
-            &lt;&lt;include &quot;hachi_stairs_1&quot;&gt;&gt;
+            &lt;&lt;include &quot;hachi_stairs&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;elseif $hachi_checkpoint is &quot;hachi_bank&quot;  and $previousHachi_checkpoint !== hachi_checkpoint&gt;&gt;
     	&lt;&lt;script&gt;&gt;stopComments(`hachi`)&lt;&lt;/script&gt;&gt;
         &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
        	 	&lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint&gt;&gt;
-            &lt;&lt;include &quot;hachi_bank_1&quot;&gt;&gt;
+            &lt;&lt;include &quot;hachi_bank&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="empty" tags="" position="450,1150" size="100,100">EMPTY</tw-passagedata><tw-passagedata pid="72" name="commentMovement_hachi" tags="" position="1050,200" size="200,100">&lt;if typeof _prevhachiMovement === &#39;undefined&#39;&gt;
-    &lt;set _prevhachiMovement to $hachi_movement&gt;
-&lt;elseif _prevhachiMovement !== $hachi_movement&gt;
-    &lt;script&gt;
-        makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;);
-        console.log(variables().hachi_comment);
-    &lt;/script&gt;
-    &lt;set _prevhachiMovement to variables().hachi_movement&gt;
-    &lt;if $hachi_comment !== _prevhachiComment&gt;
-        &lt;set _prevhachiComment to $hachi_comment&gt;
-        &lt;script&gt;
-            var passage_temp = variables().hachi_comment;
-            const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
-            console.log(renderedText);
-            variables().hachi_passage = renderedText;
-        &lt;/script&gt;
-        &lt;set $hachi_passage to variables().hachi_passage&gt;
-    &lt;/if&gt;
-&lt;/if&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="empty" tags="" position="450,1150" size="100,100">EMPTY</tw-passagedata><tw-passagedata pid="72" name="commentMovement_hachi" tags="" position="1050,200" size="200,100">&lt;&lt;if typeof _prevhachiMovement === &#39;undefined&#39;&gt;&gt;
+	&lt;&lt;set _prevhachiMovement to $hachi_movement&gt;&gt;
+&lt;&lt;elseif _prevhachiMovement !== $hachi_movement&gt;&gt;
+	&lt;&lt;script&gt;&gt;
+		makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;); 
+		console.log(variables().hachi_shortComment); 
+	&lt;&lt;/script&gt;&gt;
+	&lt;&lt;set _prevhachiMovement to variables().hachi_movement&gt;&gt;
+	&lt;&lt;if $hachi_shortComment !== _prevhachiShortComment&gt;&gt;
+		&lt;&lt;set _prevhachiShortComment to $hachi_shortComment&gt;&gt;
+		&lt;&lt;script&gt;&gt;
+			var passage_temp = variables().hachi_shortComment;
+			const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
+			console.log(renderedText);
+			variables().hachi_passage = renderedText;
+		&lt;&lt;/script&gt;&gt;
+		&lt;&lt;set $hachi_passage to variables().hachi_passage&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 </tw-passagedata><tw-passagedata pid="73" name="commentMovement_avatar" tags="" position="1275,200" size="200,100">&lt;&lt;if typeof _prevavatarMovement === &#39;undefined&#39;&gt;&gt;
 	&lt;&lt;set _prevavatarMovement to $avatar_movement&gt;&gt;
 &lt;&lt;elseif _prevavatarMovement !== $avatar_movement&gt;&gt;
@@ -2716,10 +2744,10 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
 
 &lt;div id=&quot;bottomContainer&quot;&gt;
         &lt;div id=&quot;avatar_story&quot;&gt;
-              &lt;&lt;include &quot;both_preamble&quot;&gt;&gt;
+              &lt;&lt;include &quot;empty&quot;&gt;&gt;
         &lt;/div&gt;
         &lt;div id=&quot;hachi_story&quot;&gt;
-               &lt;&lt;include &quot;both_preamble&quot;&gt;&gt;	
+               &lt;&lt;include &quot;hachi_act2_transition&quot;&gt;&gt;	
         &lt;/div&gt;
 &lt;/div&gt;
     
