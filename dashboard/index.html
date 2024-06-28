@@ -936,8 +936,16 @@ window.makeShortComments = async function(character, key) {
   &lt;&lt;/script&gt;&gt;
 &lt;&lt;set $avatar_passage to &quot;&quot;&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;&quot;&gt;&gt;
+
 &lt;&lt;set $avatar_narrating to &quot;&quot;&gt;&gt;
 &lt;&lt;set $hachi_narrating to &quot;&quot;&gt;&gt;
+&lt;&lt;set avatar_narrating to $avatar_narrating&gt;&gt;
+&lt;&lt;set hachi_narrating to $hachi_narrating&gt;&gt;
+&lt;&lt;script&gt;&gt;
+    writeToAvatar(&#39;avatar_narrating&#39;,avatar_narrating);
+    writeToAvatar(&#39;hachi_narrating&#39;,hachi_narrating);
+&lt;&lt;/script&gt;&gt;
+
   Ok!
   
   &lt;&lt;goto &quot;loading&quot;&gt;&gt;
