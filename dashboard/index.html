@@ -360,8 +360,9 @@ window.writeToHachi = function(databaseNode, hachiData) {
         });
 }
 
-  var avatar_street = "none";
-	window.fetchStreetName=function(latitude, longitude){
+var avatar_street = "none";
+var street_radious = 100;
+window.fetchStreetName=function(latitude, longitude){
       return new Promise((resolve, reject) => {
         const checkCoordinates = () => {
             if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
@@ -377,7 +378,7 @@ window.writeToHachi = function(databaseNode, hachiData) {
     })
     .then(() => {
         // Construct Overpass API query
-        var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:50," + latitude + "," + longitude + ");out;";
+        var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:" + street_radious +", " + latitude + "," + longitude + ");out;";
         // Fetch data from Overpass API
         return fetch(overpassQuery);
     })
