@@ -15,8 +15,7 @@
 			"function": "window.talking1_Sound.play();"
 		},
 		"21": {
-			"displayText": "Good human!",
-			"function": "window.m_giftgiver_Sound.play();"
+			"function": "if(noNarrative){displayText('This is Buro');window.m_giftgiver_Sound.play();}"
 		},
 		"23": {
 			"function": "window.f_sing_Sound.play();"
