@@ -727,6 +727,7 @@
 				var messageID = ""; // Global variable to store the message ID.
 				var oldMessageID ="";
 				var messageID_tmp = "";
+				var playAction = false;
 
 				function displayText(message) {
 					var messageDisplayDiv = document.getElementById("messageDisplayDiv");
@@ -755,8 +756,8 @@
 									window[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable if it is not empty
 								}
 
-								// Set playAction to true
-								var playAction = true;
+								// Set playAction to true so it provied affordance for action
+								playAction = true;
 							} else { // If the third delimiter does not exist
 								var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the first and second delimiters
 								var audioSoundscape = message.substring(secondDelimiterIndex + 1).trim(); // Extract the audioSoundscape variable after the second delimiter
