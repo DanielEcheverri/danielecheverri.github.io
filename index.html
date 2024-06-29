@@ -724,7 +724,7 @@
 				var timeOfDay;
 
 				var fullMessage;
-				var messageID = ""; // Global variable to store the message ID
+				var messageID = ""; // Global variable to store the message ID.
 				var oldMessageID ="";
 				var messageID_tmp = "";
 
@@ -745,7 +745,6 @@
 						if (secondDelimiterIndex !== -1 && secondDelimiterIndex !== delimiterIndex) { // Check if the second delimiter exists and is not the same as the first one
 							var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the delimiters
 							var audioSoundscape = message.substring(secondDelimiterIndex + 1).trim(); // Extract the audioSoundscape variable
-
 							clearTimeout(timeoutID);
 							speakMessage(fullMessage);
 							updateDisplay(fullMessage);
@@ -838,7 +837,7 @@
 					'Ç': 'C', 'É': 'E', 'È': 'E', 'Ë': 'E', 'Ê': 'E', 'Í': 'I', 'Ì': 'I',
 					'Ï': 'I', 'Î': 'I', 'Ñ': 'NY', 'Ó': 'O', 'Ò': 'O', 'Ö': 'O', 'Õ': 'O', 'Ø':'OE',
 					'Ô': 'O', 'Ú': 'U', 'Ù': 'U', 'Ü': 'U', 'Û': 'U', 'Ý': 'Y', 'Ÿ': 'Y',
-					'Š': 'SH', 'Ž': 'ZH', 'Ř': 'R', 'Ů': 'U', 'Ď': 'D', 'Ť': 'T', 'Ň': 'N'
+					'Š': 'SH', 'Ž': 'ZH', 'Ř': 'R', 'Ů': 'U', 'Ď': 'D', 'Ť': 'T', 'Ň': 'NY'
 				};
 
 				function transliterate(text) {
