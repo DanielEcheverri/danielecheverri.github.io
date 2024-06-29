@@ -739,16 +739,35 @@
 
 					if (delimiterIndex !== -1) { // Check if the first delimiter exists
 						messageID_tmp = message.substring(0, delimiterIndex); // Store the message ID
-						//oldMessageID=messageID;
-						var secondDelimiterIndex = message.lastIndexOf("/"); // Find the index of the second delimiter "/"
+						var secondDelimiterIndex = message.indexOf("/", delimiterIndex + 1); // Find the index of the second delimiter "/"
 
 						if (secondDelimiterIndex !== -1 && secondDelimiterIndex !== delimiterIndex) { // Check if the second delimiter exists and is not the same as the first one
-							var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the delimiters
-							var audioSoundscape = message.substring(secondDelimiterIndex + 1).trim(); // Extract the audioSoundscape variable
-							clearTimeout(timeoutID);
-							speakMessage(fullMessage);
-							updateDisplay(fullMessage);
-							window[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable
+							var thirdDelimiterIndex = message.indexOf("/", secondDelimiterIndex + 1); // Find the index of the third delimiter "/"
+
+							if (thirdDelimiterIndex !== -1) { // Check if the third delimiter exists
+								var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the first and second delimiters
+								var audioSoundscape = message.substring(secondDelimiterIndex + 1, thirdDelimiterIndex).trim(); // Extract the audioSoundscape variable between the second and third delimiters
+
+								clearTimeout(timeoutID);
+								speakMessage(fullMessage);
+								updateDisplay(fullMessage);
+								if (audioSoundscape !== "") {
+									window[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable if it is not empty
+								}
+
+								// Set playAction to true
+								var playAction = true;
+							} else { // If the third delimiter does not exist
+								var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the first and second delimiters
+								var audioSoundscape = message.substring(secondDelimiterIndex + 1).trim(); // Extract the audioSoundscape variable after the second delimiter
+
+								clearTimeout(timeoutID);
+								speakMessage(fullMessage);
+								updateDisplay(fullMessage);
+								if (audioSoundscape !== "") {
+									window[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable if it is not empty
+								}
+							}
 						} else { // If the second delimiter does not exist or is the same as the first one
 							var fullMessage = message.substring(delimiterIndex + 1).trim(); // Extract the message text after the first delimiter
 							clearTimeout(timeoutID);
@@ -763,6 +782,7 @@
 						updateDisplay(fullMessage);
 					}
 				}
+
 
 				// Update display
 				function updateDisplay(displayMessage) {
@@ -909,6 +929,10 @@
 								console.log("End speaking");
 								speaking = false;
 								sound.unload(); // Unload the audio object to free up resources
+								if (playAction){
+									window.m_aha_Sound.play();
+									playAction=false;
+								}
 							},
 							onloaderror: (id, err) => {
 								console.error("Audio playback error:", err);
