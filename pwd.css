@@ -65,6 +65,16 @@ body {
 	justify-content: center;
 }
 
+.keypad button.ok-button {
+	background-color: #4caf50; /* Green color for OK button */
+	color: #ffffff; /* White text color for OK button */
+}
+
+.keypad button.clear-button {
+	background-color: #0082fc; /* Blue color for C button */
+	color: #ffffff; /* White text color for C button */
+}
+
 @media (max-width: 600px) {
 	.input-container input {
 		width: 40px;
