@@ -70,11 +70,13 @@ body {
 .keypad button.ok-button {
 	background-color: #4caf50; /* Green color for OK button */
 	color: #ffffff; /* White text color for OK button */
+	font-weight: bold;
 }
 
 .keypad button.clear-button {
 	background-color: #0082fc; /* Blue color for C button */
 	color: #ffffff; /* White text color for C button */
+	font-weight: bold;
 }
 
 @media (max-width: 600px) {
