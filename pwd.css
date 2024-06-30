@@ -14,7 +14,7 @@ body {
 .logo {
 	display: flex;
 	justify-content: center;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	max-width: 80%; /* Limit logo size to 80% of viewport width */
 }
 
