@@ -1,3 +1,6 @@
+Let's address the issues one by one: 1. **Loading the logo correctly**: Ensure the path to the `logo.svg` is correct relative to your HTML file. 2.
+**Responsive design**: Add CSS media queries to ensure the page is responsive on mobile devices. 3. **Clearing the entire password with the "C"
+button**: Modify the `clearDigit` function to reset the entire password. Here's the updated `index.html` file: ```html
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,6 +18,7 @@
 			    justify-content: center;
 			    height: 100vh;
 			    background-color: #48494b;
+			    color: #ffffff;
 			}
 			.logo {
 			    display: flex;
@@ -54,6 +58,19 @@
 			    border-radius: 5px;
 			    cursor: pointer;
 			}
+			@media (max-width: 600px) {
+			    .input-container input {
+			        width: 30px;
+			        height: 30px;
+			        font-size: 1.2em;
+			        margin: 0 3px;
+			    }
+			    .keypad button {
+			        width: 40px;
+			        height: 40px;
+			        font-size: 1.2em;
+			    }
+			}
 		</style>
 	</head>
 	<body>
@@ -78,7 +95,7 @@
 				<button onclick="appendDigit(7)">7</button>
 				<button onclick="appendDigit(8)">8</button>
 				<button onclick="appendDigit(9)">9</button>
-				<button onclick="clearDigit()">C</button>
+				<button onclick="clearAllDigits()">C</button>
 				<button onclick="appendDigit(0)">0</button>
 				<button onclick="checkPassword()">OK</button>
 			</div>
@@ -95,8 +112,8 @@
 			    }
 			}
 
-			function clearDigit() {
-			    currentInput = currentInput.slice(0, -1);
+			function clearAllDigits() {
+			    currentInput = "";
 			    updateInputFields();
 			}
 
@@ -112,16 +129,51 @@
 			        window.location.href = "protected.html"; // Change this to your desired target page
 			    } else {
 			        alert("Incorrect password. Access denied.");
-			        currentInput = "";
-			        updateInputFields();
+			        clearAllDigits();
 			    }
 			}
 
 			// Clear the current input when the page is loaded
 			window.onload = function() {
-			    currentInput = "";
-			    updateInputFields();
+			    clearAllDigits();
 			};
 		</script>
 	</body>
 </html>
+``` And here's the updated `protected.html` file: ```html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Protected Page</title>
+		<style>
+			body {
+			    font-family: "Roboto", sans-serif;
+			    margin: 0;
+			    padding: 0;
+			    display: flex;
+			    flex-direction: column;
+			    align-items: center;
+			    justify-content: center;
+			    height: 100vh;
+			    background-color: #48494b;
+			    color: #ffffff; /* Change text color to white for better visibility on dark background */
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Protected Content</h1>
+		<p>This content is protected by a 4-digit password.</p>
+
+		<script>
+			// Clear the password input when navigating away from the protected page
+			window.onbeforeunload = function() {
+			    history.replaceState(null, null, "index.html");
+			};
+		</script>
+	</body>
+</html>
+``` ### Key Updates: 1. **Responsive Design**: Added media queries to adjust input field and button sizes on smaller screens. 2. **Clearing Entire
+Password**: Updated the `clearAllDigits` function to reset the entire password. 3. **Logo Loading**: Ensure the path to `logo.svg` is correct. If it's
+in the same directory as the HTML file, it should work correctly. If it's in a different directory, update the `src` attribute accordingly.
