@@ -34,6 +34,9 @@
 			</div>
 		</div>
 
+		<div id="protectedContent" class="hidden"></div>
+		<!-- This div will hold the content of protected.html -->
+
 		<script>
 			const correctPassword = "1234"; // Change this to your desired 4-digit code
 			let currentInput = "";
@@ -59,11 +62,26 @@
 
 			function checkPassword() {
 			    if (currentInput === correctPassword) {
-			        window.location.href = "protected.html"; // Change this to your desired target page
+			        loadProtectedContent();
 			    } else {
 			        alert("Incorrect password. Access denied.");
 			        clearAllDigits();
 			    }
+			}
+
+			function loadProtectedContent() {
+			    const xhr = new XMLHttpRequest();
+			    xhr.onload = function() {
+			        if (xhr.status === 200) {
+			            document.getElementById('protectedContent').innerHTML = xhr.responseText;
+			            document.getElementById('protectedContent').classList.remove('hidden');
+			            document.querySelector('.container').style.display = 'none'; // Hide password container
+			        } else {
+			            console.error('Failed to load content: ' + xhr.statusText);
+			        }
+			    };
+			    xhr.open('GET', 'protected.html');
+			    xhr.send();
 			}
 
 			// Clear the current input when the page is loaded
