@@ -69,19 +69,26 @@
 			    }
 			}
 
-			function loadProtectedContent() {
-			    const xhr = new XMLHttpRequest();
-			    xhr.onload = function() {
-			        if (xhr.status === 200) {
-			            document.getElementById('protectedContent').innerHTML = xhr.responseText;
-			            document.getElementById('protectedContent').classList.remove('hidden');
-			            document.querySelector('.container').style.display = 'none'; // Hide password container
-			        } else {
-			            console.error('Failed to load content: ' + xhr.statusText);
+			async function loadProtectedContent() {
+			    try {
+			        const response = await fetch('index.html');
+			        if (!response.ok) {
+			            throw new Error('Failed to load content');
 			        }
-			    };
-			    xhr.open('GET', 'index.html');
-			    xhr.send();
+			        const html = await response.text();
+			        const tempDiv = document.createElement('div');
+			        tempDiv.innerHTML = html;
+
+			        // Extract the content from the body of protected.html
+			        const protectedBodyContent = tempDiv.querySelector('body').innerHTML;
+
+			        // Inject the extracted content into the protectedContent div
+			        document.getElementById('protectedContent').innerHTML = protectedBodyContent;
+			        document.getElementById('protectedContent').classList.remove('hidden');
+			        document.querySelector('.container').style.display = 'none'; // Hide password container
+			    } catch (error) {
+			        console.error('Error loading protected content:', error);
+			    }
 			}
 
 			// Clear the current input when the page is loaded
