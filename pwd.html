@@ -4,22 +4,105 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Password Protected Page</title>
-		<script>
-			function checkPassword() {
-			    var password = prompt("Please enter the 4-digit password:");
-			    var correctPassword = "1234"; // Change this to your desired 4-digit code
+		<style>
+			body {
+			    display: flex;
+			    justify-content: center;
+			    align-items: center;
+			    height: 100vh;
+			    font-family: Arial, sans-serif;
+			}
+			.container {
+			    text-align: center;
+			}
+			.input-container {
+			    display: flex;
+			    justify-content: center;
+			    margin-bottom: 10px;
+			}
+			.input-container input {
+			    width: 40px;
+			    height: 40px;
+			    text-align: center;
+			    font-size: 1.5em;
+			    margin: 0 5px;
+			    border: 1px solid #ccc;
+			    border-radius: 5px;
+			}
+			.keypad {
+			    display: grid;
+			    grid-template-columns: repeat(3, 1fr);
+			    gap: 10px;
+			    max-width: 150px;
+			    margin: 0 auto;
+			}
+			.keypad button {
+			    width: 50px;
+			    height: 50px;
+			    font-size: 1.5em;
+			    border: 1px solid #ccc;
+			    border-radius: 5px;
+			    cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Enter Password</h1>
+			<div class="input-container">
+				<input type="password" id="digit1" maxlength="1" disabled />
+				<input type="password" id="digit2" maxlength="1" disabled />
+				<input type="password" id="digit3" maxlength="1" disabled />
+				<input type="password" id="digit4" maxlength="1" disabled />
+			</div>
+			<div class="keypad">
+				<button onclick="appendDigit(1)">1</button>
+				<button onclick="appendDigit(2)">2</button>
+				<button onclick="appendDigit(3)">3</button>
+				<button onclick="appendDigit(4)">4</button>
+				<button onclick="appendDigit(5)">5</button>
+				<button onclick="appendDigit(6)">6</button>
+				<button onclick="appendDigit(7)">7</button>
+				<button onclick="appendDigit(8)">8</button>
+				<button onclick="appendDigit(9)">9</button>
+				<button onclick="clearDigit()">C</button>
+				<button onclick="appendDigit(0)">0</button>
+				<button onclick="checkPassword()">OK</button>
+			</div>
+		</div>
 
-			    if (password === correctPassword) {
+		<script>
+			const correctPassword = "1234"; // Change this to your desired 4-digit code
+			let currentInput = "";
+
+			function appendDigit(digit) {
+			    if (currentInput.length < 4) {
+			        currentInput += digit;
+			        updateInputFields();
+			    }
+			}
+
+			function clearDigit() {
+			    currentInput = currentInput.slice(0, -1);
+			    updateInputFields();
+			}
+
+			function updateInputFields() {
+			    for (let i = 1; i <= 4; i++) {
+			        const inputField = document.getElementById('digit' + i);
+			        inputField.value = currentInput[i - 1] || "";
+			    }
+			}
+
+			function checkPassword() {
+			    if (currentInput === correctPassword) {
 			        window.location.href = "protected.html"; // Change this to your desired target page
 			    } else {
 			        alert("Incorrect password. Access denied.");
+			        currentInput = "";
+			        updateInputFields();
 			    }
 			}
 		</script>
-	</head>
-	<body onload="checkPassword()">
-		<div id="passwordPrompt">
-			<p>Please enter the password to view the content.</p>
-		</div>
 	</body>
 </html>
