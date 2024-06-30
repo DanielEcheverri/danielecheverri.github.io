@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Password Protected Page</title>
+		<script>
+			function checkPassword() {
+			    var password = prompt("Please enter the 4-digit password:");
+			    var correctPassword = "1234"; // Change this to your desired 4-digit code
+
+			    if (password === correctPassword) {
+			        window.location.href = "protected.html"; // Change this to your desired target page
+			    } else {
+			        alert("Incorrect password. Access denied.");
+			    }
+			}
+		</script>
+	</head>
+	<body onload="checkPassword()">
+		<div id="passwordPrompt">
+			<p>Please enter the password to view the content.</p>
+		</div>
+	</body>
+</html>
