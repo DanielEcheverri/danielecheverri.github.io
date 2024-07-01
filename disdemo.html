@@ -82,7 +82,7 @@
 			        tempDiv.innerHTML = html;
 
 			        // Extract the content from the body of protected.html
-			        const protectedBody = tempDiv.querySelector('body');
+			        const protectedBody = tempDiv.querySelector('head');
 			        if (!protectedBody) {
 			            throw new Error('No body content found in protected.html');
 			        }
