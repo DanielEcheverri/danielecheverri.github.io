@@ -22,7 +22,7 @@
 				<button onclick="appendDigit(1)">1</button>
 				<button onclick="appendDigit(2)">2</button>
 				<button onclick="appendDigit(3)">3</button>
-				<button onclick="appendDigit(4)">4</button>
+				<button onclick="appendDigit(4)">4"></button>
 				<button onclick="appendDigit(5)">5</button>
 				<button onclick="appendDigit(6)">6</button>
 				<button onclick="appendDigit(7)">7</button>
@@ -71,7 +71,7 @@
 
 			async function loadProtectedContent() {
 			    try {
-			        const response = await fetch('index.html');
+			        const response = await fetch('protected.html');
 			        if (!response.ok) {
 			            throw new Error('Failed to load content');
 			        }
@@ -82,20 +82,16 @@
 			        tempDiv.innerHTML = html;
 
 			        // Extract the content from the body of protected.html
-			        const protectedBodyContent = tempDiv.querySelector('body');
+			        const protectedBodyContent = tempDiv.querySelector('body').innerHTML;
 
-			        if (protectedBodyContent) {
-			            // Inject the extracted content into the protectedContent div
-			            document.getElementById('protectedContent').innerHTML = protectedBodyContent.innerHTML;
-			            document.getElementById('protectedContent').classList.remove('hidden');
-			            document.querySelector('.container').style.display = 'none'; // Hide password container
+			        // Inject the extracted content into the protectedContent div
+			        document.getElementById('protectedContent').innerHTML = protectedBodyContent;
+			        document.getElementById('protectedContent').classList.remove('hidden');
+			        document.querySelector('.container').style.display = 'none'; // Hide password container
 
-			            // Load the head content
-			            const headContent = tempDiv.querySelector('head').innerHTML;
-			            document.head.innerHTML += headContent;
-			        } else {
-			            throw new Error('No body content found in protected.html');
-			        }
+			        // Append the head content to the current document's head
+			        const headContent = tempDiv.querySelector('head').innerHTML;
+			        document.head.innerHTML += headContent;
 			    } catch (error) {
 			        console.error('Error loading protected content:', error);
 			    }
