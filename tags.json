@@ -3,7 +3,8 @@
 		"12": {
 			"displayText": "Non-narrative",
 			"variable": "noNarrative",
-			"boolean": true
+			"boolean": true,
+			"function": "window.magic1_Sound.play();"
 		},
 		"13": {
 			"displayText": "Narrative",
