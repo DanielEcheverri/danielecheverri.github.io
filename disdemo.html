@@ -81,7 +81,7 @@
 					const html = await response.text();
 
 					// Replace the entire body content
-					document.head.innerHTML = newHead.innerHTML;
+					document.head.innerHTML = html;
 					document.body.innerHTML = html;
 
 					// Parse the loaded HTML to extract and apply head content
