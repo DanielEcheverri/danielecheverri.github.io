@@ -70,39 +70,39 @@
 			}
 
 			async function loadProtectedContent() {
-			    try {
-			        const response = await fetch('index.html');
-			        if (!response.ok) {
-			            throw new Error('Failed to load content');
-			        }
-			        const html = await response.text();
+				try {
+					const response = await fetch('index.html');
+					if (!response.ok) {
+						throw new Error('Failed to load content');
+					}
+					const html = await response.text();
 
-			        // Create a temporary container element
-			        const tempDiv = document.createElement('div');
-			        tempDiv.innerHTML = html;
+					// Create a temporary container element
+					const tempDiv = document.createElement('div');
+					tempDiv.innerHTML = html;
 
-			        // Extract the content from the body of protected.html
-			        const protectedBody = tempDiv.querySelector('head');
-			        if (!protectedBody) {
-			            throw new Error('No body content found in protected.html');
-			        }
-			        const protectedBodyContent = protectedBody.innerHTML;
+					// Extract the content from the body of index.html
+					const indexBody = tempDiv.querySelector('body');
+					if (!indexBody) {
+						throw new Error('No body content found in index.html');
+					}
+					const indexBodyContent = indexBody.innerHTML;
 
-			        // Inject the extracted content into the protectedContent div
-			        document.getElementById('protectedContent').innerHTML = protectedBodyContent;
-			        document.getElementById('protectedContent').classList.remove('hidden');
-			        document.querySelector('.container').style.display = 'none'; // Hide password container
+					// Inject the extracted content into the protectedContent div
+					document.getElementById('protectedContent').innerHTML = indexBodyContent;
+					document.getElementById('protectedContent').classList.remove('hidden');
+					document.querySelector('.container').style.display = 'none'; // Hide password container
 
-			        // Append the head content to the current document's head
-			        const headContent = tempDiv.querySelector('head');
-			        if (headContent) {
-			            document.head.innerHTML += headContent.innerHTML;
-			        } else {
-			            console.warn('No head content found in protected.html');
-			        }
-			    } catch (error) {
-			        console.error('Error loading protected content:', error);
-			    }
+					// Append the head content to the current document's head
+					const headContent = tempDiv.querySelector('head');
+					if (headContent) {
+						document.head.innerHTML += headContent.innerHTML;
+					} else {
+						console.warn('No head content found in index.html');
+					}
+				} catch (error) {
+					console.error('Error loading protected content:', error);
+				}
 			}
 
 			// Clear the current input when the page is loaded
