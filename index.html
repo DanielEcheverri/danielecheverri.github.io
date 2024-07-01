@@ -14,11 +14,6 @@
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
-		<div id="loading-screen">
-			<div class="loader"></div>
-			<p>Loading...</p>
-		</div>
-
 		<!-- Checkbox for Hachi -->
 		<div id="hachiCheckboxContainer">
 			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName()" />
@@ -96,52 +91,6 @@
 				var connecting_Sound = new Howl({src: ['audio/ui_loading.mp3'],
 				onloaderror: function(error) {console.error('Error loading audio:', error);},});
 				var bgm_Sound=new Howl({src:['audio/bgm.mp3'],loop:true,volume:0.3});
-
-				// Function to hide the loading screen
-				function hideLoadingScreen() {
-					var loadingScreen = document.getElementById('loading-screen');
-					loadingScreen.style.display = 'none';
-				}
-
-				// Calculate loading progress
-				function calculateLoadingProgress() {
-					var totalResources = document.getElementsByTagName('*').length; // Total number of elements on the page
-					var loadedResources = 0;
-
-					function resourceLoaded() {
-						loadedResources++;
-						var progress = Math.round((loadedResources / totalResources) * 100);
-						console.log('Loading progress:', progress + '%');
-
-						// Check if loading progress is at least 75%
-						if (progress >= 75) {
-							hideLoadingScreen();
-						}
-					}
-
-					// Event listener for each resource being loaded
-					Array.from(document.getElementsByTagName('*')).forEach(function(element) {
-						element.addEventListener('load', resourceLoaded);
-						element.addEventListener('error', resourceLoaded); // Handle error loading resource
-					});
-
-					// If no resources, hide loading screen immediately
-					if (totalResources === 0) {
-						hideLoadingScreen();
-					}
-				}
-
-				// Event listener for when the page's DOM content is fully loaded
-				document.addEventListener('DOMContentLoaded', function() {
-					console.log('DOM content loaded');
-					calculateLoadingProgress();
-				});
-
-				// Event listener for when the entire page is fully loaded
-				window.onload = function() {
-					console.log('Page fully loaded');
-					calculateLoadingProgress();
-				};
 
 				async function initializeSounds() {
 					try {
