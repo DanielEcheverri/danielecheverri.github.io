@@ -71,35 +71,29 @@
 
 			async function loadProtectedContent() {
 				try {
-					const response = await fetch('index.html');
+					const response = await fetch('protected_content.html');
 					if (!response.ok) {
 						throw new Error('Failed to load content');
 					}
 					const html = await response.text();
 
-					// Create a temporary container element
-					const tempDiv = document.createElement('div');
-					tempDiv.innerHTML = html;
+					// Replace the entire body content
+					document.body.innerHTML = html;
 
-					// Extract the content from the body of index.html
-					const indexBody = tempDiv.querySelector('body');
-					if (!indexBody) {
-						throw new Error('No body content found in index.html');
+					// Parse the loaded HTML to extract and apply head content
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(html, 'text/html');
+					const newHead = doc.querySelector('head');
+
+					if (newHead) {
+						// Replace the existing head content
+						document.head.innerHTML = newHead.innerHTML;
 					}
-					const indexBodyContent = indexBody.innerHTML;
 
-					// Inject the extracted content into the protectedContent div
-					document.getElementById('protectedContent').innerHTML = indexBodyContent;
-					document.getElementById('protectedContent').classList.remove('hidden');
-					document.querySelector('.container').style.display = 'none'; // Hide password container
+					// Reinitialize any necessary scripts or event listeners here
+					// For example:
+					// initializeScripts();
 
-					// Append the head content to the current document's head
-					const headContent = tempDiv.querySelector('head');
-					if (headContent) {
-						document.head.innerHTML += headContent.innerHTML;
-					} else {
-						console.warn('No head content found in index.html');
-					}
 				} catch (error) {
 					console.error('Error loading protected content:', error);
 				}
