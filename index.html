@@ -92,6 +92,40 @@
 				onloaderror: function(error) {console.error('Error loading audio:', error);},});
 				var bgm_Sound=new Howl({src:['audio/bgm.mp3'],loop:true,volume:0.3});
 
+				// Function to check if all MP3 files are loaded
+				function checkIfAllMP3FilesLoaded() {
+					var mp3Files = document.querySelectorAll('#mp3-files audio');
+					var loadedCount = 0;
+
+					function mp3Loaded() {
+						loadedCount++;
+						console.log('Loaded MP3 files:', loadedCount);
+
+						// Check if all MP3 files are loaded
+						if (loadedCount === mp3Files.length) {
+							console.log('Ready');
+							// You can trigger further actions here after all MP3 files are loaded
+						}
+					}
+
+					// Add event listeners for each MP3 file to track when they are loaded
+					mp3Files.forEach(function(mp3) {
+						mp3.addEventListener('canplaythrough', mp3Loaded);
+						mp3.addEventListener('error', mp3Loaded); // Handle error loading MP3 file
+					});
+
+					// If no MP3 files to load, consider them all loaded
+					if (mp3Files.length === 0) {
+						console.log('No MP3 files to load');
+						console.log('Ready');
+					}
+				}
+
+				// Call the function to check if all MP3 files are loaded when DOM content is loaded
+				document.addEventListener('DOMContentLoaded', function() {
+					checkIfAllMP3FilesLoaded();
+				});
+
 				async function initializeSounds() {
 					try {
 						const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
