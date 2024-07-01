@@ -14,6 +14,11 @@
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
+		<div id="loading-screen">
+			<div class="loader"></div>
+			<p>Loading...</p>
+		</div>
+
 		<!-- Checkbox for Hachi -->
 		<div id="hachiCheckboxContainer">
 			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName()" />
@@ -91,6 +96,12 @@
 				var connecting_Sound = new Howl({src: ['audio/ui_loading.mp3'],
 				onloaderror: function(error) {console.error('Error loading audio:', error);},});
 				var bgm_Sound=new Howl({src:['audio/bgm.mp3'],loop:true,volume:0.3});
+
+				window.addEventListener('load', function() {
+					// Page is fully loaded, so hide the loading screen
+					var loadingScreen = document.getElementById('loading-screen');
+					loadingScreen.style.display = 'none';
+				});
 
 				async function initializeSounds() {
 					try {
