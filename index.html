@@ -14,6 +14,11 @@
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
+		<div id="loading-screen">
+			<div class="loader"></div>
+			<p>Loading...</p>
+		</div>
+
 		<!-- Checkbox for Hachi -->
 		<div id="hachiCheckboxContainer">
 			<input type="checkbox" id="hachiCheckbox" onclick="toggleDeviceName()" />
@@ -107,7 +112,8 @@
 
 								// Check if all sounds are loaded
 								if (loadedSounds === totalSounds) {
-									console.log('All audio files loaded');
+									console.log('All sounds loaded');
+									hideLoadingScreen(); // Hide loading screen when all sounds are loaded
 								}
 							}
 
@@ -124,10 +130,18 @@
 							}
 						} else {
 							console.error('Failed to load sounds.');
+							hideLoadingScreen(); // Hide loading screen on failure to load sounds
 						}
 					} catch (error) {
 						console.error('Error initializing sounds:', error);
+						hideLoadingScreen(); // Hide loading screen on error
 					}
+				}
+
+				// Function to hide the loading screen
+				function hideLoadingScreen() {
+					var loadingScreen = document.getElementById('loading-screen');
+					loadingScreen.style.display = 'none';
 				}
 
 				// Event listener for when the page's DOM content is fully loaded
