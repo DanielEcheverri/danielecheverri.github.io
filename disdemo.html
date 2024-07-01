@@ -70,34 +70,47 @@
 			}
 
 			async function loadProtectedContent() {
-				try {
-					const response = await fetch('index.html');
-					if (!response.ok) {
-						throw new Error('Failed to load content');
-					}
-					const html = await response.text();
+			         try {
+			             const response = await fetch('protected.html');
+			             if (!response.ok) {
+			                 throw new Error('Failed to load content');
+			             }
+			             const html = await response.text();
 
-					// Replace the entire body content
-					document.body.innerHTML = html;
+			             // Create a temporary container element
+			             const tempDiv = document.createElement('div');
+			             tempDiv.innerHTML = html;
 
-					// Parse the loaded HTML to extract and apply head content
-					const parser = new DOMParser();
-					const doc = parser.parseFromString(html, 'text/html');
-					const newHead = doc.querySelector('head');
+			             // Extract the content from the body of protected.html
+			             const protectedBody = tempDiv.querySelector('body');
+			             if (!protectedBody) {
+			                 throw new Error('No body content found in protected.html');
+			             }
+			             const protectedBodyContent = protectedBody.innerHTML;
 
-					if (newHead) {
-						// Replace the existing head content
-						document.head.innerHTML = newHead.innerHTML;
-					}
+			             // Inject the extracted content into the protectedContent div
+			             document.getElementById('protectedContent').innerHTML = protectedBodyContent;
+			             document.getElementById('protectedContent').classList.remove('hidden');
+			             document.querySelector('.container').style.display = 'none'; // Hide password container
 
-					// Reinitialize any necessary scripts or event listeners here
-					// For example:
-					// initializeScripts();
+			             // Append the head content to the current document's head
+			             const headContent = tempDiv.querySelector('head');
+			             if (headContent) {
+			                 document.head.innerHTML += headContent.innerHTML;
 
-				} catch (error) {
-					console.error('Error loading protected content:', error);
-				}
-			}
+			                 // Reload external scripts
+			                 headContent.querySelectorAll('script').forEach(script => {
+			                     const newScript = document.createElement('script');
+			                     newScript.src = script.src;
+			                     document.head.appendChild(newScript);
+			                 });
+			             } else {
+			                 console.warn('No head content found in protected.html');
+			             }
+			         } catch (error) {
+			             console.error('Error loading protected content:', error);
+			         }
+			     }
 
 			// Clear the current input when the page is loaded
 			window.addEventListener('DOMContentLoaded', function() {
