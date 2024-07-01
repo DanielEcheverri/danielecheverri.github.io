@@ -230,5 +230,5 @@ input:checked + .slider:before {
 #loading-text {
 	font-weight: bold;
 	text-transform: uppercase;
-	color: #999da0;
+	color: #ffffff;
 }
