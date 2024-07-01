@@ -97,12 +97,33 @@
 				onloaderror: function(error) {console.error('Error loading audio:', error);},});
 				var bgm_Sound=new Howl({src:['audio/bgm.mp3'],loop:true,volume:0.3});
 
-				window.addEventListener('load', function() {
-					// Page is fully loaded, so hide the loading screen
+				function hideLoadingScreen() {
 					var loadingScreen = document.getElementById('loading-screen');
 					loadingScreen.style.display = 'none';
+				}
+
+				// Check if everything is loaded
+				function checkIfEverythingLoaded() {
+					if (document.readyState === 'complete') {
+						// Document and all resources have finished loading
+						hideLoadingScreen();
+					} else {
+						// Document is still loading
+						console.log('Page is still loading');
+					}
+				}
+
+				// Event listener for when the page's DOM content is fully loaded
+				document.addEventListener('DOMContentLoaded', function() {
+					console.log('DOM content loaded');
+					checkIfEverythingLoaded();
 				});
 
+				// Event listener for when the entire page is fully loaded
+				window.onload = function() {
+					console.log('Page fully loaded');
+					checkIfEverythingLoaded();
+				};
 				async function initializeSounds() {
 					try {
 						const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
