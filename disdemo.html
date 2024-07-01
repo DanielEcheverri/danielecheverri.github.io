@@ -81,6 +81,7 @@
 					const html = await response.text();
 
 					// Replace the entire body content
+					document.head.innerHTML = newHead.innerHTML;
 					document.body.innerHTML = html;
 
 					// Parse the loaded HTML to extract and apply head content
@@ -88,10 +89,10 @@
 					const doc = parser.parseFromString(html, 'text/html');
 					const newHead = doc.querySelector('head');
 
-					if (newHead) {
-						// Replace the existing head content
-						document.head.innerHTML = newHead.innerHTML;
-					}
+					// if (newHead) {
+					// 	// Replace the existing head content
+					// 	document.head.innerHTML = newHead.innerHTML;
+					// }
 
 					// Reinitialize any necessary scripts or event listeners here
 					// For example:
