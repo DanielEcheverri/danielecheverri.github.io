@@ -92,60 +92,48 @@
 				onloaderror: function(error) {console.error('Error loading audio:', error);},});
 				var bgm_Sound=new Howl({src:['audio/bgm.mp3'],loop:true,volume:0.3});
 
-				// Function to check if all MP3 files are loaded
-				function checkIfAllMP3FilesLoaded() {
-					var mp3Files = document.querySelectorAll('#mp3-files audio');
-					var loadedCount = 0;
-
-					function mp3Loaded() {
-						loadedCount++;
-						console.log('Loaded MP3 files:', loadedCount);
-
-						// Check if all MP3 files are loaded
-						if (loadedCount === mp3Files.length) {
-							console.log('Ready');
-							// You can trigger further actions here after all MP3 files are loaded
-						}
-					}
-
-					// Add event listeners for each MP3 file to track when they are loaded
-					mp3Files.forEach(function(mp3) {
-						mp3.addEventListener('canplaythrough', mp3Loaded);
-						mp3.addEventListener('error', mp3Loaded); // Handle error loading MP3 file
-					});
-
-					// If no MP3 files to load, consider them all loaded
-					if (mp3Files.length === 0) {
-						console.log('No MP3 files to load');
-						console.log('Ready');
-					}
-				}
-
-				// Call the function to check if all MP3 files are loaded when DOM content is loaded
-				document.addEventListener('DOMContentLoaded', function() {
-					checkIfAllMP3FilesLoaded();
-				});
 
 				async function initializeSounds() {
 					try {
 						const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
 						if (sounds) {
-						for (var key in sounds) {
-							if (sounds.hasOwnProperty(key)) {
-							window[key] = new Howl({
-								src: [sounds[key].src],
-								volume: 0.4, // Set volume to 50% (you can adjust this value as needed)
-								onloaderror: function(error) { console.error('Error loading audio:', error); }
-							});
+							const totalSounds = Object.keys(sounds).length;
+							let loadedSounds = 0;
+
+							// Function to track loaded sounds
+							function soundLoaded() {
+								loadedSounds++;
+								console.log('Loaded sounds:', loadedSounds);
+
+								// Check if all sounds are loaded
+								if (loadedSounds === totalSounds) {
+									console.log('All audio files loaded');
+								}
 							}
-						}
+
+							// Initialize each sound using Howler
+							for (const key in sounds) {
+								if (sounds.hasOwnProperty(key)) {
+									window[key] = new Howl({
+										src: [sounds[key].src],
+										volume: 0.4,
+										onload: soundLoaded, // Call soundLoaded() when sound is loaded successfully
+										onloaderror: function(error) { console.error('Error loading audio:', error); }
+									});
+								}
+							}
 						} else {
-						console.error('Failed to load sounds.');
+							console.error('Failed to load sounds.');
 						}
 					} catch (error) {
 						console.error('Error initializing sounds:', error);
 					}
 				}
+
+				// Event listener for when the page's DOM content is fully loaded
+				document.addEventListener('DOMContentLoaded', function() {
+					initializeSounds();
+				});
 
 				var listenClient = null;
 
