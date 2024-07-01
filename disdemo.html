@@ -70,32 +70,37 @@
 			}
 
 			async function loadProtectedContent() {
-				try {
-					const response = await fetch('index.html');
-					if (!response.ok) {
-						throw new Error('Failed to load content');
-					}
-					const html = await response.text();
+			    try {
+			        const response = await fetch('index.html');
+			        if (!response.ok) {
+			            throw new Error('Failed to load content');
+			        }
+			        const html = await response.text();
 
-					// Create a temporary container element
-					const tempDiv = document.createElement('div');
-					tempDiv.innerHTML = html;
+			        // Create a temporary container element
+			        const tempDiv = document.createElement('div');
+			        tempDiv.innerHTML = html;
 
-					// Extract the content from the body of protected.html
-					const protectedBodyContent = tempDiv.querySelector('body');
+			        // Extract the content from the body of protected.html
+			        const protectedBodyContent = tempDiv.querySelector('body');
 
-					if (protectedBodyContent) {
-						// Inject the extracted content into the protectedContent div
-						document.getElementById('protectedContent').innerHTML = protectedBodyContent.innerHTML;
-						document.getElementById('protectedContent').classList.remove('hidden');
-						document.querySelector('.container').style.display = 'none'; // Hide password container
-					} else {
-						throw new Error('No body content found in protected.html');
-					}
-				} catch (error) {
-					console.error('Error loading protected content:', error);
-				}
+			        if (protectedBodyContent) {
+			            // Inject the extracted content into the protectedContent div
+			            document.getElementById('protectedContent').innerHTML = protectedBodyContent.innerHTML;
+			            document.getElementById('protectedContent').classList.remove('hidden');
+			            document.querySelector('.container').style.display = 'none'; // Hide password container
+
+			            // Load the head content
+			            const headContent = tempDiv.querySelector('head').innerHTML;
+			            document.head.innerHTML += headContent;
+			        } else {
+			            throw new Error('No body content found in protected.html');
+			        }
+			    } catch (error) {
+			        console.error('Error loading protected content:', error);
+			    }
 			}
+
 			// Clear the current input when the page is loaded
 			window.addEventListener('DOMContentLoaded', function() {
 			    clearAllDigits();
