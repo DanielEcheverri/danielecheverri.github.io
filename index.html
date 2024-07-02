@@ -1089,59 +1089,46 @@
 
 				let previousCheckpointKey = null;
 				let previousChkPointDistance = null;
+				let previousCheckpoint = null; // Define previousCheckpoint as a global variable
 
 				async function checkCheckpoints() {
-					//console.debug("Checking checkpoint");
 					const radius = 10; // 10 meters radius
 					let checkpointsKey = deviceName === "hachi_BT" ? "hachi_checkpoints" : "avatar_checkpoints";
 
-					// Load checkpoints from the JSON file
 					const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
-					// Ensure locations is an array and not empty
 					if (Array.isArray(locations) && locations.length > 0) {
 						const checkpoints = locations[0][checkpointsKey];
 
-						// Ensure checkpoints is an object
 						if (typeof checkpoints === 'object' && checkpoints !== null) {
 							const checkpointKeys = Object.keys(checkpoints);
 
-							// Ensure lastCheckedIndex is within bounds
 							if (lastCheckedIndex < checkpointKeys.length) {
 								const currentCheckpointKey = checkpointKeys[lastCheckedIndex];
-								//console.log('Current Checkpoint Set:', currentCheckpointKey);
-
-								// Process checkpoints within the current set
 								const checkpointSet = checkpoints[currentCheckpointKey];
-
-								// Reset the global chkPointDistance array before processing a new set
 								chkPointDistance = [];
 
 								for (const checkpoint of checkpointSet) {
 									const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-									chkPointDistance.push(distance.toFixed(2)); // Store each distance in the array
-									//console.log('Checkpoint Latitude:', checkpoint.latitude, 'Checkpoint Longitude:', checkpoint.longitude, 'Distance:', distance.toFixed(2));
+									chkPointDistance.push(distance.toFixed(2));
 
-									if (distance <= radius) {
+									if (distance <= radius && checkpoint.text !== previousCheckpoint) {
 										console.log('Checkpoint reached:', checkpoint.text);
 										currentCheckpoint = checkpoint.text;
 										window.success_Sound.play();
-										lastCheckedIndex++; // Move to the next key
-										// Reset the global chkPointDistance array for a new set
+										lastCheckedIndex++;
+										previousCheckpoint = checkpoint.text; // Update previous checkpoint text
 										chkPointDistance = [];
-										return; // Exit the function when a checkpoint is reached
+										return;
 									}
 								}
-								//console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
 
-								// Check if there is a change in currentCheckpointKey or chkPointDistance
 								const isCheckpointKeyChanged = previousCheckpointKey !== currentCheckpointKey;
 								const isChkPointDistanceChanged = JSON.stringify(previousChkPointDistance) !== JSON.stringify(chkPointDistance);
 
 								if (isCheckpointKeyChanged || isChkPointDistanceChanged) {
 									console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
 
-									// Update the previous values to the current values
 									previousCheckpointKey = currentCheckpointKey;
 									previousChkPointDistance = JSON.parse(JSON.stringify(chkPointDistance));
 								}
