@@ -1313,27 +1313,32 @@ console.log(variables().hachi_comment);
           &lt;&lt;/script&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="hachi_tram" tags="" position="1200,900" size="100,200">&lt;&lt;liveblock&gt;&gt;
-  &lt;&lt;if $hachi_tag == 23&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="hachi_stairs" tags="" position="1200,900" size="100,200">&lt;&lt;set $hachi_passage to &quot;hachi_stairs/Hachi is now at the old shop... can you see Mr. Al-Mansouri?/crowd1/&quot;&gt;&gt;
+&lt;&lt;liveblock&gt;&gt;
+  &lt;&lt;if $hachi_tag == 25&gt;&gt;
       &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
-          &lt;&lt;include&quot;hachi_tram_1&quot;&gt;&gt;
+          &lt;&lt;include&quot;hachi_stairs_1&quot;&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
    &lt;&lt;/if&gt;&gt;
- &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="hachi_fountain" tags="" position="1450,900" size="100,200">&lt;&lt;set $hachi_passage to &quot;Fountain&quot;&gt;&gt;
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="hachi_fountain" tags="" position="1450,900" size="100,200">&lt;&lt;set $hachi_passage to &quot;hachi_stairs/Hachi is now by the park... where is Ms. Novakova?/fountain/&quot;&gt;&gt;
+
+&lt;&lt;set $hachi_passage to &quot;Fountain&quot;&gt;&gt;
 &lt;&lt;liveblock&gt;&gt;
  &lt;&lt;if $hachi_tag == 24&gt;&gt;
       &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
           &lt;&lt;include&quot;hachi_fountain_1&quot;&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
    &lt;&lt;/if&gt;&gt;
- &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="avatar_bakery" tags="" position="2625,900" size="100,200">&lt;&lt;liveblock&gt;&gt;
-  &lt;&lt;if $avatar_tag == 23&gt;&gt;
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="avatar_bakery" tags="" position="2625,900" size="100,200">&lt;&lt;set $avatar_passage to &quot;avatar_church/Buro is now by the bakery... where is Ms. Lopez?/f_aha/&quot;&gt;&gt;
+&lt;&lt;liveblock&gt;&gt;
+  &lt;&lt;if $avatar_tag == 27&gt;&gt;
       &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
           &lt;&lt;include&quot;avatar_bakery_1&quot;&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
    &lt;&lt;/if&gt;&gt;
- &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="avatar_church" tags="" position="2375,900" size="100,200">&lt;&lt;liveblock&gt;&gt;
-  &lt;&lt;if $avatar_tag == 23&gt;&gt;
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="avatar_church" tags="" position="2375,900" size="100,200">&lt;&lt;set $avatar_passage to &quot;avatar_church/Buro is at the church... where is Father Kent?/church2/&quot;&gt;&gt;
+&lt;&lt;liveblock&gt;&gt;
+  &lt;&lt;if $avatar_tag == 26&gt;&gt;
       &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
           &lt;&lt;include&quot;avatar_church_1&quot;&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
@@ -1397,60 +1402,62 @@ $avatar_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
-</tw-passagedata><tw-passagedata pid="20" name="hachi_tram_2" tags="" position="950,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_tram2_00/Leo gave Hachi a small pat in his head/m_compliment/&quot;&gt;&gt;
-
+</tw-passagedata><tw-passagedata pid="20" name="hachi_stairs_2" tags="" position="950,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_stairs2_00/Hachi notices Mr. Al Mansouri candy stall at the old building, captivated the intense colour of the falcon standing on his shoulder./falcon/&quot;&gt;&gt;
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram2_00false&quot; and $hachi_part_mov == &quot;tail&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_tram2_01/Hachi greets Leo wagging his tail and eager barks, happy to see a familiar face. Somehow it was like Hachi was trying to say: &#39;Hi, Leo! I&#39;m looking for Buro. Have you seen him today?&#39;/talking1/&quot;&gt;&gt;
-&lt;&lt;set $hachi_nextAct to true&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs2_00false&quot; and $hachi_part_mov == &quot;tail&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_stairs2_01/Mr. Al Mansouri: &#39;Welcome, little friend! Sit with us and hear tales of adventure on the high seas. Once upon a time, in the heart of the Gulf Sea...&#39;/gulls/&quot;&gt;&gt;
+  &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram2_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_part_mov !== &quot;tail&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs2_00false&quot;&gt;&gt;
+  &lt;&lt;if $hachi_part_mov !==&quot;tail&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
 	&lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_tram2_01false&quot; &gt;&gt;
-    &lt;&lt;set $hachi_nextAct to false&gt;&gt;
-    &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
-  		&lt;&lt;include&quot;hachi_tram_3&quot;&gt;&gt;
-  &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;&lt;/liveblock&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="hachi_tram_1" tags="" position="950,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_tram1_00/Hachi arrives at the tram stop, where he encounters a friendly tram conductor named Leo. He always shares stories about Buro&#39;s daily commute and how he always boards the tram at the same time each morning./tram/&quot;&gt;&gt;
-
-&lt;&lt;liveblock&gt;&gt;
-$hachi_passage
-
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram1_00false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_tram1_01/Hachi sniffs the air, detecting the approach of Leo, the friendly tram conductor whose shift was ending.
-After getting of the tram, Leo said to Hachi, &#39;Well, well, if it isn&#39;t Hachi! What&#39;s got your nose twitching today, buddy?&#39;/m_talk2/&quot;&gt;&gt;
-&lt;&lt;set $hachi_nextAct to true&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram1_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_movement !== &quot;Sniffing&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
-	&lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
-  &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_tram1_01false&quot; &gt;&gt;
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_stairs2_01false&quot; &gt;&gt;
   &lt;&lt;set $hachi_nextAct to false&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
-  		&lt;&lt;include&quot;hachi_tram_2&quot;&gt;&gt;
+  		&lt;&lt;include&quot;hachi_stairs_3&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;/liveblock&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="hachi_tram_4" tags="" position="1075,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="hachi_stairs_1" tags="" position="950,875" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_stairs1_00/Hachi climbs the stairs of an old building, where he encounters Mr. Al Mansouri and his companion Blue, the flightless falcon. Mr. Al Mansouri, and old Emirati sailor, shares stories about Buro&#39;s visits to the building&#39;s convenience store, where he buys a pack of gum and engages in conversations about the sea stories. Blue interjects with squawks of agreement, adding to the lively conversation./fastfood/&quot;&gt;&gt;
+
+&lt;&lt;liveblock&gt;&gt;
+$hachi_passage
+
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_00false&quot; and $hachi_tag == 25&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_stairs1_01/Hachi explores the area around the old building, sniffing for any familiar scents or signs of Buro&#39;s presence. He sees a wrapper and grabs it with his mouth.//&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_01false&quot; and $hachi_movement == &quot;Grabbing something&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_stairs1_02/Hachi thought for himself: &#39;Let&#39;s check around here. Maybe I can follow this trail of gum wrappers trail!&#39;/sniffing/&quot;&gt;&gt;
+&lt;&lt;set $hachi_nextAct to true&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs1_01false&quot;&gt;&gt;
+  &lt;&lt;if $hachi_movement !== &quot;Grabbing something&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
+	&lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_stairs1_02false&quot; &gt;&gt;
+  &lt;&lt;set $hachi_nextAct to false&gt;&gt;
+    &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+  		&lt;&lt;include&quot;hachi_stairs_2&quot;&gt;&gt;
+  &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;/liveblock&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="hachi_stairs_4" tags="" position="1075,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_turn = $hachi_turn+1&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_tram4_00/Leo remembers Hachi and Buro’s friendship and tells Hachi about Lina, the bank teller and Ms. Novakova at the fountain./m_talk4/&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_stairs4_00/As Mr. Al Mansouri continues his story, he notices Hachi&#39;s anxious behavior and realizes that Buro is not with him./m_intrigued/&quot;&gt;&gt;
 
 &lt;&lt;if $hachi_turn == 3&gt;&gt;
 &lt;&lt;set $hachi_bank to &quot;Or you can also visit the bank. It recently opened&quot;&gt;&gt;
@@ -1461,47 +1468,47 @@ After getting of the tram, Leo said to Hachi, &#39;Well, well, if it isn&#39;t H
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram4_00false&quot; and ($hachi_movement == &quot;Barking&quot; || $hachi_movement == &quot;Sniffing&quot; || $hachi_part_mov == &quot;tail&quot;)&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_tram4_01/You and Buro make quite the pair, Hachi. You know, I&#39;ve seen him chatting with Mr. Al Mansouri. Maybe you should go check there! Or maybe you can visit Mrs. Novakova near the fountain, I am sure she might have seen him too.&quot;+$hachi_bank/&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs4_00false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_stairs4_01/Mr. Al Mansouri said: &#39;Wait a moment... Where&#39;s your friend, Buro? I usually see you two together. Ah, I see. Well then, perhaps you should visit the fountain or the tram stop. Someone there may have seen him today.&#39;&quot;+$hachi_bank/&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram4_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_movement !== &quot;Barking&quot; and $hachi_movement !== &quot;Sniffing&quot; and $hachi_part_mov !== &quot;tail&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs4_00false&quot;&gt;&gt;
+  &lt;&lt;if $hachi_movement !==&quot;Sniffing&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
 	&lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_tram4_01false&quot; &gt;&gt;
-	    &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_stairs4_01false&quot; &gt;&gt;
+  &lt;&lt;set $hachi_nextAct to false&gt;&gt;
+    &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
-  &lt;&lt;set $hachi_nextAct to false&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;/liveblock&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="hachi_tram_3" tags="" position="1075,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_tram3_00/Leo then puts his hand in his pocket; Hachi knows what this means.../m_aha/&quot;&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="hachi_stairs_3" tags="" position="1075,875" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_stairs3_00/Hachi attempts to mimic Blue&#39;s squawks, adding to the lively conversation and earning a laugh from Mr. Al Mansouri./m_cheeree/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram3_00false&quot; and $hachi_movement == &quot;Barking&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_tram3_01/Leo notices Hachi&#39;s responsiveness and rewards him with a tasty treat from his pocket. &#39;Here you go, Hachi! A little snack for being such a good boy. Now, where&#39;s your buddy?&#39;/m_giftgiver/&quot;&gt;&gt;
-&lt;&lt;set $hachi_nextAct to true&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs3_00false&quot; and $hachi_movement == &quot;Barking&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_stairs3_01/Hachi barks! &#39;Squawk! Squawk! Like this, Blue? Hehe!, Hachi thought to himself&#39;/barking2/&quot;&gt;&gt;
+  &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram3_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_movement !== &quot;Barking&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs3_00false&quot;&gt;&gt;
+  &lt;&lt;if $hachi_movement !==&quot;Barking&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
 	&lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_tram3_01false&quot; &gt;&gt;
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_stairs3_01false&quot; &gt;&gt;
+  &lt;&lt;set $hachi_nextAct to false&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
-  		&lt;&lt;include&quot;hachi_tram_4&quot;&gt;&gt;
+  		&lt;&lt;include&quot;hachi_stairs_4&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
-   &lt;&lt;set $hachi_nextAct to false&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;/liveblock&gt;&gt;
@@ -1995,7 +2002,7 @@ console.log(variables().avatar_comment);
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-&lt;&lt;if $avatar_checkpoint == &quot;Checkpoint 1A&quot;&gt;&gt;
+&lt;&lt;if $avatar_checkpoint == &quot;avatar_statue&quot;&gt;&gt;
   &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   	&lt;&lt;include &quot;avatar_act1_1&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -2039,7 +2046,7 @@ $hachi_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_02false&quot; and $avatar_movement !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he manouver and jump around the crowd? Or should just look at the people until the &quot; + $avatar_t_type+&quot; leaves?//&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_act1_03/What should Buro do? Should he maneuver and jump around the crowd? Or should just look at the people until the &quot; + $avatar_t_type+&quot; leaves?//&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_act1_03false&quot;&gt;&gt;
@@ -2308,6 +2315,9 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
             &lt;&lt;include &quot;avatar_church&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/if&gt;&gt;
+    
+    
+    
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;

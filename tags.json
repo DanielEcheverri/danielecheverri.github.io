@@ -21,10 +21,16 @@
 			"function": "window.f_sing_Sound.play();"
 		},
 		"24": {
-			"function": "window.m_aha_Sound.play();"
+			"function": "if(noNarrative){displayText('This is Ms. Novakova');window.f_aha_Sound.play();}"
 		},
 		"25": {
-			"function": "window.f_giftgiver_Sound.play();"
+			"function": "if(noNarrative){displayText('This is Mr. Al-mansouri');window.m_aha_Sound.play();}"
+		},
+		"26": {
+			"function": "if(noNarrative){displayText('This is Father Kent');window.m_aha_Sound.play();}"
+		},
+		"27": {
+			"function": "if(noNarrative){displayText('This is Ms. Lopez');window.f_aha_Sound.play();}"
 		}
 	}
 }
