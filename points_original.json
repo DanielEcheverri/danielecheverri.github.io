@@ -1,0 +1,196 @@
+[
+	{
+		"hachi_checkpoints": {
+			"checkpoint_1": [
+				{
+					"latitude": 49.1945,
+					"longitude": 16.6005,
+					"text": "hachi_test_1A"
+				},
+				{
+					"latitude": 49.1918,
+					"longitude": 16.6005,
+					"text": "hachi_test_1B"
+				},
+				{
+					"latitude": 49.1984,
+					"longitude": 16.6046,
+					"text": "hachi_statue"
+				}
+			],
+			"checkpoint_2": [
+				{
+					"latitude": 49.1945,
+					"longitude": 16.6005,
+					"text": "hachi_test_1A"
+				},
+				{
+					"latitude": 49.1918,
+					"longitude": 16.6005,
+					"text": "hachi_test_1B"
+				},
+				{
+					"latitude": 49.1976,
+					"longitude": 16.6065,
+					"text": "hachi_tram"
+				},
+				{
+					"latitude": 49.1983,
+					"longitude": 16.6057,
+					"text": "hachi_stairs"
+				},
+				{
+					"latitude": 49.19748,
+					"longitude": 16.6071,
+					"text": "hachi_fountain"
+				}
+			],
+			"checkpoint_3": [
+				{
+					"latitude": 49.19231,
+					"longitude": 16.60494,
+					"text": "hachi_test_3A"
+				},
+				{
+					"latitude": 49.21015,
+					"longitude": 16.59891,
+					"text": "hachi_test_3B"
+				},
+				{
+					"latitude": 49.1976,
+					"longitude": 16.6065,
+					"text": "hachi_tram"
+				},
+				{
+					"latitude": 49.1983,
+					"longitude": 16.6057,
+					"text": "hachi_stairs"
+				},
+				{
+					"latitude": 49.19748,
+					"longitude": 16.6071,
+					"text": "hachi_fountain"
+				}
+			],
+			"checkpoint_4": [
+				{
+					"latitude": 49.19231,
+					"longitude": 16.60494,
+					"text": "Hachi Checkpoint 3A"
+				},
+				{
+					"latitude": 49.21015,
+					"longitude": 16.59891,
+					"text": "Hachi Checkpoint 3B"
+				},
+				{
+					"latitude": 49.1976,
+					"longitude": 16.6065,
+					"text": "hachi_tram"
+				},
+				{
+					"latitude": 49.1983,
+					"longitude": 16.6057,
+					"text": "hachi_stairs"
+				},
+				{
+					"latitude": 49.19748,
+					"longitude": 16.6071,
+					"text": "hachi_fountain"
+				}
+			],
+			"checkpoint_5": [
+				{
+					"latitude": 49.19231,
+					"longitude": 16.60494,
+					"text": "Hachi Checkpoint 3A"
+				},
+				{
+					"latitude": 49.21015,
+					"longitude": 16.59891,
+					"text": "Hachi Checkpoint 3B"
+				},
+				{
+					"latitude": 49.1973,
+					"longitude": 16.6054,
+					"text": "hachi_bank"
+				}
+			],
+			"checkpoint_6": [
+				{
+					"latitude": 49.19231,
+					"longitude": 16.60494,
+					"text": "Hachi Checkpoint 3A"
+				},
+				{
+					"latitude": 49.21015,
+					"longitude": 16.59891,
+					"text": "Hachi Checkpoint 3B"
+				},
+				{
+					"latitude": 49.19704,
+					"longitude": 16.60385,
+					"text": "hachi_garden"
+				}
+			]
+		},
+		"avatar_checkpoints": {
+			"checkpoint_1": [
+				{
+					"latitude": 49.1945,
+					"longitude": 16.6005,
+					"text": "avatar_test_1A"
+				},
+				{
+					"latitude": 49.1918,
+					"longitude": 16.6005,
+					"text": "avatar_test_1B"
+				},
+				{
+					"latitude": 49.1973,
+					"longitude": 16.6054,
+					"text": "avatar_bank"
+				},
+				{
+					"latitude": 49.1979,
+					"longitude": 16.6051,
+					"text": "avatar_tobacco"
+				},
+				{
+					"latitude": 49.1974,
+					"longitude": 16.6033,
+					"text": "avatar_church"
+				},
+				{
+					"latitude": 49.1982,
+					"longitude": 16.6051,
+					"text": "avatar_bakery"
+				}
+			],
+			"checkpoint_2": [
+				{
+					"latitude": 49.1918,
+					"longitude": 16.6005,
+					"text": "Checkpoint 2A"
+				},
+				{
+					"latitude": 49.2105,
+					"longitude": 16.598,
+					"text": "Checkpoint 2B"
+				}
+			],
+			"checkpoint_3": [
+				{
+					"latitude": 49.195,
+					"longitude": 16.602,
+					"text": "Checkpoint 3A"
+				},
+				{
+					"latitude": 49.2107,
+					"longitude": 16.5989,
+					"text": "Checkpoint 3B"
+				}
+			]
+		}
+	}
+]
