@@ -1392,7 +1392,6 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_act2_01false&quot;&gt;&gt;
- &lt;&lt;set $avatar_passage to &quot;avatar_act2_02/And so, Buro starts walking again.//&quot;&gt;&gt;
     &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2_transition&quot;&gt;&gt;
         &lt;&lt;set $hachi_nextAct to false&gt;&gt;
@@ -2167,6 +2166,7 @@ if (window.$avatar_comment !== window._prevAvatarComment) {
     writeToAvatar(&#39;avatar_passage&#39;, passage_temp);
 }
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="hachi_act2_transition" tags="" position="1325,1175" size="100,100">&lt;&lt;nobr&gt;&gt;
+ &lt;&lt;set $hachi_passage to &quot;hachi_act2_trans/And so, Hachi started walking again.//&quot;&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
 
@@ -2292,6 +2292,7 @@ if (atLeastOneEqualTo20) {
 }
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="avatar_act2_transition" tags="" position="2500,1175" size="100,100">&lt;&lt;nobr&gt;&gt;
+ &lt;&lt;set $avatar_passage to &quot;avatar_act2_trans/And so, Buro started walking again.//&quot;&gt;&gt;
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 
