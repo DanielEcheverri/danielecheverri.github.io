@@ -12,10 +12,10 @@
 			"boolean": false
 		},
 		"22": {
-			"function": "if(noNarrative){displayText('This is Hachi.');window.talking4_Sound.play();}"
+			"function": "if(noNarrative){displayText('This is Buro.');window.m_aha4_Sound.play();}"
 		},
 		"21": {
-			"function": "if(noNarrative){displayText('This is Buro.');window.m_aha_Sound.play();}"
+			"function": "if(noNarrative){displayText('This is Hachi.');window.talking4_Sound.play();}"
 		},
 		"23": {
 			"function": "window.f_sing_Sound.play();"
