@@ -2336,25 +2336,17 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 
-	&lt;&lt;if $avatar_tag == 26&gt;&gt;
- 	  &lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
-      &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
-          &lt;&lt;include&quot;avatar_church_1&quot;&gt;&gt;
-    &lt;&lt;/replace&gt;&gt;
-   &lt;&lt;/if&gt;&gt;
-   
-    &lt;&lt;if $avatar_tag == 27&gt;&gt;
- 	  &lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
-      &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
-          &lt;&lt;include&quot;avatar_bakery_1&quot;&gt;&gt;
-    &lt;&lt;/replace&gt;&gt;
-   &lt;&lt;/if&gt;&gt;
-   
-   &lt;&lt;if $avatar_tag !== 27 and $avatar_tag !== 26&gt;&gt;
-   &lt;&lt;if $avatar_tag !== 0 &gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_wrong/This does not seem to be the bakery or the church, Buro said a bit confused/m_intrigued/&quot;&gt;&gt;
-   &lt;&lt;/if&gt;&gt;
-   &lt;&lt;/if&gt;&gt;
+&lt;&lt;if $avatar_tag == 26 or $avatar_tag == 27&gt;&gt;
+  &lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
+  &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
+    &lt;&lt;include `avatar_${$avatar_tag == 26 ? &#39;church&#39; : &#39;bakery&#39;}_1`&gt;&gt;
+  &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $avatar_tag !== 27 and $avatar_tag !== 26 and $avatar_tag !== 0&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_wrong/This does not seem to be the bakery or the church, Buro said a bit confused/m_intrigued/&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
    
 &lt;&lt;/liveblock&gt;&gt;
 
