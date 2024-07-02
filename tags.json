@@ -11,7 +11,7 @@
 			"variable": "noNarrative",
 			"boolean": false
 		},
-		"2": {
+		"20": {
 			"function": "if(noNarrative){displayText('This is Hachi');window.talking4_Sound.play();}"
 		},
 		"21": {
