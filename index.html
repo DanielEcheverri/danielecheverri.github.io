@@ -907,6 +907,8 @@
 					return text.split('').map(char => transliterationMap[char] || char).join('');
 				}
 
+				let currentSound = null;
+
 				async function speakMessage(fullMessage) {
 					// Transliterate the message to contain only English alphabet characters
 					const transliteratedMessage = transliterate(fullMessage);
@@ -923,7 +925,7 @@
 						return;
 					}
 
-					if (transliteratedMessage==="") {
+					if (transliteratedMessage === "") {
 						console.log("Empty text, message ignored.");
 						return;
 					}
@@ -956,7 +958,13 @@
 						const audioBlob = await response.blob();
 						const audioUrl = URL.createObjectURL(audioBlob);
 
-						// Create a Howler.js sound object
+						// Stop the current sound if it is playing
+						if (currentSound) {
+							currentSound.stop();
+							currentSound.unload();
+						}
+
+						// Create a new Howler.js sound object
 						const sound = new Howl({
 							src: [audioUrl],
 							format: ['wav'], // Specify the format here
@@ -964,8 +972,8 @@
 							onplay: () => {
 								console.log("Currently speaking");
 								speaking = true;
-								messageID=messageID_tmp;
-								oldMessageID=messageID;
+								messageID = messageID_tmp;
+								oldMessageID = messageID;
 								lastSpokenMessage = transliteratedMessage;
 							},
 							onend: () => {
@@ -978,13 +986,18 @@
 										playAction = false; // Reset playAction to false
 									}, 1000); // Delay of 2000 milliseconds (2 seconds)
 								}
+								currentSound = null; // Reset currentSound when finished
 							},
 							onloaderror: (id, err) => {
 								console.error("Audio playback error:", err);
 								speaking = false;
 								sound.unload(); // Unload the audio object to free up resources
+								currentSound = null; // Reset currentSound on error
 							},
 						});
+
+						// Set the current sound to the new sound object
+						currentSound = sound;
 
 						sound.play();
 
