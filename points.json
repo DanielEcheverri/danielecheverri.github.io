@@ -3,8 +3,8 @@
 		"hachi_checkpoints": {
 			"checkpoint_1": [
 				{
-					"latitude": 55.659653,
-					"longitude": 12.591121,
+					"latitude": 55.659246,
+					"longitude": 12.590717,
 					"text": "hachi_statue"
 				}
 			],
@@ -36,8 +36,8 @@
 		"avatar_checkpoints": {
 			"checkpoint_1": [
 				{
-					"latitude": 55.659653,
-					"longitude": 12.591121,
+					"latitude": 55.659246,
+					"longitude": 12.590717,
 					"text": "avatar_statue"
 				}
 			],
