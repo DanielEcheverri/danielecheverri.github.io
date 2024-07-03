@@ -248,10 +248,10 @@
 							// Update UI
 							document.getElementById("connectButton").innerHTML = '<span class="material-icons" style="vertical-align: middle;">bluetooth_connected</span> Disconnect Avatar';
 							isConnected = true;
-							setTimeout(function() {
+							//setTimeout(function() {
 								startDetectMovement = true;
 								blueToothStatus = "Online";
-							}, 4000);
+							//}, 4000);
 						} else {
 							// Disconnect from the device
 							await characteristic.stopNotifications();
