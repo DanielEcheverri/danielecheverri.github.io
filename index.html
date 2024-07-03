@@ -960,6 +960,7 @@
 
 						// Stop the current sound if it is playing
 						if (currentSound) {
+							console.log(CurrentSound + "is already playing");
 							currentSound.stop();
 							currentSound.unload();
 						}
