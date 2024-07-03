@@ -776,9 +776,9 @@
 					var delimiterIndex = message.indexOf("/"); // Find the index of the first delimiter "/"
 
 					// Check if speaking is true, if so, exit early.
-					if (speaking) {
-						return;
-					}
+					// if (speaking) {
+					// 	return;
+					// }
 
 					if (delimiterIndex !== -1) { // Check if the first delimiter exists
 						messageID_tmp = message.substring(0, delimiterIndex); // Store the message ID
