@@ -254,10 +254,8 @@
 							// Update UI
 							document.getElementById("connectButton").innerHTML = '<span class="material-icons" style="vertical-align: middle;">bluetooth_connected</span> Disconnect Avatar';
 							isConnected = true;
-							//setTimeout(function() {
 								startDetectMovement = true;
 								blueToothStatus = "Online";
-							//}, 4000);
 						} else {
 							// Disconnect from the device
 							await characteristic.stopNotifications();
@@ -269,6 +267,7 @@
 								startDetectMovement = false;
 								potValues = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 								blueToothStatus = "Offline";
+								bgm_Sound.stop();
 							}, 4000);
 						}
 					} catch (error) {
