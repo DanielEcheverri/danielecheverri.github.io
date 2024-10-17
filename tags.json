@@ -36,10 +36,10 @@
 			"function": "if(noNarrative){displayText('This is Mr. Wei, the merchant of spices');window.f_aha_Sound.play();}"
 		},
 		"29": {
-			"function": "if(noNarrative){displayText('This is Leo, the tram conductor.');window.f_aha_Sound.play();}"
+			"function": "if(noNarrative){displayText('This is Leo, the tram conductor.');window.tram_Sound.play();}"
 		},
 		"30": {
-			"function": "if(noNarrative){displayText('This is Ms. Suarez, the bank teller.');window.f_aha_Sound.play();}"
+			"function": "if(noNarrative){displayText('This is Ms. Suarez, the bank teller.');window.f_sing_Sound.play();}"
 		}
 	}
 }
