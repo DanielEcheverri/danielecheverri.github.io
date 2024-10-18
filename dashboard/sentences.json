@@ -156,5 +156,29 @@
 		"sentence8": "No effect from that movement. Maybe a different one?",
 		"sentence9": "Nothing happened. Let's try another action.",
 		"sentence10": "No reaction to $avatar_movement. Let's experiment with a different gesture."
+	},
+	"hachi_waits": {
+		"wait1": "At the $hachi_t_stop transit stop, close to the garden, Hachi sniffed the air and listened closely, hoping to catch the sound of Buro’s footsteps echoing through.",
+		"wait2": "Pausing at the $hachi_t_type stop, Hachi looked down $hachi_street street and up at the $hachi_heading facing trees, hoping to spot Buro’s familiar silhouette.",
+		"wait3": "Hachi darted across $hachi_street street, his $hachi_walking_speed pace quickened by the scent of Buro’s trail, now faintly mingling with the breeze.",
+		"wait4": "The sound of leaves crunching near the $hachi_t_type stop made Hachi pause, his ears perking as he searched for Buro along the winding $hachi_street street.",
+		"wait5": "Hachi sniffed the air, standing by $hachi_t_stop $hachi_t_type stop as the light dimmed and the $storyWeather growing more humid, masking Buro’s familiar scent.",
+		"wait6": "Hachi trotted heading $hachi_heading, his nose to the ground, tracing Buro’s scent as the $storyWeather turned from calm to blustery.",
+		"wait7": "Moving cautiously along $hachi_street street, Hachi's ears twitched, listening to the sound of Buro's footsteps echoing near the broken $hachi_amenity.",
+		"wait8": "As the $storyWeather shifted to cooler air, Hachi quickened his $hachi_walking_speed trot, weaving through the bushes, desperate to find Buro.",
+		"wait9": "With his $hachi_walking_speed pace, Hachi paused for a moment, sniffing around $hachi_street street where Buro had last passed.",
+		"wait10": "As the $storyTime light faded, Hachi stood at the entrance of the garde close to $hachi_t_stop $hachi_t_type stop, glancing one last time."
+	},
+	"avatar_waits": {
+		"wait1": "In the fading light of the $storyTime, Buro hurried along the $avatar_street street path, his eyes scanning the trees for any sign of Hachi.",
+		"wait2": "The $storyWeather shifted suddenly, rustling the bushes as Buro moved cautiously along $avatar_street street, calling Hachi’s name.",
+		"wait3": "With each step through the $avatar_street street, Buro felt the weight of the search, the $storyTime light growing dimmer as the sky turned $storyWeather.",
+		"wait4": "Buro crouched near the $avatar_amenity, the $storyTime sky casting long shadows as he strained to hear Hachi’s movements near the $avatar_t_stop $avatar_t_type stop.",
+		"wait5": "As the $storyTime grew colder, Buro wrapped his arms around himself, stepping quickly through the garden, his eyes scanning the $storyNeighborhood area for Hachi.",
+		"wait6": "Buro slowed his pace near a fountain, squinting through the $storyTime light at the trees.",
+		"wait7": "At the edge of the garden, Buro stood still, the $storyWeather shifting once more, rustling the trees as he called for Hachi.",
+		"wait8": "With $avatar_walking_speed decreasing as fatigue set in, Buro paused near the $avatar_amenity, the $storyTime sky now casting an eerie glow on the garden.",
+		"wait9": "The distant sound of water trickling from a fountain made Buro stop and listen, his eyes shifting toward the $avatar_street street garden where Hachi might be.",
+		"wait10": "Buro took a deep breath, the $storyWeather breeze stirring the leaves around him as he knelt by the $avatar_t_stop $avatar_t_type stop, listening for Hachi's familiar bark."
 	}
 }
