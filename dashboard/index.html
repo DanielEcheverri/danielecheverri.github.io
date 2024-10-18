@@ -807,8 +807,7 @@ let cachedShortSentences;
 //This function is for movements
 window.makeShortComments = async function(character, key) {
     // Log function entry
-    console.log("This is makeShortComments"+character+key);
-    //console.log("makeShortComments function called with character:", character, "and key:", key);
+    console.log("THis is makeShortComments:", character, "and key:", key);
 
     try {
         // Fetch JSON data
@@ -824,7 +823,7 @@ window.makeShortComments = async function(character, key) {
         }
 
         // Get the number of sentences available
-        const numSentences = Object.keys(observes).length;
+        const numSentences = Object.keys(key).length;
 
         if (numSentences === 0) {
             // Log error if there are no sentences available
