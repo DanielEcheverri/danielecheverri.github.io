@@ -2673,6 +2673,15 @@ makeComments(&#39;avatar&#39;, &#39;waits&#39;);
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
 
+  &lt;div id=&quot;bottomContainer&quot;&gt;
+          &lt;div id=&quot;avatar_story&quot;&gt;
+              $avatar_passage  
+          &lt;/div&gt;
+          &lt;div id=&quot;hachi_story&quot;&gt;
+              $hachi_passage
+          &lt;/div&gt;
+  &lt;/div&gt;
+
 &lt;&lt;liveblock&gt;&gt;
     &lt;&lt;if $hachi_checkpoint is &quot;hachi_garden&quot; and $avatar_checkpoint is &quot;avatar_garden&quot;&gt;&gt;
         &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
@@ -2684,8 +2693,6 @@ makeComments(&#39;avatar&#39;, &#39;waits&#39;);
             &lt;&lt;include &quot;hachi_end&quot;&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-
-
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;
