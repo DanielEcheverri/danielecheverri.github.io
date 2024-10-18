@@ -2698,9 +2698,56 @@ makeComments(&#39;avatar&#39;, &#39;waits&#39;);
 
 &lt;&lt;/nobr&gt;&gt;
 </tw-passagedata><tw-passagedata pid="63" name="avatar_end" tags="" position="1725,1600" size="200,200">&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_end/Placeholder for Buro&#39;s end./street/&quot;&gt;&gt;
-</tw-passagedata><tw-passagedata pid="64" name="hachi_end" tags="" position="1975,1600" size="200,200">&lt;&lt;script&gt;&gt;stopComments(`hachi`)&lt;&lt;/script&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_end/Placeholder for Hachi&#39;s end./street/&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="PassageFooter" tags="" position="1150,325" size="200,100">&lt;&lt;liveblock&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_end/Buro&#39;s eyes widen in surprise as he spots Hachi walking alongside Lina, a flicker of recognition igniting within him. Hachi&#39;s tail wags enthusiastically, his eyes full of joy at the sight of his friend./panting/&quot;&gt;&gt;
+
+&lt;&lt;liveblock&gt;&gt;
+$avatar_passage
+
+&lt;&lt;if $avatar_narrating == &quot;avatar_end_00false&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_end_01/Hachi and Buro get very close and hug each other./talking2/&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $avatar_narrating == &quot;avatar_end_01false&quot;&gt;&gt;
+  &lt;&lt;if $avatar_tag == &quot;21&quot;&gt;&gt;
+    &lt;&lt;set $avatar_passage to &quot;avatar_end_02/Buro rushes forward, his heart full of relief and affection as he kneels down to embrace avatar. They simply share a moment of pure connection. &#39;Hachi! There you are, you little rascal,&#39; said Buro. /barking3/&quot;&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $avatar_narrating == &quot;avatar_end_02false&quot; and $avatar_part_mov == &quot;head&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_end_03/I was so worried about you. Are you alright?&quot; Hachi responds with a series of joyful barks, nuzzling against Buro&#39;s hand as if to reassure him. Lina watches the heartwarming scene with a smile, feeling a sense of camaraderie in their bond./whine/&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $avatar_narrating == &quot;avatar_end_03false&quot; 
+  &lt;&lt;set $avatar_passage to &quot;avatar_end_04/&#39;Looks like you two have quite the bond,&#39; said Lina softly. Buro looks up, meeting Lina&#39;s gaze with a shy smile. In that, they find comfort in each other&#39;s presence, knowing that true friendship between humans and dogs know no bounds./f_talk4&quot;&gt;&gt;
+&lt;&lt;set $avatar_nextAct to true&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="hachi_end" tags="" position="1975,1600" size="200,200">&lt;&lt;script&gt;&gt;stopComments(`hachi`)&lt;&lt;/script&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_end_00/Buro&#39;s eyes widen in surprise as he spots Hachi walking alongside Lina, a flicker of recognition igniting within him. Hachi&#39;s tail wags enthusiastically, his eyes full of joy at the sight of his friend./m_heysh2/&quot;&gt;&gt;
+
+&lt;&lt;liveblock&gt;&gt;
+$hachi_passage
+
+&lt;&lt;if $hachi_narrating == &quot;hachi_end_00false&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_end_01/Hachi and Buro get very close and hug each other./m_agreeable/&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_narrating == &quot;hachi_end_01false&quot;&gt;&gt;
+  &lt;&lt;if $hachi_tag == &quot;21&quot;&gt;&gt;
+    &lt;&lt;set $hachi_passage to &quot;hachi_end_02/Buro rushes forward, his heart full of relief and affection as he kneels down to embrace Hachi. They simply share a moment of pure connection. &#39;Hachi! There you are, you little rascal,&#39; said Buro. /m_cheeree/&quot;&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_narrating == &quot;hachi_end_02false&quot; and $hachi_part_mov == &quot;head&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_end_03/I was so worried about you. Are you alright?&quot; Hachi responds with a series of joyful barks, nuzzling against Buro&#39;s hand as if to reassure him. Lina watches the heartwarming scene with a smile, feeling a sense of camaraderie in their bond./m_talk5/&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_narrating == &quot;hachi_end_03false&quot; 
+  &lt;&lt;set $hachi_passage to &quot;hachi_end_04/&#39;Looks like you two have quite the bond,&#39; said Lina softly. Buro looks up, meeting Lina&#39;s gaze with a shy smile. In that, they find comfort in each other&#39;s presence, knowing that true friendship between humans and dogs know no bounds./f_talk4&quot;&gt;&gt;
+&lt;&lt;set $hachi_nextAct to true&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="PassageFooter" tags="" position="1150,325" size="200,100">&lt;&lt;liveblock&gt;&gt;
 
 &lt;&lt;if $prev_avatar_passage !== $avatar_passage&gt;&gt;
    &lt;&lt;set avatar_passage to $avatar_passage&gt;&gt;
