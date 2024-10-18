@@ -5,6 +5,7 @@
 	"notification_Sound": { "src": "audio/notification.mp3" },
 	"tap_Sound": { "src": "audio/ui_tap.mp3" },
 	"forward_Sound": { "src": "audio/forward.mp3" },
+	"end_Sound": { "src": "audio/end.mp3" },
 	"fountain_Sound": { "src": "audio/environment/fountain.mp3" },
 	"tram_Sound": { "src": "audio/environment/tramdepart.mp3" },
 	"f_aha_Sound": { "src": "audio/female/AHA_OHF4.mp3" },
