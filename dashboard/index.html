@@ -2674,31 +2674,31 @@ makeComments(&#39;avatar&#39;, &#39;waits&#39;);
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-
   &lt;div id=&quot;bottomContainer&quot;&gt;
-          &lt;div id=&quot;avatar_story&quot;&gt;
-              $avatar_passage  
-          &lt;/div&gt;
-          &lt;div id=&quot;hachi_story&quot;&gt;
-              $hachi_passage
-          &lt;/div&gt;
+    &lt;div id=&quot;avatar_story&quot;&gt;
+      $avatar_passage  
+    &lt;/div&gt;
+    &lt;div id=&quot;hachi_story&quot;&gt;
+      $hachi_passage
+    &lt;/div&gt;
   &lt;/div&gt;
   
-    &lt;&lt;if $hachi_checkpoint is &quot;hachi_garden&quot; and $avatar_checkpoint is &quot;avatar_garden&quot;&gt;&gt;
-        &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
-        	&lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint&gt;&gt;
-            &lt;&lt;include &quot;avatar_end&quot;&gt;&gt;
-        &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
-        	&lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint&gt;&gt;
-            &lt;&lt;include &quot;hachi_end&quot;&gt;&gt;
-        &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
+  &lt;&lt;if $hachi_checkpoint is &quot;hachi_garden&quot; and $avatar_checkpoint is &quot;avatar_garden&quot; and !$end_has_run&gt;&gt;
+    &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
+      &lt;&lt;set $previousAvatar_checkpoint to $avatar_checkpoint&gt;&gt;
+      &lt;&lt;include &quot;avatar_end&quot;&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
+      &lt;&lt;set $previousHachi_checkpoint to $hachi_checkpoint&gt;&gt;
+      &lt;&lt;include &quot;hachi_end&quot;&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;set $end_has_run to true&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;
 </tw-passagedata><tw-passagedata pid="63" name="avatar_end" tags="" position="1725,1600" size="200,200">&lt;&lt;script&gt;&gt;stopComments(`avatar`)&lt;&lt;/script&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_end/Placeholder for Buro&#39;s end/street/&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_end/Placeholder for Buro&#39;s end./street/&quot;&gt;&gt;
 </tw-passagedata><tw-passagedata pid="64" name="hachi_end" tags="" position="1975,1600" size="200,200">&lt;&lt;script&gt;&gt;stopComments(`hachi`)&lt;&lt;/script&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;hachi_end/Placeholder for Hachi&#39;s end./street/&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="PassageFooter" tags="" position="1150,325" size="200,100">&lt;&lt;liveblock&gt;&gt;
 
