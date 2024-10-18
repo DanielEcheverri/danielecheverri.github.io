@@ -166,7 +166,7 @@
 		"wait6": "Hachi trotted heading $hachi_heading, his nose to the ground, tracing Buro’s scent as the $storyWeather turned from calm to blustery.",
 		"wait7": "Moving cautiously along $hachi_street street, Hachi's ears twitched, listening to the sound of Buro's footsteps echoing near the broken $hachi_amenity.",
 		"wait8": "As the $storyWeather shifted to cooler air, Hachi quickened his $hachi_walking_speed, weaving through the bushes, desperate to find Buro.",
-		"wait9": "With his $hachi_walking_speed pace, Hachi paused for a moment, sniffing around $hachi_street street where Buro had last passed.",
+		"wait9": "With his $hachi_walking_speed, Hachi paused for a moment, sniffing around $hachi_street street where Buro had last passed.",
 		"wait10": "As the $storyTime light faded, Hachi stood at the entrance of the garde close to the $hachi_t_stop $hachi_t_type stop, glancing one last time."
 	},
 	"avatar_waits": {
