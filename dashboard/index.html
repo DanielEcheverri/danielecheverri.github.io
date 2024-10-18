@@ -723,7 +723,7 @@ let storyComment;
 window.makeComments = async function(character, key) {
     // Fetch JSON data
     const jsonData = await fetchJSONFile(sentencesSource, cachedSentences);
-  	console.log("This is makeComments");
+  	console.log("This is makeComments:"+character+key);
 
     // Extract data based on the character parameter
     const observes = jsonData[`${character}_${key}`];
@@ -2640,8 +2640,8 @@ $avatar_passage
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
-makeComments(&#39;avatar&#39;,&#39;waits&#39;);
-makeComments(&#39;hachi&#39;,&#39;waits&#39;);
+makeShortComments(&#39;hachi&#39;, &#39;waiting&#39;); 
+makeShortComments(&#39;avatar&#39;, &#39;waiting&#39;); 
 &lt;&lt;/script&gt;&gt;
 
 &lt;&lt;set  $avatar_prevComment to $avatar_comment &gt;&gt;
