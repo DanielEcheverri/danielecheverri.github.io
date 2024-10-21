@@ -8,6 +8,7 @@
 	"end_Sound": { "src": "audio/end.mp3" },
 	"fountain_Sound": { "src": "audio/environment/fountain.mp3" },
 	"tram_Sound": { "src": "audio/environment/tramdepart.mp3" },
+	"ballet_Sound": { "src": "audio/environment/ballet.mp3" },
 	"f_aha_Sound": { "src": "audio/female/AHA_OHF4.mp3" },
 	"f_cheeree_Sound": { "src": "audio/female/CHEEREE_LAUGHF4.mp3" },
 	"f_compliment_Sound": { "src": "audio/female/COMPLIMENTEE_APPRECIF5.mp3" },
