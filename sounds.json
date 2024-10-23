@@ -1,6 +1,7 @@
 {
 	"alert_Sound": { "src": "audio/alert_high-intensity.mp3" },
 	"success_Sound": { "src": "audio/navigation_selection-complete-celebration.mp3" },
+	"complete_Sound": { "src": "audio/hero_decorative-celebration-02.mp3" },
 	"connecting_Sound": { "src": "audio/ui_loading.mp3" },
 	"notification_Sound": { "src": "audio/notification.mp3" },
 	"tap_Sound": { "src": "audio/ui_tap.mp3" },

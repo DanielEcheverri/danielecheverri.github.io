@@ -700,7 +700,7 @@
 						const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
 						for (const pattern of patterns) {
 							if (checkPatternInBuffer(pattern.pattern)) {
-								window.success_Sound.play();
+								window.complete_Sound.play();
 								console.log(`Pattern matched: ${pattern.patternName}`);
 								patternMovement = pattern.patternName;
 								if (noNarrative){
