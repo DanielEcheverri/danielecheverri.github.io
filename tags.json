@@ -37,6 +37,9 @@
 		},
 		"29": {
 			"function": "if(noNarrative){displayText('This is Leo, the tram conductor.');window.tram_Sound.play();}"
+		},
+		"31": {
+			"function": "lastSpokenMessage = '', displayText(message);"
 		}
 	}
 }
