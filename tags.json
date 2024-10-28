@@ -1,13 +1,13 @@
 {
 	"tags": {
 		"12": {
-			"displayText": "Non-narrative",
+			"displayText": "Triggering Non-narrative mode",
 			"variable": "noNarrative",
 			"boolean": true,
 			"function": "window.magic1_Sound.play();"
 		},
 		"13": {
-			"displayText": "Narrative",
+			"displayText": "Triggering Narrative mode",
 			"variable": "noNarrative",
 			"boolean": false
 		},

@@ -3,66 +3,202 @@
 		"hachi_checkpoints": {
 			"checkpoint_1": [
 				{
-					"latitude": 55.659246,
-					"longitude": 12.590717,
-					"text": "hachi_statue"
+					"latitude": 49.186792,
+					"longitude": 16.594924,
+					"text": "hachi_tram"
+				},
+				{
+					"latitude": 49.18484,
+					"longitude": 16.59303,
+					"text": "hachi_fountain"
+				},
+				{
+					"latitude": 49.183094,
+					"longitude": 16.584678,
+					"text": "hachi_bank"
+				},
+				{
+					"latitude": 49.18165,
+					"longitude": 16.578916,
+					"text": "hachi_stairs"
 				}
 			],
 			"checkpoint_2": [
 				{
-					"latitude": 55.65981,
-					"longitude": 12.591078,
+					"latitude": 49.186792,
+					"longitude": 16.594924,
 					"text": "hachi_tram"
 				},
 				{
-					"latitude": 55.659614,
-					"longitude": 12.591166,
+					"latitude": 49.18484,
+					"longitude": 16.59303,
 					"text": "hachi_fountain"
+				},
+				{
+					"latitude": 49.183094,
+					"longitude": 16.584678,
+					"text": "hachi_bank"
+				},
+				{
+					"latitude": 49.18165,
+					"longitude": 16.578916,
+					"text": "hachi_stairs"
 				}
 			],
 			"checkpoint_3": [
 				{
-					"latitude": 55.65981,
-					"longitude": 12.591078,
+					"latitude": 49.186792,
+					"longitude": 16.594924,
 					"text": "hachi_tram"
 				},
 				{
-					"latitude": 55.659614,
-					"longitude": 12.591166,
+					"latitude": 49.18484,
+					"longitude": 16.59303,
 					"text": "hachi_fountain"
+				},
+				{
+					"latitude": 49.183094,
+					"longitude": 16.584678,
+					"text": "hachi_bank"
+				},
+				{
+					"latitude": 49.18165,
+					"longitude": 16.578916,
+					"text": "hachi_stairs"
+				}
+			],
+			"checkpoint_4": [
+				{
+					"latitude": 49.186792,
+					"longitude": 16.594924,
+					"text": "hachi_tram"
+				},
+				{
+					"latitude": 49.18484,
+					"longitude": 16.59303,
+					"text": "hachi_fountain"
+				},
+				{
+					"latitude": 49.183094,
+					"longitude": 16.584678,
+					"text": "hachi_bank"
+				},
+				{
+					"latitude": 49.18165,
+					"longitude": 16.578916,
+					"text": "hachi_stairs"
+				}
+			],
+			"checkpoint_5": [
+				{
+					"latitude": 49.186792,
+					"longitude": 16.594924,
+					"text": "hachi_tram"
+				},
+				{
+					"latitude": 49.18484,
+					"longitude": 16.59303,
+					"text": "hachi_fountain"
+				},
+				{
+					"latitude": 49.183094,
+					"longitude": 16.584678,
+					"text": "hachi_bank"
+				},
+				{
+					"latitude": 49.18165,
+					"longitude": 16.578916,
+					"text": "hachi_stairs"
 				}
 			]
 		},
 		"avatar_checkpoints": {
 			"checkpoint_1": [
 				{
-					"latitude": 55.659246,
-					"longitude": 12.590717,
-					"text": "avatar_statue"
+					"latitude": 49.186792,
+					"longitude": 16.594924,
+					"text": "avatar_tobacco"
+				},
+				{
+					"latitude": 49.18484,
+					"longitude": 16.59303,
+					"text": "avatar_bakery"
+				},
+				{
+					"latitude": 49.183094,
+					"longitude": 16.584678,
+					"text": "avatar_bank"
+				},
+				{
+					"latitude": 49.18165,
+					"longitude": 16.578916,
+					"text": "avatar_church"
 				}
 			],
 			"checkpoint_2": [
 				{
-					"latitude": 55.65981,
-					"longitude": 12.591078,
-					"text": "avatar_church"
+					"latitude": 49.186792,
+					"longitude": 16.594924,
+					"text": "avatar_tobacco"
 				},
 				{
-					"latitude": 55.659682,
-					"longitude": 12.591177,
+					"latitude": 49.18484,
+					"longitude": 16.59303,
 					"text": "avatar_bakery"
+				},
+				{
+					"latitude": 49.183094,
+					"longitude": 16.584678,
+					"text": "avatar_bank"
+				},
+				{
+					"latitude": 49.18165,
+					"longitude": 16.578916,
+					"text": "avatar_church"
 				}
 			],
 			"checkpoint_3": [
 				{
-					"latitude": 55.65981,
-					"longitude": 12.591078,
-					"text": "avatar_church"
+					"latitude": 49.186792,
+					"longitude": 16.594924,
+					"text": "avatar_tobacco"
 				},
 				{
-					"latitude": 55.659682,
-					"longitude": 12.591177,
+					"latitude": 49.18484,
+					"longitude": 16.59303,
 					"text": "avatar_bakery"
+				},
+				{
+					"latitude": 49.183094,
+					"longitude": 16.584678,
+					"text": "avatar_bank"
+				},
+				{
+					"latitude": 49.18165,
+					"longitude": 16.578916,
+					"text": "avatar_church"
+				}
+			],
+			"checkpoint_4": [
+				{
+					"latitude": 49.186792,
+					"longitude": 16.594924,
+					"text": "avatar_tobacco"
+				},
+				{
+					"latitude": 49.18484,
+					"longitude": 16.59303,
+					"text": "avatar_bakery"
+				},
+				{
+					"latitude": 49.183094,
+					"longitude": 16.584678,
+					"text": "avatar_bank"
+				},
+				{
+					"latitude": 49.18165,
+					"longitude": 16.578916,
+					"text": "avatar_church"
 				}
 			]
 		}
