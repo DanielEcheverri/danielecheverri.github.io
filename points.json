@@ -3,112 +3,74 @@
 		"hachi_checkpoints": {
 			"checkpoint_1": [
 				{
-					"latitude": 49.186792,
-					"longitude": 16.594924,
-					"text": "hachi_tram"
-				},
-				{
-					"latitude": 49.18484,
-					"longitude": 16.59303,
-					"text": "hachi_fountain"
-				},
-				{
-					"latitude": 49.183094,
-					"longitude": 16.584678,
-					"text": "hachi_bank"
-				},
-				{
-					"latitude": 49.18165,
-					"longitude": 16.578916,
-					"text": "hachi_stairs"
+					"latitude": 49.20998,
+					"longitude": 16.59915,
+					"text": "hachi_statue"
 				}
 			],
 			"checkpoint_2": [
 				{
-					"latitude": 49.186792,
-					"longitude": 16.594924,
+					"latitude": 49.20976,
+					"longitude": 16.59838,
 					"text": "hachi_tram"
 				},
 				{
-					"latitude": 49.18484,
-					"longitude": 16.59303,
+					"latitude": 49.21019,
+					"longitude": 16.5985,
 					"text": "hachi_fountain"
 				},
 				{
-					"latitude": 49.183094,
-					"longitude": 16.584678,
-					"text": "hachi_bank"
-				},
-				{
-					"latitude": 49.18165,
-					"longitude": 16.578916,
+					"latitude": 49.21022,
+					"longitude": 16.59811,
 					"text": "hachi_stairs"
 				}
 			],
 			"checkpoint_3": [
 				{
-					"latitude": 49.186792,
-					"longitude": 16.594924,
+					"latitude": 49.20976,
+					"longitude": 16.59838,
 					"text": "hachi_tram"
 				},
 				{
-					"latitude": 49.18484,
-					"longitude": 16.59303,
+					"latitude": 49.21019,
+					"longitude": 16.5985,
 					"text": "hachi_fountain"
 				},
 				{
-					"latitude": 49.183094,
-					"longitude": 16.584678,
-					"text": "hachi_bank"
-				},
-				{
-					"latitude": 49.18165,
-					"longitude": 16.578916,
+					"latitude": 49.21022,
+					"longitude": 16.59811,
 					"text": "hachi_stairs"
 				}
 			],
 			"checkpoint_4": [
 				{
-					"latitude": 49.186792,
-					"longitude": 16.594924,
+					"latitude": 49.20976,
+					"longitude": 16.59838,
 					"text": "hachi_tram"
 				},
 				{
-					"latitude": 49.18484,
-					"longitude": 16.59303,
+					"latitude": 49.21019,
+					"longitude": 16.5985,
 					"text": "hachi_fountain"
 				},
 				{
-					"latitude": 49.183094,
-					"longitude": 16.584678,
-					"text": "hachi_bank"
-				},
-				{
-					"latitude": 49.18165,
-					"longitude": 16.578916,
+					"latitude": 49.21022,
+					"longitude": 16.59811,
 					"text": "hachi_stairs"
 				}
 			],
 			"checkpoint_5": [
 				{
-					"latitude": 49.186792,
-					"longitude": 16.594924,
-					"text": "hachi_tram"
-				},
-				{
-					"latitude": 49.18484,
-					"longitude": 16.59303,
-					"text": "hachi_fountain"
-				},
-				{
-					"latitude": 49.183094,
-					"longitude": 16.584678,
+					"latitude": 49.21008,
+					"longitude": 16.59858,
 					"text": "hachi_bank"
-				},
+				}
+			],
+			"checkpoint_6": [
 				{
-					"latitude": 49.18165,
-					"longitude": 16.578916,
-					"text": "hachi_stairs"
+					"latitude": 49.20946,
+					"longitude": 16.59855,
+					"text": "hachi_garden"
 				}
 			]
 		},

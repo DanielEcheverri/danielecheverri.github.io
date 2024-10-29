@@ -1338,12 +1338,12 @@
 				if (checkbox.checked) {
 					off(ref(database, databaseName));
 					readFromDatabase(deviceName); // Read data after writing
-					console.log("Reading from three");
+					console.log("Reading from: " + databaseName);
 
 				} else {
 					off(ref(database, databaseName));
 					readFromDatabase(deviceName); // Read data after writing
-					console.log("Reading from four");
+					console.log("Reading from: "+databaseName);
 
 				}
 			}
