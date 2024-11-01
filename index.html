@@ -342,15 +342,14 @@
 					updateConsoleOutput();
 
 					// Send to Google Sheet
-					fetch('https://script.google.com/macros/s/AKfycbwd7-hqkJ3bpM_hIoUaFiQh8hrTtoF4nySB56n5KRdmagt3ra2AjtTUxIqRFnolNRjD/exec', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify({
-							message: consoleMessage,
-							timestamp: new Date().toISOString()
-						})
+					const timestamp = new Date().toISOString();
+					const encodedMessage = encodeURIComponent(consoleMessage);
+					const encodedTimestamp = encodeURIComponent(timestamp);
+
+					const scriptURL = `https://script.google.com/macros/s/AKfycby6eO3XkdctRamMRPRJ3v6Xh9dCdrssFONmCk56VUSJd8h70autXFXVKITDG-O_8wN1/exec?timestamp=${encodedTimestamp}&message=${encodedMessage}`;
+					fetch(scriptURL, {
+						method: 'GET',
+						mode: 'no-cors'
 					}).catch(err => originalConsoleError('Failed to log to sheet:', err));
 				};
 
