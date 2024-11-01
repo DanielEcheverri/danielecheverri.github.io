@@ -982,14 +982,14 @@
 							format: ['wav'], // Specify the format here
 							html5: true, // Force HTML5 audio playback
 							onplay: () => {
-								console.log("Currently speaking");
+								console.log(deviceName +" currently speaking");
 								speaking = true;
 								messageID = messageID_tmp;
 								oldMessageID = messageID;
 								lastSpokenMessage = transliteratedMessage;
 							},
 							onend: () => {
-								console.log("End speaking");
+								console.log(deviceName + " end speaking");
 								speaking = false;
 								sound.unload(); // Unload the audio object to free up resources
 								if (playAction) {
