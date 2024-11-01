@@ -349,7 +349,15 @@
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({ message: message })
-					}).catch(error => originalConsoleLog("Failed to log to sheet:", error));
+					})
+					.then(response => {
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						return response.text();
+					})
+					.then(data => console.log("Data sent to Google Sheets:", data))
+					.catch(error => console.error("Failed to log to sheet:", error));
 				}
 			}
 
