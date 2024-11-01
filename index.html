@@ -1361,7 +1361,8 @@
 
 			function toggleListening() {
 				const toggleSwitch = document.getElementById('toggleSwitch');
-				const deviceName = toggleSwitch.checked ? "hachi_BT" : "avatar_BT";
+				//const deviceName = toggleSwitch.checked ? "hachi_BT" : "avatar_BT";
+				deviceName = toggleSwitch.checked ? "hachi_BT" : "avatar_BT";
 				const databaseName = deviceName === 'hachi_BT' ? 'avatar_data' : 'hachi_data';
 
 				// Mapping object for deviceName to characterName
