@@ -141,7 +141,7 @@
 		"sentence5": "That didn't work. Let's try a different movement this time.",
 		"sentence6": "No reaction to $hachi_movement. Maybe try something else.",
 		"sentence7": "$hachi_movement didn't trigger anything. Explore another gesture.",
-		"sentence8": "No effect from that movement. Maybe a different one?",
+		"sentence8": "No effect from $hachi_movement. Maybe a different one?",
 		"sentence9": "Nothing happened. Let's try another action.",
 		"sentence10": "No reaction to $hachi_movement. Let's experiment with a different gesture."
 	},
@@ -153,7 +153,7 @@
 		"sentence5": "That didn't work. Let's try a different movement this time.",
 		"sentence6": "No reaction to $avatar_movement. Maybe try something else.",
 		"sentence7": "$avatar_movement didn't trigger anything. Explore another gesture.",
-		"sentence8": "No effect from that movement. Maybe a different one?",
+		"sentence8": "No effect from $avatar_movement. Maybe a different one?",
 		"sentence9": "Nothing happened. Let's try another action.",
 		"sentence10": "No reaction to $avatar_movement. Let's experiment with a different gesture."
 	},
