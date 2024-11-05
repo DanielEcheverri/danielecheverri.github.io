@@ -828,46 +828,38 @@ window.stopComments = function(character) {
 
 let cachedShortSentences;
 
-//This function is for movements
+// Simplified function to get a random sentence that is not the last one used
 window.makeShortComments = async function(character, key) {
-    // Log function entry
-    console.log("THis is makeShortComments:", character, "and key:", key);
-
     try {
         // Fetch JSON data
         const jsonData = await fetchJSONFile(sentencesSource, cachedShortSentences);
 
-        // Extract observes data based on the character and key parameters
+        // Extract sentences based on character and key
         const observes = jsonData[`${character}_${key}`];
- 
-
         if (!observes) {
-            // Log error if observes data is missing
+            console.error(`No sentences found for ${character}_${key}`);
             return;
         }
 
-        // Get the number of sentences available
-        const numSentences = Object.keys(key).length;
+        // Get all sentence keys and choose a random one
+        const sentenceKeys = Object.keys(observes);
+        let newSentence;
+        
+        // Repeat until a different sentence is chosen
+        do {
+            const randomKey = sentenceKeys[Math.floor(Math.random() * sentenceKeys.length)];
+            newSentence = observes[randomKey];
+        } while (newSentence === variables()[`${character}_shortComment`]);
 
-        if (numSentences === 0) {
-            // Log error if there are no sentences available
-            return;
-        }
+        // Store the selected sentence
+        variables()[`${character}_shortComment`] = newSentence;
+        console.log(`Selected new comment for ${character}:`, newSentence);
 
-        // Randomly select a sentence key
-        const randomSentenceKey = `sentence${Math.floor(Math.random() * numSentences) + 1}`;
-        // Get the randomly selected sentence
-        const randomSentence = observes[randomSentenceKey];
-
-        // Store the random sentence in the character's comment variable
-        variables()[`${character}_shortComment`] = randomSentence;
-        // Log successful storing of comment
     } catch (error) {
-        // Log any errors that occur during the process
         console.error("An error occurred:", error);
     }
 };
-
+  
   //Last line of the function. KEEP
 })
 </script><tw-passagedata pid="1" name="init" tags="" position="1050,450" size="200,200">&lt;&lt;nobr&gt;&gt;
@@ -1387,7 +1379,7 @@ console.log(variables().hachi_comment);
   &lt;&lt;else&gt;&gt;
       &lt;&lt;set $avatar_passage to &quot;avatar_tobacco/This does not seem to be the person Buro is looking for./notification/&quot;&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
- &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="avatar_bakery" tags="" position="2600,900" size="100,200">&lt;&lt;set $avatar_passage to &quot;avatar_bakery/Sure smells good around the bakery. Can  you see Mrs. Lopez or her cat?/tramdepart/&quot;&gt;&gt;
+ &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="avatar_bakery" tags="" position="2600,900" size="100,200">&lt;&lt;set $avatar_passage to &quot;avatar_bakery/Sure smells good around the bakery. Can  you see Mrs. Lopez or her cat?/meow/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
   &lt;&lt;if $avatar_tag == 27&gt;&gt;
@@ -1443,7 +1435,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_03false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
-	&lt;&lt;set $hachi_passage to &quot;hachi_act2_04/Visit the tram stop, the fountain, the stairs of the old building, and the bank. There, you will meet the people who hold the keys to unraveling your friendship./street&quot;&gt;&gt;
+	&lt;&lt;set $hachi_passage to &quot;hachi_act2_04/Visit the tram stop, the fountain, the stairs of the old building, and the bank. There, you will meet the people who hold the keys to unraveling your friendship./street/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
   
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_04false&quot;&gt;&gt;
@@ -1451,7 +1443,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_05false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_06/ Each character will teach Hachi a bit more about Buro: He always rides &quot;+$hachi_t_type+&quot; &quot;+$hachi_t_route+&quot; to &quot;+$hachi_t_heading+&quot; along with Ms. Suarez, who works at the bank. At the stairs of the building, he likes to buy a pack of gum and talk about sea stories with Mr. Al Mansouri. Buro also likes to throw one coin at the fountain close to his faculty hoping for one of his many wishes to come true. There, every morning,  he always greets Ms. Novakova while she feeds the pigeons.../panting&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_06/ Each character will teach Hachi a bit more about Buro: He always rides &quot;+$hachi_t_type+&quot; &quot;+$hachi_t_route+&quot; to &quot;+$hachi_t_heading+&quot; along with Ms. Suarez, who works at the bank. At the stairs of the building, he likes to buy a pack of gum and talk about sea stories with Mr. Al Mansouri. Buro also likes to throw one coin at the fountain close to his faculty hoping for one of his many wishes to come true. There, every morning,  he always greets Ms. Novakova while she feeds the pigeons.../panting/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_06false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
@@ -1472,7 +1464,7 @@ $hachi_passage
 </tw-passagedata><tw-passagedata pid="22" name="avatar_act2" tags="" position="2475,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_turn to 0&gt;&gt;
 
-&lt;&lt;set $avatar_passage to &quot;avatar_act2/Buro decides to go to different spots Hachi often visits, to see if he can find him. He will meet four different characters in four different places around &quot; + $storyNeighborhood + &quot;: a tobacco shop, a bakery, a bank, and a church.&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_act2/Buro decides to go to different spots Hachi often visits, to see if he can find him. He will meet four different characters in four different places around &quot; + $storyNeighborhood + &quot;: a tobacco shop, a bakery, a bank, and a church. He looks around a bit confused.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -1731,7 +1723,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_bank4_01false&quot; and $hachi_movement == &quot;Grabbing something&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_bank4_02/ As Hachi continues to search around the A-T-Ms, Lina notices a flyer for the nearby garden and suggests they check it./talking3&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_bank4_02/ As Hachi continues to search around the A-T-Ms, Lina notices a flyer for the nearby garden and suggests they check it./talking3/&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1782,13 +1774,13 @@ $hachi_passage
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_bank1_00false&quot; and ($hachi_movement == &quot;Barking&quot; || $hachi_part_mov == &quot;tail&quot;)&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_bank1_01/Hachi approaches Ms. Suarez, the bank teller, with a friendly wag of his tail, silently conveying his question about Buro&#39;s whereabouts. &#39;Well hello there, Hachi! I&#39;m Lina.&#39; said Ms. Suarez with a big smile. You seem a bit lost without Buro. Haven&#39;t seen him today, I&#39;m afraid./f_intrigued/&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_bank1_01/Hachi approaches Ms. Suarez, the bank teller, with a friendly wag of his tail, silently conveying his question about Buro&#39;s whereabouts. &#39;Well hello there, Hachi! I&#39;m Lina.&#39; said Ms. Suarez with a big smile. You seem a bit lost without Buro. /f_intrigued/&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram1_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_movement !== &quot;Barking&quot; and $hachi_part_mov !== &quot;tail&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
-	&lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_bank1_00false&quot;&gt;&gt;
+  &lt;&lt;if ($hachi_movement !== &quot;Barking&quot; &amp;&amp; $hachi_movement !== &quot;none&quot;) ||  ($hachi_part_mov !==&quot;tail&quot; &amp;&amp; $hachi_part_mov !==&quot;none&quot;)&gt;&gt;
+    &lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1801,7 +1793,7 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="hachi_bank_2" tags="" position="1575,1350" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_bank2_00/Hachi watches Lina as she works, noting her warm interactions with customers and hoping they might offer a clue about Buro. He stands on his back leg looking closet at how she stamps some papers/talking2/&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_bank2_00/Hachi watches Lina as she works, noting her warm interactions with customers and hoping they might offer a clue about Buro. He stands on his back leg, looking close at how she stamps some papers/talking2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -1826,7 +1818,7 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="hachi_fountain_2" tags="" position="1575,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_fountain2_00/Hachi lays beside Mrs. Novakova as she feeds the pigeons, watching them flutter and coo around her. He lets out a playful bark, scattering a few startled feathers into the air./pigeon2&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_fountain2_00/Hachi lays beside Mrs. Novakova as she feeds the pigeons, watching them flutter and coo around her. He lets out a playful bark, scattering a few startled feathers into the air./pigeon2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -1867,7 +1859,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_fountain1_01false&quot; and $hachi_part_dir == &quot;down&quot; and $hachi_part_mov == &quot;head&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_fountain1_02/Mrs. Novakova whispered, &#39;Ah, hello there, furry one. Lay next to me and let me tell you about the days of my youth, dancing across stages far and wide,&#39; feeling the gentle warmth of her hand petting him./f_sing&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_fountain1_02/Mrs. Novakova whispered, &#39;Ah, hello there, furry one. Lay next to me and let me tell you about the days of my youth, dancing across stages far and wide,&#39; feeling the gentle warmth of her hand petting him./f_sing/&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1880,7 +1872,7 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="hachi_fountain_3" tags="" position="1700,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_fountain3_00/Suddenly, Hachi stood up on his back legs, his gaze fixed on Mrs. Novakova’s hand as she fed the pigeons./barking3&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_fountain3_00/Suddenly, Hachi stood up on his back legs, his gaze fixed on Mrs. Novakova’s hand as she fed the pigeons./barking3/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -1896,7 +1888,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_fountain3_01false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_fountain3_02/Mrs. Novakova asks, &#39;Where is your friend? Have you see him, dear? He may be closer than you think.&#39; She said with her lovely Eastern European accent./f_talk3&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_fountain3_02/Mrs. Novakova asks, &#39;Where is your friend? Have you see him, dear? He may be closer than you think.&#39; She said with her lovely Eastern European accent./f_talk3/&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1949,7 +1941,7 @@ $hachi_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="avatar_tobacco_4" tags="" position="2225,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_turn = $avatar_turn+1&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_00/Mr. Wei then adds a casual comment about Hachi&#39;s behavior, mentioning his habit of barking at people who smoke or buy tobacco from his shop./m_compliment&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_00/Mr. Wei then adds a casual comment about Hachi&#39;s behavior, mentioning his habit of barking at people who smoke or buy tobacco from his shop./m_compliment/&quot;&gt;&gt;
 
 &lt;&lt;if $avatar_turn == 3&gt;&gt;
   &lt;&lt;set $avatar_bank to &quot;Or you can also visit the bank. It recently opened&quot;&gt;&gt;
@@ -1965,7 +1957,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco4_01false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_02/With Mr. Wei&#39;s words in mind, Buro thanks him for the tip and considers his options, debating whether to visit the bakery or the church in search of Hachi...or even the bank if its open./m_aha&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_02/With Mr. Wei&#39;s words in mind, Buro thanks him for the tip and considers his options, debating whether to visit the bakery or the church in search of Hachi...or even the bank if its open./m_aha/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1979,14 +1971,14 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="avatar_tobacco_2" tags="" position="2225,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_00/As Buro enters the tobacco shop, and after greeting the shop owner, he immediately starts coughing from the smoke of someone nearby lighting up a cigarette.He greets as he enters the shop./m_cough2&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_00/As Buro enters the tobacco shop, and after greeting the shop owner, he immediately starts coughing from the smoke of someone nearby lighting up a cigarette.He greets as he enters the shop./m_cough2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco2_00false&quot; and $avatar_movement == &quot;Greeting&quot;&gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_01/Ah, young man, what brings you to my humble shop today? Looking for something special perhaps?
-Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gather information about Hachi&#39;s recent whereabouts./m_agreeable&quot;&gt;&gt;
+Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gather information about Hachi&#39;s recent whereabouts./m_agreeable/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avayar_narrating == &quot;hachi_tobacco2_00false&quot;&gt;&gt;
@@ -1996,7 +1988,7 @@ Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gat
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco2_01false&quot; and $avatar_part_mov == &quot;head&quot; &gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_02/Oh, excuse me. Just need to catch my breath, Buro said while grabbing a tissue./m_cough1&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco2_02/Oh, excuse me. Just need to catch my breath, Buro said while grabbing a tissue./m_cough1/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2015,14 +2007,14 @@ Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gat
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="avatar_tobacco_1" tags="" position="2100,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_tobacco1_00/Buro looks around the tobacco shop, where he meets an elderly man named Mr. Wei. Mr. Wei, a former Hong Kong merchant of spices, tells Buro about Hachi&#39;s habit of barking at people who smoke, perhaps indicating a dislike for the smell of tobacco./m_talk2&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_tobacco1_00/Buro looks around the tobacco shop, where he meets an elderly man named Mr. Wei. Mr. Wei, a former Hong Kong merchant of spices, tells Buro about Hachi&#39;s habit of barking at people who smoke, perhaps indicating a dislike for the smell of tobacco./m_talk2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco1_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_tobacco1_01/Buro takes a moment to observe his surroundings, hoping to spot any familiar signs or clues that might lead him to Hachi.
-&#39;Let&#39;s see if I can spot any familiar faces or places around here, Buro said to himself&#39;./crowd2&quot;&gt;&gt;
+&#39;Let&#39;s see if I can spot any familiar faces or places around here, Buro said to himself&#39;./crowd2/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2041,13 +2033,13 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="avatar_tobacco_3" tags="" position="2100,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_tobacco3_00/After his coughing fit subsides, Buro approaches Mr. Wei, nodding his head slightly to signal his intent to engage in conversation, hoping to gather information about Hachi, leaning in slightly as he moves his head, eager to hear what Mr. Wei might say./m_talk1&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_tobacco3_00/After his coughing fit subsides, Buro approaches Mr. Wei, nodding his head slightly to signal his intent to engage in conversation, hoping to gather information about Hachi, leaning in slightly as he moves his head, eager to hear what Mr. Wei might say./m_talk1/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_tobacco3_00false&quot; and $avatar_part_mov == &quot;head&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco3_01/Good afternoon, Mr. Wei. I was wondering if you&#39;ve seen a dog around here lately. He&#39;s a bit mischievous but very friendly. He has a beautiful caramel colored fur./m_intrigued&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_tobacco3_01/Good afternoon, Mr. Wei. I was wondering if you&#39;ve seen a dog around here lately. He&#39;s a bit mischievous but very friendly. He has a beautiful caramel colored fur./m_intrigued/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2066,7 +2058,7 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="avatar_bakery_3" tags="" position="2725,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery3_00/Excuse me, Mrs. Lopez, I&#39;m terribly sorry, but I seem to have a slight allergy to cats. Do you mind if I jump over there while we chat?/m_sneeze&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery3_00/Excuse me, Mrs. Lopez, I&#39;m terribly sorry, but I seem to have a slight allergy to cats. Do you mind if I jump over there while we chat?/m_sneeze/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -2082,7 +2074,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery3_01false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery3_02/ To what Mrs. Lopez replied: &#39;Of course, dear. No need to apologize. Now, about that dog of yours...&#39;/f_aha&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery3_02/ To what Mrs. Lopez replied: &#39;Of course, dear. No need to apologize. Now, about that dog of yours...&#39;/f_aha/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2101,13 +2093,13 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="avatar_bakery_1" tags="" position="2725,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery1_00/At the bakery, Buro encounters Lopez, the resident cat who prowls the shop. As Lopez seems to take a liking to him, Buro moves his shoulders slightly, amused by the cat rubbing against his legs./m_talk2&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery1_00/At the bakery, Buro encounters Lopez, the resident cat who prowls the shop. As Lopez seems to take a liking to him, Buro moves his shoulders slightly, amused by the cat rubbing against his legs./m_talk2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery1_00false&quot; and ($avatar_part_mov== &quot;right shoulder&quot; || $avatar_part_mov== &quot;left shoulder&quot;)&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery1_01/Buro takes a moment to look at the busy scene, hoping to spot any familiar signs or clues that might lead him to Hachi. &#39;Let&#39;s see if there&#39;s anything here that can give me a clue about where Hachi might be&#39;. /crowd2&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery1_01/Buro takes a moment to look at the busy scene, hoping to spot any familiar signs or clues that might lead him to Hachi. &#39;Let&#39;s see if there&#39;s anything here that can give me a clue about where Hachi might be&#39;. /crowd2/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2126,13 +2118,13 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="avatar_bakery_2" tags="" position="2850,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery2_00/As Buro looks at Mrs. Lopez, or Sofia to her friends, the local baker, she shares stories about Hachi&#39;s love for chewing on old bread crusts, often found near the bakery&#39;s dumpster in the mornings. He engages in conversation with her, eager to hear more../meow&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery2_00/As Buro looks at Mrs. Lopez, or Sofia to her friends, the local baker, she shares stories about Hachi&#39;s love for chewing on old bread crusts, often found near the bakery&#39;s dumpster in the mornings. He engages in conversation with her, eager to hear more./meow/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery2_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery2_01/&#39;Ah, you&#39;ve met Lopez, our friendly neighborhood cat. He seems to have taken a liking to you!&#39; Buro briefly plays with Lopez, remembering pretty quick about his allergy to cat fur&#39;. /m_sneeze&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery2_01/&#39;Ah, you&#39;ve met Lopez, our friendly neighborhood cat. He seems to have taken a liking to you!&#39; Buro briefly plays with Lopez, remembering pretty quick about his allergy to cat fur&#39;. /m_sneeze/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2152,7 +2144,7 @@ $avatar_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="avatar_bakery_4" tags="" position="2850,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_turn = $avatar_turn+1&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery4_00/As Buro converses with Mrs. Lopez, or Sofia as her friends call her, she shares stories about Hachi&#39;s fondness for old bread crusts, often found near the bakery&#39;s dumpster in the mornings./f_talk3&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery4_00/As Buro converses with Mrs. Lopez, or Sofia as her friends call her, she shares stories about Hachi&#39;s fondness for old bread crusts, often found near the bakery&#39;s dumpster in the mornings./f_talk3/&quot;&gt;&gt;
 
 &lt;&lt;if $avatar_turn == 3&gt;&gt;
   &lt;&lt;set $avatar_bank to &quot;Or you can also visit the bank. It recently opened&quot;&gt;&gt;
@@ -2168,7 +2160,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bakery4_01false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bakery4_02/With Sofia&#39;s words in mind, Buro thanks her for the information and considers his next move, deciding where to go next./m_intrigued&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bakery4_02/With Sofia&#39;s words in mind, Buro thanks her for the information and considers his next move, deciding where to go next./m_intrigued/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2182,7 +2174,7 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="avatar_bank_3" tags="" position="2225,1225" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bank3_00/Buro watches Lina as she works, noting her warm interactions with customers and hoping they might offer a clue about Hachi. He sits down for while looking at her stamp some papers/talking2/&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bank3_00/Buro watches Lina as she works, noting her warm interactions with customers and hoping they might offer a clue about Hachi. He sits down for while looking at her stamp some papers/m_talk2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -2207,7 +2199,7 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="avatar_bank_4" tags="" position="2225,1350" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bank4_00/Moving his shoulders in a small, frustrated shrug, Buro takes a moment to explore the surroundings around the ATM, hoping to find any clues that might lead him to Hachi./talking2/&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bank4_00/Moving his shoulders in a small, frustrated shrug, Buro takes a moment to explore the surroundings around the A-T-M, hoping to find any clues that might lead him to Hachi./m_talk4/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -2233,13 +2225,13 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="avatar_bank_2" tags="" position="2100,1350" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bank2_00/Buro looks the bank&#39;s customers stepping outside of the bank. While he doesn&#39;t expect to spot Hachi among the crowd, he knows that he enjoys being around people./talking2/&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bank2_00/Buro looks the bank&#39;s customers stepping outside of the bank. While he doesn&#39;t expect to spot Hachi among the crowd, he knows that he enjoys being around people./m_heysh1/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bank2_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bank2_01/&#39;I don&#39;t think Hachi would be here, but he does like big crowds. Maybe I&#39;ll get lucky and catch a glimpse of him somewhere&#39;, he said to himself, maintaining his watchful stance, scanning the faces of the people coming and going, on their way to the ATM outside of the bank./f_heysh3/&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bank2_01/&#39;I don&#39;t think Hachi would be here, but he does like big crowds. Maybe I&#39;ll get lucky and catch a glimpse of him somewhere&#39;, he said to himself, maintaining his watchful stance, scanning the faces of the people coming and going, on their way to the A-T-M outside of the bank./f_heysh3/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2258,13 +2250,13 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="avatar_bank_1" tags="" position="2100,1225" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bank1_00/Finally, Buro arrives at the bank and strikes up a conversation with Ms. Suarez, the bank teller. She recognizes Buro as Hachi&#39;s friend and happily shares stories about their interactions. Buro standing on its leg, looks inside the bank and spots Mrs. Suarez behind the counter, feeling a mix of nervousness and shyness./m_talk2&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bank1_00/Finally, Buro arrives at the bank and strikes up a conversation with Ms. Suarez, the bank teller. She recognizes Buro as Hachi&#39;s friend and happily shares stories about their interactions. Buro standing on its leg, looks inside the bank and spots Mrs. Suarez behind the counter, feeling a mix of nervousness and shyness./m_talk2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bank1_00false&quot; and ($avatar_movement == &quot;Looking&quot; || $avatar_movement == &quot;Standing right leg&quot; || $avatar_movement == &quot;Standing left leg&quot;)&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bank1_01/Buro says to himself: &#39;I&#39;ve seen her on the tram sometimes, but we&#39;ve never spoken. Hmmm, her name is Lina. I didn’t know that. Maybe today will be different&#39;. He decides to greet her/crowd2&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bank1_01/Buro says to himself: &#39;I&#39;ve seen her on the tram sometimes, but we&#39;ve never spoken. Hmmm, her name is Lina. I didn’t know that. Maybe today will be different&#39;. He decides to greet her/crowd2/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bank1_00false&quot;&gt;&gt;
@@ -2274,7 +2266,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bank1_01false&quot; and $avatar_movement == &quot;Greeting&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bank1_02/Buro hesitates for a moment, gathering his courage before offering a shy greeting to Mrs. Suares. He said softly, &#39;Um, h-hello, Lina. It&#39;s, uh, nice to see you here,&#39; while she replied with a sweet smile before going back to stamping checks and handing receipts&#39;./crowd2&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bank1_02/Buro hesitates for a moment, gathering his courage before offering a shy greeting to Mrs. Suares. He said softly, &#39;Um, hello, Lina. It&#39;s, uh, nice to see you here,&#39; while she replied with a sweet smile before going back to stamping checks and handing receipts&#39;./crowd2/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2293,13 +2285,14 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="avatar_church_1" tags="" position="2725,1200" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_church1_00/Buro looks around the church, where he meets Father Kent. Father Kent, a globe trotter evangelist hailing from the rust belt in Akron, tells Buro about Hachi&#39;s nightly visits to the church, where he finds shelter and companionship. He describes Hachi as a gentle soul, always seeking to give comfort./church2&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_church1_00/Buro looks around the church, where he meets Father Kent. Father Kent, a globe trotter evangelist hailing from the rust belt in Akron, tells Buro about Hachi&#39;s nightly visits to the church, where he finds shelter and companionship. He describes Hachi as a gentle soul, always seeking to give comfort./church2/&quot;&gt;&gt;
+
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_church1_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_church1_01/Buro steps close to the big arch framing the doors to the church. He scans the steps, the nearby trees, and the stained-glass windows, searching for any trace of Hachi&#39;s presence.
-As he approach, Buro said to himself, &#39;Let&#39;s see if there&#39;s any sign of Hachi here. Maybe he&#39;s left a clue behind&#39;./m_aha&quot;&gt;&gt;
+As he approachs, Buro said to himself, &#39;Let&#39;s see if there&#39;s any sign of Hachi here. Maybe he&#39;s left a clue behind&#39;./m_aha/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2318,13 +2311,13 @@ As he approach, Buro said to himself, &#39;Let&#39;s see if there&#39;s any sign
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="avatar_church_2" tags="" position="2725,1325" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_church2_00/Buro looks at Father Kent approaching, the wise and worldly priest of the church, and engages in conversation about Hachi&#39;s visits. Buro said to him, &#39;Father Kent, I&#39;ve been searching for my dog, Hachi. Have you seen him around the church lately?&#39;/m_talk1&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_church2_00/Buro looks at Father Kent approaching, the wise and worldly priest of the church, and engages in conversation about Hachi&#39;s visits. Buro said to him, &#39;Father Kent, I&#39;ve been searching for my dog, Hachi. Have you seen him around the church lately?&#39;/m_talk1/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_church2_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_church2_01/ To which he replied, &#39;Indeed, Hachi is a familiar presence here. He&#39;s known to seek solace and comfort among our congregation&#39;. Then he started to share stories about Hachi&#39;s nightly visits, describing him as a loyal and gentle soul who seeks shelter and companionship within the church walls. /church&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_church2_01/ To which he replied, &#39;Indeed, Hachi is a familiar presence here. He&#39;s known to seek solace and comfort among our congregation&#39;. Then he started to share stories about Hachi&#39;s nightly visits, describing him as a loyal and gentle soul who seeks shelter and companionship within the church walls. /church/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2343,13 +2336,13 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="avatar_church_3" tags="" position="2850,1200" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_church3_00/Buro continues looking at Father Kent as he drifts from the conversation to offer a glimpse into his past, recounting tales of his travels and experiences as a preacher before finding his calling in the rust belt./m_talk2&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_church3_00/Buro continues looking at Father Kent as he drifts from the conversation to offer a glimpse into his past, recounting tales of his travels and experiences as a preacher before finding his calling in the rust belt./m_talk2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_church3_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_church3_01/ Ah, my child, you have a curious mind. Let me tell you of the roads I&#39;ve traveled and the lessons I&#39;ve learned along the way... /m_giftgiver&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_church3_01/ Ah, my child, you have a curious mind. Let me tell you of the roads I&#39;ve traveled and the lessons I&#39;ve learned along the way... /m_giftgiver/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2369,7 +2362,7 @@ $avatar_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="avatar_church_4" tags="" position="2850,1325" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_turn = $avatar_turn+1&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_church4_00/ Moved by Father Kent&#39;s stories and seeking guidance, Buro expresses his gratitude and asks for advice on where to search for Hachi next. &#39;Father Kent—said Buro, your wisdom is invaluable to me. Where do you suggest I look next for Hachi?&#39;./m_compliment&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_church4_00/ Moved by Father Kent&#39;s stories and seeking guidance, Buro expresses his gratitude and asks for advice on where to search for Hachi next. &#39;Father Kent—said Buro, your wisdom is invaluable to me. Where do you suggest I look next for Hachi?&#39;./m_compliment/&quot;&gt;&gt;
 
 &lt;&lt;if $avatar_turn == 3&gt;&gt;
   &lt;&lt;set $avatar_bank to &quot;Or you can also visit the bank. I am sure it recently opened&quot;&gt;&gt;
@@ -2386,7 +2379,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_church4_01false&quot; &gt;&gt;
-	&lt;&lt;set $avatar_passage to &quot;Finally, Buro began walking again&quot;&gt;&gt;
+	&lt;&lt;set $avatar_passage to &quot;Finally, Buro began walking again.&quot;&gt;&gt;
 	    &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -2436,7 +2429,7 @@ Today, will be a different day./park3&quot;&gt;&gt;
  &lt;&lt;/liveblock&gt;&gt;
  
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="hachi_preamble" tags="" position="1825,500" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_pre_01/While playing in the park, Hachi&#39;s nose twitches, catching a scent that pulls him away from Buro. He sniffs the air, curiosity piqued by the provocative smell. Buro&#39;s voice echoes in his mind, but the scent drags him deeper./park1&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_pre_01/While playing in the park, Hachi&#39;s nose twitches, catching a scent that pulls him away from Buro. He sniffs the air, curiosity piqued by the provocative smell. Buro&#39;s voice echoes in his mind, but the scent drags him deeper./park1/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -2457,7 +2450,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_pre_02Bfalse&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_pre_04/Lost amidst &quot; + $storyCity + &quot;&#39;s pathways, Hachi and Buro must rely on their instincts to reunite. Their journey will take them through streets, squares, and parks, where they will encounter challenges, make new friends, and ultimately rediscover the true meaning of loyalty and friendship./crowd2&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_pre_04/Lost amidst &quot; + $storyCity + &quot;&#39;s pathways, Hachi and Buro must rely on their instincts to reunite. Their journey will take them through streets, squares, and parks, where they will encounter challenges, make new friends, and ultimately rediscover the true meaning of loyalty and friendship./crowd2/&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2477,7 +2470,7 @@ $hachi_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_pre_00false&quot; and $hachi_speed &gt;= &quot;0.4&quot; &gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_pre_01/Buro&#39;s heart races as he notices that Hachi is no longer there and starts walking, and searching around &quot; + $storyNeighborhood +&quot; for any sign of his friend./crowd1&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_pre_01/Buro&#39;s heart races as he notices that Hachi is no longer there and starts walking, and searching around &quot; + $storyNeighborhood +&quot; for any sign of his friend./crowd1/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_pre_01false&quot;&gt;&gt;
@@ -2489,7 +2482,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($avatar_narrating == &quot;avatar_pre_03false&quot; or $avatar_narrating == &quot;avatar_04Bfalse&quot;) and $avatar_part_mov == &quot;head&quot; and $avatar_part_dir == &quot;up&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04A/&#39;Hachi! Over here!&#39; Buro calls out, his voice filled with excitement... but nothing happens. Maybe standing on a leg would do?/m_cheeree&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_pre_04A/&#39;Hachi! Over here!&#39; Buro calls out, his voice filled with excitement... but nothing happens. Maybe standing on a leg would do?/m_cheeree/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($avatar_narrating == &quot;avatar_pre_03false&quot; || $avatar_narrating == &quot;avatar_pre_04Afalse&quot;) and ($avatar_movement == &quot;Standing left leg&quot; || $avatar_movement == &quot;Standing right leg&quot;) &gt;&gt;
@@ -2579,7 +2572,7 @@ console.log(variables().avatar_comment);
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="hachi_act1_1" tags="" position="1700,725" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_act1_01/Hachi&#39;s determination to find the source of the tempting scent leads him deeper. As he follows the streets around &quot; +$storyNeighborhood+&quot;, the aroma grows stronger, filling his senses with eagerness. Finally, Hachi comes across a statue in a small square. The scent seems to be coming from the base of the statue./park2&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_act1_01/Hachi&#39;s determination to find the source of the tempting scent leads him deeper. As he follows the streets around &quot; +$storyNeighborhood+&quot;, the aroma grows stronger, filling his senses with eagerness. Finally, Hachi comes across a statue in a small square. The scent seems to be coming from the base of the statue./park2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -2589,7 +2582,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Bfalse&quot;) and $hachi_tag == &quot;16&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act1_03A/He discovers a tiny fairy nestled among the petals of the flower. &#39;Wow, a fairy!&#39; Hachi exclaims, his tail wagging with excitement./talking2&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act1_03A/He discovers a tiny fairy nestled among the petals of the flower. &#39;Wow, a fairy!&#39; Hachi exclaims, his tail wagging with excitement./talking2/&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2613,7 +2606,7 @@ $hachi_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 </tw-passagedata><tw-passagedata pid="61" name="avatar_act1_1" tags="" position="2100,725" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_act1_01/As Buro calls out to Hachi, he realizes that Hachi isn&#39;t responding. He worries, as he looks at &quot; + $avatar_street +&quot; street, searching for any sign of his furry friend. &quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_act1_01/As Buro calls out to Hachi, he realizes that Hachi isn&#39;t responding. He worries, as he looks at &quot; + $avatar_street +&quot; street, searching for any sign of his furry friend.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -2677,7 +2670,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_end_03false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_end_04/&#39;Looks like you two have quite the friendshop,&#39; said Lina softly. Buro looks up, meeting her gaze with a shy smile. In that, they find comfort in each other&#39;s presence, knowing that true friendship between humans and dogs is boundless./f_talk4&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_end_04/&#39;Looks like you two have quite the friendshop,&#39; said Lina softly. Buro looks up, meeting her gaze with a shy smile. In that, they find comfort in each other&#39;s presence, knowing that true friendship between humans and dogs is boundless./f_talk4/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2814,6 +2807,8 @@ if (window.$avatar_comment !== window._prevAvatarComment) {
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="hachi_act2_transition" tags="" position="1325,1175" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_act2_transition/&quot;&gt;&gt;
+
 
 &lt;&lt;liveblock&gt;&gt;
 	&lt;&lt;include &quot;evalDist_hachi&quot;&gt;&gt;
@@ -2899,43 +2894,65 @@ makeComments(&#39;hachi&#39;,&#39;observes&#39;);
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="empty" tags="" position="450,1150" size="100,100">EMPTY</tw-passagedata><tw-passagedata pid="70" name="commentMovement_hachi" tags="" position="1050,200" size="200,100">&lt;&lt;if typeof _prevhachiMovement === &#39;undefined&#39;&gt;&gt;
-	&lt;&lt;set _prevhachiMovement to $hachi_movement&gt;&gt;
-&lt;&lt;elseif _prevhachiMovement !== $hachi_movement&gt;&gt;
-	&lt;&lt;script&gt;&gt;
-		makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;); 
-		console.log(variables().hachi_shortComment); 
-	&lt;&lt;/script&gt;&gt;
-	&lt;&lt;set _prevhachiMovement to variables().hachi_movement&gt;&gt;
-	&lt;&lt;if $hachi_shortComment !== _prevhachiShortComment&gt;&gt;
-		&lt;&lt;set _prevhachiShortComment to $hachi_shortComment&gt;&gt;
-		&lt;&lt;script&gt;&gt;
-			var passage_temp = variables().hachi_shortComment;
-			const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
-			console.log(renderedText);
-			variables().hachi_passage = renderedText;
-		&lt;&lt;/script&gt;&gt;
-		&lt;&lt;set $hachi_passage to variables().hachi_passage&gt;&gt;
-	&lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="empty" tags="" position="450,1150" size="100,100">EMPTY</tw-passagedata><tw-passagedata pid="70" name="commentMovement_hachi" tags="" position="1050,200" size="200,100">&lt;&lt;if ($hachi_movement !== &quot;none&quot; || $hachi_part_mov !== &quot;none&quot;) &amp;&amp; ( $hachi_movement !== _prevhachiMovement || $hachi_part_mov !== _prevhachiPartMov)&gt;&gt;
+        &lt;&lt;set _prevhachiMovement to $hachi_movement&gt;&gt;
+        &lt;&lt;set _prevhachiPartMov to $hachi_part_mov&gt;&gt;
+        
+        &lt;&lt;if $hachi_movement !== &quot;none&quot;&gt;&gt;
+            &lt;&lt;set $hachi_mov_track to $hachi_movement&gt;&gt;
+        &lt;&lt;elseif $hachi_part_mov !== &quot;none&quot;&gt;&gt;
+            &lt;&lt;set $hachi_mov_track to $hachi_part_mov&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    
+
+    &lt;&lt;script&gt;&gt;
+        // Generate a new comment for &#39;hachi&#39; using the &#39;notmoving&#39; key
+        makeShortComments(&#39;hachi&#39;, &#39;notmoving&#39;); 
+        console.log(variables().hachi_shortComment);
+
+        // Check if hachi_shortComment has a valid value before rendering
+        if (variables().hachi_shortComment) {
+            // Render the new comment and store it in hachi_passage
+            const passage_temp = variables().hachi_shortComment;
+            const renderedText = $(document.createDocumentFragment()).wiki(passage_temp).text();
+            console.log(renderedText);
+            variables().hachi_passage = renderedText;
+        } else {
+            // Handle the case where there&#39;s no valid comment
+            variables().hachi_passage = &quot;This movement did not do anything, maybe a different one?&quot;; // Default message or handle accordingly
+        }
+    &lt;&lt;/script&gt;&gt;
+    &lt;&lt;set $hachi_passage to variables().hachi_passage&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-</tw-passagedata><tw-passagedata pid="71" name="commentMovement_avatar" tags="" position="1275,200" size="200,100">&lt;&lt;if typeof _prevavatarMovement === &#39;undefined&#39;&gt;&gt;
-	&lt;&lt;set _prevavatarMovement to $avatar_movement&gt;&gt;
-&lt;&lt;elseif _prevavatarMovement !== $avatar_movement&gt;&gt;
-	&lt;&lt;script&gt;&gt;
-		makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;); 
-		console.log(variables().avatar_shortComment); 
-	&lt;&lt;/script&gt;&gt;
-	&lt;&lt;set _prevavatarMovement to variables().avatar_movement&gt;&gt;
-	&lt;&lt;if $avatar_shortComment !== _prevavatarShortComment&gt;&gt;
-		&lt;&lt;set _prevavatarShortComment to $avatar_shortComment&gt;&gt;
-		&lt;&lt;script&gt;&gt;
-			var passage_temp = variables().avatar_shortComment;
-			const renderedText = $((document).createDocumentFragment()).wiki(passage_temp).text();
-			console.log(renderedText);
-			variables().avatar_passage = renderedText;
-		&lt;&lt;/script&gt;&gt;
-		&lt;&lt;set $avatar_passage to variables().avatar_passage&gt;&gt;
-	&lt;&lt;/if&gt;&gt;
+</tw-passagedata><tw-passagedata pid="71" name="commentMovement_avatar" tags="" position="1275,200" size="200,100">&lt;&lt;if ($avatar_movement !== &quot;none&quot; || $avatar_part_mov !== &quot;none&quot;) &amp;&amp; ( $avatar_movement !== _prevavatar_Movement || $avatar_part_mov !== _prevavatar_PartMov)&gt;&gt;
+        &lt;&lt;set _prevavatar_Movement to $avatar_movement&gt;&gt;
+        &lt;&lt;set _prevavatar_PartMov to $avatar_part_mov&gt;&gt;
+        
+        &lt;&lt;if $avatar_movement !== &quot;none&quot;&gt;&gt;
+            &lt;&lt;set $avatar_mov_track to $avatar_movement&gt;&gt;
+        &lt;&lt;elseif $avatar_part_mov !== &quot;none&quot;&gt;&gt;
+            &lt;&lt;set $avatar_mov_track to $avatar_part_mov&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    
+
+    &lt;&lt;script&gt;&gt;
+        // Generate a new comment for &#39;avatar&#39; using the &#39;notmoving&#39; key
+        makeShortComments(&#39;avatar&#39;, &#39;notmoving&#39;); 
+        console.log(variables().avatar_shortComment);
+
+        // Check if avatar_shortComment has a valid value before rendering
+        if (variables().avatar_shortComment) {
+            // Render the new comment and store it in avatar__passage
+            const passage_temp = variables().avatar_shortComment;
+            const renderedText = $(document.createDocumentFragment()).wiki(passage_temp).text();
+            console.log(renderedText);
+            variables().avatar_passage = renderedText;
+        } else {
+            // Handle the case where there&#39;s no valid comment
+            variables().avatar_passage = &quot;This movement did not do anything, maybe a different one?&quot;; // Default message or handle accordingly
+        }
+    &lt;&lt;/script&gt;&gt;
+    &lt;&lt;set $avatar_passage to variables().avatar_passage&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 </tw-passagedata><tw-passagedata pid="72" name="evalDist_avatar" tags="" position="1275,75" size="200,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_arriving to false&gt;&gt;
@@ -2963,6 +2980,7 @@ if (atLeastOneEqualTo20) {
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="avatar_act2_transition" tags="" position="2475,1175" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_act2_transition/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 	&lt;&lt;include &quot;evalDist_avatar&quot;&gt;&gt;
@@ -3093,7 +3111,7 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
         &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;&lt;include &quot;both_preamble&quot;&gt;&gt;	
+&lt;&lt;include &quot;avatar_bank_1&quot;&gt;&gt;	
    
 /*
 &lt;&lt;set $storyWeather to &#39;&#39;&gt;&gt;
@@ -3187,6 +3205,7 @@ Promise.all([
   &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="79" name="hachi_wait_end" tags="" position="1750,1475" size="200,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_wait_end/&quot;&gt;&gt;
 
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
 
@@ -3234,10 +3253,10 @@ makeComments(&#39;hachi&#39;, &#39;waits&#39;);
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;
-</tw-passagedata><tw-passagedata pid="80" name="avatar_end_wait" tags="" position="1950,1475" size="200,100">&lt;&lt;nobr&gt;&gt;
+</tw-passagedata><tw-passagedata pid="80" name="avatar_wait_end" tags="" position="1950,1475" size="200,100">&lt;&lt;nobr&gt;&gt;
 
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
-
+&lt;&lt;set $avatar_passage to &quot;avatar_wait_end/&quot;&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
