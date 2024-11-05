@@ -138,7 +138,7 @@
 		"sentence2": "No response to $hachi_movement. Consider a different action.",
 		"sentence3": "Nothing happened after $hachi_movement. Perhaps try a new movement.",
 		"sentence4": "$hachi_movement didn't activate anything. Look for another gesture.",
-		"sentence5": "That didn't work. Let's try a different movement this time.",
+		"sentence5": "$hachi_movement didn't work. Let's try a different movement this time.",
 		"sentence6": "No reaction to $hachi_movement. Maybe try something else.",
 		"sentence7": "$hachi_movement didn't trigger anything. Explore another gesture.",
 		"sentence8": "No effect from $hachi_movement. Maybe a different one?",
