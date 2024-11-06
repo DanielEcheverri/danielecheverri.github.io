@@ -854,7 +854,7 @@
 						messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
 
 						// Adjust font size dynamically if message exceeds height
-						const maxHeight = 200; // Set the max height of the DIV
+						const maxHeight = 30; // Set the max height of the DIV
 						adjustFontSizeToFit(messageDisplayDiv, maxHeight);
 
 						if (displayMessage.trim() !== "") {
@@ -887,7 +887,11 @@
 				}
 
 				function adjustFontSizeToFit(div, maxHeight) {
-					let fontSize = parseInt(window.getComputedStyle(div).fontSize);
+					const viewportHeight = window.innerHeight; // Get the current viewport height in px
+					let fontSize = (viewportHeight * maxHeight) / 100; // Convert maxHeight (in vh) to pixels
+
+					// Set initial font size based on the viewport height
+					div.style.fontSize = fontSize + "px";
 
 					// Loop to reduce font size until text fits within the specified maxHeight
 					while (div.scrollHeight > maxHeight && fontSize > 10) { // Set a minimum font size (10px in this case)
