@@ -853,6 +853,10 @@
 						// Check if message is not empty to show the overlay
 						messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
 
+						// Adjust font size dynamically if message exceeds height
+						const maxHeight = 200; // Set the max height of the DIV
+						adjustFontSizeToFit(messageDisplayDiv, maxHeight);
+
 						if (displayMessage.trim() !== "") {
 							// Create a close button
 							var closeButton = document.createElement("dismissButton");
@@ -879,6 +883,16 @@
 					} catch (error) {
 						// Catch and log any errors that occur within the function
 						console.error("An error occurred:", error);
+					}
+				}
+
+				function adjustFontSizeToFit(div, maxHeight) {
+					let fontSize = parseInt(window.getComputedStyle(div).fontSize);
+
+					// Loop to reduce font size until text fits within the specified maxHeight
+					while (div.scrollHeight > maxHeight && fontSize > 10) { // Set a minimum font size (10px in this case)
+						fontSize--;
+						div.style.fontSize = fontSize + "px";
 					}
 				}
 
