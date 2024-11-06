@@ -84,7 +84,7 @@
 	},
 	"soundscape": {
 		"sound1": "In the background, car horns blend with chatter, creating a lively atmosphere amidst $storyNeighborhood's bustle.",
-		"sound2": "Around, Street performers fill the $storyPollution with melodies, adding vibrancy to the nearby streets of $storyNeighborhood.",
+		"sound2": "Around $avatar_street street, performers fill the $storyPollution with melodies, adding vibrancy to the nearby streets of $storyNeighborhood.",
 		"sound3": "Echoing through the air, the sounds of construction signal the steady transformation of $storyCity's streets.",
 		"sound4": "A $avatar_t_type rumbles in the background, a constant presence in the urban life of $storyCity.",
 		"sound5": "Birds chirp intermittently, finding refuge amidst the trees around $hachi_street street.",
@@ -97,7 +97,7 @@
 		"sound13": "Occasional dog barks break through the soundscape of $storyNeighborhood, adding companionship to the surroundings.",
 		"sound14": "Streetlights flicker to life with a hum, casting a warm glow on the bustling streets of $storyCity.",
 		"sound15": "Construction workers clang metal far in the distance, a testament to the growth of $storyCity.",
-		"sound16": "People gather in the outdoor seating areas in the nearby park, enjoying the $storyTime atmosphere of $avatar_street.",
+		"sound16": "People gather in the outdoor seating areas in the nearby park, enjoying the $storyTime atmosphere of $avatar_street street.",
 		"sound17": "Children's laughter echoes, adding to the vitality of $storyNeighborhood's soundscape.",
 		"sound18": "Engines roar as cars zip past, a constant reminder of life in $storyCity.",
 		"sound19": "Leaves rustle gently in the breeze, providing a calming counterpoint to $storyTime's rush.",
@@ -111,7 +111,7 @@
 		"sound29": "A $hachi_t_type breaks hissess as it approaches to the $hachi_t_stop $hachi_t_type stop.",
 		"sound30": "Laughs and talk around, as friends meet for an impromptu gathering in the vicinity of $hachi_street street.",
 		"sound32": "Drums beat in the distance, drawing crowds to a performance around the streets of $storyCity.",
-		"sound34": "In a nearby building, conversation between two friends hum through open windows.",
+		"sound34": "In a nearby building, conversation between two friends hum through the open windows.",
 		"sound35": "Skateboard wheels roll, while a couple of kids practice their skills in the nearby park.",
 		"sound38": "Children's laughter adds to the day-to-day life in $storyNeighborhood.",
 		"sound40": "Leaves rustle gently, providing a calming backdrop to the surroundings of $avatar_street street."
