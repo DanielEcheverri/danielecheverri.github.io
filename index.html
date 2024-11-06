@@ -894,7 +894,7 @@
 					div.style.fontSize = fontSize + "px";
 
 					// Loop to reduce font size until text fits within the specified maxHeight
-					while (div.scrollHeight > maxHeight && fontSize > 10) { // Set a minimum font size (10px in this case)
+					while (div.scrollHeight > maxHeight && fontSize > 20) { // Set a minimum font size (10px in this case)
 						fontSize--;
 						div.style.fontSize = fontSize + "px";
 					}
