@@ -58,7 +58,7 @@ h1 {
 	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
 	color: white;
-	font-size: 5vh; /* Very big text size */
+	font-size: 3vh; /* Very big text size */
 	display: none; /* Initially hidden */
 	z-index: 9999; /* Ensure it appears above other content */
 	text-align: center; /* Center align the text */
