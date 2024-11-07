@@ -1016,14 +1016,15 @@
 								playAction = true;
 							},
 							onend: () => {
-								console.log(deviceName + " end speaking");
-								speaking = false;
-								sound.unload(); // Unload the audio object to free up resources
 								if (playAction) {
 									setTimeout(function() {
 										window.notification_Sound.play(); // Play the notification sound after a delay
+										console.log(deviceName + " end speaking");
+										speaking = false;
+										sound.unload(); // Unload the audio object to free up resources
 										playAction = false; // Reset playAction to false
-									}, 1000); // Delay of 2000 milliseconds (2 seconds)
+
+									}, 500); // Delay of 2000 milliseconds (2 seconds)
 								}
 								currentSound = null; // Reset currentSound when finished
 							},
