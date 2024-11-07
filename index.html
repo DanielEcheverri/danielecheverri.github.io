@@ -166,7 +166,6 @@
 				document.getElementById('listenButton').style.display = 'none';
 				// Hide the Interact button
 				document.getElementById('interactButton').style.display = 'none';
-
 				// Show the Connect button
 				document.getElementById('connectButton').style.display = 'inline-block';
 			}
@@ -555,663 +554,667 @@
 			}
 
 			// Define variables for detecting movement in different body parts
-				function handleMovement() {
-				    // Define thresholds for movement detection
-				    let movementThreshold = 13;
+			function handleMovement() {
+				// Define thresholds for movement detection
+				let movementThreshold = 13;
 
-				    // Variables to track movement of different body parts
-				    let movements = {};
+				// Variables to track movement of different body parts
+				let movements = {};
 
-				    // Mapping between labels and movements for hachi_BT or avatar_BT
-				    let labelMovements;
-				    if (deviceName === "hachi_BT") {
-				        labelMovements = {
-				            "HEAD": "headMoving",
-				            "FRONT LEG": "leftLegMoving",
-				            "BACK LEG": "rightLegMoving",
-				            "LEFT SHOULDER": "leftShoulderMoving",
-				            "RIGHT SHOULDER": "rightShoulderMoving",
-				            "LEFT FOREARM": "leftForearmMoving",
-				            "RIGHT FOREARM": "rightForearmMoving",
-				            "TAIL": "waistMoving"
-				        };
-				    } else {
-				        // Default labelMovements object for avatar_BT
-				        labelMovements = {
-				            "HEAD": "headMoving",
-				            "LEFT LEG": "leftLegMoving",
-				            "RIGHT LEG": "rightLegMoving",
-				            "LEFT SHOULDER": "leftShoulderMoving",
-				            "RIGHT SHOULDER": "rightShoulderMoving",
-				            "LEFT FOREARM": "leftForearmMoving",
-				            "RIGHT FOREARM": "rightForearmMoving",
-				            "WAIST": "waistMoving"
-				        };
-				    }
-
-				    // Check movement for each potentiometer
-				    for (let i = 0; i < numPotentiometers; i++) {
-				        let label = labels[i];
-				        let movement = labelMovements[label];
-
-						// Ignore if movement is null
-						if (movement === null || movement === undefined) {
-							continue;
-						}
-
-				        // Movement detection
-				        if (potValues[i] < previousPotValues[i] - movementThreshold) {
-				            movements[movement] = true; // Movement increases
-				        } else if (potValues[i] > previousPotValues[i] + movementThreshold) {
-				            movements[movement] = false; // Movement decreases
-				        } else {
-							movements[movement] = null; // No movement
-						}
-				    }
-
-				    // Update previous potentiometer values for the next iteration.
-				    previousPotValues = potValues.slice(0, numPotentiometers);
-
-				    // Return the detected movement
-				    if (Object.keys(movements).length > 0) { // Check if movements object is not empty
-				        if (!objectsEqual(movements, previousMovements)) {
-				            previousMovements = { ...movements }; // Make a copy of movements
-				            //console.log(movements);
-				            return movements;
-				        }
-				    }
-
-				    return null; // No movement detected or movements haven't changed
+				// Mapping between labels and movements for hachi_BT or avatar_BT
+				let labelMovements;
+				if (deviceName === "hachi_BT") {
+					labelMovements = {
+						"HEAD": "headMoving",
+						"FRONT LEG": "leftLegMoving",
+						"BACK LEG": "rightLegMoving",
+						"LEFT SHOULDER": "leftShoulderMoving",
+						"RIGHT SHOULDER": "rightShoulderMoving",
+						"LEFT FOREARM": "leftForearmMoving",
+						"RIGHT FOREARM": "rightForearmMoving",
+						"TAIL": "waistMoving"
+					};
+				} else {
+					// Default labelMovements object for avatar_BT
+					labelMovements = {
+						"HEAD": "headMoving",
+						"LEFT LEG": "leftLegMoving",
+						"RIGHT LEG": "rightLegMoving",
+						"LEFT SHOULDER": "leftShoulderMoving",
+						"RIGHT SHOULDER": "rightShoulderMoving",
+						"LEFT FOREARM": "leftForearmMoving",
+						"RIGHT FOREARM": "rightForearmMoving",
+						"WAIST": "waistMoving"
+					};
 				}
 
-				let cachedMovementConditions = null;
-				let previousPart = "none";
-				let previousDirection = "none";
+				// Check movement for each potentiometer
+				for (let i = 0; i < numPotentiometers; i++) {
+					let label = labels[i];
+					let movement = labelMovements[label];
 
-				async function checkMovement() {
-					// Detect movement
-					let movements = handleMovement();
+					// Ignore if movement is null
+					if (movement === null || movement === undefined) {
+						continue;
+					}
 
-					// Fetch movement conditions JSON file if not already cached...
-					if (!cachedMovementConditions) {
-						try {
-							cachedMovementConditions = await $.get(moveSource);
-							processMovementConditions(movements);
-						} catch (error) {
-							console.error('Error fetching movement conditions JSON:', error);
-						}
+					// Movement detection
+					if (potValues[i] < previousPotValues[i] - movementThreshold) {
+						movements[movement] = true; // Movement increases
+					} else if (potValues[i] > previousPotValues[i] + movementThreshold) {
+						movements[movement] = false; // Movement decreases
 					} else {
+						movements[movement] = null; // No movement
+					}
+				}
+
+				// Update previous potentiometer values for the next iteration.
+				previousPotValues = potValues.slice(0, numPotentiometers);
+
+				// Return the detected movement
+				if (Object.keys(movements).length > 0) { // Check if movements object is not empty
+					if (!objectsEqual(movements, previousMovements)) {
+						previousMovements = { ...movements }; // Make a copy of movements
+						//console.log(movements);
+						return movements;
+					}
+				}
+
+				return null; // No movement detected or movements haven't changed
+			}
+
+			let cachedMovementConditions = null;
+			let previousPart = "none";
+			let previousDirection = "none";
+
+			async function checkMovement() {
+				// Detect movement
+				let movements = handleMovement();
+
+				// Fetch movement conditions JSON file if not already cached...
+				if (!cachedMovementConditions) {
+					try {
+						cachedMovementConditions = await $.get(moveSource);
+						if (!speaking){
+							processMovementConditions(movements);
+						}
+					} catch (error) {
+						console.error('Error fetching movement conditions JSON:', error);
+					}
+				} else {
+					if (!speaking){
 						processMovementConditions(movements);
 					}
+				}
 
-					function processMovementConditions(movements) {
-						if (!movements) {
-							//console.error("Movement data is null.");
-							return;
+				function processMovementConditions(movements) {
+					if (!movements) {
+						//console.error("Movement data is null.");
+						return;
+					}
+					// Iterate over movement conditions.
+					cachedMovementConditions.forEach(condition => {
+						let match = true;
+						for (let key in condition.condition) {
+							if (condition.condition[key] !== movements[key]) {
+								match = false;
+								break;
+							}
 						}
-						// Iterate over movement conditions.
-						cachedMovementConditions.forEach(condition => {
-							let match = true;
-							for (let key in condition.condition) {
-								if (condition.condition[key] !== movements[key]) {
-									match = false;
-									break;
-								}
-							}
-							if (match) {
-								partMoving = condition.partMoving;
-								directionMoving = condition.directionMoving;
-								setTimeout(() => resetVariables(false), 4000);
-							}
-						});
+						if (match) {
+							partMoving = condition.partMoving;
+							directionMoving = condition.directionMoving;
+							setTimeout(() => resetVariables(false), 4000);
+						}
+					});
 
-						// Check if partMoving or directionMoving are different from their previous values and add movement to the sequence buffer.
-						if (partMoving !== previousPart || directionMoving !== previousDirection) {
-							// Add movement to the sequence buffer
-							console.log(partMoving+" "+directionMoving);
+					// Check if partMoving or directionMoving are different from their previous values and add movement to the sequence buffer.
+					if (partMoving !== previousPart || directionMoving !== previousDirection) {
+						// Add movement to the sequence buffer
+						console.log(partMoving+" "+directionMoving);
+						if (noNarrative){
+							window.success_Sound.play();
+							//displayText("Avatar's"+ partMoving+" "+directionMoving);
+						}
+						previousPart = partMoving;
+						previousDirection = directionMoving;
+						trackMovementSequences();
+					} else {
+						return;
+					}
+				}
+			}
+
+			let movementBuffer = [];
+			let cachedMovePatterns;
+
+			// Function to track movement sequences and compare them against patterns
+			async function trackMovementSequences() {
+				try {
+					const currentSequence = { partMoving, directionMoving };
+
+					// Check if the current sequence is different from the previous one
+					if (
+						movementBuffer.length > 0 &&
+						movementBuffer[movementBuffer.length - 1].partMoving === partMoving &&
+						movementBuffer[movementBuffer.length - 1].directionMoving === directionMoving
+					) {
+						return; // Exit early if the sequence is the same as the previous one
+					}
+
+					movementBuffer.push(currentSequence);
+
+					// Limit the buffer to store only the last 5 variations
+					if (movementBuffer.length > 5) {
+						movementBuffer.shift(); // Remove the oldest variation
+					}
+
+					const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
+					for (const pattern of patterns) {
+						if (checkPatternInBuffer(pattern.pattern)) {
+							window.complete_Sound.play();
+							console.log(`Pattern matched: ${pattern.patternName}`);
+							patternMovement = pattern.patternName;
 							if (noNarrative){
-								window.success_Sound.play();
-								//displayText("Avatar's"+ partMoving+" "+directionMoving);
+								displayText(characterName + " is "+ patternMovement);
 							}
-							previousPart = partMoving;
-							previousDirection = directionMoving;
-							trackMovementSequences();
-						} else {
+							// Clear the buffer after a match
+							movementBuffer = [];
+							setTimeout(resetVariables, 4000); // 4 seconds
 							return;
 						}
 					}
+				} catch (error) {
+					console.error(error);
+				}
+			}
+
+			function resetVariables(resetAll = true) {
+				directionMoving = "none";
+				partMoving = "none";
+
+				if (resetAll) {
+					patternMovement = "none";
+				}
+			}
+
+			// Function to check if a pattern exists in the movement buffer
+			function checkPatternInBuffer(pattern) {
+				const bufferLength = movementBuffer.length;
+				if (bufferLength < pattern.length) {
+					return false; // Not enough movements in the buffer for pattern matching
 				}
 
-				let movementBuffer = [];
-				let cachedMovePatterns;
-
-				// Function to track movement sequences and compare them against patterns
-				async function trackMovementSequences() {
-					try {
-						const currentSequence = { partMoving, directionMoving };
-
-						// Check if the current sequence is different from the previous one
-						if (
-							movementBuffer.length > 0 &&
-							movementBuffer[movementBuffer.length - 1].partMoving === partMoving &&
-							movementBuffer[movementBuffer.length - 1].directionMoving === directionMoving
-						) {
-							return; // Exit early if the sequence is the same as the previous one
-						}
-
-						movementBuffer.push(currentSequence);
-
-						// Limit the buffer to store only the last 5 variations
-						if (movementBuffer.length > 5) {
-							movementBuffer.shift(); // Remove the oldest variation
-						}
-
-						const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
-						for (const pattern of patterns) {
-							if (checkPatternInBuffer(pattern.pattern)) {
-								window.complete_Sound.play();
-								console.log(`Pattern matched: ${pattern.patternName}`);
-								patternMovement = pattern.patternName;
-								if (noNarrative){
-									displayText(characterName + " is "+ patternMovement);
-								}
-								// Clear the buffer after a match
-								movementBuffer = [];
-								setTimeout(resetVariables, 4000); // 4 seconds
-								return;
-							}
-						}
-					} catch (error) {
-						console.error(error);
+				// Check the last 'pattern.length' movements in the buffer
+				const bufferSlice = movementBuffer.slice(-pattern.length);
+				for (let i = 0; i < pattern.length; i++) {
+					if (pattern[i].partMoving !== bufferSlice[i].partMoving ||
+						pattern[i].directionMoving !== bufferSlice[i].directionMoving) {
+						return false; // Pattern doesn't match
 					}
 				}
+				return true; // Pattern matched
+			}
 
-				function resetVariables(resetAll = true) {
-					directionMoving = "none";
-					partMoving = "none";
-
-					if (resetAll) {
-						patternMovement = "none";
+			let cachedPatterns; // Variable to cache the fetched patterns data
+			async function fetchMovementPatterns() {
+				try {
+					if (cachedPatterns) {
+						// If data is already cached, return it immediately
+						return cachedPatterns;
+					} else {
+						// If data is not cached, fetch it from the server
+						const patterns = await $.get(movePatterns);
+						cachedPatterns = patterns; // Cache the fetched data
+						return patterns;
 					}
+				} catch (error) {
+					console.error(error);
+					return []; // Return an empty array in case of error
 				}
+			}
 
-				// Function to check if a pattern exists in the movement buffer
-				function checkPatternInBuffer(pattern) {
-					const bufferLength = movementBuffer.length;
-					if (bufferLength < pattern.length) {
-						return false; // Not enough movements in the buffer for pattern matching
-					}
+			var timeoutID; // Variable to hold the timeout ID.
+			var previousMessage = ""; // Variable to store the previous message
+			var previousLatitude;
+			var previousLongitude;
+			var previousPartMoving;
+			var previousDirectionMoving;
+			var timeOfDay;
 
-					// Check the last 'pattern.length' movements in the buffer
-					const bufferSlice = movementBuffer.slice(-pattern.length);
-					for (let i = 0; i < pattern.length; i++) {
-						if (pattern[i].partMoving !== bufferSlice[i].partMoving ||
-							pattern[i].directionMoving !== bufferSlice[i].directionMoving) {
-							return false; // Pattern doesn't match
-						}
-					}
-					return true; // Pattern matched
-				}
+			var fullMessage;
+			var messageID = ""; // Global variable to store the message ID.
+			var oldMessageID ="";
+			var messageID_tmp = "";
+			var playAction = false;
 
-				let cachedPatterns; // Variable to cache the fetched patterns data
-				async function fetchMovementPatterns() {
-					try {
-						if (cachedPatterns) {
-							// If data is already cached, return it immediately
-							return cachedPatterns;
-						} else {
-							// If data is not cached, fetch it from the server
-							const patterns = await $.get(movePatterns);
-							cachedPatterns = patterns; // Cache the fetched data
-							return patterns;
-						}
-					} catch (error) {
-						console.error(error);
-						return []; // Return an empty array in case of error
-					}
-				}
+			function displayText(message) {
+				var messageDisplayDiv = document.getElementById("messageDisplayDiv");
+				var delimiterIndex = message.indexOf("/"); // Find the index of the first delimiter "/"
 
-				var timeoutID; // Variable to hold the timeout ID.
-				var previousMessage = ""; // Variable to store the previous message
-				var previousLatitude;
-				var previousLongitude;
-				var previousPartMoving;
-				var previousDirectionMoving;
-				var timeOfDay;
+				if (delimiterIndex !== -1) { // Check if the first delimiter exists
+					messageID_tmp = message.substring(0, delimiterIndex); // Store the message ID
+					var secondDelimiterIndex = message.indexOf("/", delimiterIndex + 1); // Find the index of the second delimiter "/"
 
-				var fullMessage;
-				var messageID = ""; // Global variable to store the message ID.
-				var oldMessageID ="";
-				var messageID_tmp = "";
-				var playAction = false;
+					if (secondDelimiterIndex !== -1 && secondDelimiterIndex !== delimiterIndex) { // Check if the second delimiter exists
+						var thirdDelimiterIndex = message.indexOf("/", secondDelimiterIndex + 1); // Find the index of the third delimiter "/"
 
-				function displayText(message) {
-					var messageDisplayDiv = document.getElementById("messageDisplayDiv");
-					var delimiterIndex = message.indexOf("/"); // Find the index of the first delimiter "/"
+						if (thirdDelimiterIndex !== -1) { // Check if the third delimiter exists
+							var fourthDelimiterIndex = message.indexOf("/", thirdDelimiterIndex + 1); // Find the index of the fourth delimiter "/"
 
-					if (delimiterIndex !== -1) { // Check if the first delimiter exists
-						messageID_tmp = message.substring(0, delimiterIndex); // Store the message ID
-						var secondDelimiterIndex = message.indexOf("/", delimiterIndex + 1); // Find the index of the second delimiter "/"
+							var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the first and second delimiters
+							var audioSoundscape = message.substring(secondDelimiterIndex + 1, thirdDelimiterIndex).trim(); // Extract the audioSoundscape variable between the second and third delimiters
 
-						if (secondDelimiterIndex !== -1 && secondDelimiterIndex !== delimiterIndex) { // Check if the second delimiter exists
-							var thirdDelimiterIndex = message.indexOf("/", secondDelimiterIndex + 1); // Find the index of the third delimiter "/"
-
-							if (thirdDelimiterIndex !== -1) { // Check if the third delimiter exists
-								var fourthDelimiterIndex = message.indexOf("/", thirdDelimiterIndex + 1); // Find the index of the fourth delimiter "/"
-
-								var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the first and second delimiters
-								var audioSoundscape = message.substring(secondDelimiterIndex + 1, thirdDelimiterIndex).trim(); // Extract the audioSoundscape variable between the second and third delimiters
-
-								clearTimeout(timeoutID);
-								speakMessage(fullMessage);
-								updateDisplay(fullMessage);
-
-								if (audioSoundscape !== "") {
-									window[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable if it is not empty
-								}
-
-								if (fourthDelimiterIndex !== -1) { // If the fourth delimiter exists
-									var functionToEval = message.substring(thirdDelimiterIndex + 1, fourthDelimiterIndex).trim(); // Extract the function between the third and fourth delimiters
-									try {
-										eval(functionToEval); // Run the function using eval()
-									} catch (error) {
-										console.error("Error executing function: " + error);
-									}
-								}
-							} else { // Handle the case where there's no third delimiter
-								var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the first and second delimiters
-								var audioSoundscape = message.substring(secondDelimiterIndex + 1).trim(); // Extract the audioSoundscape variable after the second delimiter
-
-								clearTimeout(timeoutID);
-								speakMessage(fullMessage);
-								updateDisplay(fullMessage);
-								if (audioSoundscape !== "") {
-									window[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable if it is not empty
-								}
-							}
-						} else { // Handle the case where there's no second delimiter
-							var fullMessage = message.substring(delimiterIndex + 1).trim(); // Extract the message text after the first delimiter
 							clearTimeout(timeoutID);
 							speakMessage(fullMessage);
 							updateDisplay(fullMessage);
+
+							if (audioSoundscape !== "") {
+								window[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable if it is not empty
+							}
+
+							if (fourthDelimiterIndex !== -1) { // If the fourth delimiter exists
+								var functionToEval = message.substring(thirdDelimiterIndex + 1, fourthDelimiterIndex).trim(); // Extract the function between the third and fourth delimiters
+								try {
+									eval(functionToEval); // Run the function using eval()
+								} catch (error) {
+									console.error("Error executing function: " + error);
+								}
+							}
+						} else { // Handle the case where there's no third delimiter
+							var fullMessage = message.substring(delimiterIndex + 1, secondDelimiterIndex).trim(); // Extract the message text between the first and second delimiters
+							var audioSoundscape = message.substring(secondDelimiterIndex + 1).trim(); // Extract the audioSoundscape variable after the second delimiter
+
+							clearTimeout(timeoutID);
+							speakMessage(fullMessage);
+							updateDisplay(fullMessage);
+							if (audioSoundscape !== "") {
+								window[audioSoundscape + "_Sound"].play(); // Play the corresponding audio based on the audioSoundscape variable if it is not empty
+							}
 						}
-					} else { // Handle the case where there's no delimiter at all
-						var fullMessage = message.trim(); // The full message is the entire input
+					} else { // Handle the case where there's no second delimiter
+						var fullMessage = message.substring(delimiterIndex + 1).trim(); // Extract the message text after the first delimiter
 						clearTimeout(timeoutID);
 						speakMessage(fullMessage);
 						updateDisplay(fullMessage);
 					}
+				} else { // Handle the case where there's no delimiter at all
+					var fullMessage = message.trim(); // The full message is the entire input
+					clearTimeout(timeoutID);
+					speakMessage(fullMessage);
+					updateDisplay(fullMessage);
 				}
+			}
 
 
-				// Update display
-				function updateDisplay(displayMessage) {
-					try {
-						// Set the text content
-						messageDisplayDiv.textContent = displayMessage;
+			// Update display
+			function updateDisplay(displayMessage) {
+				try {
+					// Set the text content
+					messageDisplayDiv.textContent = displayMessage;
 
-						// Check if message is not empty to show the overlay
-						messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
+					// Check if message is not empty to show the overlay
+					messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
 
-						// Adjust font size dynamically if message exceeds height
-						const maxHeight = 100; // Set the max height of the DIV
-						adjustFontSizeToFit(messageDisplayDiv, maxHeight);
+					// Adjust font size dynamically if message exceeds height
+					const maxHeight = 100; // Set the max height of the DIV
+					adjustFontSizeToFit(messageDisplayDiv, maxHeight);
 
-						if (displayMessage.trim() !== "") {
-							// Create a close button
-							var closeButton = document.createElement("dismissButton");
-							closeButton.classList.add("button"); // Add your button class here
-							closeButton.id = "dismissButton"; // Set the id for styling
-							closeButton.textContent = "Dismiss";
-							closeButton.addEventListener("click", function() {
-								messageDisplayDiv.textContent = ""; // Clear the text
-								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-								closeButton.remove(); // Remove the close button
-							});
-							// Append the close button to messageDisplayDiv
-							messageDisplayDiv.appendChild(closeButton);
-						}
-						// Set a timeout to clear the text after 3 seconds or until speaking becomes false
-						var timeoutCallback = function() {
-							if (!speaking) {
-								messageDisplayDiv.textContent = ""; // Clear the text
-								messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-								timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
-							}
-						};
-						timeoutID = setTimeout(timeoutCallback, 3000);
-					} catch (error) {
-						// Catch and log any errors that occur within the function
-						console.error("An error occurred:", error);
-					}
-				}
-
-				// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
-				function adjustFontSizeToFit(div, maxHeight) {
-					const viewportHeight = window.innerHeight; // Get the current viewport height in px
-					const divHeight = (viewportHeight * maxHeight) / 100; // Convert maxHeight (in vh) to pixels
-
-					// Set the max height of the DIV in pixels
-					div.style.maxHeight = divHeight + "px";
-
-					// Get the current font size in pixels
-					let fontSize = parseInt(window.getComputedStyle(div).fontSize, 10);
-
-					// Set an initial font size (in px) based on the viewport height
-					let currentHeight = div.scrollHeight;
-
-					// Adjust the font size to ensure the content fits within the max height of the div
-					while (currentHeight > divHeight && fontSize > 10) { // 10px is the minimum font size
-						fontSize -= 1;
-						div.style.fontSize = fontSize + "px";
-						currentHeight = div.scrollHeight; // Get the updated height after resizing
-					}
-				}
-
-				async function fetchJSONFile(filename, cachedVariable) {
-					try {
-						if (!cachedVariable) {
-							const response = await fetch(filename);
-							if (!response.ok) {
-								throw new Error('Network response was not ok');
-							}
-							const jsonData = await response.json(); // Fetch JSON data
-							cachedVariable = jsonData; // Cache the fetched JSON data in the specified variable
-							return jsonData;
-						} else {
-							return cachedVariable; // Return cached data if available
-						}
-					} catch (err) {
-						console.error('Error fetching JSON file: ', err);
-						return null;
-					}
-				}
-
-				let cachedSentences;
-
-				// Variable to store the last spoken message
-				let lastSpokenMessage = '';
-				let speaking = false;
-
-				const transliterationMap = {
-					'á': 'a', 'à': 'a', 'ä': 'a', 'ã': 'a', 'â': 'a', 'å': 'a', 'č': 'tch','æ':'ae',
-					'ç': 'c', 'é': 'e', 'è': 'e', 'ë': 'e', 'ê': 'e', 'í': 'i', 'ì': 'i',
-					'ï': 'i', 'î': 'i', 'ñ': 'ny', 'ó': 'o', 'ò': 'o', 'ö': 'o', 'õ': 'o', 'ø':'oe',
-					'ô': 'o', 'ú': 'u', 'ù': 'u', 'ü': 'u', 'û': 'u', 'ý': 'y', 'ÿ': 'y',
-					'š': 'sh', 'ž': 'zh', 'ř': 'r', 'ů': 'u', 'ď': 'd', 'ť': 't', 'ň': 'n',
-					'Á': 'A', 'À': 'A', 'Ä': 'A', 'Ã': 'A', 'Â': 'A', 'Å': 'A', 'Č': 'TCH', 'Æ':'AE',
-					'Ç': 'C', 'É': 'E', 'È': 'E', 'Ë': 'E', 'Ê': 'E', 'Í': 'I', 'Ì': 'I',
-					'Ï': 'I', 'Î': 'I', 'Ñ': 'NY', 'Ó': 'O', 'Ò': 'O', 'Ö': 'O', 'Õ': 'O', 'Ø':'OE',
-					'Ô': 'O', 'Ú': 'U', 'Ù': 'U', 'Ü': 'U', 'Û': 'U', 'Ý': 'Y', 'Ÿ': 'Y',
-					'Š': 'SH', 'Ž': 'ZH', 'Ř': 'R', 'Ů': 'U', 'Ď': 'D', 'Ť': 'T', 'Ň': 'NY'
-				};
-
-				function transliterate(text) {
-					return text.split('').map(char => transliterationMap[char] || char).join('');
-				}
-
-				let currentSound = null;
-
-				async function speakMessage(fullMessage) {
-					// Transliterate the message to contain only English alphabet characters
-					const transliteratedMessage = transliterate(fullMessage);
-
-					// Check if the message is the same as the last spoken message
-					if (transliteratedMessage === lastSpokenMessage) {
-						console.log("Message already spoken.");
-						return; // Exit the function without speaking again
-					}
-
-					if (transliteratedMessage === "") {
-						console.log("Empty text, message ignored.");
-						return;
-					}
-
-					const encodedMessage = encodeURIComponent(transliteratedMessage);
-					const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${encodedMessage}&speaker_id=&style_wav=&language=en`;
-
-					async function fetchWithRetry(url, retries = 3, delay = 1000) {
-						for (let attempt = 1; attempt <= retries; attempt++) {
-							try {
-								const response = await fetch(url);
-								if (response.ok) {
-									return response;
-								} else {
-									console.log(`Attempt ${attempt} failed. Retrying in ${delay / 1000} seconds...`);
-								}
-							} catch (error) {
-								console.log(`Attempt ${attempt} encountered an error: ${error.message}`);
-							}
-							await new Promise(resolve => setTimeout(resolve, delay));
-						}
-						throw new Error(`Failed to fetch after ${retries} attempts`);
-					}
-
-					try {
-						// Make a fetch request to the Coqui TTS API
-						const response = await fetchWithRetry(url);
-
-						// Convert response to a Blob for audio playback
-						const audioBlob = await response.blob();
-						const audioUrl = URL.createObjectURL(audioBlob);
-
-						// Stop the current sound if it is playing
-						if (currentSound) {
-							console.log("Stopping current text");
-							currentSound.stop();
-							currentSound.unload();
-						}
-
-						// Create a new Howler.js sound object
-						const sound = new Howl({
-							src: [audioUrl],
-							format: ['wav'], // Specify the format here
-							html5: true, // Force HTML5 audio playback
-							onplay: () => {
-								console.log(deviceName +" currently speaking");
-								speaking = true;
-								messageID = messageID_tmp;
-								oldMessageID = messageID;
-								lastSpokenMessage = transliteratedMessage;
-								playAction = true;
-							},
-							onend: () => {
-								if (playAction) {
-									setTimeout(function() {
-										window.notification_Sound.play(); // Play the notification sound after a delay
-										console.log(deviceName + " end speaking");
-										speaking = false;
-										sound.unload(); // Unload the audio object to free up resources
-										playAction = false; // Reset playAction to false
-
-									}, 500); // Delay of 2000 milliseconds (2 seconds)
-								}
-								currentSound = null; // Reset currentSound when finished
-							},
-							onloaderror: (id, err) => {
-								console.error("Audio playback error:", err);
-								speaking = false;
-								sound.unload(); // Unload the audio object to free up resources
-								currentSound = null; // Reset currentSound on error
-							},
+					if (displayMessage.trim() !== "") {
+						// Create a close button
+						var closeButton = document.createElement("dismissButton");
+						closeButton.classList.add("button"); // Add your button class here
+						closeButton.id = "dismissButton"; // Set the id for styling
+						closeButton.textContent = "Dismiss";
+						closeButton.addEventListener("click", function() {
+							messageDisplayDiv.textContent = ""; // Clear the text
+							messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
+							closeButton.remove(); // Remove the close button
 						});
-
-						// Set the current sound to the new sound object
-						currentSound = sound;
-
-						sound.play();
-
-						// Trigger the "unlock" event if necessary
-						if (Howler.ctx.state === "suspended") {
-							Howler.ctx.resume();
-						}
-					} catch (error) {
-						speaking = false; // Reset speaking flag
-						console.error("Error with TTS API:", error);
+						// Append the close button to messageDisplayDiv
+						messageDisplayDiv.appendChild(closeButton);
 					}
+					// Set a timeout to clear the text after 3 seconds or until speaking becomes false
+					var timeoutCallback = function() {
+						if (!speaking) {
+							messageDisplayDiv.textContent = ""; // Clear the text
+							messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
+							timeoutID = setTimeout(timeoutCallback, 1000); // Check again after 1 second
+						}
+					};
+					timeoutID = setTimeout(timeoutCallback, 3000);
+				} catch (error) {
+					// Catch and log any errors that occur within the function
+					console.error("An error occurred:", error);
 				}
+			}
 
-				function speakMessage2(fullMessage) {
+			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
+			function adjustFontSizeToFit(div, maxHeight) {
+				const viewportHeight = window.innerHeight; // Get the current viewport height in px
+				const divHeight = (viewportHeight * maxHeight) / 100; // Convert maxHeight (in vh) to pixels
+
+				// Set the max height of the DIV in pixels
+				div.style.maxHeight = divHeight + "px";
+
+				// Get the current font size in pixels
+				let fontSize = parseInt(window.getComputedStyle(div).fontSize, 10);
+
+				// Set an initial font size (in px) based on the viewport height
+				let currentHeight = div.scrollHeight;
+
+				// Adjust the font size to ensure the content fits within the max height of the div
+				while (currentHeight > divHeight && fontSize > 10) { // 10px is the minimum font size
+					fontSize -= 1;
+					div.style.fontSize = fontSize + "px";
+					currentHeight = div.scrollHeight; // Get the updated height after resizing
+				}
+			}
+
+			async function fetchJSONFile(filename, cachedVariable) {
+				try {
+					if (!cachedVariable) {
+						const response = await fetch(filename);
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						const jsonData = await response.json(); // Fetch JSON data
+						cachedVariable = jsonData; // Cache the fetched JSON data in the specified variable
+						return jsonData;
+					} else {
+						return cachedVariable; // Return cached data if available
+					}
+				} catch (err) {
+					console.error('Error fetching JSON file: ', err);
+					return null;
+				}
+			}
+
+			let cachedSentences;
+
+			// Variable to store the last spoken message
+			let lastSpokenMessage = '';
+			let speaking = false;
+
+			const transliterationMap = {
+				'á': 'a', 'à': 'a', 'ä': 'a', 'ã': 'a', 'â': 'a', 'å': 'a', 'č': 'tch','æ':'ae',
+				'ç': 'c', 'é': 'e', 'è': 'e', 'ë': 'e', 'ê': 'e', 'í': 'i', 'ì': 'i',
+				'ï': 'i', 'î': 'i', 'ñ': 'ny', 'ó': 'o', 'ò': 'o', 'ö': 'o', 'õ': 'o', 'ø':'oe',
+				'ô': 'o', 'ú': 'u', 'ù': 'u', 'ü': 'u', 'û': 'u', 'ý': 'y', 'ÿ': 'y',
+				'š': 'sh', 'ž': 'zh', 'ř': 'r', 'ů': 'u', 'ď': 'd', 'ť': 't', 'ň': 'n',
+				'Á': 'A', 'À': 'A', 'Ä': 'A', 'Ã': 'A', 'Â': 'A', 'Å': 'A', 'Č': 'TCH', 'Æ':'AE',
+				'Ç': 'C', 'É': 'E', 'È': 'E', 'Ë': 'E', 'Ê': 'E', 'Í': 'I', 'Ì': 'I',
+				'Ï': 'I', 'Î': 'I', 'Ñ': 'NY', 'Ó': 'O', 'Ò': 'O', 'Ö': 'O', 'Õ': 'O', 'Ø':'OE',
+				'Ô': 'O', 'Ú': 'U', 'Ù': 'U', 'Ü': 'U', 'Û': 'U', 'Ý': 'Y', 'Ÿ': 'Y',
+				'Š': 'SH', 'Ž': 'ZH', 'Ř': 'R', 'Ů': 'U', 'Ď': 'D', 'Ť': 'T', 'Ň': 'NY'
+			};
+
+			function transliterate(text) {
+				return text.split('').map(char => transliterationMap[char] || char).join('');
+			}
+
+			let currentSound = null;
+
+			async function speakMessage(fullMessage) {
+				// Transliterate the message to contain only English alphabet characters
+				const transliteratedMessage = transliterate(fullMessage);
+
 				// Check if the message is the same as the last spoken message
-					if (fullMessage === lastSpokenMessage) {
-						console.log("Message already spoken.");
-						return; // Exit the function without speaking again
+				if (transliteratedMessage === lastSpokenMessage) {
+					console.log("Message already spoken.");
+					return; // Exit the function without speaking again
+				}
+
+				if (transliteratedMessage === "") {
+					console.log("Empty text, message ignored.");
+					return;
+				}
+
+				const encodedMessage = encodeURIComponent(transliteratedMessage);
+				const url = `https://s4us-tts.fi.muni.cz:5002/api/tts?text=${encodedMessage}&speaker_id=&style_wav=&language=en`;
+
+				async function fetchWithRetry(url, retries = 3, delay = 1000) {
+					for (let attempt = 1; attempt <= retries; attempt++) {
+						try {
+							const response = await fetch(url);
+							if (response.ok) {
+								return response;
+							} else {
+								console.log(`Attempt ${attempt} failed. Retrying in ${delay / 1000} seconds...`);
+							}
+						} catch (error) {
+							console.log(`Attempt ${attempt} encountered an error: ${error.message}`);
+						}
+						await new Promise(resolve => setTimeout(resolve, delay));
 					}
-					// Check if currently speaking
-					if (speaking) {
-						console.log("Already speaking, new message ignored.");
+					throw new Error(`Failed to fetch after ${retries} attempts`);
+				}
+
+				try {
+					// Make a fetch request to the Coqui TTS API
+					const response = await fetchWithRetry(url);
+
+					// Convert response to a Blob for audio playback
+					const audioBlob = await response.blob();
+					const audioUrl = URL.createObjectURL(audioBlob);
+
+					// Stop the current sound if it is playing
+					if (currentSound) {
+						console.log("Stopping current text");
+						currentSound.stop();
+						currentSound.unload();
+					}
+
+					// Create a new Howler.js sound object
+					const sound = new Howl({
+						src: [audioUrl],
+						format: ['wav'], // Specify the format here
+						html5: true, // Force HTML5 audio playback
+						onplay: () => {
+							console.log(deviceName +" currently speaking");
+							speaking = true;
+							messageID = messageID_tmp;
+							oldMessageID = messageID;
+							lastSpokenMessage = transliteratedMessage;
+							playAction = true;
+						},
+						onend: () => {
+							if (playAction) {
+								setTimeout(function() {
+									window.notification_Sound.play(); // Play the notification sound after a delay
+									console.log(deviceName + " end speaking");
+									speaking = false;
+									sound.unload(); // Unload the audio object to free up resources
+									playAction = false; // Reset playAction to false
+
+								}, 500); // Delay of 2000 milliseconds (2 seconds)
+							}
+							currentSound = null; // Reset currentSound when finished
+						},
+						onloaderror: (id, err) => {
+							console.error("Audio playback error:", err);
+							speaking = false;
+							sound.unload(); // Unload the audio object to free up resources
+							currentSound = null; // Reset currentSound on error
+						},
+					});
+
+					// Set the current sound to the new sound object
+					currentSound = sound;
+
+					sound.play();
+
+					// Trigger the "unlock" event if necessary
+					if (Howler.ctx.state === "suspended") {
+						Howler.ctx.resume();
+					}
+				} catch (error) {
+					speaking = false; // Reset speaking flag
+					console.error("Error with TTS API:", error);
+				}
+			}
+
+			function speakMessage2(fullMessage) {
+			// Check if the message is the same as the last spoken message
+				if (fullMessage === lastSpokenMessage) {
+					console.log("Message already spoken.");
+					return; // Exit the function without speaking again
+				}
+				// Check if currently speaking
+				if (speaking) {
+					console.log("Already speaking, new message ignored.");
+					return;
+				}
+				// Create a new instance of SpeechSynthesisUtterance.
+				const utterance = new SpeechSynthesisUtterance(fullMessage);
+				// Filter available voices to find Samanthas's voice in Australian English
+				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Samantha' && voice.lang === 'en-US');
+				// Set the voice to Samantha's voice if found, otherwise use the default voice
+				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
+				console.log("Using standard voice");
+				// Speak the message
+				speechSynthesis.speak(utterance);
+				utterance.onstart = function() {
+					speaking = true;
+					console.log("Currently speaking");
+					// Update the last spoken message
+					lastSpokenMessage = fullMessage;
+				};
+				utterance.onend = function() {
+					console.log("End speaking");
+					speaking = false;
+				}
+				// Event handler for speech synthesis error
+				utterance.onerror = function(event) {
+					speaking = false; // Reset speaking flag
+					console.error("Speech synthesis error:", event.error);
+				};
+			}
+
+			let weatherDescription = null;
+
+			var noNarrative;
+			var previousTagID = ""; // Variable to store the previous tagID
+
+			let cachedTagInfo;
+			async function readTag() {
+				try {
+					if (tagID === previousTagID || tagID === "0" || speaking) {
+						// If tagID is the same as the previous one or is 0, do nothing
 						return;
-					}
-					// Create a new instance of SpeechSynthesisUtterance.
-					const utterance = new SpeechSynthesisUtterance(fullMessage);
-					// Filter available voices to find Samanthas's voice in Australian English
-					const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Samantha' && voice.lang === 'en-US');
-					// Set the voice to Samantha's voice if found, otherwise use the default voice
-					utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
-					console.log("Using standard voice");
-					// Speak the message
-					speechSynthesis.speak(utterance);
-					utterance.onstart = function() {
-						speaking = true;
-						console.log("Currently speaking");
-						// Update the last spoken message
-						lastSpokenMessage = fullMessage;
-					};
-					utterance.onend = function() {
-						console.log("End speaking");
-						speaking = false;
-					}
-					// Event handler for speech synthesis error
-					utterance.onerror = function(event) {
-						speaking = false; // Reset speaking flag
-						console.error("Speech synthesis error:", event.error);
-					};
-				}
+					} else {
+						// Fetch tag information asynchronously
+						const tagInfo = await fetchJSONFile(tagSource, cachedTagInfo);
 
-				let weatherDescription = null;
+						if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
+							// Update previousTagID to the current tagID
+							previousTagID = tagID;
+							window.success_Sound.play();
+							console.log(tagID);
 
-				var noNarrative;
-				var previousTagID = ""; // Variable to store the previous tagID
+							// Retrieve tag information based on tagID
+							const tagData = tagInfo.tags[tagID];
 
-				let cachedTagInfo;
-				async function readTag() {
-					try {
-						if (tagID === previousTagID || tagID === "0" || speaking) {
-							// If tagID is the same as the previous one or is 0, do nothing
-							return;
+							// Execute function specified in the JSON
+							if (tagInfo.tags[tagID].function) {
+								eval(tagInfo.tags[tagID].function);
+							}
+
+							// Update variables based on fetched tagData
+							if (tagData.variable && typeof tagData.boolean === 'boolean') {
+								// Dynamically update variables based on tagData
+								window[tagData.variable] = tagData.boolean;
+							}
+							displayText(tagData.displayText);
+
 						} else {
-							// Fetch tag information asynchronously
-							const tagInfo = await fetchJSONFile(tagSource, cachedTagInfo);
-
-							if (tagInfo && tagInfo.tags.hasOwnProperty(tagID)) {
-								// Update previousTagID to the current tagID
-								previousTagID = tagID;
-								window.success_Sound.play();
-								console.log(tagID);
-
-								// Retrieve tag information based on tagID
-								const tagData = tagInfo.tags[tagID];
-
-								// Execute function specified in the JSON
-								if (tagInfo.tags[tagID].function) {
-									eval(tagInfo.tags[tagID].function);
-								}
-
-								// Update variables based on fetched tagData
-								if (tagData.variable && typeof tagData.boolean === 'boolean') {
-									// Dynamically update variables based on tagData
-									window[tagData.variable] = tagData.boolean;
-								}
-								displayText(tagData.displayText);
-
-							} else {
-								window.alert_Sound.play();
-								console.error('Tag information not found.');
-								return;
-							}
+							window.alert_Sound.play();
+							console.error('Tag information not found.');
+							return;
 						}
-					} catch (err) {
-						console.error('Error reading tag:', err);
 					}
+				} catch (err) {
+					console.error('Error reading tag:', err);
 				}
+			}
 
-				let cachedCheckpoints;
-				let lastCheckedIndex = 0; // Initialize the index of the last checked key
-				let currentCheckpoint = "none";
-				let chkPointDistance = [];
+			let cachedCheckpoints;
+			let lastCheckedIndex = 0; // Initialize the index of the last checked key
+			let currentCheckpoint = "none";
+			let chkPointDistance = [];
 
-				let previousCheckpointKey = null;
-				let previousChkPointDistance = null;
-				let previousCheckpoint = null; // Define previousCheckpoint as a global variable
+			let previousCheckpointKey = null;
+			let previousChkPointDistance = null;
+			let previousCheckpoint = null; // Define previousCheckpoint as a global variable
 
-				async function checkCheckpoints() {
-					const radius = 10; // 10 meters radius
-					let checkpointsKey = deviceName === "hachi_BT" ? "hachi_checkpoints" : "avatar_checkpoints";
+			async function checkCheckpoints() {
+				const radius = 10; // 10 meters radius
+				let checkpointsKey = deviceName === "hachi_BT" ? "hachi_checkpoints" : "avatar_checkpoints";
 
-					const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
+				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
 
-					if (Array.isArray(locations) && locations.length > 0) {
-						const checkpoints = locations[0][checkpointsKey];
+				if (Array.isArray(locations) && locations.length > 0) {
+					const checkpoints = locations[0][checkpointsKey];
 
-						if (typeof checkpoints === 'object' && checkpoints !== null) {
-							const checkpointKeys = Object.keys(checkpoints);
+					if (typeof checkpoints === 'object' && checkpoints !== null) {
+						const checkpointKeys = Object.keys(checkpoints);
 
-							if (lastCheckedIndex < checkpointKeys.length) {
-								const currentCheckpointKey = checkpointKeys[lastCheckedIndex];
-								const checkpointSet = checkpoints[currentCheckpointKey];
-								chkPointDistance = [];
+						if (lastCheckedIndex < checkpointKeys.length) {
+							const currentCheckpointKey = checkpointKeys[lastCheckedIndex];
+							const checkpointSet = checkpoints[currentCheckpointKey];
+							chkPointDistance = [];
 
-								for (const checkpoint of checkpointSet) {
-									const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
-									chkPointDistance.push(distance.toFixed(2));
+							for (const checkpoint of checkpointSet) {
+								const distance = calculateDistance(latitude, longitude, checkpoint.latitude, checkpoint.longitude);
+								chkPointDistance.push(distance.toFixed(2));
 
-									if (distance <= radius && checkpoint.text !== previousCheckpoint) {
-										console.log('Checkpoint reached:', checkpoint.text);
-										currentCheckpoint = checkpoint.text;
-										window.success_Sound.play();
-										lastCheckedIndex++;
-										previousCheckpoint = checkpoint.text; // Update previous checkpoint text
-										chkPointDistance = [];
-										return;
-									}
+								if (distance <= radius && checkpoint.text !== previousCheckpoint) {
+									console.log('Checkpoint reached:', checkpoint.text);
+									currentCheckpoint = checkpoint.text;
+									window.success_Sound.play();
+									lastCheckedIndex++;
+									previousCheckpoint = checkpoint.text; // Update previous checkpoint text
+									chkPointDistance = [];
+									return;
 								}
-
-								const isCheckpointKeyChanged = previousCheckpointKey !== currentCheckpointKey;
-								const isChkPointDistanceChanged = JSON.stringify(previousChkPointDistance) !== JSON.stringify(chkPointDistance);
-
-								if (isCheckpointKeyChanged || isChkPointDistanceChanged) {
-									console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
-
-									previousCheckpointKey = currentCheckpointKey;
-									previousChkPointDistance = JSON.parse(JSON.stringify(chkPointDistance));
-								}
-							} else {
-								console.log("No more checkpoint sets to check.");
 							}
+
+							const isCheckpointKeyChanged = previousCheckpointKey !== currentCheckpointKey;
+							const isChkPointDistanceChanged = JSON.stringify(previousChkPointDistance) !== JSON.stringify(chkPointDistance);
+
+							if (isCheckpointKeyChanged || isChkPointDistanceChanged) {
+								console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
+
+								previousCheckpointKey = currentCheckpointKey;
+								previousChkPointDistance = JSON.parse(JSON.stringify(chkPointDistance));
+							}
+						} else {
+							console.log("No more checkpoint sets to check.");
 						}
 					}
 				}
+			}
 
-				function setupColors() {
-					lineColors[0] = color(204, 204, 0); // Dark Yellow
-					lineColors[1] = color(204, 204, 0); // Dark Yellow
-					lineColors[2] = color(255, 0, 0); // Red
-					lineColors[3] = color(204, 204, 0); // Dark Yellow
-					lineColors[4] = color(204, 204, 0); // Dark Yellow
-					lineColors[5] = color(0, 255, 0); // Bright Green
-					lineColors[6] = color(0, 128, 0); // Grass Green
-					lineColors[7] = color(0, 128, 0); // Grass Green
-				}
-				function setupBackgroundColors() {
-					backgroundColors[0] = color(0, 0, 0); // 0% black
-					backgroundColors[1] = color(0, 0, 0); // 0% black
-					backgroundColors[2] = color(0, 0, 0, 200); // 90% black
-					backgroundColors[3] = color(0, 0, 0, 230); // 75% black
-					backgroundColors[4] = color(0, 0, 0, 230); // 60% black
-					backgroundColors[5] = color(0, 0, 0, 128); // 60% black
-					backgroundColors[6] = color(0, 0, 0, 100); // 60% black
-					backgroundColors[7] = color(0, 0, 0, 100); // 60% black
-				}
+			function setupColors() {
+				lineColors[0] = color(204, 204, 0); // Dark Yellow
+				lineColors[1] = color(204, 204, 0); // Dark Yellow
+				lineColors[2] = color(255, 0, 0); // Red
+				lineColors[3] = color(204, 204, 0); // Dark Yellow
+				lineColors[4] = color(204, 204, 0); // Dark Yellow
+				lineColors[5] = color(0, 255, 0); // Bright Green
+				lineColors[6] = color(0, 128, 0); // Grass Green
+				lineColors[7] = color(0, 128, 0); // Grass Green
+			}
+			function setupBackgroundColors() {
+				backgroundColors[0] = color(0, 0, 0); // 0% black
+				backgroundColors[1] = color(0, 0, 0); // 0% black
+				backgroundColors[2] = color(0, 0, 0, 200); // 90% black
+				backgroundColors[3] = color(0, 0, 0, 230); // 75% black
+				backgroundColors[4] = color(0, 0, 0, 230); // 60% black
+				backgroundColors[5] = color(0, 0, 0, 128); // 60% black
+				backgroundColors[6] = color(0, 0, 0, 100); // 60% black
+				backgroundColors[7] = color(0, 0, 0, 100); // 60% black
+			}
 		</script>
 
 		<script type="module">
