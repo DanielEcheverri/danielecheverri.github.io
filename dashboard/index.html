@@ -1981,7 +1981,7 @@ $avatar_passage
 Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gather information about Hachi&#39;s recent whereabouts./m_agreeable/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avayar_narrating == &quot;hachi_tobacco2_00false&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;hachi_tobacco2_00false&quot;&gt;&gt;
   &lt;&lt;if $avatar_movement !== &quot;Greeting&quot; and $avatar_movement !==&quot;none&quot; and $avatar_movement !== &quot;&quot;&gt;&gt;
 	&lt;&lt;include &quot;commentMovement_avatar&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
@@ -1992,7 +1992,7 @@ Buro engages in conversation with Mr. Wei, the elderly shopkeeper, hoping to gat
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avayar_narrating == &quot;avatar_tobacco2_01false&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_tobacco2_01false&quot;&gt;&gt;
   &lt;&lt;if $avatar_part_mov !== &quot;head&quot;  and $avatar_part_mov !==&quot;none&quot; and $avatar_part_mov !== &quot;&quot;&gt;&gt;
 	&lt;&lt;include &quot;commentMovement_avatar&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
@@ -2144,7 +2144,7 @@ $avatar_passage
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="avatar_bakery_4" tags="" position="2850,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $avatar_turn = $avatar_turn+1&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bakery4_00/As Buro converses with Mrs. Lopez, or Sofia as her friends call her, she shares stories about Hachi&#39;s fondness for old bread crusts, often found near the bakery&#39;s dumpster in the mornings./f_talk3/&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bakery4_00/As Buro converses with Mrs. Lopez, or Sofia as her friends call her, she shares stories about Hachi&#39;s fondness for old bread crusts, often found near the bakery&#39;s dumpster./f_talk3/&quot;&gt;&gt;
 
 &lt;&lt;if $avatar_turn == 3&gt;&gt;
   &lt;&lt;set $avatar_bank to &quot;Or you can also visit the bank. It recently opened&quot;&gt;&gt;
@@ -2205,7 +2205,7 @@ $avatar_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bank4_00false&quot; and ($avatar_part_mov == &quot;left shoulder&quot;||$avatar_part_mov == &quot;right shoulder&quot;)&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bank4_01/Suddenly, his eyes fall on a flyer on trhe floor announcing  the opening of a nearby garden. &#39;A garden?&#39; said Buro with excitement. &#39;Maybe Hachi went there. I should definetly go!&#39;/f_heysh3/&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bank4_01/Suddenly, his eyes fall on a flyer on the floor announcing  the opening of a nearby garden. &#39;A garden?&#39; said Buro with excitement. &#39;Maybe Hachi went there. I should definetly go!&#39;/f_heysh3/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2266,7 +2266,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bank1_01false&quot; and $avatar_movement == &quot;Greeting&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bank1_02/Buro hesitates for a moment, gathering his courage before offering a shy greeting to Mrs. Suares. He said softly, &#39;Um, hello, Lina. It&#39;s, uh, nice to see you here,&#39; while she replied with a sweet smile before going back to stamping checks and handing receipts&#39;./crowd2/&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bank1_02/Buro hesitates for a moment, gathering his courage before offering a shy greeting to Mrs. Suarez. He said softly, &#39;Um, hello, Lina. It&#39;s, uh, nice to see you here,&#39; while she replied with a sweet smile before going back to stamping checks and handing receipts&#39;./crowd2/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -3111,7 +3111,7 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
         &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;&lt;include &quot;avatar_bank_1&quot;&gt;&gt;	
+&lt;&lt;include &quot;both_preamble&quot;&gt;&gt;	
    
 /*
 &lt;&lt;set $storyWeather to &#39;&#39;&gt;&gt;
