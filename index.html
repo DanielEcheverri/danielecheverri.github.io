@@ -713,7 +713,7 @@
 					}
 
 					 // Clear the previous timeout, if any, and set a new one to reset buffer after 4 seconds of inactivity
-					 clearTimeout(resetTimeout);
+					clearTimeout(resetTimeout);
 					resetTimeout = setTimeout(() => {
 						resetVariables(false, false, true); // Only reset the movementBuffer
 						console.log("Buffer reset after 3 seconds of inactivity");
