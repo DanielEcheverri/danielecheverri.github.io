@@ -83,8 +83,8 @@
 		"observation39": "Steps slow on $hachi_heading $hachi_street street, Hachi's ears twitching as he takes in the vibrant sounds of $storyNeighborhood's life in the $storyTime. 'Home soon,' Hachi wags his tail, feeling content."
 	},
 	"soundscape": {
-		"sound1": "/In the background, car horns blend with chatter, creating a lively atmosphere amidst $storyNeighborhood's bustle./traffic/",
-		"sound2": "/Around $avatar_street street, performers fill the $storyPollution with melodies, adding vibrancy to the nearby streets of $storyNeighborhood./band/",
+		"sound1": "In the background, car horns blend with chatter, creating a lively atmosphere amidst $storyNeighborhood's bustle.//traffic_Sound.play();/",
+		"sound2": "$hachi_current_passage/Around $avatar_street street, performers fill the $storyPollution with melodies, adding vibrancy to the nearby streets of $storyNeighborhood./band/",
 		"sound3": "/Echoing through the air, the sounds of construction signal the steady transformation of $storyCity's streets./construction/",
 		"sound4": "/A $avatar_t_type rumbles in the background, a constant presence in the urban life of $storyCity./carengine/",
 		"sound5": "/Birds chirp intermittently, finding refuge amidst the trees around $hachi_street street./birds/",
@@ -146,16 +146,16 @@
 		"sentence10": "$hachi_current_passage/No reaction to $hachi_mov_track. Let's experiment with a different gesture./error"
 	},
 	"avatar_notmoving": {
-		"sentence1": "$avatar_movement didn't prompt any action. Try another gesture./error/",
-		"sentence2": "No response to $avatar_movement. Consider a different action./error/",
-		"sentence3": "Nothing happened after $avatar_movement. Perhaps try a new movement./error/",
-		"sentence4": "$avatar_movement didn't activate anything. Look for another gesture./error/",
-		"sentence5": "That didn't work. Let's try a different movement this time./error/",
-		"sentence6": "No reaction to $avatar_movement. Maybe try something else./error/",
-		"sentence7": "/$avatar_movement didn't trigger anything. Explore another gesture./error/",
-		"sentence8": "/No effect from $avatar_movement. Maybe a different one?/error/",
-		"sentence9": "/Nothing happened. Let's try another action./error/",
-		"sentence10": "/No reaction to $avatar_movement. Let's experiment with a different gesture./error/"
+		"sentence1": "$avatar_current_passage/$avatar_movement didn't prompt any action. Try another gesture./error/",
+		"sentence2": "$avatar_current_passage/No response to $avatar_movement. Consider a different action./error/",
+		"sentence3": "$avatar_current_passage/Nothing happened after $avatar_movement. Perhaps try a new movement./error/",
+		"sentence4": "$avatar_current_passage/$avatar_movement didn't activate anything. Look for another gesture./error/",
+		"sentence5": "$avatar_current_passage/That didn't work. Let's try a different movement this time./error/",
+		"sentence6": "$avatar_current_passage/No reaction to $avatar_movement. Maybe try something else./error/",
+		"sentence7": "$avatar_current_passage/$avatar_movement didn't trigger anything. Explore another gesture./error/",
+		"sentence8": "$avatar_current_passage/No effect from $avatar_movement. Maybe a different one?/error/",
+		"sentence9": "$avatar_current_passage/Nothing happened. Let's try another action./error/",
+		"sentence10": "$avatar_current_passage/No reaction to $avatar_movement. Let's experiment with a different gesture./error/"
 	},
 	"hachi_waits": {
 		"wait1": "At the $hachi_t_stop transit stop, close to the garden, Hachi sniffed the air and listened closely, hoping to catch the sound of Buro’s footsteps echoing through.",
