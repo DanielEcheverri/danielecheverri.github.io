@@ -134,16 +134,16 @@
 		"sentence20": "Approaching the next location, nearly made it."
 	},
 	"hachi_notmoving": {
-		"sentence1": "/$hachi_mov_track didn't prompt any action. Try another gesture./error",
-		"sentence2": "/No response to $hachi_mov_track. Consider a different action./error",
-		"sentence3": "/Nothing happened after $hachi_mov_track. Perhaps try a new movement./error",
-		"sentence4": "/$hachi_mov_track didn't activate anything. Look for another gesture./error",
-		"sentence5": "/$hachi_mov_track didn't work. Let's try a different movement this time./error",
-		"sentence6": "/No reaction to $hachi_mov_track. Maybe try something else./error",
-		"sentence7": "/$hachi_mov_track didn't trigger anything. Explore another gesture./error",
-		"sentence8": "/No effect from $hachi_mov_track. Maybe a different one?/error",
-		"sentence9": "/Nothing happened. Let's try another action./error",
-		"sentence10": "/No reaction to $hachi_mov_track. Let's experiment with a different gesture./error"
+		"sentence1": "$hachi_narrating/$hachi_mov_track didn't prompt any action. Try another gesture./error",
+		"sentence2": "$hachi_narrating/No response to $hachi_mov_track. Consider a different action./error",
+		"sentence3": "$hachi_narrating/Nothing happened after $hachi_mov_track. Perhaps try a new movement./error",
+		"sentence4": "$hachi_narrating/$hachi_mov_track didn't activate anything. Look for another gesture./error",
+		"sentence5": "$hachi_narrating/$hachi_mov_track didn't work. Let's try a different movement this time./error",
+		"sentence6": "$hachi_narrating/No reaction to $hachi_mov_track. Maybe try something else./error",
+		"sentence7": "$hachi_narrating/$hachi_mov_track didn't trigger anything. Explore another gesture./error",
+		"sentence8": "$hachi_narrating/No effect from $hachi_mov_track. Maybe a different one?/error",
+		"sentence9": "$hachi_narrating/Nothing happened. Let's try another action./error",
+		"sentence10": "$hachi_narrating/No reaction to $hachi_mov_track. Let's experiment with a different gesture./error"
 	},
 	"avatar_notmoving": {
 		"sentence1": "$avatar_movement didn't prompt any action. Try another gesture./error/",
