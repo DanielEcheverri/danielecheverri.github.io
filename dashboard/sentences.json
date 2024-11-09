@@ -142,7 +142,7 @@
 		"sentence6": "$hachi_current_passage/There was no reaction following $hachi_mov_track. It might be time for Hachi to try something else./error",
 		"sentence7": "$hachi_current_passage/$hachi_mov_track didn’t seem to trigger anything. Maybe Hachi should attempt a different gesture./error",
 		"sentence8": "$hachi_current_passage/Hachi noticed no effect after $hachi_mov_track. 'Maybe a different action will work,' he thought./error",
-		"sentence9": "$hachi_current_passage/Nothing happened after Hachi tried $hachi_mov_track. He should probably attempt a different action./error",
+		"sentence9": "$hachi_current_passage/Nothing happened after Hachi tried $hachi_mov_track. I should probably attempt a different action./error",
 		"sentence10": "$hachi_current_passage/$hachi_mov_track didn’t have the intended effect. 'I’ll have to try a different approach,' Hachi muttered with a hint of frustration./error"
 	},
 	"avatar_notmoving": {
@@ -154,7 +154,7 @@
 		"sentence6": "$avatar_current_passage/There was no reaction following $avatar_mov_track. It might be time for Buro to try something else./error",
 		"sentence7": "$avatar_current_passage/$avatar_mov_track didn’t seem to trigger anything. Maybe Buro should attempt a different gesture./error",
 		"sentence8": "$avatar_current_passage/Buro noticed no effect after $avatar_mov_track. 'Maybe a different action will work,' he thought./error",
-		"sentence9": "$avatar_current_passage/Nothing happened after Buro tried $avatar_mov_track. He should probably attempt a different action./error",
+		"sentence9": "$avatar_current_passage/Nothing happened after Buro tried $avatar_mov_track. I should probably attempt a different action./error",
 		"sentence10": "$avatar_current_passage/$avatar_mov_track didn’t have the intended effect. 'I’ll have to try a different approach,' Buro muttered with a hint of frustration./error"
 	},
 	"hachi_waits": {
