@@ -664,10 +664,7 @@
 						if (match) {
 							partMoving = condition.partMoving;
 							directionMoving = condition.directionMoving;
-							setTimeout(() => {
-								resetVariables(true, false, false); // Reset both movement variables
-								//console.log("Movement and direction reset after 3 seconds of inactivity");
-							}, 3000);
+							setTimeout(() => resetVariables(false), 4000);
 						}
 					});
 
@@ -712,13 +709,6 @@
 						movementBuffer.shift(); // Remove the oldest variation
 					}
 
-					 // Clear the previous timeout, if any, and set a new one to reset buffer after 4 seconds of inactivity
-					clearTimeout(resetTimeout);
-					resetTimeout = setTimeout(() => {
-						resetVariables(false, false, true); // Only reset the movementBuffer
-						console.log("Buffer reset after 3 seconds of inactivity");
-					}, 3000);
-
 					const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
 					for (const pattern of patterns) {
 						if (checkPatternInBuffer(pattern.pattern)) {
@@ -729,10 +719,9 @@
 								displayText(characterName + " is "+ patternMovement);
 							}
 							// Clear the buffer after a match
-							setTimeout(() => {
-								resetVariables(false, true, true); // Reset all variables
-								console.log("Pattern movement reset after 2 seconds of inactivity");
-							}, 2000);
+								// Clear the buffer after a match
+								movementBuffer = [];
+								setTimeout(resetVariables, 4000); // 4 seconds
 							return;
 						}
 					}
@@ -741,20 +730,12 @@
 				}
 			}
 
-			function resetVariables(resetMovement = false, resetAll = false, resetBuffer = false ) {
-				if (resetMovement) {
-					directionMoving = "none";
-					partMoving = "none";
-				}
+			function resetVariables(resetAll = true) {
+				directionMoving = "none";
+				partMoving = "none";
 
 				if (resetAll) {
-					directionMoving = "none";
-					partMoving = "none";
 					patternMovement = "none";
-				}
-
-				if (resetBuffer) {
-					movementBuffer = []; // Clear the buffer if resetBuffer is true
 				}
 			}
 

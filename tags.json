@@ -4,7 +4,7 @@
 			"displayText": "Triggering Non-narrative mode",
 			"variable": "noNarrative",
 			"boolean": true,
-			"function": "window.magic1_Sound.play();"
+			"function": "window.magic1_Sound.play();window.bgm_Sound.stop();"
 		},
 		"13": {
 			"displayText": "Triggering Narrative mode",
