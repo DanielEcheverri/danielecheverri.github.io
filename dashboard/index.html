@@ -945,8 +945,8 @@ window.makeShortComments = async function(character, key) {
     console.error(&quot;Error:&quot;, error.message);
   });
   &lt;&lt;/script&gt;&gt;
-&lt;&lt;set avatar_passage to &quot;&quot;&gt;&gt;
-&lt;&lt;set hachi_passage to &quot;&quot;&gt;&gt;
+&lt;&lt;set avatar_passage to &quot;init/&quot;&gt;&gt;
+&lt;&lt;set hachi_passage to &quot;init/&quot;&gt;&gt;
 &lt;&lt;set avatar_current_passage to &quot;&quot;&gt;&gt;
 &lt;&lt;set hachi_current_passage to &quot;&quot;&gt;&gt;
 &lt;&lt;set avatar_checkpoint to &quot;&quot;&gt;&gt;
@@ -1038,7 +1038,8 @@ Loading variables...
 
 
 </tw-passagedata><tw-passagedata pid="3" name="loading" tags="" position="1050,675" size="200,100">&lt;&lt;nobr&gt;&gt;
-
+&lt;&lt;set $hachi_passage to &quot;loading/&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;loading/&quot;&gt;&gt;
 &lt;&lt;silently&gt;&gt;
   &lt;&lt;repeat 150ms&gt;&gt;
       &lt;&lt;replace &quot;#refreshArea&quot;&gt;&gt;
@@ -1077,10 +1078,10 @@ Loading variables...
 &lt;/div&gt;
 
 &lt;&lt;repeat 200ms&gt;&gt;
-&lt;&lt;if $storyReady is true&gt;&gt;
-	&lt;&lt;goto &quot;main&quot;&gt;&gt;
-    &lt;&lt;stop&gt;&gt;
-&lt;&lt;/if&gt;&gt;
+  &lt;&lt;if $storyReady is true&gt;&gt;
+      &lt;&lt;goto &quot;main&quot;&gt;&gt;
+      &lt;&lt;stop&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
 &lt;&lt;/repeat&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="avatar_1" tags="" position="300,525" size="100,100">&lt;&lt;nobr&gt;&gt;
@@ -2400,7 +2401,7 @@ $avatar_passage
 
 &lt;&lt;set $avatar_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of &quot; + $storyCity +&quot;, a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
 
-&lt;&lt;set $hachi_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of &quot; + $storyCity +&quot; ,small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akitta dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of &quot; + $storyCity +&quot;, small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akitta dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 &lt;&lt;if $avatar_narrating == &quot;both_00false&quot;&gt;&gt;
@@ -2552,6 +2553,8 @@ makeComments(&#39;hachi&#39;,&#39;observes&#39;);
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="avatar_act1" tags="" position="1975,625" size="100,200">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_act1/&quot;&gt;&gt;
+
 
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;avatar&#39;,&#39;observes&#39;,40);
@@ -3095,7 +3098,6 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="main" tags="" position="1275,675" size="200,100">&lt;&lt;nobr&gt;&gt;
-
 &lt;&lt;silently&gt;&gt;
   &lt;&lt;repeat 150ms&gt;&gt;
       &lt;&lt;replace &quot;#refreshArea&quot;&gt;&gt;
@@ -3143,7 +3145,7 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
         &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;&lt;include &quot;both_preamble&quot;&gt;&gt;	
+&lt;&lt;include &quot;hachi_act1&quot;&gt;&gt;	
    
 /*
 &lt;&lt;set $storyWeather to &#39;&#39;&gt;&gt;

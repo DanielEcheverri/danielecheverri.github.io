@@ -1,18 +1,18 @@
 {
 	"tags": {
 		"12": {
-			"displayText": "Triggering Non-narrative mode",
+			"displayText": "Triggering Non-narrative mode.",
 			"variable": "noNarrative",
 			"boolean": true,
 			"function": "window.magic1_Sound.play();window.bgm_Sound.stop();"
 		},
 		"13": {
-			"displayText": "Triggering Narrative mode",
+			"displayText": "Triggering Narrative mode.",
 			"variable": "noNarrative",
 			"boolean": false
 		},
 		"16": {
-			"function": "if(noNarrative){displayText('What a beautiful flower');window.m_aha_Sound.play();window.f_aha_Sound.play();}"
+			"function": "if(noNarrative){displayText('What a beautiful flower.');window.m_aha_Sound.play();window.f_aha_Sound.play();}"
 		},
 		"22": {
 			"function": "if(noNarrative){displayText('This is Buro.');window.m_aha_Sound.play();}"
