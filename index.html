@@ -716,7 +716,7 @@
 							console.log(`Pattern matched: ${pattern.patternName}`);
 							patternMovement = pattern.patternName;
 							if (noNarrative){
-								displayText(characterName + " is "+ patternMovement);
+								displayText(characterName + " is "+ patternMovement + ".");
 							}
 							// Clear the buffer after a match
 								// Clear the buffer after a match
@@ -1417,7 +1417,7 @@
 						off(ref(database, databaseName));
 						readFromDatabase(deviceName);
 						topSection.style.display = 'none';
-						displayText("Listening as "+characterName+".");
+						displayText("Listening as " + characterName + ".");
 						window[characterName + "_Sound"].play();
 						bgm_Sound.play();
 					}
