@@ -957,123 +957,126 @@
 			let currentSound = null;
 
 			async function speakMessage(fullMessage) {
-				// Transliterate the message to contain only English alphabet characters
+			// Transliterate the message to contain only English alphabet characters
 				const transliteratedMessage = transliterate(fullMessage);
 
-				// Check if the message is the same as the last spoken message
-				if (transliteratedMessage === lastSpokenMessage) {
-					console.log("Message already spoken.");
-					return; // Exit the function without speaking again
-				}
+			// Check if the message is the same as the last spoken message
+			if (transliteratedMessage === lastSpokenMessage) {
+				console.log("Message already spoken.");
+				return; // Exit the function without speaking again
+			}
 
-				if (transliteratedMessage === "") {
-					console.log("Empty text, message ignored.");
-					return;
-				}
+			if (transliteratedMessage === "") {
+				console.log("Empty text, message ignored.");
+				return;
+			}
 
-				// Azure TTS API details
-				const endpoint = "https://germanywestcentral.api.cognitive.microsoft.com/";
-				const subscriptionKey = "75Bc4nsx3ZtRbBmQbn8QOHX2lWADLdPfVZHOir3T4x2ybzeoDf2OJQQJ99AKACPV0roXJ3w3AAAYACOGwUuN";
-				const voiceName = "en-GB-SoniaNeural"; // Changed to use en-GB-SoniaNeural
+			// Azure TTS API details
+			const endpoint = "https://germanywestcentral.tts.speech.microsoft.com/cognitiveservices/v1";
+			const subscriptionKey = "75Bc4nsx3ZtRbBmQbn8QOHX2lWADLdPfVZHOir3T4x2ybzeoDf2OJQQJ99AKACPV0roXJ3w3AAAYACOGwUuN";
+			const voiceName = "en-GB-SoniaNeural"; // Use en-GB-SoniaNeural
+			const outputFormat = "audio-16khz-128kbitrate-mono-mp3"; // Output format for audio
 
-				const url = `${endpoint}cognitiveservices/v1`;
+			// Construct SSML request body
+			const ssml = `
+				<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-GB'>
+					<voice name='${voiceName}'>
+						${transliteratedMessage}
+					</voice>
+				</speak>
+			`;
 
-				try {
-					// Build the request body for Azure TTS
-					const requestBody = JSON.stringify({
-						input: { text: transliteratedMessage },
-						voice: { name: voiceName, language: "en-GB" }, // Use en-GB for SoniaNeural
-						audioConfig: { audioFormat: "audio-16khz-32kbitrate-mono-mp3" },
-					});
+			try {
+				// Define the headers for the API request
+				const headers = {
+					"Ocp-Apim-Subscription-Key": subscriptionKey,
+					"Content-Type": "application/ssml+xml",
+					"X-Microsoft-OutputFormat": outputFormat,
+					"User-Agent": "Azure-TTS-JS",
+				};
 
-					// Define the headers for the API request
-					const headers = {
-						"Ocp-Apim-Subscription-Key": subscriptionKey,
-						"Content-Type": "application/json",
-					};
-
-					// Fetch function with retries
-					async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
-						for (let attempt = 1; attempt <= retries; attempt++) {
-							try {
-								const response = await fetch(url, options);
-								if (response.ok) {
-									return response;
-								} else {
-									console.log(`Attempt ${attempt} failed. Retrying in ${delay / 1000} seconds...`);
-								}
-							} catch (error) {
-								console.log(`Attempt ${attempt} encountered an error: ${error.message}`);
+				// Fetch function with retries
+				async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+					for (let attempt = 1; attempt <= retries; attempt++) {
+						try {
+							const response = await fetch(url, options);
+							if (response.ok) {
+								return response;
+							} else {
+								console.log(`Attempt ${attempt} failed. Retrying in ${delay / 1000} seconds...`);
 							}
-							await new Promise((resolve) => setTimeout(resolve, delay));
+						} catch (error) {
+							console.log(`Attempt ${attempt} encountered an error: ${error.message}`);
 						}
-						throw new Error(`Failed to fetch after ${retries} attempts`);
+						await new Promise((resolve) => setTimeout(resolve, delay));
 					}
-
-					// Make a fetch request to the Azure TTS API
-					const response = await fetchWithRetry(url, {
-						method: "POST",
-						headers: headers,
-						body: requestBody,
-					});
-
-					// Convert response to a Blob for audio playback
-					const audioBlob = await response.blob();
-					const audioUrl = URL.createObjectURL(audioBlob);
-
-					// Stop the current sound if it is playing
-					if (currentSound) {
-						console.log("Stopping current text");
-						currentSound.stop();
-						currentSound.unload();
-					}
-
-					// Create a new Howler.js sound object
-					const sound = new Howl({
-						src: [audioUrl],
-						format: ["mp3"], // Specify the format here
-						html5: true, // Force HTML5 audio playback
-						onplay: () => {
-							console.log(deviceName + " currently speaking");
-							speaking = true;
-							messageID = messageID_tmp;
-							oldMessageID = messageID;
-							lastSpokenMessage = transliteratedMessage;
-							playAction = true;
-						},
-						onend: () => {
-							if (playAction) {
-								setTimeout(() => {
-									window.notification_Sound.play(); // Play the notification sound after a delay
-									console.log(deviceName + " end speaking");
-									speaking = false;
-									sound.unload(); // Unload the audio object to free up resources
-									playAction = false; // Reset playAction to false
-								}, 500); // Delay of 500 milliseconds
-							}
-							currentSound = null; // Reset currentSound when finished
-						},
-						onloaderror: (id, err) => {
-							console.error("Audio playback error:", err);
-							speaking = false;
-							sound.unload(); // Unload the audio object to free up resources
-							currentSound = null; // Reset currentSound on error
-						},
-					});
-
-					// Set the current sound to the new sound object
-					currentSound = sound;
-
-					sound.play();
-
-					// Trigger the "unlock" event if necessary
-					if (Howler.ctx.state === "suspended") {
-						Howler.ctx.resume();
-					}
-				} catch (error) {
-					speaking = false; // Reset speaking flag
-					console.error("Error with TTS API:", error);
+					throw new Error(`Failed to fetch after ${retries} attempts`);
 				}
+
+				// Make a fetch request to the Azure TTS API
+				const response = await fetchWithRetry(endpoint, {
+					method: "POST",
+					headers: headers,
+					body: ssml,
+				});
+
+				// Convert response to a Blob for audio playback
+				const audioBlob = await response.blob();
+				const audioUrl = URL.createObjectURL(audioBlob);
+
+				// Stop the current sound if it is playing
+				if (currentSound) {
+					console.log("Stopping current text");
+					currentSound.stop();
+					currentSound.unload();
+				}
+
+				// Create a new Howler.js sound object
+				const sound = new Howl({
+					src: [audioUrl],
+					format: ["mp3"], // Specify the format here
+					html5: true, // Force HTML5 audio playback
+					onplay: () => {
+						console.log(deviceName + " currently speaking");
+						speaking = true;
+						messageID = messageID_tmp;
+						oldMessageID = messageID;
+						lastSpokenMessage = transliteratedMessage;
+						playAction = true;
+					},
+					onend: () => {
+						if (playAction) {
+							setTimeout(() => {
+								window.notification_Sound.play(); // Play the notification sound after a delay
+								console.log(deviceName + " end speaking");
+								speaking = false;
+								sound.unload(); // Unload the audio object to free up resources
+								playAction = false; // Reset playAction to false
+							}, 500); // Delay of 500 milliseconds
+						}
+						currentSound = null; // Reset currentSound when finished
+					},
+					onloaderror: (id, err) => {
+						console.error("Audio playback error:", err);
+						speaking = false;
+						sound.unload(); // Unload the audio object to free up resources
+						currentSound = null; // Reset currentSound on error
+					},
+				});
+
+				// Set the current sound to the new sound object
+				currentSound = sound;
+
+				sound.play();
+
+				// Trigger the "unlock" event if necessary
+				if (Howler.ctx.state === "suspended") {
+					Howler.ctx.resume();
+				}
+			} catch (error) {
+				speaking = false; // Reset speaking flag
+				console.error("Error with TTS API:", error);
+			}
 			}
 
 
