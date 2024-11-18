@@ -1180,43 +1180,6 @@
 				}
 			}
 
-			function speakMessage2(fullMessage) {
-			// Check if the message is the same as the last spoken message
-				if (fullMessage === lastSpokenMessage) {
-					console.log("Message already spoken.");
-					return; // Exit the function without speaking again
-				}
-				// Check if currently speaking
-				if (speaking) {
-					console.log("Already speaking, new message ignored.");
-					return;
-				}
-				// Create a new instance of SpeechSynthesisUtterance.
-				const utterance = new SpeechSynthesisUtterance(fullMessage);
-				// Filter available voices to find Samanthas's voice in Australian English
-				const karenVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Samantha' && voice.lang === 'en-US');
-				// Set the voice to Samantha's voice if found, otherwise use the default voice
-				utterance.voice = karenVoice || speechSynthesis.getVoices()[0];
-				console.log("Using standard voice");
-				// Speak the message
-				speechSynthesis.speak(utterance);
-				utterance.onstart = function() {
-					speaking = true;
-					console.log("Currently speaking");
-					// Update the last spoken message
-					lastSpokenMessage = fullMessage;
-				};
-				utterance.onend = function() {
-					console.log("End speaking");
-					speaking = false;
-				}
-				// Event handler for speech synthesis error
-				utterance.onerror = function(event) {
-					speaking = false; // Reset speaking flag
-					console.error("Speech synthesis error:", event.error);
-				};
-			}
-
 			let weatherDescription = null;
 
 			var noNarrative;
