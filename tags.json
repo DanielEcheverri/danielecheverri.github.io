@@ -12,16 +12,16 @@
 			"boolean": false
 		},
 		"14": {
-			"displayText": "Using Coqui.",
 			"variable": "speakFancy",
 			"boolean": false,
-			"function": "console.log('Using Coqui');"
+			"function": "console.log('Using Coqui');",
+			"displayText": "Using Coqui."
 		},
 		"15": {
-			"displayText": "Using Azure Voice.",
 			"variable": "speakFancy",
 			"boolean": true,
-			"function": "console.log('Using Azure');"
+			"function": "console.log('Using Azure');",
+			"displayText": "Using Azure Voice."
 		},
 		"16": {
 			"function": "if(noNarrative){displayText('What a beautiful flower.');window.m_aha_Sound.play();window.f_aha_Sound.play();}"
