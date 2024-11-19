@@ -369,6 +369,7 @@
 			let speed;
 			var distEachOther = 0;
 			let directionText = "Not moving"
+			let speakFancy = false;
 
 			function getCurrentLocation() {
 				if (navigator.geolocation) {
@@ -956,6 +957,14 @@
 
 			let currentSound = null;
 
+			function speakMessage(fullMessage) {
+				if (speakFancy) {
+					speakMessage_azure(fullMessage);
+				} else {
+					speakMessage_coqui(fullMessage);
+				}
+			}
+
 			async function speakMessage_azure(fullMessage) {
 			// THIS FUNCTION USES AZURE!
 			// Transliterate the message to contain only English alphabet characters
@@ -1081,7 +1090,7 @@
 			}
 
 
-			async function speakMessage(fullMessage) {
+			async function speakMessage_coqui(fullMessage) {
 				//THIS FUNCTION USES COQUI_TTS
 				// Transliterate the message to contain only English alphabet characters
 				const transliteratedMessage = transliterate(fullMessage);
