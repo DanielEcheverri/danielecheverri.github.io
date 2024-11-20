@@ -1434,7 +1434,7 @@
 			var other_longitude=null;
 			let previousPassage = ''; // Initialize previous passage value
 			let previousTagID = ''; // Initialize previous tag value
-
+			var listeningMode;
 
 			// Function to read data from the database
 			function readFromDatabase(deviceName) {
@@ -1474,18 +1474,20 @@
 					streetName = myData[myStreet];
 
 					// Compare myTag with previousTag and set speakFancy
-					if (myTag !== previousTagID) {
-						if (myTag === 14) {
-							speakFancy = false;  // Set speakFancy to false when myTag is 14
-							displayText("Using Coqui's Voice");
-							console.log("Coqui TTS");
-						} else if (myTagValue === 15) {
-							speakFancy = true;   // Set speakFancy to true when myTag is 15
-							displayText("Using Azure's Voice");
-							console.log("Azure TTS");
+					if (listeningMode) {
+						if (myTag !== previousTagID) {
+							if (myTag === 14) {
+								speakFancy = false;  // Set speakFancy to false when myTag is 14
+								displayText("Using Coqui's Voice");
+								console.log("Coqui TTS");
+							} else if (myTag === 15) {
+								speakFancy = true;   // Set speakFancy to true when myTag is 15
+								displayText("Using Azure's Voice");
+								console.log("Azure TTS");
+							}
+							previousTagID = myTag; // Update previousTag
 						}
-						previousTagID = myTag; // Update previousTag
-					}
+				}
 				} else {
 					console.log("No data found in the own database.");
 				}
@@ -1535,6 +1537,7 @@
 						readFromDatabase(deviceName);
 						topSection.style.display = 'none';
 						displayText("Listening as " + characterName + ".");
+						listeningMode = true;
 						window[characterName + "_Sound"].play();
 						bgm_Sound.play();
 					}
