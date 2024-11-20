@@ -1433,6 +1433,8 @@
 			var other_latitude=null;
 			var other_longitude=null;
 			let previousPassage = ''; // Initialize previous passage value
+			let previousTagID = ''; // Initialize previous tag value
+
 
 			// Function to read data from the database
 			function readFromDatabase(deviceName) {
@@ -1443,6 +1445,7 @@
 				const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'avatar_data';
 				const myPassage = (deviceName === 'hachi_BT') ? 'hachi_passage' :'avatar_passage' ;
 				const myStreet = (deviceName === 'hachi_BT') ? 'hachi_street' :'avatar_street' ;
+				const myTag = (deviceName === 'hachi_BT') ? 'hachi_tag' :'avatar_tag' ;
 
 				// Subscribe to real-time updates for variables from the other database
 				onValue(ref(database, otherDatabaseName), (snapshot) => {
@@ -1469,6 +1472,18 @@
 						previousPassage = passage; // Update previous passage
 					}
 					streetName = myData[myStreet];
+
+					// Compare myTag with previousTag and set speakFancy
+					if (myTag !== previousTagID) {
+						if (myTag === 14) {
+							speakFancy = false;  // Set speakFancy to false when myTag is 14
+							console.log("Coqui TTS");
+						} else if (myTagValue === 15) {
+							speakFancy = true;   // Set speakFancy to true when myTag is 15
+							console.log("Auzere TTS");
+						}
+						previousTagID = myTag; // Update previousTag
+					}
 				} else {
 					console.log("No data found in the own database.");
 				}
@@ -1531,7 +1546,6 @@
 					writeToDatabase();
 				}
 				if (isConnected === true && listenClient === false && !hasRun){
-					console.log("Reading from one");
 					readFromDatabase(deviceName); // Read data after writing,
 					hasRun = true;
 				}
