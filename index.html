@@ -99,6 +99,7 @@
 			let tagSource = null;
 			let checkpointsSource = 'points.json';
 			let characterName = "";
+			let interactionMode = "_load";
 
 			var connecting_Sound = new Howl({src: ['audio/ui_loading.mp3'],
 			onloaderror: function(error) {console.error('Error loading audio:', error);},});
@@ -162,7 +163,8 @@
 				if (checkbox.checked) {
 					deviceName = "hachi_BT";
 					console.log("Setting to "+deviceName);
-					console.log("Loading settings for Hachi_BT");
+					console.log("Loading settings for hachi_BT");
+					interactionMode="_int";
 					moveSource = 'hachi_moves.json';
 					movePatterns = 'hachi_patterns.json';
 					sentenceSource = 'hachi_sentences.json';
@@ -172,7 +174,8 @@
 				} else {
 					deviceName = "avatar_BT";
 					console.log("Setting to "+deviceName);
-					console.log("Loading settings for Avatar_BT");
+					console.log("Loading settings for avatar_BT");
+					interactionMode="_int";
 					moveSource = 'avatar_moves.json';
 					movePatterns = 'avatar_patterns.json';
 					sentenceSource = 'avatar_sentences.json';
@@ -341,7 +344,7 @@
 
 					// Send to Google Sheet
 					const timestamp = new Date().toISOString();
-					const encodedMessage = encodeURIComponent(consoleMessage);
+					const encodedMessage = encodeURIComponent(deviceName+interactionMode+": "+consoleMessage);
 					const encodedTimestamp = encodeURIComponent(timestamp);
 
 					const scriptURL = `https://script.google.com/macros/s/AKfycby6eO3XkdctRamMRPRJ3v6Xh9dCdrssFONmCk56VUSJd8h70autXFXVKITDG-O_8wN1/exec?timestamp=${encodedTimestamp}&message=${encodedMessage}`;
@@ -1535,9 +1538,10 @@
 					if (topSection) {
 						off(ref(database, databaseName));
 						readFromDatabase(deviceName);
+						interactionMode="_lst";
 						topSection.style.display = 'none';
 						displayText("Listening as " + characterName + ".");
-						console.log("Listening as :"+ deviceName + ".");
+						console.log("Listening as: "+ deviceName + ".");
 						window[characterName + "_Sound"].play();
 						bgm_Sound.play();
 					}
@@ -1545,7 +1549,6 @@
 			}
 
 			let hasRun = false; // Flag to ensure the block runs only once
-
 			setInterval(() => {
 				if (listenClient === false ){
 					writeToDatabase();
