@@ -14,12 +14,14 @@
 		"14": {
 			"displayText": "Using Coqui's Voice.",
 			"variable": "speakFancy",
-			"boolean": false
+			"boolean": false,
+			"function": "console.log('Coqui TTS');"
 		},
 		"15": {
 			"displayText": "Using Azure's Voice.",
 			"variable": "speakFancy",
-			"boolean": true
+			"boolean": true,
+			"function": "console.log('Azure TTS');"
 		},
 		"16": {
 			"function": "if(noNarrative){displayText('What a beautiful flower.');window.m_aha_Sound.play();window.f_aha_Sound.play();}"
