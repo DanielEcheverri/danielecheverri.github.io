@@ -1476,18 +1476,19 @@
 					streetName = myData[myStreet];
 
 					// Compare myTag with previousTag and set speakFancy
+					const tag = myData[myTag];
 					if (listenClient) {
-						if (myTag !== previousTagID) {
-							if (myTag === 14) {
+						if (tag !== previousTagID) {
+							if (tag === 14) {
 								speakFancy = false;  // Set speakFancy to false when myTag is 14
 								displayText("Using Coqui's Voice");
 								console.log("Coqui TTS in listening mode");
-							} else if (myTag === 15) {
+							} else if (tag === 15) {
 								speakFancy = true;   // Set speakFancy to true when myTag is 15
 								displayText("Using Azure's Voice");
 								console.log("Azure TTS in listening mode");
 							}
-							previousTagID = myTag; // Update previousTag
+							previousTagID = tag; // Update previousTag
 						}
 				}
 				} else {
