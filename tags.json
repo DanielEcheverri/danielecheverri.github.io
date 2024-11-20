@@ -12,13 +12,11 @@
 			"boolean": false
 		},
 		"14": {
-			"function": "console.log('Using Coqui');",
 			"displayText": "Using Coqui's Voice.",
 			"variable": "speakFancy",
 			"boolean": false
 		},
 		"15": {
-			"function": "console.log('Using Azure');",
 			"displayText": "Using Azure's Voice.",
 			"variable": "speakFancy",
 			"boolean": true
