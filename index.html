@@ -157,30 +157,6 @@
 				initializeSounds();
 			});
 
-			var listenClient = null;
-
-			function interactFunction() {
-				listenClient = false;
-				console.log("Interacting as " + deviceName);
-
-				// Hide the Listen button
-				document.getElementById('listenButton').style.display = 'none';
-				// Hide the Interact button
-				document.getElementById('interactButton').style.display = 'none';
-				// Show the Connect button
-				document.getElementById('connectButton').style.display = 'inline-block';
-			}
-
-			function listenFunction() {
-				listenClient = true;
-				console.log("Listening as " + deviceName);
-				// Hide the Interact button
-				document.getElementById('interactButton').style.display = 'none';
-				// Show toggle
-				document.getElementById('toggleContainer').style.display = 'flex';
-				document.getElementById("toggleSwitch").click();
-			}
-
 			function toggleDeviceName() {
 				var checkbox = document.getElementById("hachiCheckbox");
 				if (checkbox.checked) {
@@ -204,6 +180,29 @@
 					characterName = "Buro";
 					initializeSounds();
 				}
+			}
+
+			var listenClient = null;
+
+			function interactFunction() {
+				listenClient = false;
+				console.log("Interacting as " + deviceName);
+				// Hide the Listen button
+				document.getElementById('listenButton').style.display = 'none';
+				// Hide the Interact button
+				document.getElementById('interactButton').style.display = 'none';
+				// Show the Connect button
+				document.getElementById('connectButton').style.display = 'inline-block';
+			}
+
+			function listenFunction() {
+				listenClient = true;
+				console.log("Listening as " + deviceName);
+				// Hide the Interact button
+				document.getElementById('interactButton').style.display = 'none';
+				// Show toggle
+				document.getElementById('toggleContainer').style.display = 'flex';
+				document.getElementById("toggleSwitch").click();
 			}
 
 			async function connectToDevice() {
