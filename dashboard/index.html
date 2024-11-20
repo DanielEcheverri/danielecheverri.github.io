@@ -1421,13 +1421,13 @@ console.log(variables().hachi_comment);
  &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="hachi_act2" tags="" position="1325,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_turn to 0&gt;&gt;
 
-&lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to four different places where he will meet four different, colorfoul characters.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to four different places where he will meet four different, colorful characters.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_01/&#39;Greetings, furry friend! I am Lucia, guardian of this enchanted flower. You must be Hachi, the loyal Akita. Fate has brought you to me for a special purpose.&#39; Hachi&#39;s ears perk up with interest as Lucia explains the reason for their meeting./fairy/&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_01/&#39;Greetings, furry friend! I am Lucia, guardian of this enchanted flower. Fate has brought you to me for a special purpose.&#39; Hachi&#39;s ears perk up with interest as Lucia explains the reason for their meeting./fairy/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_01false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
@@ -1447,15 +1447,19 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act2_05false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_06/ Each character will teach Hachi a bit more about Buro: He always rides &quot;+$hachi_t_type+&quot; &quot;+$hachi_t_route+&quot; to &quot;+$hachi_t_heading+&quot; along with Ms. Suarez, who works at the bank. At the stairs of the building, he likes to buy a pack of gum and talk about sea stories with Mr. Al Mansouri. Buro also likes to throw one coin at the fountain close to his faculty hoping for one of his many wishes to come true. There, every morning,  he always greets Ms. Novakova while she feeds the pigeons.../panting/&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_06/ Each character will teach Hachi a bit more about Buro: He always rides &quot;+$hachi_t_type+&quot; &quot;+$hachi_t_route+&quot; to &quot;+$hachi_t_heading+&quot; along with Ms. Suarez, who works at the bank. At the stairs of the building, he likes to buy a pack of gum and talk about sea stories with Mr. Al Mansouri./talking3/&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+  
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_06false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt; 
+&lt;&lt;set $hachi_passage to &quot;hachi_act2_07/Buro also likes to throw one coin at the fountain close to his faculty hoping for one of his many wishes to come true. There, every morning,  he always greets Ms. Novakova while she feeds the pigeons.../panting/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_06false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act2_07/&#39;Where is Hachi going next? He starts walking./talking2/&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_07false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act2_08/&#39;Where is Hachi going next? He starts walking again./talking2/&quot;&gt;&gt;
  &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_act2_07false&quot;&gt;&gt;
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_act2_08false&quot;&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act2_transition&quot;&gt;&gt;
         &lt;&lt;set $hachi_nextAct to false&gt;&gt;
@@ -2587,7 +2591,7 @@ console.log(variables().avatar_comment);
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="hachi_act1_1" tags="" position="1700,725" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_act1_01/Hachi&#39;s determination to find the source of the tempting scent leads him deeper. As he follows the streets around &quot; +$storyNeighborhood+&quot;, the aroma grows stronger, filling his senses with eagerness. Finally, Hachi comes across a statue in a small square. The scent seems to be coming from the base of the statue./park2/&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_act1_01/Hachi&#39;s determination drives him deeper into&quot; + $storyNeighborhood + &quot;. The aroma intensifies with each step. Finally, he reaches a statue in a small square, where the scent emanates from its base./park2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
