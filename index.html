@@ -1539,6 +1539,10 @@
 						interactionMode="_lst";
 						topSection.style.display = 'none';
 						currentLocation.style.display = 'none';
+						const avatarCanvas = document.querySelector('.avatarCanvas');  // Select the div with class 'avatarCanvas'
+						if (avatarCanvas) {
+							avatarCanvas.innerHTML = '<span class="material-symbols-outlined">hearing</span>';  // Replace the content
+						}
 						displayText("Listening as " + characterName + ".");
 						console.log("Listening as: "+ deviceName + ".");
 						window[characterName + "_Sound"].play();
