@@ -15,13 +15,13 @@
 			"displayText": "Using Coqui's Voice.",
 			"variable": "speakFancy",
 			"boolean": false,
-			"function": "console.log('Coqui TTS');"
+			"function": "console.log('Coqui TTS in avatar mode');"
 		},
 		"15": {
 			"displayText": "Using Azure's Voice.",
 			"variable": "speakFancy",
 			"boolean": true,
-			"function": "console.log('Azure TTS');"
+			"function": "console.log('Azure TTS in avatar mode');"
 		},
 		"16": {
 			"function": "if(noNarrative){displayText('What a beautiful flower.');window.m_aha_Sound.play();window.f_aha_Sound.play();}"
