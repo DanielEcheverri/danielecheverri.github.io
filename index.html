@@ -849,7 +849,6 @@
 				}
 			}
 
-
 			// Update display
 			function updateDisplay(displayMessage) {
 				try {
@@ -1539,6 +1538,7 @@
 						readFromDatabase(deviceName);
 						interactionMode="_lst";
 						topSection.style.display = 'none';
+						currentLocation.style.display = 'none';
 						displayText("Listening as " + characterName + ".");
 						console.log("Listening as: "+ deviceName + ".");
 						window[characterName + "_Sound"].play();
