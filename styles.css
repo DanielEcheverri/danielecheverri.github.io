@@ -236,20 +236,23 @@ input:checked + .slider:before {
 }
 
 .hearing-icon {
-	font-size: 50vh; /* Set the size of the hearing icon */
-	color: white; /* Set the color of the hearing icon */
+	font-size: 30vh; /* Set the size of the hearing icon */
+	color: rgb(204, 204, 0); /* Set the color of the hearing icon */
 	vertical-align: middle; /* Align the icon */
-	animation: pulsate 1.5s infinite ease-in-out; /* Apply the pulsating animation */
+	animation: pulsate 3s infinite ease-in-out; /* Apply the pulsating animation */
 }
 /* Pulsating effect */
 @keyframes pulsate {
 	0% {
 		transform: scale(1); /* Normal size */
+		opacity: 1; /* Full opacity */
 	}
 	50% {
 		transform: scale(1.2); /* 20% larger */
+		opacity: 0; /* Full opacity */
 	}
 	100% {
 		transform: scale(1); /* Back to normal size */
+		opacity: 1; /* Full opacity */
 	}
 }
