@@ -236,10 +236,12 @@ input:checked + .slider:before {
 }
 
 .hearing-icon {
-	font-size: 30vh; /* Set the size of the hearing icon */
-	color: rgb(204, 204, 0); /* Set the color of the hearing icon */
+	text-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+	padding-bottom: 20vh;
+	font-size: 20vh; /* Set the size of the hearing icon */
+	color: #4caf50; /* Set the color of the hearing icon */
 	vertical-align: middle; /* Align the icon */
-	animation: pulsate 3s infinite ease-in-out; /* Apply the pulsating animation */
+	animation: pulsate 6s infinite cubic-bezier(0.2, 0, 0, 1); /* Apply the pulsating animation */
 }
 /* Pulsating effect */
 @keyframes pulsate {
