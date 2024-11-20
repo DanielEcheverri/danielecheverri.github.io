@@ -1434,7 +1434,6 @@
 			var other_longitude=null;
 			let previousPassage = ''; // Initialize previous passage value
 			let previousTagID = ''; // Initialize previous tag value
-			var listeningMode;
 
 			// Function to read data from the database
 			function readFromDatabase(deviceName) {
@@ -1474,7 +1473,7 @@
 					streetName = myData[myStreet];
 
 					// Compare myTag with previousTag and set speakFancy
-					if (listeningMode) {
+					if (listenClient) {
 						if (myTag !== previousTagID) {
 							if (myTag === 14) {
 								speakFancy = false;  // Set speakFancy to false when myTag is 14
@@ -1537,7 +1536,6 @@
 						readFromDatabase(deviceName);
 						topSection.style.display = 'none';
 						displayText("Listening as " + characterName + ".");
-						listeningMode = true;
 						window[characterName + "_Sound"].play();
 						bgm_Sound.play();
 					}
