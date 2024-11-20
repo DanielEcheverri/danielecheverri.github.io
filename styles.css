@@ -245,14 +245,14 @@ input:checked + .slider:before {
 @keyframes pulsate {
 	0% {
 		transform: scale(1); /* Normal size */
-		opacity: 1; /* Full opacity */
+		opacity: 0; /* Full opacity */
 	}
 	50% {
-		transform: scale(1.2); /* 20% larger */
-		opacity: 0; /* Full opacity */
+		transform: scale(1.4); /* 20% larger */
+		opacity: 1; /* Full opacity */
 	}
 	100% {
 		transform: scale(1); /* Back to normal size */
-		opacity: 1; /* Full opacity */
+		opacity: 0; /* Full opacity */
 	}
 }
