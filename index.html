@@ -74,11 +74,11 @@
 				</button>
 			</div>
 		</div>
-		<!-- Coordinates-->
+		<!-- Movement tracking-->
 		<div id="avatarCanvas"></div>
-		<!-- Coordinates-->
+		<!-- Status-->
 		<div id="currentLocation"></div>
-		<!-- Movement>-->
+		<!-- Message>-->
 		<div id="messageDisplayDiv"></div>
 		<script>
 			//Script for pairing with Avatar_BT
@@ -1539,7 +1539,8 @@
 						interactionMode="_lst";
 						topSection.style.display = 'none';
 						currentLocation.style.display = 'none';
-						const avatarCanvas = document.querySelector('.avatarCanvas');  // Select the div with class 'avatarCanvas'
+						hachiCheckboxContainer.style.display = 'none';
+						const avatarCanvas = document.querySelector('avatarCanvas');  // Select the div 'avatarCanvas'
 						if (avatarCanvas) {
 							avatarCanvas.innerHTML = '<span class="material-symbols-outlined">hearing</span>';  // Replace the content
 						}
