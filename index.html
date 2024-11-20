@@ -186,7 +186,6 @@
 
 			function interactFunction() {
 				listenClient = false;
-				console.log("Interacting as " + deviceName);
 				// Hide the Listen button
 				document.getElementById('listenButton').style.display = 'none';
 				// Hide the Interact button
@@ -197,7 +196,6 @@
 
 			function listenFunction() {
 				listenClient = true;
-				console.log("Listening as " + deviceName);
 				// Hide the Interact button
 				document.getElementById('interactButton').style.display = 'none';
 				// Show toggle
@@ -1539,6 +1537,7 @@
 						readFromDatabase(deviceName);
 						topSection.style.display = 'none';
 						displayText("Listening as " + characterName + ".");
+						console.log("Listening as :"+ deviceName + ".");
 						window[characterName + "_Sound"].play();
 						bgm_Sound.play();
 					}
