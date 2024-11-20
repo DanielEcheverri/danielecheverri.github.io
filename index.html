@@ -104,7 +104,6 @@
 			onloaderror: function(error) {console.error('Error loading audio:', error);},});
 			var bgm_Sound=new Howl({src:['audio/bgm.mp3'],loop:true,volume:0.3});
 
-
 			async function initializeSounds() {
 				try {
 					const sounds = await fetchJSONFile('sounds.json', window.sounds); // Load JSON file
