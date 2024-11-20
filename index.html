@@ -1481,11 +1481,11 @@
 						if (tag !== previousTagID) {
 							if (tag === 14) {
 								speakFancy = false;  // Set speakFancy to false when myTag is 14
-								displayText("Using Coqui's Voice");
+								displayText("Using Coqui's Voice.");
 								console.log("Coqui TTS in listening mode");
 							} else if (tag === 15) {
 								speakFancy = true;   // Set speakFancy to true when myTag is 15
-								displayText("Using Azure's Voice");
+								displayText("Using Azure's Voice.");
 								console.log("Azure TTS in listening mode");
 							}
 							previousTagID = tag; // Update previousTag
