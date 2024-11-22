@@ -1542,7 +1542,10 @@
 						hachiCheckboxContainer.style.display = 'none';
 						const avatarCanvas = document.getElementById('avatarCanvas');  // Select the element with ID 'avatarCanvas'
 						if (avatarCanvas) {
-							avatarCanvas.innerHTML = '<span class="material-symbols-outlined hearing-icon">hearing</span>';  // Replace the content
+							avatarCanvas.innerHTML = '
+								<span class="material-symbols-outlined hearing-icon">hearing</span>
+								Listening to the story as ${deviceName}
+								';  // Replace the content
 						}
 						displayText("Listening as " + characterName + ".");
 						console.log("Listening as: "+ deviceName + ".");
