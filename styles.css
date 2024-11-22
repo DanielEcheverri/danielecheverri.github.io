@@ -237,7 +237,7 @@ input:checked + .slider:before {
 
 .hearing-icon {
 	text-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
-	padding-bottom: 20vh;
+	padding-bottom: 40vh;
 	font-size: 20vh; /* Set the size of the hearing icon */
 	vertical-align: middle; /* Align the icon */
 	color: white; /* Set the color */
