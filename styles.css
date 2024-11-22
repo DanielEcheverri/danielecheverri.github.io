@@ -252,3 +252,8 @@ input:checked + .slider:before {
 	height: 100%; /* Ensure the wrapper takes up full height */
 	padding-bottom: 10vh;
 }
+
+/* Change color for hearing icon when toggle is checked */
+#avatarBTdiv input[type="checkbox"]:checked ~ #avatarCanvas .hearing-icon {
+	color: #4caf50; /* Green when checked */
+}
