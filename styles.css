@@ -240,23 +240,5 @@ input:checked + .slider:before {
 	padding-bottom: 20vh;
 	font-size: 20vh; /* Set the size of the hearing icon */
 	vertical-align: middle; /* Align the icon */
-	animation: pulsate 6s infinite cubic-bezier(0.2, 0, 0, 1); /* Apply the pulsating animation */
-}
-/* Pulsating effect */
-@keyframes pulsate {
-	0% {
-		transform: scale(1); /* Normal size */
-		opacity: 0; /* Full opacity */
-		color: white; /* Set the color */
-	}
-	50% {
-		transform: scale(1.4); /* 20% larger */
-		opacity: 1; /* Full opacity */
-		color: #4caf50; /* Set the color */
-	}
-	100% {
-		transform: scale(1); /* Back to normal size */
-		opacity: 0; /* Full opacity */
-		color: white; /* Set the color */
-	}
+	color: white; /* Set the color */
 }
