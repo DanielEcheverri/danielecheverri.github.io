@@ -1543,8 +1543,10 @@
 						const avatarCanvas = document.getElementById('avatarCanvas');  // Select the element with ID 'avatarCanvas'
 						if (avatarCanvas) {
 							avatarCanvas.innerHTML = `
-								<span class="material-symbols-outlined hearing-icon">hearing</span>
-								<span id="loading-text"> Listening to the story as ${deviceName}</span>
+								<div class="center-wrapper">
+									<span class="material-symbols-outlined hearing-icon">hearing</span>
+									<span id="loading-text"> Listening to the story as ${deviceName}</span>
+								</div>
 							`; // Replace the content
 						}
 						displayText("Listening as " + characterName + ".");

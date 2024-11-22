@@ -242,3 +242,13 @@ input:checked + .slider:before {
 	vertical-align: middle; /* Align the icon */
 	color: white; /* Set the color */
 }
+
+.center-wrapper {
+	display: flex; /* Use flexbox to arrange items */
+	flex-direction: column; /* Stack items vertically */
+	justify-content: center; /* Center the items vertically */
+	align-items: center; /* Center the items horizontally */
+	text-align: center; /* Ensure text inside spans is also centered */
+	width: 100%; /* Ensure the wrapper takes up full width */
+	height: 100%; /* Ensure the wrapper takes up full height */
+}
