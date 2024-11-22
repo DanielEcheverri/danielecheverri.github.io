@@ -250,4 +250,5 @@ input:checked + .slider:before {
 	text-align: center; /* Ensure text inside spans is also centered */
 	width: 100%; /* Ensure the wrapper takes up full width */
 	height: 100%; /* Ensure the wrapper takes up full height */
+	padding-bottom: 10vh;
 }
