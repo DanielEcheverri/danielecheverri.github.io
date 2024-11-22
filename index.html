@@ -1542,6 +1542,10 @@
 						hachiCheckboxContainer.style.display = 'none';
 						const avatarCanvas = document.getElementById('avatarCanvas');  // Select the element with ID 'avatarCanvas'
 						if (avatarCanvas) {
+							const avatarBTdiv = document.getElementById('avatarBTdiv');
+							if (avatarBTdiv) {
+								avatarBTdiv.remove(); // Remove the div with the ID 'avatarBTdiv'
+							}
 							avatarCanvas.innerHTML = `
 								<div class="center-wrapper">
 									<span class="material-symbols-outlined hearing-icon">hearing</span>
