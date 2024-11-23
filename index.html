@@ -1526,12 +1526,6 @@
 				// Get characterName from the mapping object, default to 'Unknown' if not found
 				const characterName = deviceToCharacter[deviceName] || 'Unknown';
 
-				toggleSwitch.addEventListener('change', () => {
-							// Change the color based on the toggle state
-							console.log("Toggled");
-							hearingIcon.style.color = toggleSwitch.checked ? 'yellow' : 'red';
-						});
-
 				// Clear any existing timeout to reset the timer
 				if (hideTimeout) {
 					clearTimeout(hideTimeout);
@@ -1560,6 +1554,11 @@
 									<span id="loading-text"> Listening ${characterName}'s Story</span>
 								</div>
 							`; // Replace the content
+							toggleSwitch.addEventListener('change', () => {
+								// Change the color based on the toggle state
+								console.log("Toggled");
+								hearingIcon.style.color = toggleSwitch.checked ? 'yellow' : 'red';
+							});
 						}
 						displayText("Listening as " + characterName + ".");
 						console.log("Listening as: "+ deviceName + ".");
