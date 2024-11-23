@@ -96,7 +96,7 @@
 			let moveSource = null;
 			let movePatterns = null;
 			let sentenceSource = null;
-			let tagSource = null;
+			let tagSource = 'tags.json';
 			let checkpointsSource = 'points.json';
 			let characterName = "";
 			let interactionMode = "_load";
@@ -168,7 +168,6 @@
 					moveSource = 'hachi_moves.json';
 					movePatterns = 'hachi_patterns.json';
 					sentenceSource = 'hachi_sentences.json';
-					tagSource = 'tags.json';
 					characterName = "Hachi";
 					initializeSounds();
 				} else {
@@ -179,7 +178,6 @@
 					moveSource = 'avatar_moves.json';
 					movePatterns = 'avatar_patterns.json';
 					sentenceSource = 'avatar_sentences.json';
-					tagSource = 'tags.json';
 					characterName = "Buro";
 					initializeSounds();
 				}
