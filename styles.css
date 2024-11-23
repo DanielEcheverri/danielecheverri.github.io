@@ -190,12 +190,6 @@ h1 {
 
 input:checked + .slider {
 	background-color: #4caf50;
-	--toggle-state: "on"; /* Change the toggle state to 'on' */
-}
-
-/* When the toggle is checked */
-input:checked ~ .hearing-icon {
-	color: #4caf50; /* Change to green when checked */
 }
 
 input:checked + .slider:before {
@@ -245,7 +239,7 @@ input:checked + .slider:before {
 	text-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
 	font-size: 40vh; /* Set the size of the hearing icon */
 	vertical-align: middle; /* Align the icon */
-	color: red; /* Default color */
+	color: #0082fc; /* Default color */
 }
 
 .center-wrapper {
