@@ -24,7 +24,7 @@
 			"function": "console.log('Azure TTS in avatar mode.');"
 		},
 		"16": {
-			"function": "if(noNarrative){displayText('What a beautiful flower.');window.m_aha_Sound.play();window.f_aha_Sound.play();}"
+			"function": "if(noNarrative){displayText('What a beautiful flower.');window.f_aha_Sound.play();}"
 		},
 		"22": {
 			"function": "if(noNarrative){displayText('This is Buro.');window.m_aha_Sound.play();}"

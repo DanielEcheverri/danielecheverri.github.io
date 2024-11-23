@@ -1591,6 +1591,10 @@
 					toggleListening();
 				});
 			});
+
+			window.addEventListener('beforeunload', function (event) {
+				console.log('End of session');
+			});
 		</script>
 	</body>
 </html>
