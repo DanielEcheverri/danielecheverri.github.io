@@ -1526,6 +1526,12 @@
 				// Get characterName from the mapping object, default to 'Unknown' if not found
 				const characterName = deviceToCharacter[deviceName] || 'Unknown';
 
+				toggleSwitch.addEventListener('change', () => {
+							// Change the color based on the toggle state
+							console.log("Toggled");
+							hearingIcon.style.color = toggleSwitch.checked ? 'yellow' : 'red';
+						});
+
 				// Clear any existing timeout to reset the timer
 				if (hideTimeout) {
 					clearTimeout(hideTimeout);
@@ -1541,12 +1547,6 @@
 						topSection.style.display = 'none';
 						currentLocation.style.display = 'none';
 						hachiCheckboxContainer.style.display = 'none';
-
-						toggleSwitch.addEventListener('change', () => {
-							// Change the color based on the toggle state
-							console.log("Toggled");
-							hearingIcon.style.color = toggleSwitch.checked ? 'yellow' : 'red';
-						});
 
 						const avatarCanvas = document.getElementById('avatarCanvas');  // Select the element with ID 'avatarCanvas'
 						if (avatarCanvas) {
