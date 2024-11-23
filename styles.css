@@ -8,6 +8,7 @@ body {
 	justify-content: center;
 	height: 100vh;
 	background-color: #48494b;
+	--toggle-state: "off";  /* Default to 'off' */
 }
 h1 {
 	font-size: 30px;
@@ -190,7 +191,7 @@ h1 {
 
 input:checked + .slider {
 	background-color: #4caf50;
-	--hearing-color: #4caf50; /* Default color for hearing icon */
+  	--toggle-state: "on";
 }
 
 input:checked + .slider:before {
@@ -240,7 +241,7 @@ input:checked + .slider:before {
 	text-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
 	font-size: 40vh; /* Set the size of the hearing icon */
 	vertical-align: middle; /* Align the icon */
-	color: var(--hearing-color);
+	color: var(--toggle-state) == "on" ? "green" : "red";
 }
 
 .center-wrapper {
@@ -253,3 +254,4 @@ input:checked + .slider:before {
 	height: 100%; /* Ensure the wrapper takes up full height */
 	padding-bottom: 20vh;
 }
+
