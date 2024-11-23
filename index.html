@@ -1515,7 +1515,6 @@
 
 			function toggleListening() {
 				const toggleSwitch = document.getElementById('toggleSwitch');
-				const hearingIcon = document.querySelector('.hearing-icon');
 
 				deviceName = toggleSwitch.checked ? "hachi_BT" : "avatar_BT";
 				const databaseName = deviceName === 'hachi_BT' ? 'avatar_data' : 'hachi_data';
@@ -1554,6 +1553,7 @@
 									<span id="loading-text"> Listening ${characterName}'s Story</span>
 								</div>
 							`; // Replace the content
+							const hearingIcon = document.querySelector('.hearing-icon');
 							toggleSwitch.addEventListener('change', () => {
 								// Change the color based on the toggle state
 								console.log("Toggled");
