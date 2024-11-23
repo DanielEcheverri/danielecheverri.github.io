@@ -8,7 +8,6 @@ body {
 	justify-content: center;
 	height: 100vh;
 	background-color: #48494b;
-	--toggle-state: "off";  /* Default to 'off' */
 }
 h1 {
 	font-size: 30px;
@@ -187,12 +186,16 @@ h1 {
 	background-color: white;
 	transition: 0.4s;
 	border-radius: 50%;
-	--toggle-state: "on";
-
 }
 
 input:checked + .slider {
 	background-color: #4caf50;
+	--toggle-state: "on"; /* Change the toggle state to 'on' */
+}
+
+/* When the toggle is checked */
+input:checked ~ .hearing-icon {
+	color: #4caf50; /* Change to green when checked */
 }
 
 input:checked + .slider:before {
@@ -242,7 +245,7 @@ input:checked + .slider:before {
 	text-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
 	font-size: 40vh; /* Set the size of the hearing icon */
 	vertical-align: middle; /* Align the icon */
-	color: var(--toggle-state) == "on" ? "green" : "red";
+	color: red; /* Default color */
 }
 
 .center-wrapper {
@@ -255,4 +258,3 @@ input:checked + .slider:before {
 	height: 100%; /* Ensure the wrapper takes up full height */
 	padding-bottom: 20vh;
 }
-
