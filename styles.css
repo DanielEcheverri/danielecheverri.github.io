@@ -175,8 +175,6 @@ h1 {
 	background-color: #0082fc;
 	transition: 0.4s;
 	border-radius: 34px;
-	--toggle-state: "on";
-
 }
 
 .slider:before {
@@ -193,6 +191,7 @@ h1 {
 
 input:checked + .slider {
 	background-color: #4caf50;
+	--toggle-state: "on";
 }
 
 input:checked + .slider:before {
