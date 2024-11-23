@@ -1541,10 +1541,12 @@
 						topSection.style.display = 'none';
 						currentLocation.style.display = 'none';
 						hachiCheckboxContainer.style.display = 'none';
+
 						toggleSwitch.addEventListener('change', () => {
 							// Change the color based on the toggle state
-							hearingIcon.style.color = toggleSwitch.checked ? 'green' : 'red';
+							hearingIcon.style.color = toggleSwitch.checked ? 'yellow' : 'red';
 						});
+
 						const avatarCanvas = document.getElementById('avatarCanvas');  // Select the element with ID 'avatarCanvas'
 						if (avatarCanvas) {
 							const avatarBTdiv = document.getElementById('avatarBTdiv');
