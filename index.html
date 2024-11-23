@@ -1285,7 +1285,7 @@
 							const isCheckpointKeyChanged = previousCheckpointKey !== currentCheckpointKey;
 							const isChkPointDistanceChanged = JSON.stringify(previousChkPointDistance) !== JSON.stringify(chkPointDistance);
 
-							if ((isCheckpointKeyChanged || isChkPointDistanceChanged) && !listenClient) {
+							if ((isCheckpointKeyChanged || isChkPointDistanceChanged) && !listenClient && interactionMode !== "_load") {
 								console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
 								previousCheckpointKey = currentCheckpointKey;
 								previousChkPointDistance = JSON.parse(JSON.stringify(chkPointDistance));
@@ -1528,7 +1528,6 @@
 				let toggleState = toggleSwitch.checked;
 				// Listen for toggle changes and update the toggleState variable
 				toggleSwitch.addEventListener('change', () => {
-					console.log("Toggled");
 					toggleState = toggleSwitch.checked;
 				});
 
