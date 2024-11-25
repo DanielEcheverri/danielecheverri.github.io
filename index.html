@@ -340,7 +340,7 @@
 
 					// Send to Google Sheet
 					const timestamp = new Date().toISOString();
-					const encodedMessage = encodeURIComponent(deviceName+interactionMode+": "+consoleMessage);
+					const encodedMessage = encodeURIComponent(deviceName+interactionMode+"["+latitude+","+longitude+"]:"+"["+consoleMessage+"]");
 					const encodedTimestamp = encodeURIComponent(timestamp);
 
 					const scriptURL = `https://script.google.com/macros/s/AKfycby6eO3XkdctRamMRPRJ3v6Xh9dCdrssFONmCk56VUSJd8h70autXFXVKITDG-O_8wN1/exec?timestamp=${encodedTimestamp}&message=${encodedMessage}`;
