@@ -371,9 +371,19 @@
 				};
 
 				function updateConsoleOutput() {
-					var combinedMessages = logMessages.concat(errorMessages);
-					var lastTwoMessages = combinedMessages.slice(-2);
-					consoleOutputDiv.innerHTML = lastTwoMessages.map(msg => '<div class="log">' + msg + '</div>').join('');
+					// Combine log and error messages, keeping their chronological order.
+					const combinedMessages = [...logMessages, ...errorMessages]
+						.map((msg, index) => ({ msg, index }))
+						.sort((a, b) => a.index - b.index)
+						.map(item => item.msg);
+
+					// Get the last two messages from the combined array.
+					const lastTwoMessages = combinedMessages.slice(-2);
+
+					// Update the output div with the latest two messages.
+					consoleOutputDiv.innerHTML = lastTwoMessages
+						.map(msg => '<div class="log">' + msg + '</div>')
+						.join('');
 				}
 			}
 
