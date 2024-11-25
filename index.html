@@ -295,9 +295,9 @@
 			function wakeLock() {
 				if ('wakeLock' in navigator) {
 							navigator.wakeLock.request('screen').then(() => {
-								console.log(' screen wake lock activated');
+								console.log('Screen wake lock activated');
 							}).catch((err) => {
-								console.error(' failed to activate wake lock:', err);
+								console.error('Failed to activate wake lock:', err);
 							});
 						} else {
 							console.warn('Wake lock API not supported.');
