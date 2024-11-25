@@ -320,71 +320,62 @@
 			window.onload = checkVariables;
 
 			function redirectConsoleToDiv() {
-				var consoleOutputDiv = document.getElementById('consoleOutput');
+				const consoleOutputDiv = document.getElementById('consoleOutput');
 				if (!consoleOutputDiv) {
 					console.error("Div for console output not found.");
 					return;
 				}
 
 				// Save the original console.log and console.error functions.
-				var originalConsoleLog = console.log;
-				var originalConsoleError = console.error;
-				var logMessages = []; // Array to store log messages
+				const originalConsoleLog = console.log;
+				const originalConsoleError = console.error;
+				const logMessages = []; // Array to store log messages
 
-				// Override console.log to append messages to the div.
-				console.log = function(...args) {
-					originalConsoleLog(...args);
-					var consoleMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ');
-					logMessages.push("<strong>CONSOLE DEBUG:</strong> " + consoleMessage);
+				// Generic function to handle logging
+				function handleLog(type, originalFunction, ...args) {
+					originalFunction(...args);
+					const message = args.map(arg => (typeof arg === 'object' ? JSON.stringify(arg) : arg)).join(' ');
+					logMessages.push(`<strong>CONSOLE ${type}:</strong> ${message}`);
 					updateConsoleOutput();
 
-					// Send to Google Sheet
-					const timestamp = new Date().toISOString();
-					const encodedMessage = encodeURIComponent(consoleMessage);
-					const encodedAgent = encodeURIComponent(deviceName+interactionMode);
-					const encodedLocation = encodeURIComponent(latitude+","+longitude);
-					const encodedTimestamp = encodeURIComponent(timestamp);
-					const encodedType = "LOG";
+					// Send log/error to Google Sheet
+					sendToSheet(type, message);
+				}
 
-					const scriptURL = `https://script.google.com/macros/s/AKfycbztB_JQGu6AqxJ0wfiTub_4SILT5clixIA1rfE36fB0aNXC7CiQSweDHRiBJEEIYu3i/exec?timestamp=${encodedTimestamp}&agent=${encodedAgent}&type=${encodedType}&location=${encodedLocation}&message=${encodedMessage}`;
-					fetch(scriptURL, {
+				// Function to send data to Google Sheet
+				function sendToSheet(type, message) {
+					const timestamp = new Date().toISOString();
+					const scriptURL = `https://script.google.com/macros/s/AKfycbztB_JQGu6AqxJ0wfiTub_4SILT5clixIA1rfE36fB0aNXC7CiQSweDHRiBJEEIYu3i/exec`;
+					const params = new URLSearchParams({
+						timestamp,
+						agent: deviceName + interactionMode,
+						type,
+						location: `${latitude},${longitude}`,
+						message,
+					});
+
+					fetch(`${scriptURL}?${params.toString()}`, {
 						method: 'GET',
-						mode: 'no-cors'
+						mode: 'no-cors',
 					}).catch(err => originalConsoleError('Failed to log to sheet:', err));
-				};
+				}
 
-				// Override console.error to append error messages to the div.
-				console.error = function(...args) {
-					originalConsoleError(...args);
-					var errorMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ');
-					logMessages.push("<strong>CONSOLE ERROR:</strong> " + errorMessage);
-					updateConsoleOutput();
+				// Override console.log and console.error
+				console.log = (...args) => handleLog("DEBUG", originalConsoleLog, ...args);
+				console.error = (...args) => handleLog("ERROR", originalConsoleError, ...args);
 
-					// Send error to Google Sheet
-					const timestamp = new Date().toISOString();
-					const encodedMessage = encodeURIComponent(errorMessage);
-					const encodedAgent = encodeURIComponent(deviceName+interactionMode);
-					const encodedLocation = encodeURIComponent(latitude+","+longitude);
-					const encodedTimestamp = encodeURIComponent(timestamp);
-					const encodedType = "ERROR";
-
-					const scriptURL = `https://script.google.com/macros/s/AKfycbztB_JQGu6AqxJ0wfiTub_4SILT5clixIA1rfE36fB0aNXC7CiQSweDHRiBJEEIYu3i/exec?timestamp=${encodedTimestamp}&agent=${encodedAgent}&type=${encodedType}&location=${encodedLocation}&message=${encodedMessage}`;
-					fetch(scriptURL, {
-						method: 'GET',
-						mode: 'no-cors'
-					}).catch(err => originalConsoleError('Failed to log error to sheet:', err));
-				};
-
+				// Function to update the console output div
 				function updateConsoleOutput() {
-					// Get the last two messages from the shared array
+					// Get the last two messages
 					const lastTwoMessages = logMessages.slice(-2);
 
-					// Update the output div with the last two messages
+					// Update the output div
 					consoleOutputDiv.innerHTML = lastTwoMessages
-						.map(msg => '<div class="log">' + msg + '</div>')
+						.map(msg => `<div class="log">${msg}</div>`)
 						.join('');
 				}
 			}
+
 
 			// Call the function to redirect console.log and console.error to the div
 			redirectConsoleToDiv();
@@ -1625,7 +1616,7 @@
 
 			//Log window closure
 			window.addEventListener('beforeunload', function (event) {
-				console.log('end of session');
+				console.log('End of session');
 			});
 		</script>
 	</body>
