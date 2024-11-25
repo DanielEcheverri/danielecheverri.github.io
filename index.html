@@ -533,7 +533,7 @@
 					text(labels[i], width * 0.9, i * lineHeight + lineHeight / 2);
 				}
 				// Detect movement and display corresponding text
-				if (startDetectMovement){
+				if (startDetectMovement && !speaking){
 					checkMovement();
 				}
 			}
