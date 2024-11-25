@@ -903,7 +903,7 @@
 					timeoutID = setTimeout(timeoutCallback, 3000);
 				} catch (error) {
 					// Catch and log any errors that occur within the function
-					console.error("An error occurred:", error);
+					console.error("An error occurred in updateDisplay:", error);
 				}
 			}
 
@@ -974,7 +974,7 @@
 			let currentSound = null;
 
 			function speakMessage(fullMessage) {
-				console.log(fullMessage);
+				console.log("SPEAKING: "+fullMessage);
 				if (speakFancy) {
 					speakMessage_azure(fullMessage);
 				} else {
