@@ -361,7 +361,7 @@
 
 					// Send error to Google Sheet
 					const timestamp = new Date().toISOString();
-					const encodedMessage = encodeURIComponent(consoleMessage);
+					const encodedMessage = encodeURIComponent(errorMessage);
 					const encodedAgent = encodeURIComponent(deviceName+interactionMode);
 					const encodedLocation = encodeURIComponent(latitude+","+longitude);
 					const encodedTimestamp = encodeURIComponent(timestamp);
