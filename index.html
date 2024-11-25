@@ -816,6 +816,7 @@
 
 				if (delimiterIndex !== -1) { // Check if the first delimiter exists
 					messageID_tmp = message.substring(0, delimiterIndex); // Store the message ID
+					console.log(messageID_tmp);
 					var secondDelimiterIndex = message.indexOf("/", delimiterIndex + 1); // Find the index of the second delimiter "/"
 
 					if (secondDelimiterIndex !== -1 && secondDelimiterIndex !== delimiterIndex) { // Check if the second delimiter exists
