@@ -344,8 +344,10 @@
 					const encodedAgent = encodeURIComponent(deviceName+interactionMode);
 					const encodedLocation = encodeURIComponent(latitude+","+longitude);
 					const encodedTimestamp = encodeURIComponent(timestamp);
+					const encodedType = "LOG";
 
-					const scriptURL = `https://script.google.com/macros/s/AKfycbxbwHHklC730Jm_FiXqExnOxL7uY2k31VnsG5fJS-V8SiMRzKwccUWQ_YqenYsLRbLM/exec?timestamp=${encodedTimestamp}&agent=${encodedAgent}&location=${encodedLocation}&message=${encodedMessage}`;
+
+					const scriptURL = `https://script.google.com/macros/s/AKfycbztB_JQGu6AqxJ0wfiTub_4SILT5clixIA1rfE36fB0aNXC7CiQSweDHRiBJEEIYu3i/exec?timestamp=${encodedTimestamp}&agent=${encodedAgent}&location=${encodedLocation}&message=${encodedMessage}`;
 					fetch(scriptURL, {
 						method: 'GET',
 						mode: 'no-cors'
@@ -365,8 +367,9 @@
 					const encodedAgent = encodeURIComponent(deviceName+interactionMode);
 					const encodedLocation = encodeURIComponent(latitude+","+longitude);
 					const encodedTimestamp = encodeURIComponent(timestamp);
+					const encodedType = "ERROR";
 
-					const scriptURL = `https://script.google.com/macros/s/AKfycbxbwHHklC730Jm_FiXqExnOxL7uY2k31VnsG5fJS-V8SiMRzKwccUWQ_YqenYsLRbLM/exec?timestamp=${encodedTimestamp}&agent=${encodedAgent}&location=${encodedLocation}&message=${encodedMessage}`;
+					const scriptURL = `https://script.google.com/macros/s/AKfycbztB_JQGu6AqxJ0wfiTub_4SILT5clixIA1rfE36fB0aNXC7CiQSweDHRiBJEEIYu3i/exec?timestamp=${encodedTimestamp}&agent=${encodedAgent}&type=${encodedType}&location=${encodedLocation}&message=${encodedMessage}`;
 					fetch(scriptURL, {
 						method: 'GET',
 						mode: 'no-cors'
