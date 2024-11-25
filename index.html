@@ -1304,7 +1304,7 @@
 							const isChkPointDistanceChanged = JSON.stringify(previousChkPointDistance) !== JSON.stringify(chkPointDistance);
 
 							if ((isCheckpointKeyChanged || isChkPointDistanceChanged) && !listenClient && interactionMode !== "_load") {
-								console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
+								//console.log('Current Checkpoint Set:', currentCheckpointKey, 'Distances to all checkpoints:', chkPointDistance);
 								previousCheckpointKey = currentCheckpointKey;
 								previousChkPointDistance = JSON.parse(JSON.stringify(chkPointDistance));
 							}
