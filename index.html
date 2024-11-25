@@ -335,7 +335,7 @@
 				console.log = function(...args) {
 					originalConsoleLog(...args);
 					var consoleMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ');
-					logMessages.push("<strong>DEBUG CONSOLE LOG:</strong> " + consoleMessage);
+					logMessages.push("<strong>CONSOLE DEBUG:</strong> " + consoleMessage);
 					updateConsoleOutput();
 
 					// Send to Google Sheet
@@ -354,7 +354,7 @@
 				console.error = function(...args) {
 					originalConsoleError(...args);
 					var errorMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ');
-					logMessages.push("<strong>ERROR:</strong> " + errorMessage);
+					logMessages.push("<strong>CONSOLE ERROR:</strong> " + errorMessage);
 					updateConsoleOutput();
 
 					// Send error to Google Sheet
