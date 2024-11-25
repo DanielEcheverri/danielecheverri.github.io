@@ -91,7 +91,7 @@
 			let patternMovement ="none";
 			var blueToothStatus = "Offline";
 			var streetName = "Unknown";
-			var deviceName ="";
+			var deviceName ="Unknown";
 			let labels = ["EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY",];
 			let moveSource = null;
 			let movePatterns = null;
@@ -355,7 +355,7 @@
 					originalConsoleError(...args);
 					var errorMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ');
 					errorMessages.push("<strong>ERROR:</strong> " + errorMessage);
-					updateConsoleOutput();
+					//updateConsoleOutput();
 
 					// Send error to Google Sheet
 					const timestamp = new Date().toISOString();
@@ -1229,7 +1229,7 @@
 							// Update previousTagID to the current tagID
 							previousTagID = tagID;
 							window.success_Sound.play();
-							console.log(tagID);
+							console.log("Tag "+ tagID + " read.");
 
 							// Retrieve tag information based on tagID
 							const tagData = tagInfo.tags[tagID];
@@ -1483,7 +1483,7 @@
 					const passage = myData[myPassage];
 					//console.log(databaseName);
 					if (passage !== previousPassage) { // Compare with previous passage
-						console.log(String(passage));
+						//console.log(String(passage));
 						displayText(String(passage));
 						previousPassage = passage; // Update previous passage
 					}
