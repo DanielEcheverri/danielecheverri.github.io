@@ -330,7 +330,6 @@
 				var originalConsoleLog = console.log;
 				var originalConsoleError = console.error;
 				var logMessages = []; // Array to store log messages
-				var errorMessages = []; // Array to store error messages
 
 				// Override console.log to append messages to the div.
 				console.log = function(...args) {
@@ -355,7 +354,7 @@
 				console.error = function(...args) {
 					originalConsoleError(...args);
 					var errorMessage = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ');
-					errorMessages.push("<strong>ERROR:</strong> " + errorMessage);
+					logMessages.push("<strong>ERROR:</strong> " + errorMessage);
 					updateConsoleOutput();
 
 					// Send error to Google Sheet
@@ -371,16 +370,10 @@
 				};
 
 				function updateConsoleOutput() {
-					// Combine log and error messages, keeping their chronological order.
-					const combinedMessages = [...logMessages, ...errorMessages]
-						.map((msg, index) => ({ msg, index }))
-						.sort((a, b) => a.index - b.index)
-						.map(item => item.msg);
+					// Get the last two messages from the shared array
+					const lastTwoMessages = logMessages.slice(-2);
 
-					// Get the last two messages from the combined array.
-					const lastTwoMessages = combinedMessages.slice(-2);
-
-					// Update the output div with the latest two messages.
+					// Update the output div with the last two messages
 					consoleOutputDiv.innerHTML = lastTwoMessages
 						.map(msg => '<div class="log">' + msg + '</div>')
 						.join('');
