@@ -400,7 +400,7 @@
 							latitude = position.coords.latitude.toFixed(6); // Store latitude globally
 							longitude = position.coords.longitude.toFixed(6); // Store longitude globally
 							//console.log("Location is longitude: " + longitude + " latitude: "+ latitude );
-							const speedThreshold = 0.5; // Threshold for considering the user as significantly moving (in meters per second)
+							const speedThreshold = 0.2; // Threshold for considering the user as significantly moving (in meters per second)
 							speed = position.coords.speed || 0; // Speed in meters per second
 							// Reset total distance if speed is less than threshold
 							if (speed < speedThreshold) {
@@ -1386,6 +1386,7 @@
 					 speaking !== prevSpeaking ||
 					 directionMoving !== prevDirectionMoving ||
 					 partMoving !==prevPartMoving ||
+					 speed !== prevSpeed ||
 					 blueToothStatus !== prevBlueToothStatus ||
 			         directionText !== prevHeading) {
 
