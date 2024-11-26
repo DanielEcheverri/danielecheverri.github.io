@@ -731,7 +731,7 @@
 					for (const pattern of patterns) {
 						if (checkPatternInBuffer(pattern.pattern)) {
 							window.complete_Sound.play();
-							console.log(`Pattern matched: ${pattern.patternName}`);
+							console.log(`--Pattern matched: ${pattern.patternName}`);
 							patternMovement = pattern.patternName;
 							if (noNarrative){
 								displayText(characterName + " is "+ patternMovement + ".");
