@@ -870,52 +870,82 @@
 			// Update display
 			function updateDisplay(displayMessage) {
 				try {
+					// Debugging: Log function start
+					console.log("updateDisplay called with message:", displayMessage);
+
 					// Ensure the element exists
 					if (!messageDisplayDiv) {
 						console.error("messageDisplayDiv element not found");
 						return;
 					}
 
+					// Debugging: Log initial state of the element
+					console.log("Initial display style:", messageDisplayDiv.style.display);
+					console.log("Initial text content:", messageDisplayDiv.textContent);
+
 					// Clear existing timeout
 					if (timeoutID) {
+						console.log("Clearing existing timeout");
 						clearTimeout(timeoutID);
 					}
 
 					// Update text content and visibility
 					messageDisplayDiv.textContent = displayMessage;
-					messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
+					const shouldShow = displayMessage.trim() !== "";
+					messageDisplayDiv.style.display = shouldShow ? "block" : "none";
 
-					// Adjust font size
+					// Debugging: Log updated state of the element
+					console.log("Updated display style:", messageDisplayDiv.style.display);
+					console.log("Updated text content:", messageDisplayDiv.textContent);
+
+					// Adjust font size dynamically
 					const maxHeight = 100; // Maximum height
 					adjustFontSizeToFit(messageDisplayDiv, maxHeight);
+					console.log("Font size adjusted to fit within max height:", maxHeight);
 
-					// Add dismiss button
-					if (displayMessage.trim() !== "" && !document.getElementById("dismissButton")) {
+					// Add dismiss button if needed
+					if (shouldShow && !document.getElementById("dismissButton")) {
+						console.log("Adding dismiss button");
 						const closeButton = document.createElement("button");
 						closeButton.classList.add("button");
 						closeButton.id = "dismissButton";
 						closeButton.textContent = "Dismiss";
 
 						closeButton.addEventListener("click", () => {
+							console.log("Dismiss button clicked");
 							messageDisplayDiv.textContent = "";
 							messageDisplayDiv.style.display = "none";
 							closeButton.remove();
+							console.log("Dismiss button removed");
 						});
 
 						messageDisplayDiv.appendChild(closeButton);
+					} else {
+						console.log("Dismiss button already exists or no message to show");
 					}
 
 					// Auto-hide after 3 seconds
 					timeoutID = setTimeout(() => {
+						console.log("Auto-hide timeout triggered");
 						if (!speaking) {
+							console.log("Hiding display because 'speaking' is false");
 							messageDisplayDiv.textContent = "";
 							messageDisplayDiv.style.display = "none";
+						} else {
+							console.log("'speaking' is true, keeping display visible");
 						}
 					}, 3000);
+
 				} catch (error) {
+					// Catch and log any errors
 					console.error("An error occurred in updateDisplay:", error);
+				} finally {
+					// Debugging: Log final state
+					console.log("Final display style:", messageDisplayDiv.style.display);
+					console.log("Final text content:", messageDisplayDiv.textContent);
 				}
 			}
+
 
 
 			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
