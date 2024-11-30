@@ -150,7 +150,8 @@
 			// Function to hide the loading screen
 			function hideLoadingScreen() {
 				var loadingScreen = document.getElementById('loading-screen');
-				loadingScreen.style.display = 'none';
+				//loadingScreen.style.display = 'none';
+				loadingScreen.classList.add('hidden'); // Add the 'hidden' class to trigger the fade-out effect
 			}
 
 			// Event listener for when the page's DOM content is fully loaded
