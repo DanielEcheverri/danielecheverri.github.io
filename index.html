@@ -870,44 +870,53 @@
 			// Update display
 			function updateDisplay(displayMessage) {
 				try {
-					// Set the text content
-					messageDisplayDiv.textContent = displayMessage;
+					// Ensure the element exists
+					if (!messageDisplayDiv) {
+						console.error("messageDisplayDiv element not found");
+						return;
+					}
 
-					// Check if message is not empty to show the overlay
+					// Clear existing timeout
+					if (timeoutID) {
+						clearTimeout(timeoutID);
+					}
+
+					// Update text content and visibility
+					messageDisplayDiv.textContent = displayMessage;
 					messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
 
-					// Adjust font size dynamically if message exceeds height
-					const maxHeight = 100; // Set the max height of the DIV
+					// Adjust font size
+					const maxHeight = 100; // Maximum height
 					adjustFontSizeToFit(messageDisplayDiv, maxHeight);
 
-					if (displayMessage.trim() !== "") {
-						// Create a close button
-						var closeButton = document.createElement("dismissButton");
-						closeButton.classList.add("button"); // Add your button class here
-						closeButton.id = "dismissButton"; // Set the id for styling
+					// Add dismiss button
+					if (displayMessage.trim() !== "" && !document.getElementById("dismissButton")) {
+						const closeButton = document.createElement("button");
+						closeButton.classList.add("button");
+						closeButton.id = "dismissButton";
 						closeButton.textContent = "Dismiss";
-						closeButton.addEventListener("click", function() {
-							messageDisplayDiv.textContent = ""; // Clear the text
-							messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-							closeButton.remove(); // Remove the close button
+
+						closeButton.addEventListener("click", () => {
+							messageDisplayDiv.textContent = "";
+							messageDisplayDiv.style.display = "none";
+							closeButton.remove();
 						});
-						// Append the close button to messageDisplayDiv
+
 						messageDisplayDiv.appendChild(closeButton);
 					}
-					// Set a timeout to clear the text after 3 seconds or until speaking becomes false
-					var timeoutCallback = function() {
+
+					// Auto-hide after 3 seconds
+					timeoutID = setTimeout(() => {
 						if (!speaking) {
-							messageDisplayDiv.textContent = ""; // Clear the text
-							messageDisplayDiv.style.display = "none"; // Hide the overlay after clearing the text
-							timeoutID = setTimeout(timeoutCallback, 3000); // Check again after 1 second
+							messageDisplayDiv.textContent = "";
+							messageDisplayDiv.style.display = "none";
 						}
-					};
-					timeoutID = setTimeout(timeoutCallback, 3000);
+					}, 3000);
 				} catch (error) {
-					// Catch and log any errors that occur within the function
 					console.error("An error occurred in updateDisplay:", error);
 				}
 			}
+
 
 			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
 			function adjustFontSizeToFit(div, maxHeight) {
