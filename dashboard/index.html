@@ -362,45 +362,53 @@ window.writeToHachi = function(databaseNode, hachiData) {
 
 var avatar_street = "none";
 var street_radious = 100;
-window.fetchStreetName=function(latitude, longitude){
-      return new Promise((resolve, reject) => {
+window.fetchStreetName = function (latitude, longitude) {
+    return new Promise((resolve, reject) => {
         const checkCoordinates = () => {
-            if (typeof latitude !== "undefined" && typeof longitude !== "undefined" && latitude !== 0 && longitude !== 0) {
+            if (
+                typeof latitude !== "undefined" &&
+                typeof longitude !== "undefined" &&
+                latitude !== 0 &&
+                longitude !== 0
+            ) {
                 resolve();
             } else {
                 setTimeout(checkCoordinates, 300); // Check again after 300 milliseconds
-                //console.log("Fetching location...");
             }
         };
         checkCoordinates();
-        // Log the street promise to the console
-        //console.log("Fetching street data...");
     })
     .then(() => {
-        // Construct Overpass API query
-        var overpassQuery = "https://overpass-api.de/api/interpreter?data=[out:json];node(around:" + street_radious +", " + latitude + "," + longitude + ");out;";
-        // Fetch data from Overpass API
-        return fetch(overpassQuery);
+        // Construct the Nominatim API query URL
+        const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`;
+
+        // Fetch data from Nominatim API
+        return fetch(nominatimUrl);
     })
-    .then((response) => response.json())
-    .then((data) => {
-        // Loop through elements to find 'addr:street' property
-        for (let i = 0; i < data.elements.length; i++) {
-            const element = data.elements[i];
-            if (element.tags && element.tags['addr:street']) {
-                //console.log("Street name:", element.tags['addr:street']);
-              	avatar_street = element.tags['addr:street'];
-                return element.tags['addr:street']; // Found, return street name
-            }
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        // If 'addr:street' is not found in any element, throw an error.
-        throw new Error("Street name not found");
+        return response.json();
+    })
+    .then((data) => {
+        // Extract the street name from the Nominatim response
+        if (data.address && data.address.road) {
+            avatar_street = data.address.road;
+            return data.address.road; // Return the road/street name
+        } else if (data.address && data.address.street) {
+            avatar_street = data.address.street;
+            return data.address.street; // Fallback if 'street' is used
+        } else {
+            throw new Error("Street name not found");
+        }
     })
     .catch((error) => {
-        //console.error("Error fetching street name:", error);
+        console.error("Error fetching street name:", error);
         return "an unknown";
     });
-  }
+};
+
   
 var weatherDescription = null;
 
@@ -595,10 +603,10 @@ window.fetchStops = async function(latitude, longitude) {
     
     //return  information 
     return {
-      tripHeadSign,
-      routeShortName,
-      stopName,
-      routeType
+        tripHeadSign: tripHeadSign || "to the airport",      // Default if tripHeadSign is missing or null
+        routeShortName: routeShortName || "six",            // Default if routeShortName is missing or null
+        stopName: stopName || "closest",                    // Default if stopName is missing or null
+        routeType: routeType || "route"                     // Default if routeType is missing or null
     };
   } catch (error) {
     // Handle errors
@@ -680,8 +688,8 @@ window.fetchCity = function(latitude, longitude) {
     	let neighborhood = "the neighborhood";
       // Check if the response contains any results
       if (data && data.address) {
-        city = data.address.city || data.address.town || data.address.village || data.address.hamlet;
-        neighborhood = data.address.neighbourhood || data.address.suburb || data.address.locality;
+        city = data.address.city || data.address.town ||data.address.county || data.address.village || data.address.hamlet;
+        neighborhood = data.address.neighbourhood || data.address.suburb || data.address.quarter || data.address.locality;
         return { city, neighborhood }; // Return an object containing city and neighborhood 
         
       } else {
@@ -1421,7 +1429,7 @@ console.log(variables().hachi_comment);
  &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="hachi_act2" tags="" position="1325,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_turn to 0&gt;&gt;
 
-&lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission. To learn more about Buro and why life placed them together. It will take him to four different places where he will meet four different, colorful characters.&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_act2/Hachi meets Lucia, the fairy living in the flower, which gives him a mission: to learn more about Buro and why life placed them together. It will take him to four different places where he will meet four different, colorful characters.&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -1434,7 +1442,7 @@ $hachi_passage
   &lt;&lt;set $hachi_passage to &quot;hachi_act2_02/&#39;Life has brought us together this &quot; +$storyTime+&quot; for a reason, dear Hachi. Your human friend, Buro, is facing a journey of his own, and you must learn more about him to understand why you are destined to be together&#39;./whine/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
   
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_02false&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_02false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
 	&lt;&lt;set $hachi_passage to &quot;hachi_act2_03/Lucia gives Hachi a mission to seek out four colorful characters across &quot; + $storyNeighborhood + &quot;, each with unique insights into Buro&#39;s life and their shared bond./f_aha/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1442,7 +1450,7 @@ $hachi_passage
 	&lt;&lt;set $hachi_passage to &quot;hachi_act2_04/Visit the tram stop, the fountain, the stairs of the old building, and the bank. There, you will meet the people who hold the keys to unraveling your friendship./street/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
   
-&lt;&lt;if $hachi_narrating == &quot;hachi_act2_04false&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_act2_04false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
 	&lt;&lt;set $hachi_passage to &quot;hachi_act2_05/With a sense of purpose, Hachi feels ready to embark on an adventure that will deepen his understanding of Buro./barking3/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1519,14 +1527,13 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="hachi_tram_1" tags="" position="950,875" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_tram1_00/Hachi arrives at the tram stop and spots a friendly tram conductor named Leo, who often shares stories about Buro&#39;s daily commute and his precise morning schedule. Intrigued, Hachi begins sniffing around./tram/&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_tram1_00/Hachi arrives at the tram stop and spots Leo, the friendly tram conductor, who often shares stories about Buro&#39;s daily commute and his  morning schedule. Intrigued, Hachi begins sniffing around./tram/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_tram1_00false&quot; and $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_tram1_01/Hachi sniffs the air, detecting the approach of Leo, the friendly tram conductor whose shift was ending.
-After getting of the tram, Leo said to Hachi, &#39;Well, well, if it isn&#39;t Hachi! What&#39;s got your nose twitching today, buddy?&#39;/m_talk2/&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_tram1_01/Hachi sniffs the air, detecting the approach of Leo whose shift was ending. After getting of the tram, Leo said to Hachi, &#39;Well, well, if it isn&#39;t Hachi! What&#39;s got your nose twitching today, buddy?&#39;/m_talk2/&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -1568,9 +1575,12 @@ $hachi_passage
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_tram4_01false&quot; &gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_tram4_01false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
+	&lt;&lt;set $hachi_passage to &quot;hachi_tram4_02/Following Leo&#39;s advice, Hachi starts walking again to his next destination.&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_tram4_02false&quot; &gt;&gt;
 	    &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
-           &lt;&lt;set $hachi_passage to &quot;Following Leo&#39;s advice, Hachi starts walking again to his next destination.&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
   &lt;&lt;set $hachi_nextAct to false&gt;&gt;
@@ -1603,7 +1613,7 @@ $hachi_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="hachi_stairs_1" tags="" position="950,1200" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_stairs1_00/Adding to the lively conversation, Blue squawks in agreement, while Hachi, curious about the falcon, reaches out to gently touch him with his paw./fastfood/&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_stairs1_00/By the stairs, Hachi notices a glass door slightly open, curious about it, he reaches out to gently touch it with his paw./fastfood/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
@@ -1704,9 +1714,12 @@ $hachi_passage
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_stairs4_01false&quot; &gt;&gt;
-  &lt;&lt;set $hachi_nextAct to false&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_stairs4_01false&quot; and $hachi_part_mov !== &quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_stairs4_02/Hachi then, starts walking to his next destination./&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_stairs4_02false&quot; &gt;&gt;
+  &lt;&lt;set $hachi_nextAct to false&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -1741,9 +1754,12 @@ $hachi_passage
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_bank4_02false&quot; &gt;&gt;
-  &lt;&lt;set $hachi_nextAct to false&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_bank4_02false&quot; and $hachi_movement !==&quot;none&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_bank4_03/&#39;You know, there&#39;s a lovely garden nearby. Buro might have wandered over there. Let&#39;s go take a look!&#39; With his mouth, Hachi grabs the flyer and starts walking along Lina./whine/bgm_Sound.fade(end_Sound.volume(), 0, 2000);/&quot;&gt;&gt; 
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_bank4_03false&quot; &gt;&gt;
+  &lt;&lt;set $hachi_nextAct to false&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_wait_end&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -1945,9 +1961,12 @@ $hachi_passage
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_fountain4_01false&quot; &gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_fountain4_01false&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_fountain4_02/Feeling curious, Hachi decides to explore a new location.&quot;&gt;&gt;./&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_fountain4_02false&quot; &gt;&gt;
  &lt;&lt;set $hachi_nextAct to false&gt;&gt;
-   &lt;&lt;set $hachi_passage to &quot;Feeling curious, Hachi decides to explore a new location.&quot;&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -1976,8 +1995,11 @@ $avatar_passage
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_tobacco4_02false&quot; &gt;&gt;
-	&lt;&lt;set $avatar_passage to &quot;Decided, Buro went search for the next stop.&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_tobacco4_02false&quot;&gt;&gt;
+	&lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_03/Decided, Buro went search for the next stop.&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_tobacco4_03false&quot; &gt;&gt;
 	    &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -2174,13 +2196,16 @@ $avatar_passage
   &lt;&lt;set $avatar_passage to &quot;avatar_bakery4_01/&#39;You know, I&#39;ve seen Hachi hanging around the churchyard down the street and the tobacco shop too. Might be worth a look if you&#39;re searching for your furry friend&#39;.&quot;+$avatar_bank&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_narrating == &quot;avatar_bakery4_01false&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_bakery4_01false&quot; and $avatar_part_mov !== &quot;none&quot;&gt;&gt;&gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_bakery4_02/With Sofia&#39;s words in mind, Buro thanks her for the information and considers his next move, deciding where to go next./m_intrigued/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_bakery4_02false&quot; &gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;And so Buro started walking to the next stop&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_bakery4_02false&quot; and $avatar_part_mov !== &quot;none&quot;&gt;&gt;
+	&lt;&lt;set $avatar_passage to &quot;avatar_tobacco4_03/And so Buro started walking to the next stop.&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_bakery4_03false&quot; &gt;&gt;
 	    &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -2189,7 +2214,7 @@ $avatar_passage
 
 &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="avatar_bank_3" tags="" position="2225,1225" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_bank3_00/Buro watches Lina again as she works, noting her warm interactions with customers and hoping they might offer a clue about Hachi. He sits down for while looking at her stamp some papers/m_talk2/&quot;&gt;&gt;
+&lt;&lt;set $avatar_passage to &quot;avatar_bank3_00/Buro watches Lina again as she works, noting her warm interactions with customers and hoping they might offer a clue about Hachi. He sits down for while looking at her stamp some papers./m_talk2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
@@ -2230,8 +2255,11 @@ $avatar_passage
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_bank4_01false&quot; &gt;&gt;
-	&lt;&lt;set $avatar_passage to &quot;avatar_bank4_01/Then, Buro starts walking again towards the garden.//bgm_Sound.fade(end_Sound.volume(), 0, 2000);/&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_bank4_01false&quot; and $avatar_part_mov !== &quot;none&quot;&gt;&gt;
+	&lt;&lt;set $avatar_passage to &quot;avatar_bank4_02/Then, Buro starts walking towards the garden.//bgm_Sound.fade(end_Sound.volume(), 0, 2000);/&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_bank4_02false&quot; &gt;&gt;
 	&lt;&lt;set $avatar_nextAct to false&gt;&gt;
     &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_wait_end&quot;&gt;&gt;
@@ -2271,7 +2299,7 @@ $avatar_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bank1_00false&quot; and ($avatar_movement == &quot;Looking&quot; || $avatar_movement == &quot;Standing right leg&quot; || $avatar_movement == &quot;Standing left leg&quot;)&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_bank1_01/Buro says to himself: &#39;I&#39;ve seen her on the tram sometimes, but we&#39;ve never spoken. Hmmm, her name is Lina. I didn’t know that. Maybe today will be different&#39;. He decides to greet her/crowd2/&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_bank1_01/Buro says to himself: &#39;I&#39;ve seen her on the tram sometimes, but we&#39;ve never spoken. Hmmm, her name is Lina. I didn’t know that. Maybe today will be different&#39;. He decides to greet her./crowd2/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_bank1_00false&quot;&gt;&gt;
@@ -2306,7 +2334,7 @@ $avatar_passage
 $avatar_passage
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_church1_00false&quot; and $avatar_movement == &quot;Looking&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_church1_01/Buro steps close to the big doors to the church. He scans the steps and the stained-glass windows, searching for any trace of Hachi&#39;s presence, saying to himself, &#39;Let&#39;s see if there&#39;s any sign of Hachi here. Maybe he&#39;s left a clue behind&#39;./m_aha/&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_church1_01/Buro steps close to the big doors of the church. He scans the steps and the stained-glass windows, searching for any trace of Hachi&#39;s presence, saying to himself, &#39;Let&#39;s see if there&#39;s any sign of Hachi here. Maybe he&#39;s left a clue behind&#39;./m_aha/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2387,13 +2415,16 @@ $avatar_passage
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
-&lt;&lt;if $avatar_narrating == &quot;avatar_church4_00false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_church4_01/Father Kent offers a suggestion based on his knowledge of Hachi&#39;s habits and the community. &#39;My son—he said, Hachi&#39;s spirit is resilient, and his presence is felt throughout this neighborhood. I believe you may find him near the Tobacco Shop, or even the bakery. Seek him there, and may your reunion be blessed. &quot;+$avatar_bank&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_church4_00false&quot; and $avatar_part_mov !== &quot;none&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_church4_01/Father Kent offers a suggestion based on his knowledge of Hachi&#39;s habits and the community. &#39;My son—he said, Hachi&#39;s spirit is resilient. I believe you may find him near the Tobacco Shop, or even the bakery. Seek him there, and may your reunion be blessed. &quot;+$avatar_bank&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_church4_01false&quot; &gt;&gt;
-	&lt;&lt;set $avatar_passage to &quot;Finally, Buro began walking again.&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_chruch4_01false&quot; and $avatar_part_mov !== &quot;none&quot;&gt;&gt;
+	&lt;&lt;set $avatar_passage to &quot;avatar_church4_02/Finally, Buro began walking again.&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $avatar_nextAct is true and avatar_narrating == &quot;avatar_church4_02false&quot; &gt;&gt;
 	    &lt;&lt;replace &quot;#avatar_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;avatar_act2_transition&quot;&gt;&gt;
   &lt;&lt;/replace&gt;&gt;
@@ -2405,16 +2436,16 @@ $avatar_passage
 
 &lt;&lt;set $avatar_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of &quot; + $storyCity +&quot;, a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akita dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
 
-&lt;&lt;set $hachi_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of &quot; + $storyCity +&quot;, small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akitta dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;both_00/A tale of friendship and loyalty unfolds in the heart of &quot; + $storyCity +&quot;, a small city decorated with cobblestone streets and old buildings. Hachi, the loyal Akitta dog, and Buro, a shy university student, share a bond through many years of friendship./street&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
-&lt;&lt;if $avatar_narrating == &quot;both_00false&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;both_00false&quot; and $avatar_movement !== &quot;none&quot;&gt;&gt;
 	&lt;&lt;set $avatar_passage to &quot;both_01/Each day, they meet at a small park and explore &quot; + $storyNeighborhood + &quot;. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
 Today, will be a different day./park3&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
   
-  &lt;&lt;if $hachi_narrating == &quot;both_00false&quot;&gt;&gt;
-	&lt;&lt;set $hachi_passage to &quot;both_01/Each day, they meet at small park and explore  &quot; + $storyNeighborhood + &quot;. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
+  &lt;&lt;if $hachi_narrating == &quot;both_00false&quot; and $hachi_movement !== &quot;none&quot;&gt;&gt;
+	&lt;&lt;set $hachi_passage to &quot;both_01/Each day, they meet at a small park and explore  &quot; + $storyNeighborhood + &quot;. But today, fate intervenes as they wander through the streets and alleys, and Hachi finds himself separated from Buro. 
 Today, will be a different day./park3&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
   
@@ -2439,37 +2470,39 @@ Today, will be a different day./park3&quot;&gt;&gt;
         &lt;/div&gt;
 &lt;/div&gt;
 
-
  &lt;&lt;/liveblock&gt;&gt;
  
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="hachi_preamble" tags="" position="1825,500" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_pre_01/While playing in the park, Hachi&#39;s nose twitches, catching a scent that pulls him away from Buro. He sniffs the air, curiosity piqued by the provocative smell. Buro&#39;s voice echoes in his mind, but the scent drags him deeper./park1/&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_pre_01/While playing in the park, Hachi&#39;s nose twitches, catching a scent that pulls him away from Buro. He sniffs the air, curiosity piqued by the provocative smell. His friend&#39;s voice echoes in his mind, but the scent drags him deeper./park1/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_pre_01false&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_pre_02/Hachi catches a scent pulling him away. What should Hachi do? Should he continue sniffing or start walking and follow the scent deeper into the city/magic1/&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_pre_01false&quot; and $hachi_movement !== &quot;none&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_pre_02/The scent is magical. What should Hachi do? Should he continue sniffing or start walking and follow the scent deeper into the city/magic1/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_pre_02false&quot;&gt;&gt;
   &lt;&lt;if $hachi_movement == &quot;Sniffing&quot;&gt;&gt;
-    &lt;&lt;set $hachi_passage to &quot;hachi_pre_02A/He sniffs the air, detecting subtle hints of the scent&#39;s origin. Then he starts moving, and follows the sweet trail of the smell towards a nearby statue./magic2/&quot;&gt;&gt;
+    &lt;&lt;set $hachi_passage to &quot;hachi_pre_02A/He sniffs the air, detecting subtle hints of the scent&#39;s origin. Then he starts moving, and follows the sweet trail towards a nearby statue./magic2/&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if ($hachi_narrating == &quot;hachi_pre_02false&quot; || $hachi_narrating == &quot;hachi_pre_02Afalse&quot;) and hachi_speed &gt;= &quot;0.2&quot; &gt;&gt;
+&lt;&lt;if ($hachi_narrating == &quot;hachi_pre_02false&quot; || $hachi_narrating == &quot;hachi_pre_02Afalse&quot;) and hachi_speed &gt;= &quot;0.02&quot; &gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_pre_02B/Determined to uncover the source of the tempting aroma, Hachi follows his instincts, venturing into the city. He starts walking towards a nearby statue./panting/&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_pre_02Bfalse&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_pre_04/Lost amidst &quot; + $storyCity + &quot;&#39;s pathways, Hachi and Buro must rely on their instincts to reunite. Their journey will take them through streets, squares, and parks, where they will encounter challenges, make new friends, and ultimately rediscover the true meaning of loyalty and friendship./crowd2/&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_pre_02Bfalse&quot; and $hachi_movement !== &quot;none&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_pre_04/Lost amidst &quot; + $storyCity + &quot;&#39;s pathways, Hachi and Buro must rely on their instincts to reunite. Their journey will take them through streets, squares, and parks, where they will make new friends, and ultimately rediscover the true meaning of loyalty and friendship./crowd2/&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_pre_04false&quot;&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_pre5/And so Hachi starts walking./&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_pre_04false&quot; and $hachi_movement !== &quot;none&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_pre05/And so Hachi starts walking./&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+&lt;&lt;if $hachi_nextAct is true and hachi_narrating == &quot;hachi_pre_05false&quot;&gt;&gt;
     &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
   		&lt;&lt;include&quot;hachi_act1&quot;&gt;&gt;
         &lt;&lt;set $hachi_nextAct to false&gt;&gt;
@@ -2483,7 +2516,7 @@ $hachi_passage
 &lt;&lt;liveblock&gt;&gt;
 $avatar_passage
 
-&lt;&lt;if $avatar_narrating == &quot;avatar_pre_00false&quot; and $hachi_speed &gt;= &quot;0.4&quot; &gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_pre_00false&quot; and $hachi_speed &gt;= &quot;0.04&quot; &gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_pre_01/Buro&#39;s heart races as he notices that Hachi is no longer there and starts walking, and searching around &quot; + $storyNeighborhood +&quot; for any sign of his friend./crowd1/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2491,7 +2524,7 @@ $avatar_passage
   &lt;&lt;set $avatar_passage to &quot;avatar_pre_02/Lost amidst the pathways of &quot; + $storyCity +&quot;, Hachi and Buro must rely on their instincts to reunite. Their journey will take them through streets, squares, and parks, where they will encounter challenges, make new friends, and ultimately rediscover the true meaning of loyalty and friendship./crowd1/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if $avatar_narrating == &quot;avatar_pre_02false&quot; and $avatar_speed &gt;=&quot;0.2&quot;&gt;&gt;
+&lt;&lt;if $avatar_narrating == &quot;avatar_pre_02false&quot; and $avatar_speed &gt;=&quot;0.02&quot;&gt;&gt;
   &lt;&lt;set $avatar_passage to &quot;avatar_pre_03/Buro sees Hachi in the distance. What should Buro do? Should he look up and call Hachi&#39;s name? or should he try to stand on one leg to get a better view?&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2516,7 +2549,8 @@ $avatar_passage
 &lt;&lt;/nobr&gt;&gt;	</tw-passagedata><tw-passagedata pid="58" name="hachi_act1" tags="" position="1825,625" size="100,200">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_act1/&quot;&gt;&gt;
+&lt;&lt;set $statueCheck to false&gt;&gt;
+&lt;&lt;set $passage to &quot;hachi_act1/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 	&lt;&lt;include &quot;evalDist_hachi&quot;&gt;&gt;
@@ -2545,11 +2579,11 @@ makeComments(&#39;hachi&#39;,&#39;observes&#39;);
 
 &lt;&lt;liveblock&gt;&gt;
   &lt;&lt;if $statueCheck !== true &amp;&amp; (($hachi_checkpoint == &quot;hachi_statue&quot; &amp;&amp; $previousHachi_checkpoint !== $hachi_checkpoint) || ($hachi_tag == 16 &amp;&amp; $previousHachiTag !== $hachi_tag))&gt;&gt;
-      &lt;&lt;set $previousHachiTag to $hachi_tag&gt;&gt;
-      &lt;&lt;set $statueCheck to true&gt;&gt;
       &lt;&lt;script&gt;&gt;stopComments(`hachi`)&lt;&lt;/script&gt;&gt;
+      &lt;&lt;set $previousHachiTag to $hachi_tag&gt;&gt;
       &lt;&lt;replace &quot;#hachi_story&quot;&gt;&gt;
           &lt;&lt;include &quot;hachi_act1_1&quot;&gt;&gt;
+          &lt;&lt;set $statueCheck to true&gt;&gt;
       &lt;&lt;/replace&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/liveblock&gt;&gt;
@@ -2557,8 +2591,7 @@ makeComments(&#39;hachi&#39;,&#39;observes&#39;);
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="avatar_act1" tags="" position="1975,625" size="100,200">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
-&lt;&lt;set $avatar_passage to &quot;avatar_act1/&quot;&gt;&gt;
-
+&lt;&lt;set $passage to &quot;avatar_act1/&quot;&gt;&gt;
 
 &lt;&lt;script&gt;&gt;
 makeComments(&#39;avatar&#39;,&#39;observes&#39;,40);
@@ -2591,22 +2624,28 @@ console.log(variables().avatar_comment);
 &lt;&lt;/liveblock&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="hachi_act1_1" tags="" position="1700,725" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_act1_01/Hachi&#39;s determination drives him deeper into&quot; + $storyNeighborhood + &quot;. The aroma intensifies with each step. Finally, he reaches a statue in a small square, where the scent emanates from its base./park2/&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_act1_01/Hachi&#39;s determination drives him deeper into &quot; + $storyNeighborhood + &quot;. The aroma intensifies with each step. Finally, he reaches a statue in a small square, where the scent emanates from its base./park2/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_act1_01false&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act1_02/Hachi reaches the statue. Should he bark, to see who replies? Or, should he get a closer look at the tiny flower in the base of the statue?/whine/&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act1_02/At the statue, Should he bark to see who replies, or wag his tail as he inspects the tiny flower?/whine/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Bfalse&quot;) and $hachi_tag == &quot;16&quot;&gt;&gt;
+&lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Bfalse&quot;) and ($hachi_part_mov == &quot;tail&quot; || $hachi_part_mov == &quot;back leg&quot;) &gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_act1_03A/He discovers a tiny fairy nestled among the petals of the flower. &#39;Wow, a fairy!&#39; Hachi exclaims, his tail wagging with excitement./talking2/&quot;&gt;&gt;
   &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
+&lt;&lt;if $hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Bfalse&quot;&gt;&gt;
+  &lt;&lt;if $hachi_part_mov !==&quot;none&quot; and ($hachi_part_mov !== &quot;tail&quot; || $hachi_part_mov !== &quot;back leg&quot;)&gt;&gt;
+	&lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
 &lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Afalse&quot;) and $hachi_movement == &quot;Barking&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_act1_03B/Hachi&#39;s barks echo through the square, but there&#39;s no response, prompting him to continue his search./barking4/&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_act1_03B/Hachi&#39;s barks echo through the square, but there&#39;s no response, prompting him to wag his tail in confusion./barking4/&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if ($hachi_narrating == &quot;hachi_act1_02false&quot; or $hachi_narrating ==&quot;hachi_act1_03Afalse&quot;)&gt;&gt;
@@ -2689,7 +2728,7 @@ $avatar_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $avatar_narrating == &quot;avatar_end_03false&quot;&gt;&gt;
-  &lt;&lt;set $avatar_passage to &quot;avatar_end_04/&#39;Looks like you two have quite the friendshop,&#39; said Lina softly. Buro looks up, meeting her gaze with a shy smile. In that, they find comfort in each other&#39;s presence, knowing that true friendship between humans and dogs is boundless./f_talk4/&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_end_04/&#39;Looks like you two have quite the friendship,&#39; said Lina softly. Buro looks up, meeting her gaze with a shy smile. In that, they find comfort in each other&#39;s presence, knowing that true friendship between humans and dogs is boundless./f_talk4/&quot;&gt;&gt;
 &lt;&lt;set $avatar_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2723,7 +2762,7 @@ $hachi_passage
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_end_03false&quot;&gt;&gt;
-  &lt;&lt;set $hachi_passage to &quot;hachi_end_04/&#39;Looks like you two have quite the bond,&#39; said Lina softly. Buro looks up, meeting her gaze with a shy smile. In that, they find comfort in each other&#39;s presence, knowing that true friendship between humans and dogs know no bounds./f_talk4&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_end_04/&#39;Looks like you two have quite the bond,&#39; said Lina softly. Buro looks up, meeting her gaze with a shy smile. In that, they find comfort in each other&#39;s presence, knowing that true friendship between humans and dogs have no bounds./f_talk4&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
@@ -2827,6 +2866,7 @@ if (window.$avatar_comment !== window._prevAvatarComment) {
 &lt;&lt;set variables().hachi_checkpoint_dist to $hachi_checkpoint_dist&gt;&gt;
 &lt;&lt;set $hachi_comment to &quot;&quot;&gt;&gt;
 &lt;&lt;set $hachi_passage to &quot;hachi_act2_transition/&quot;&gt;&gt;
+&lt;&lt;set $passage to &quot;hachi_act2_transition&quot;&gt;&gt;
 
 
 &lt;&lt;liveblock&gt;&gt;
@@ -3009,6 +3049,8 @@ if (atLeastOneEqualTo20) {
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 &lt;&lt;set $avatar_passage to &quot;avatar_act2_transition/&quot;&gt;&gt;
+&lt;&lt;set $passage to &quot;avatar_act2_transition/e&quot;&gt;
+
 
 &lt;&lt;liveblock&gt;&gt;
 	&lt;&lt;include &quot;evalDist_avatar&quot;&gt;&gt;
@@ -3149,7 +3191,7 @@ makeComments(&#39;avatar&#39;,&#39;observes&#39;);
         &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;&lt;include &quot;hachi_act1&quot;&gt;&gt;	
+&lt;&lt;include &quot;avatar_act1&quot;&gt;&gt;	
    
 /*
 &lt;&lt;set $storyWeather to &#39;&#39;&gt;&gt;
@@ -3229,14 +3271,14 @@ Promise.all([
 	&lt;&lt;/if&gt;&gt;
  &lt;&lt;/liveblock&gt;&gt;</tw-passagedata><tw-passagedata pid="77" name="hachi_close" tags="" position="1725,1825" size="200,100">&lt;&lt;nobr&gt;&gt;
 
-  &lt;&lt;set $hachi_passage to &quot;hachi_close/This is the end of &#39;Searching for Us,&#39; Buro and Hachi&#39;s story. Thank you for being part of this experience, we hope you have enjoyed it. Please remove your headphones and return your avatar./park3/end_Sound.fade(end_Sound.volume(), 0, 2000);end_Sound.stop();/&quot;&gt;&gt;
+  &lt;&lt;set $hachi_passage to &quot;hachi_close/This is the end of &#39;Searching for Us,&#39; Buro and Hachi&#39;s story. Thank you for being part of this experience, we hope you have enjoyed it. Please remove your headphones, return your avatar and close the browser window./park3/end_Sound.fade(end_Sound.volume(), 0, 2000);end_Sound.stop();/&quot;&gt;&gt;
 
   &lt;&lt;liveblock&gt;&gt;
   $hachi_passage
   &lt;&lt;/liveblock&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="78" name="avatar_close" tags="" position="1975,1825" size="200,100">&lt;&lt;nobr&gt;&gt;
 
-  &lt;&lt;set $avatar_passage to &quot;avatar_close/This is the end of &#39;Searching for Us,&#39; Buro and Hachi&#39;s story. Thank you for being part of this experience, we hope you have enjoyed it. Please remove your headphones and return your avatar./park3/end_Sound.fade(end_Sound.volume(), 0, 2000);/&quot;&gt;&gt;
+  &lt;&lt;set $avatar_passage to &quot;avatar_close/This is the end of &#39;Searching for Us,&#39; Buro and Hachi&#39;s story. Thank you for being part of this experience, we hope you have enjoyed it. Please remove your headphones, return your avatar and close the browser window./park3/end_Sound.fade(end_Sound.volume(), 0, 2000);end_Sound.stop();/&quot;&gt;&gt;
 
   &lt;&lt;liveblock&gt;&gt;
   $avatar_passage
