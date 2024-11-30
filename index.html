@@ -1090,7 +1090,7 @@
 									window.notification_Sound.play(); // Play the notification sound after a delay
 									console.log(deviceName + " end speaking");
 									messageDisplayDiv.textContent = ""; //Clear speaking text in displayMessage
-									console.log(messageDisplayDiv.style.display = "none";) //Hide speaking text displayMessage
+									messageDisplayDiv.style.display = "none"; //Hide speaking text displayMessage
 									speaking = false;
 									sound.unload(); // Unload the audio object to free up resources
 									playAction = false; // Reset playAction to false
