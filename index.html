@@ -909,16 +909,8 @@
 					// Recursive polling for auto-hide
 					function pollForSpeaking() {
 						if (!speaking) {
-							console.log("Before hiding: ", {
-								display: messageDisplayDiv.style.display,
-								text: messageDisplayDiv.textContent,
-							});
 							messageDisplayDiv.textContent = ""; // Clear the text
 							messageDisplayDiv.style.display = "none"; // Hide the overlay
-							console.log("After hiding: ", {
-								display: messageDisplayDiv.style.display,
-								text: messageDisplayDiv.textContent,
-							});
 							const dismissButton = document.getElementById("dismissButton");
 							if (dismissButton) dismissButton.remove(); // Remove the button if present
 						} else {
