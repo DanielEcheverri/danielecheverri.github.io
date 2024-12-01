@@ -892,19 +892,19 @@
 					const maxHeight = 100; // Maximum height
 					adjustFontSizeToFit(messageDisplayDiv, maxHeight);
 
-					// Recursive polling for auto-hide
+					// Recursive polling for auto-hiding the text.
 					function pollForSpeaking() {
-					if (!speaking) {
-						messageDisplayDiv.classList.remove("visible"); // Trigger fade-out
-						messageDisplayDiv.textContent = ""; // Clear the text
-						const dismissButton = document.getElementById("dismissButton");
-						if (dismissButton) dismissButton.remove(); // Remove button
-					} else {
-						timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
-					}
+						if (!speaking) {
+							messageDisplayDiv.classList.remove("visible"); // Trigger fade-out
+							messageDisplayDiv.textContent = ""; // Clear the text
+							const dismissButton = document.getElementById("dismissButton");
+							if (dismissButton) dismissButton.remove(); // Remove button
+						} else {
+							timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
+						}
 					}
 
-					timeoutID = setTimeout(pollForSpeaking, 3000); // Start polling after initial delay
+					timeoutID = setTimeout(pollForSpeaking, 5000); // Start polling after initial delay
 					} catch (error) {
 						console.error("An error occurred in updateDisplay:", error);
 					}
