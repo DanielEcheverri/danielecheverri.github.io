@@ -868,83 +868,69 @@
 				}
 
 				function updateDisplay(displayMessage) {
-					try {
-						// Ensure the element exists
-						if (!messageDisplayDiv) {
+				try {
+					// Ensure the element exists
+					if (!messageDisplayDiv) {
+						console.error("messageDisplayDiv element not found");
 						return;
-						}
+					}
 
-						// Clear existing timeout
-						if (timeoutID) {
+					// Clear existing timeout
+					if (timeoutID) {
 						clearTimeout(timeoutID);
-						}
+					}
 
-						// Update text content
-						messageDisplayDiv.textContent = displayMessage;
+					// Update text content and visibility
+					messageDisplayDiv.textContent = displayMessage;
+					messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
 
-						// Adjust font size
-						const maxHeight = 100; // Maximum height
-						adjustFontSizeToFit(messageDisplayDiv, maxHeight);
+					// Adjust font size
+					const maxHeight = 100; // Maximum height
+					adjustFontSizeToFit(messageDisplayDiv, maxHeight);
 
-						// Show or hide based on content, apply fade-in/fade-out effect
-						if (displayMessage.trim() !== "") {
-						messageDisplayDiv.style.display = "block"; // Make the element visible
-						setTimeout(() => {
-							messageDisplayDiv.classList.add("fade-in"); // Add fade-in effect
-							messageDisplayDiv.classList.remove("fade-out"); // Ensure fade-out is removed
-						}, 0);
-						} else {
-						messageDisplayDiv.classList.remove("fade-in"); // Remove fade-in effect
-						messageDisplayDiv.classList.add("fade-out"); // Apply fade-out effect
-						setTimeout(() => {
-							messageDisplayDiv.style.display = "none"; // Hide the element after fade-out
-						}, 500); // Wait for the fade-out animation duration before hiding
-						}
-
-						// Add dismiss button if not already present
-						if (displayMessage.trim() !== "" && !document.getElementById("dismissButton")) {
+					// Add dismiss button if not already present
+					if (displayMessage.trim() !== "" && !document.getElementById("dismissButton")) {
 						const closeButton = document.createElement("button");
 						closeButton.classList.add("button");
 						closeButton.id = "dismissButton";
 						closeButton.textContent = "Dismiss";
 
 						closeButton.addEventListener("click", () => {
+							console.log("Dismiss button clicked");
 							messageDisplayDiv.textContent = "";
-							messageDisplayDiv.classList.remove("fade-in"); // Remove fade-in effect
-							messageDisplayDiv.classList.add("fade-out"); // Apply fade-out effect
+							messageDisplayDiv.style.display = "none";
 							clearTimeout(timeoutID); // Clear auto-hide timeout
 							closeButton.remove(); // Remove button
-							setTimeout(() => {
-							messageDisplayDiv.style.display = "none"; // Hide the element after fade-out
-							}, 500); // Wait for the fade-out animation duration before hiding
 						});
 
 						messageDisplayDiv.appendChild(closeButton);
-						}
+					}
 
-						// Recursive polling for auto-hide
-						function pollForSpeaking() {
+					// Recursive polling for auto-hide
+					function pollForSpeaking() {
 						if (!speaking) {
+							console.log("Before hiding: ", {
+								display: messageDisplayDiv.style.display,
+								text: messageDisplayDiv.textContent,
+							});
 							messageDisplayDiv.textContent = ""; // Clear the text
-							messageDisplayDiv.classList.remove("fade-in"); // Remove fade-in effect
-							messageDisplayDiv.classList.add("fade-out"); // Apply fade-out effect
+							messageDisplayDiv.style.display = "none"; // Hide the overlay
+							console.log("After hiding: ", {
+								display: messageDisplayDiv.style.display,
+								text: messageDisplayDiv.textContent,
+							});
 							const dismissButton = document.getElementById("dismissButton");
 							if (dismissButton) dismissButton.remove(); // Remove the button if present
-							setTimeout(() => {
-							messageDisplayDiv.style.display = "none"; // Hide the element after fade-out
-							}, 500); // Wait for the fade-out animation duration before hiding
 						} else {
 							timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
 						}
-						}
-
-						timeoutID = setTimeout(pollForSpeaking, 3000); // Start polling after initial delay
-					} catch (error) {
-						console.error("An error occurred in updateDisplay:", error);
 					}
+
+					timeoutID = setTimeout(pollForSpeaking, 3000); // Start polling after initial delay
+				} catch (error) {
+					console.error("An error occurred in updateDisplay:", error);
 				}
-
-
+			}
 
 			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
 			function adjustFontSizeToFit(div, maxHeight) {
