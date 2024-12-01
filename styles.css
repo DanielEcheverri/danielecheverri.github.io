@@ -66,12 +66,14 @@ h1 {
 	padding-top: 0vh; /* Vertical padding to center the text */
 	opacity: 0;
 	transition: opacity 1s ease-in-out;
-	visibility: hidden; /* Initially hidden */
 }
 
-#messageDisplayDiv.show {
+#messageDisplayDiv.fade-in {
 	opacity: 1;
-	visibility: visible;
+}
+
+#messageDisplayDiv.fade-out {
+	opacity: 0;
 }
 
 .button {

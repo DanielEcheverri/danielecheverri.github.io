@@ -888,9 +888,17 @@
 
 						// Show or hide based on content, apply fade-in/fade-out effect
 						if (displayMessage.trim() !== "") {
-						messageDisplayDiv.classList.add("show"); // Apply fade-in effect (show the element)
+						messageDisplayDiv.style.display = "block"; // Make the element visible
+						setTimeout(() => {
+							messageDisplayDiv.classList.add("fade-in"); // Add fade-in effect
+							messageDisplayDiv.classList.remove("fade-out"); // Ensure fade-out is removed
+						}, 0);
 						} else {
-						messageDisplayDiv.classList.remove("show"); // Apply fade-out effect (hide the element)
+						messageDisplayDiv.classList.remove("fade-in"); // Remove fade-in effect
+						messageDisplayDiv.classList.add("fade-out"); // Apply fade-out effect
+						setTimeout(() => {
+							messageDisplayDiv.style.display = "none"; // Hide the element after fade-out
+						}, 500); // Wait for the fade-out animation duration before hiding
 						}
 
 						// Add dismiss button if not already present
@@ -902,9 +910,13 @@
 
 						closeButton.addEventListener("click", () => {
 							messageDisplayDiv.textContent = "";
-							messageDisplayDiv.classList.remove("show"); // Fade-out effect
+							messageDisplayDiv.classList.remove("fade-in"); // Remove fade-in effect
+							messageDisplayDiv.classList.add("fade-out"); // Apply fade-out effect
 							clearTimeout(timeoutID); // Clear auto-hide timeout
 							closeButton.remove(); // Remove button
+							setTimeout(() => {
+							messageDisplayDiv.style.display = "none"; // Hide the element after fade-out
+							}, 500); // Wait for the fade-out animation duration before hiding
 						});
 
 						messageDisplayDiv.appendChild(closeButton);
@@ -914,9 +926,13 @@
 						function pollForSpeaking() {
 						if (!speaking) {
 							messageDisplayDiv.textContent = ""; // Clear the text
-							messageDisplayDiv.classList.remove("show"); // Fade-out effect
+							messageDisplayDiv.classList.remove("fade-in"); // Remove fade-in effect
+							messageDisplayDiv.classList.add("fade-out"); // Apply fade-out effect
 							const dismissButton = document.getElementById("dismissButton");
 							if (dismissButton) dismissButton.remove(); // Remove the button if present
+							setTimeout(() => {
+							messageDisplayDiv.style.display = "none"; // Hide the element after fade-out
+							}, 500); // Wait for the fade-out animation duration before hiding
 						} else {
 							timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
 						}
@@ -926,7 +942,8 @@
 					} catch (error) {
 						console.error("An error occurred in updateDisplay:", error);
 					}
-					}
+				}
+
 
 
 			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
