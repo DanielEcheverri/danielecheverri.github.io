@@ -884,11 +884,6 @@
 					messageDisplayDiv.textContent = displayMessage;
 					messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
 
-					console.log("Updated messageDisplayDiv: ", {
-						displayMessage,
-						display: messageDisplayDiv.style.display,
-					});
-
 					// Adjust font size
 					const maxHeight = 100; // Maximum height
 					adjustFontSizeToFit(messageDisplayDiv, maxHeight);
@@ -913,7 +908,6 @@
 
 					// Recursive polling for auto-hide
 					function pollForSpeaking() {
-						console.log("Polling speaking state:", speaking);
 						if (!speaking) {
 							console.log("Before hiding: ", {
 								display: messageDisplayDiv.style.display,
@@ -937,7 +931,6 @@
 					console.error("An error occurred in updateDisplay:", error);
 				}
 			}
-
 
 			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
 			function adjustFontSizeToFit(div, maxHeight) {
