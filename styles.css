@@ -64,7 +64,16 @@ h1 {
 	z-index: 9999; /* Ensure it appears above other content */
 	text-align: center; /* Center align the text */
 	padding-top: 0vh; /* Vertical padding to center the text */
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+	visibility: hidden; /* Initially hidden */
 }
+
+#messageDisplayDiv.show {
+	opacity: 1;
+	visibility: visible;
+}
+
 .button {
 	background-color: #4caf50; /* Green */
 	width: 96%; /* Adjust the width as needed */

@@ -868,69 +868,66 @@
 				}
 
 				function updateDisplay(displayMessage) {
-				try {
-					// Ensure the element exists
-					if (!messageDisplayDiv) {
-						console.error("messageDisplayDiv element not found");
+					try {
+						// Ensure the element exists
+						if (!messageDisplayDiv) {
 						return;
-					}
+						}
 
-					// Clear existing timeout
-					if (timeoutID) {
+						// Clear existing timeout
+						if (timeoutID) {
 						clearTimeout(timeoutID);
-					}
+						}
 
-					// Update text content and visibility
-					messageDisplayDiv.textContent = displayMessage;
-					messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
+						// Update text content
+						messageDisplayDiv.textContent = displayMessage;
 
-					// Adjust font size
-					const maxHeight = 100; // Maximum height
-					adjustFontSizeToFit(messageDisplayDiv, maxHeight);
+						// Adjust font size
+						const maxHeight = 100; // Maximum height
+						adjustFontSizeToFit(messageDisplayDiv, maxHeight);
 
-					// Add dismiss button if not already present
-					if (displayMessage.trim() !== "" && !document.getElementById("dismissButton")) {
+						// Show or hide based on content, apply fade-in/fade-out effect
+						if (displayMessage.trim() !== "") {
+						messageDisplayDiv.classList.add("show"); // Apply fade-in effect (show the element)
+						} else {
+						messageDisplayDiv.classList.remove("show"); // Apply fade-out effect (hide the element)
+						}
+
+						// Add dismiss button if not already present
+						if (displayMessage.trim() !== "" && !document.getElementById("dismissButton")) {
 						const closeButton = document.createElement("button");
 						closeButton.classList.add("button");
 						closeButton.id = "dismissButton";
 						closeButton.textContent = "Dismiss";
 
 						closeButton.addEventListener("click", () => {
-							console.log("Dismiss button clicked");
 							messageDisplayDiv.textContent = "";
-							messageDisplayDiv.style.display = "none";
+							messageDisplayDiv.classList.remove("show"); // Fade-out effect
 							clearTimeout(timeoutID); // Clear auto-hide timeout
 							closeButton.remove(); // Remove button
 						});
 
 						messageDisplayDiv.appendChild(closeButton);
-					}
+						}
 
-					// Recursive polling for auto-hide
-					function pollForSpeaking() {
+						// Recursive polling for auto-hide
+						function pollForSpeaking() {
 						if (!speaking) {
-							console.log("Before hiding: ", {
-								display: messageDisplayDiv.style.display,
-								text: messageDisplayDiv.textContent,
-							});
 							messageDisplayDiv.textContent = ""; // Clear the text
-							messageDisplayDiv.style.display = "none"; // Hide the overlay
-							console.log("After hiding: ", {
-								display: messageDisplayDiv.style.display,
-								text: messageDisplayDiv.textContent,
-							});
+							messageDisplayDiv.classList.remove("show"); // Fade-out effect
 							const dismissButton = document.getElementById("dismissButton");
 							if (dismissButton) dismissButton.remove(); // Remove the button if present
 						} else {
 							timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
 						}
+						}
+
+						timeoutID = setTimeout(pollForSpeaking, 3000); // Start polling after initial delay
+					} catch (error) {
+						console.error("An error occurred in updateDisplay:", error);
+					}
 					}
 
-					timeoutID = setTimeout(pollForSpeaking, 3000); // Start polling after initial delay
-				} catch (error) {
-					console.error("An error occurred in updateDisplay:", error);
-				}
-			}
 
 			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
 			function adjustFontSizeToFit(div, maxHeight) {
