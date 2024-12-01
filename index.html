@@ -882,12 +882,7 @@
 
 					// Update text content and visibility
 					messageDisplayDiv.textContent = displayMessage;
-					if (displayMessage.trim() !== "") {
-					messageDisplayDiv.textContent = displayMessage; // Update content
-					messageDisplayDiv.classList.add("fade-in");    // Show with fade-in effect
-					} else {
-					messageDisplayDiv.classList.remove("fade-in"); // Hide with fade-out effect
-					}
+					messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
 
 					// Adjust font size
 					const maxHeight = 100; // Maximum height
@@ -903,7 +898,7 @@
 						closeButton.addEventListener("click", () => {
 							console.log("Dismiss button clicked");
 							messageDisplayDiv.textContent = "";
-							messageDisplayDiv.classList.add("fade-out"); // Add fade-in class to show it							const dismissButton = document.getElementById("dismissButton");
+							messageDisplayDiv.style.display = "none";
 							clearTimeout(timeoutID); // Clear auto-hide timeout
 							closeButton.remove(); // Remove button
 						});
@@ -914,8 +909,17 @@
 					// Recursive polling for auto-hide
 					function pollForSpeaking() {
 						if (!speaking) {
+							console.log("Before hiding: ", {
+								display: messageDisplayDiv.style.display,
+								text: messageDisplayDiv.textContent,
+							});
 							messageDisplayDiv.textContent = ""; // Clear the text
-							messageDisplayDiv.classList.add("fade-out"); // Add fade-in class to show it							const dismissButton = document.getElementById("dismissButton");
+							messageDisplayDiv.style.display = "none"; // Hide the overlay
+							console.log("After hiding: ", {
+								display: messageDisplayDiv.style.display,
+								text: messageDisplayDiv.textContent,
+							});
+							const dismissButton = document.getElementById("dismissButton");
 							if (dismissButton) dismissButton.remove(); // Remove the button if present
 						} else {
 							timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
@@ -927,6 +931,7 @@
 					console.error("An error occurred in updateDisplay:", error);
 				}
 			}
+
 
 			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
 			function adjustFontSizeToFit(div, maxHeight) {
