@@ -867,7 +867,6 @@
 					}
 				}
 
-				// Update display
 				function updateDisplay(displayMessage) {
 				try {
 					// Ensure the element exists
@@ -885,11 +884,16 @@
 					messageDisplayDiv.textContent = displayMessage;
 					messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
 
+					console.log("Updated messageDisplayDiv: ", {
+						displayMessage,
+						display: messageDisplayDiv.style.display,
+					});
+
 					// Adjust font size
 					const maxHeight = 100; // Maximum height
 					adjustFontSizeToFit(messageDisplayDiv, maxHeight);
 
-					// Add dismiss button
+					// Add dismiss button if not already present
 					if (displayMessage.trim() !== "" && !document.getElementById("dismissButton")) {
 						const closeButton = document.createElement("button");
 						closeButton.classList.add("button");
@@ -897,27 +901,43 @@
 						closeButton.textContent = "Dismiss";
 
 						closeButton.addEventListener("click", () => {
+							console.log("Dismiss button clicked");
 							messageDisplayDiv.textContent = "";
 							messageDisplayDiv.style.display = "none";
-							closeButton.remove();
+							clearTimeout(timeoutID); // Clear auto-hide timeout
+							closeButton.remove(); // Remove button
 						});
 
 						messageDisplayDiv.appendChild(closeButton);
 					}
 
-					// Auto-hide after 3 seconds
-					timeoutID = setTimeout(() => {
+					// Recursive polling for auto-hide
+					function pollForSpeaking() {
+						console.log("Polling speaking state:", speaking);
 						if (!speaking) {
-							console.log("Before hiding: ", messageDisplayDiv.style.display, messageDisplayDiv.textContent);
-								messageDisplayDiv.textContent = ""; // Clear the text
-								messageDisplayDiv.style.display = "none"; // Hide the overlay
-								console.log("After hiding: ", messageDisplayDiv.style.display, messageDisplayDiv.textContent);
+							console.log("Before hiding: ", {
+								display: messageDisplayDiv.style.display,
+								text: messageDisplayDiv.textContent,
+							});
+							messageDisplayDiv.textContent = ""; // Clear the text
+							messageDisplayDiv.style.display = "none"; // Hide the overlay
+							console.log("After hiding: ", {
+								display: messageDisplayDiv.style.display,
+								text: messageDisplayDiv.textContent,
+							});
+							const dismissButton = document.getElementById("dismissButton");
+							if (dismissButton) dismissButton.remove(); // Remove the button if present
+						} else {
+							timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
 						}
-					}, 3000);
+					}
+
+					timeoutID = setTimeout(pollForSpeaking, 3000); // Start polling after initial delay
 				} catch (error) {
 					console.error("An error occurred in updateDisplay:", error);
 				}
 			}
+
 
 			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
 			function adjustFontSizeToFit(div, maxHeight) {
@@ -1090,10 +1110,6 @@
 							setTimeout(() => {
 								window.notification_Sound.play(); // Play the notification sound after a delay
 								console.log(deviceName + " end speaking");
-								console.log("Before hiding: ", messageDisplayDiv.style.display, messageDisplayDiv.textContent);
-								messageDisplayDiv.textContent = ""; // Clear the text
-								messageDisplayDiv.style.display = "none"; // Hide the overlay
-								console.log("After hiding: ", messageDisplayDiv.style.display, messageDisplayDiv.textContent);
 								speaking = false;
 								sound.unload(); // Unload the audio object to free up resources
 								playAction = false; // Reset playAction to false
