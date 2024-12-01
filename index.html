@@ -868,47 +868,47 @@
 				}
 
 				function updateDisplay(displayMessage) {
-					try {
-						// Ensure the element exists
-						if (!messageDisplayDiv) {
-						console.error("messageDisplayDiv element not found");
-						return;
-						}
+				try {
+					// Ensure the element exists
+					if (!messageDisplayDiv) {
+					console.error("messageDisplayDiv element not found");
+					return;
+					}
 
-						// Clear existing timeout
-						if (timeoutID) {
-						clearTimeout(timeoutID);
-						}
+					// Clear existing timeout
+					if (timeoutID) {
+					clearTimeout(timeoutID);
+					}
 
-						// Update the message and toggle visibility
-						if (displayMessage.trim() !== "") {
-						messageDisplayDiv.textContent = displayMessage; // Update text
-						messageDisplayDiv.classList.add("visible"); // Add visible class for fade-in
-						} else {
-						messageDisplayDiv.classList.remove("visible"); // Remove visible class for fade-out
-						}
+					// Update the message and toggle visibility
+					if (displayMessage.trim() !== "") {
+					messageDisplayDiv.textContent = displayMessage; // Update text
+					messageDisplayDiv.classList.add("visible"); // Add visible class for fade-in
+					} else {
+					messageDisplayDiv.classList.remove("visible"); // Remove visible class for fade-out
+					}
 
-						// Adjust font size
-						const maxHeight = 100; // Maximum height
-						adjustFontSizeToFit(messageDisplayDiv, maxHeight);
+					// Adjust font size
+					const maxHeight = 100; // Maximum height
+					adjustFontSizeToFit(messageDisplayDiv, maxHeight);
 
-						// Recursive polling for auto-hide
-						function pollForSpeaking() {
-						if (!speaking) {
-							messageDisplayDiv.classList.remove("visible"); // Trigger fade-out
-							messageDisplayDiv.textContent = ""; // Clear the text
-							const dismissButton = document.getElementById("dismissButton");
-							if (dismissButton) dismissButton.remove(); // Remove button
-						} else {
-							timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
-						}
-						}
+					// Recursive polling for auto-hide
+					function pollForSpeaking() {
+					if (!speaking) {
+						messageDisplayDiv.classList.remove("visible"); // Trigger fade-out
+						messageDisplayDiv.textContent = ""; // Clear the text
+						const dismissButton = document.getElementById("dismissButton");
+						if (dismissButton) dismissButton.remove(); // Remove button
+					} else {
+						timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
+					}
+					}
 
-						timeoutID = setTimeout(pollForSpeaking, 3000); // Start polling after initial delay
+					timeoutID = setTimeout(pollForSpeaking, 3000); // Start polling after initial delay
 					} catch (error) {
 						console.error("An error occurred in updateDisplay:", error);
 					}
-					}
+				}
 
 
 			// Function to adjust the font size dynamically to fit within the maxHeight (in vh)
