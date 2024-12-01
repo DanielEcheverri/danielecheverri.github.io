@@ -882,7 +882,12 @@
 
 					// Update text content and visibility
 					messageDisplayDiv.textContent = displayMessage;
-					messageDisplayDiv.style.display = displayMessage.trim() !== "" ? "block" : "none";
+					if (displayMessage.trim() !== "") {
+					messageDisplayDiv.textContent = displayMessage; // Update content
+					messageDisplayDiv.classList.add("fade-in");    // Show with fade-in effect
+					} else {
+					messageDisplayDiv.classList.remove("fade-in"); // Hide with fade-out effect
+					}
 
 					// Adjust font size
 					const maxHeight = 100; // Maximum height
@@ -898,7 +903,7 @@
 						closeButton.addEventListener("click", () => {
 							console.log("Dismiss button clicked");
 							messageDisplayDiv.textContent = "";
-							messageDisplayDiv.style.display = "none";
+							messageDisplayDiv.classList.add("fade-out"); // Add fade-in class to show it							const dismissButton = document.getElementById("dismissButton");
 							clearTimeout(timeoutID); // Clear auto-hide timeout
 							closeButton.remove(); // Remove button
 						});
@@ -910,8 +915,7 @@
 					function pollForSpeaking() {
 						if (!speaking) {
 							messageDisplayDiv.textContent = ""; // Clear the text
-							messageDisplayDiv.style.display = "none"; // Hide the overlay
-							const dismissButton = document.getElementById("dismissButton");
+							messageDisplayDiv.classList.add("fade-out"); // Add fade-in class to show it							const dismissButton = document.getElementById("dismissButton");
 							if (dismissButton) dismissButton.remove(); // Remove the button if present
 						} else {
 							timeoutID = setTimeout(pollForSpeaking, 500); // Check again in 500ms
