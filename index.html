@@ -908,8 +908,10 @@
 					// Auto-hide after 3 seconds
 					timeoutID = setTimeout(() => {
 						if (!speaking) {
-							messageDisplayDiv.textContent = "";
-							messageDisplayDiv.style.display = "none";
+							console.log("Before hiding: ", messageDisplayDiv.style.display, messageDisplayDiv.textContent);
+								messageDisplayDiv.textContent = ""; // Clear the text
+								messageDisplayDiv.style.display = "none"; // Hide the overlay
+								console.log("After hiding: ", messageDisplayDiv.style.display, messageDisplayDiv.textContent);
 						}
 					}, 3000);
 				} catch (error) {
