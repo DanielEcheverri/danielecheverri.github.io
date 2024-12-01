@@ -892,23 +892,6 @@
 						const maxHeight = 100; // Maximum height
 						adjustFontSizeToFit(messageDisplayDiv, maxHeight);
 
-						// // Add dismiss button if not already present
-						// if (displayMessage.trim() !== "" && !document.getElementById("dismissButton")) {
-						// const closeButton = document.createElement("button");
-						// closeButton.classList.add("button");
-						// closeButton.id = "dismissButton";
-						// closeButton.textContent = "Dismiss";
-
-						// closeButton.addEventListener("click", () => {
-						// 	messageDisplayDiv.textContent = "";
-						// 	messageDisplayDiv.classList.remove("visible"); // Trigger fade-out
-						// 	clearTimeout(timeoutID); // Clear auto-hide timeout
-						// 	closeButton.remove(); // Remove button
-						// });
-
-						// messageDisplayDiv.appendChild(closeButton);
-						// }
-
 						// Recursive polling for auto-hide
 						function pollForSpeaking() {
 						if (!speaking) {
