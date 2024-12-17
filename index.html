@@ -647,10 +647,9 @@
 				let previousPart = "none";
 				let previousDirection = "none";
 
-				let movements;
 				async function checkMovement() {
 					// Detect movement
-					movements = handleMovement();
+					let movements = handleMovement();
 
 					// Fetch movement conditions JSON file if not already cached...
 					if (!cachedMovementConditions) {
