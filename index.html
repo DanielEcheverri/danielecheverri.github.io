@@ -441,7 +441,11 @@
 							} else {
 								directionText = "somewhere";
 							}
-							checkCheckpoints();
+
+							if (blueToothStatus=="Online"){
+								checkCheckpoints();
+							}
+
 							// Update the HTML element with different navigation variables
 							document.getElementById("currentLocation").innerHTML =
 								"<strong><span class='material-icons' style='vertical-align: middle;'>bluetooth</span> Bluetooth:</strong> " + blueToothStatus + "<br>" +
