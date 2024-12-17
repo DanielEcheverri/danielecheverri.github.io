@@ -573,14 +573,13 @@
 					return true;
 				}
 
-				let movements = {};
 				// Define variables for detecting movement in different body parts
 				function handleMovement() {
 					// Define thresholds for movement detection
 					let movementThreshold = 13;
 
 					// Variables to track movement of different body parts
-
+					let movements = {};
 
 					// Mapping between labels and movements for hachi_BT or avatar_BT
 					let labelMovements;
@@ -648,9 +647,10 @@
 				let previousPart = "none";
 				let previousDirection = "none";
 
+				let movements;
 				async function checkMovement() {
 					// Detect movement
-					let movements = handleMovement();
+					movements = handleMovement();
 
 					// Fetch movement conditions JSON file if not already cached...
 					if (!cachedMovementConditions) {
