@@ -558,8 +558,7 @@
 					readTag();
 					if (values.length === numPotentiometers) { // Check if the length of values is 8
 						for (let i = 0; i < values.length; i++) {
-							potValues[i] = lowPassFilter(potValues[i] || parseFloat(values[i]), parseFloat(values[i]));
-						}
+							potValues[i] = parseFloat(lowPassFilter(potValues[i] || parseFloat(values[i]), parseFloat(values[i])).toFixed(1));						}
 					}
 				}
 
