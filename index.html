@@ -544,20 +544,6 @@
 					}
 				}
 
-				const smoothingWindow = 5; // Number of readings to average
-				let potHistory = Array(numPotentiometers).fill([]); // Store history for each potentiometer
-
-				//This function smoothes the data to remove noise
-				function smoothPotValues(index, newValue) {
-					potHistory[index].push(newValue);
-					if (potHistory[index].length > smoothingWindow) {
-						potHistory[index].shift(); // Remove oldest value
-					}
-
-					// Calculate the average
-					return potHistory[index].reduce((sum, val) => sum + val, 0) / potHistory[index].length;
-				}
-
 				// Function to receive data from JavaScript
 				function receiveData(data) {
 					let values = data.split(",");
@@ -566,7 +552,7 @@
 					readTag();
 					if (values.length === numPotentiometers) { // Check if the length of values is 8
 						for (let i = 0; i < values.length; i++) {
-							potValues[i] = smoothPotValues(i, parseFloat(values[i]));
+							potValues[i] = parseFloat(values[i]);
 						}
 					}
 				}
