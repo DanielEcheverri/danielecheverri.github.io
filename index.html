@@ -544,6 +544,12 @@
 					}
 				}
 
+				const alpha = 0.2; // Adjust to control smoothing (0 = no change, 1 = instant change)
+
+				function lowPassFilter(currentValue, newValue) {
+					return alpha * newValue + (1 - alpha) * currentValue;
+				}
+
 				// Function to receive data from JavaScript
 				function receiveData(data) {
 					let values = data.split(",");
@@ -552,7 +558,7 @@
 					readTag();
 					if (values.length === numPotentiometers) { // Check if the length of values is 8
 						for (let i = 0; i < values.length; i++) {
-							potValues[i] = parseFloat(values[i]);
+							potValues[i] = lowPassFilter(potValues[i] || parseFloat(values[i]), parseFloat(values[i]));
 						}
 					}
 				}
