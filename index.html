@@ -346,7 +346,7 @@
 				// Function to send data to Google Sheet
 				function sendToSheet(type, message) {
 					const timestamp = new Date().toISOString();
-					const scriptURL = `https://script.google.com/macros/s/AKfycbzGVlT4TzR0MAIHsLSBhTZgwgl1glLsrXBDFg2B5tT8Kdjobl-B0tkrQiPHXzxsYeP6/exec`;
+					const scriptURL = `https://script.google.com/macros/s/AKfycbxKeBM67A4Vii8JyPsZKHDNTymrrubGqYMPv2IHZ3W0lGDfLaZah_O4TnN61g6Wuixl/exec`;
 					const params = new URLSearchParams({
 						timestamp,
 						agent: deviceName + interactionMode,
@@ -354,6 +354,7 @@
 						type,
 						location: `${latitude},${longitude}`,
 						message,
+						messageID
 					});
 
 					fetch(`${scriptURL}?${params.toString()}`, {
