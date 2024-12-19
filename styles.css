@@ -31,12 +31,19 @@ h1 {
 	justify-content: center;
 }
 
-#consoleOutput,
 #currentLocation {
 	width: 90%;
 	text-align: center;
 	color: #999da0; /* Black text color */
 	font-size: 16px; /* Text size */
+}
+
+#consoleOutput {
+	width: 90%;
+	text-align: center;
+	color: #999da0; /* Black text color */
+	font-size: 16px; /* Text size */
+	font-family: "Courier New", Courier, monospace; /* Console */
 }
 
 #logoSpace {
