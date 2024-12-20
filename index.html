@@ -327,7 +327,9 @@
 			     	}
 
 			//window.onload = checkVariables;
-			window.onload = () => checkVariables() && generateSessionId();
+			window.onload = () => {
+				checkVariables() && generateSessionId();
+			};
 
 			function redirectConsoleToDiv() {
 				const consoleOutputDiv = document.getElementById('consoleOutput');
