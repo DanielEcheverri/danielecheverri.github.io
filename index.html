@@ -174,11 +174,6 @@
 				return sessionId;
 			}
 
-			//window.onload = checkVariables;
-			// window.onload = () => {
-			// 	checkVariables() && generateSessionId();
-			// };
-
 			// Event listener for when the page's DOM content is fully loaded
 			document.addEventListener('DOMContentLoaded', function() {
 				console.log("Initializing resources.");
@@ -368,7 +363,7 @@
 						type,
 						location: `${latitude},${longitude}`,
 						message,
-						messageID
+						messageID_tmp
 					});
 
 					fetch(`${scriptURL}?${params.toString()}`, {
