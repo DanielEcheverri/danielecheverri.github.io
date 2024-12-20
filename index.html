@@ -154,10 +154,37 @@
 				loadingScreen.classList.add('hidden'); // Add the 'hidden' class to trigger the fade-out effect
 			}
 
+			function checkVariables() {
+				// Check if latitude, longitude, and weatherDescription are not null
+				if (latitude !== null && longitude !== null) {
+					connectButton.disabled = false;
+					//initializeSounds();
+				} else {
+					// If any variable is still null, wait for a short delay and check again
+					setTimeout(checkVariables, 1000);
+				}
+			}
+
+			let sessionId = '';
+			function generateSessionId() {
+				for (let i = 0; i < 6; i++) {
+					sessionId += Math.random().toString(36).charAt(2); // Generates a random alphanumeric character
+				}
+				console.log("Session id: "+ sessionId)
+				return sessionId;
+			}
+
+			//window.onload = checkVariables;
+			// window.onload = () => {
+			// 	checkVariables() && generateSessionId();
+			// };
+
 			// Event listener for when the page's DOM content is fully loaded
 			document.addEventListener('DOMContentLoaded', function() {
 				console.log("Initializing resources.");
 				initializeSounds();
+				checkVariables();
+				generateSessionId();
 			});
 
 			function toggleDeviceName() {
@@ -305,31 +332,6 @@
 							console.error('Wake lock API not supported.');
 						}
 			}
-
-			function checkVariables() {
-				// Check if latitude, longitude, and weatherDescription are not null
-				if (latitude !== null && longitude !== null) {
-					connectButton.disabled = false;
-					//initializeSounds();
-				} else {
-					// If any variable is still null, wait for a short delay and check again
-					setTimeout(checkVariables, 1000);
-				}
-			}
-
-			let sessionId = '';
-			function generateSessionId() {
-				for (let i = 0; i < 6; i++) {
-					sessionId += Math.random().toString(36).charAt(2); // Generates a random alphanumeric character
-				}
-				console.log("Session id: "+ sessionId)
-				return sessionId;
-			     	}
-
-			//window.onload = checkVariables;
-			window.onload = () => {
-				checkVariables() && generateSessionId();
-			};
 
 			function redirectConsoleToDiv() {
 				const consoleOutputDiv = document.getElementById('consoleOutput');
