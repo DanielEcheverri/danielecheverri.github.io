@@ -317,8 +317,17 @@
 				}
 			}
 
-			// Call the function when the script is loaded
-			window.onload = checkVariables;
+			let sessionId = '';
+			function generateSessionId() {
+				for (let i = 0; i < 6; i++) {
+					sessionId += Math.random().toString(36).charAt(2); // Generates a random alphanumeric character
+				}
+				console.log("Session id: "+ sessionId)
+				return sessionId;
+			     	}
+
+			//window.onload = checkVariables;
+			window.onload = () => checkVariables() && generateSessionId();
 
 			function redirectConsoleToDiv() {
 				const consoleOutputDiv = document.getElementById('consoleOutput');
