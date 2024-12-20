@@ -165,7 +165,7 @@
 				}
 			}
 
-			let sessionId = '';
+			let sessionId = 'loading';
 			function generateSessionId() {
 				for (let i = 0; i < 6; i++) {
 					sessionId += Math.random().toString(36).charAt(2); // Generates a random alphanumeric character
@@ -362,6 +362,7 @@
 					const scriptURL = `https://script.google.com/macros/s/AKfycbxKeBM67A4Vii8JyPsZKHDNTymrrubGqYMPv2IHZ3W0lGDfLaZah_O4TnN61g6Wuixl/exec`;
 					const params = new URLSearchParams({
 						timestamp,
+						sessionId,
 						agent: deviceName + interactionMode,
 						movement: `${potValues}`,
 						type,
