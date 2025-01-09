@@ -132,7 +132,7 @@
 								window[key] = new Howl({
 									src: [sounds[key].src],
 									volume: 0.4,
-									onload: soundLoaded, // Call soundLoaded() when sound is loaded successfully
+									onload: soundLoaded, // Call soundLoaded() when sound is loaded successfully.
 									onloaderror: function(error) { console.error('Error loading audio resources:', error); }
 								});
 							}
