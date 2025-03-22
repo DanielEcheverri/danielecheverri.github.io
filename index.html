@@ -189,12 +189,8 @@
 			async function storeUserIP() {
 				user_ip = await getUserIP(); // Assign to the global user_ip
 				if (user_ip) {
-					console.log('User IP address:', user_ip);
-					// You can now use the global user_ip variable.
-					// Example: localStorage.setItem('userIP', user_ip);
 					return user_ip; // Returning the IP is still a good practice.
 				} else {
-					console.log('Could not retrieve IP address.');
 					return null;
 				}
 			}
@@ -206,11 +202,10 @@
 				checkVariables();
 				storeUserIP().then(() => {
 				if (user_ip) {
-					console.log('Global user_ip after storeUserIP():', user_ip);
-					// You can now use the global user_ip variable anywhere in your script.
+					console.log('User IP:', user_ip);
 				}
 				});
-			generateSessionId();
+				generateSessionId();
 			});
 
 			function toggleDeviceName() {
