@@ -174,12 +174,42 @@
 				return sessionId;
 			}
 
+			let user_ip; // Declare user_ip in the global scope
+			async function getUserIP() {
+				try {
+					const response = await fetch('https://api.ipify.org?format=json');
+					const data = await response.json();
+					return data.ip;
+				} catch (error) {
+					console.error('Error fetching IP address:', error);
+					return null;
+				}
+			}
+
+			async function storeUserIP() {
+				user_ip = await getUserIP(); // Assign to the global user_ip
+				if (user_ip) {
+					console.log('User IP address:', user_ip);
+					// You can now use the global user_ip variable.
+					// Example: localStorage.setItem('userIP', user_ip);
+					return user_ip; // Returning the IP is still a good practice.
+				} else {
+					console.log('Could not retrieve IP address.');
+					return null;
+				}
+			}
+
 			// Event listener for when the page's DOM content is fully loaded
 			document.addEventListener('DOMContentLoaded', function() {
 				console.log("Initializing resources.");
 				initializeSounds();
 				checkVariables();
-				generateSessionId();
+				storeUserIP().then(() => {
+				if (user_ip) {
+					console.log('Global user_ip after storeUserIP():', user_ip);
+					// You can now use the global user_ip variable anywhere in your script.
+				}
+			generateSessionId();
 			});
 
 			function toggleDeviceName() {
@@ -354,9 +384,10 @@
 				// Function to send data to Google Sheet
 				function sendToSheet(type, message) {
 					const timestamp = new Date().toISOString();
-					const scriptURL = `https://script.google.com/macros/s/AKfycbwHuZKGtwpoDJqudvL8ksGpYFc4YR3sx5Uya2YU3WMCbLhBFajlaz3G4YEZ6JhqnlV5/exec`;
+					const scriptURL = `https://script.google.com/macros/s/AKfycbweFxGwlsUW4OJezRfIV-VvjQdNhcJWdzwTPnjCghD3KpD-xjJKtYWdvFogdrGn6iOp/exec`;
 					const params = new URLSearchParams({
 						timestamp,
+						user_ip,
 						sessionId,
 						agent: deviceName + interactionMode,
 						movement: `${potValues}`,
