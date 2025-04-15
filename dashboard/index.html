@@ -1544,18 +1544,18 @@ $avatar_passage
 &lt;&lt;/nobr&gt;&gt;
 
 </tw-passagedata><tw-passagedata pid="23" name="hachi_tram_2" tags="" position="950,1000" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $hachi_passage to &quot;hachi_tram2_00/Leo gave Hachi a small pat on his head, clearly enjoying the friendly gesture, Hachi wagged his tail in response./m_compliment/&quot;&gt;&gt;
+&lt;&lt;set $hachi_passage to &quot;hachi_tram2_00/Leo gave Hachi a small pat on his head, clearly enjoying the friendly gesture, Hachi moved his head up in response./m_compliment/&quot;&gt;&gt;
 
 &lt;&lt;liveblock&gt;&gt;
 $hachi_passage
 
-&lt;&lt;if $hachi_narrating == &quot;hachi_tram2_00false&quot; and $hachi_part_mov == &quot;tail&quot;&gt;&gt;
+&lt;&lt;if $hachi_narrating == &quot;hachi_tram2_00false&quot; and $hachi_part_mov == &quot;head&quot;&gt;&gt;
   &lt;&lt;set $hachi_passage to &quot;hachi_tram2_01/Hachi greets Leo whith eager barks, happy to see a familiar face. Somehow it was like he was trying to say: &#39;Hi, Leo! I&#39;m looking for Buro. Have you seen him today?&#39;/talking1/&quot;&gt;&gt;
 &lt;&lt;set $hachi_nextAct to true&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $hachi_narrating == &quot;hachi_tram2_00false&quot;&gt;&gt;
-  &lt;&lt;if $hachi_part_mov !== &quot;tail&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
+  &lt;&lt;if $hachi_part_mov !== &quot;head&quot; and $hachi_movement !==&quot;none&quot; and $hachi_movement !== &quot;&quot;&gt;&gt;
 	&lt;&lt;include &quot;commentMovement_hachi&quot;&gt;&gt;
   &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;
