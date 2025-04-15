@@ -222,6 +222,43 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
     justify-content: center;
 }
 
+/* Existing CSS for loading-animation and spinner */
+.loading-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Remove any positioning that might interfere with centering */
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1); /* Light grey border */
+  border-top: 4px solid #3498db; /* Blue border for the spinner */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite; /* Apply the spin animation */
+  margin-bottom: 5px; /* Space between spinner and text */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* New CSS to center the loading container */
+.loading-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  position: fixed; /* Take it out of the normal flow */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000; /* Ensure it's on top of other content */
+}
+
 .svg-logo {
   height: 100%;
   margin-right: 50%; /* Adjust as needed */
@@ -948,6 +985,7 @@ window.makeShortComments = async function(character, key) {
     console.log(&quot;Story city: &quot; + variables().storyCity);
     console.log(&quot;Story neighborhood: &quot; + variables().storyNeighborhood);
     console.log(&quot;Story pollution: &quot; + variables().storyPollution);
+    Engine.play(&quot;loading&quot;);
   })
   .catch((error) =&gt; {
     console.error(&quot;Error:&quot;, error.message);
@@ -973,11 +1011,15 @@ window.makeShortComments = async function(character, key) {
     console.log(&quot;Initializing narration&quot;);
 &lt;&lt;/script&gt;&gt;
 
-  Ok!
-  
-  &lt;&lt;goto &quot;loading&quot;&gt;&gt;
 &lt;&lt;/timed&gt;&gt;&lt;&lt;if _timerRunning&gt;&gt;
-Loading variables...
+	&lt;div class=&quot;loading-container&quot;&gt;
+      &lt;div class=&quot;loading-animation&quot;&gt;
+        
+        &lt;img src=&quot;https://danielecheverri.github.io/logo.svg&quot; alt=&quot;Searching for us&quot; class=&quot;static-image&quot;&gt;
+        &lt;p&gt;Loading information from Transitland, Openstreet Maps, OpenWeather, and Overpass ...&lt;/p&gt;
+        &lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 </tw-passagedata><tw-passagedata pid="2" name="live_variables" tags="" position="1275,450" size="200,200">
@@ -3026,30 +3068,39 @@ makeComments(&#39;hachi&#39;,&#39;observes&#39;);
 &lt;&lt;set $avatar_arriving to false&gt;&gt;
 &lt;&lt;script&gt;&gt;
 let valuesArray = variables().avatar_checkpoint_dist;
-let atLeastOneEqualTo20 = valuesArray.some(value =&gt; parseInt(value) &lt; 20);
-if (atLeastOneEqualTo20) {
-	variables().avatar_arriving=true;
-} else {
-	variables().avatar_arriving=false;
-}
+  if (Array.isArray(valuesArray)) {
+  	let atLeastOneEqualTo20 = valuesArray.some(value =&gt; parseInt(value) &lt; 20);
+    if (atLeastOneEqualTo20) {
+        variables().avatar_arriving=true;
+    } else {
+        variables().avatar_arriving=false;
+    }
+  } else {
+      console.error(&quot;avatar_checkpoint_dist is not an array or is undefined.&quot;);
+      variables().avatar_arriving = false;
+  }
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="evalDist_hachi" tags="" position="1050,75" size="200,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $hachi_arriving to false&gt;&gt;
 &lt;&lt;script&gt;&gt;
 let valuesArray = variables().hachi_checkpoint_dist;
-//console.log(valuesArray);
-let atLeastOneEqualTo20 = valuesArray.some(value =&gt; parseInt(value) &lt; 20);
-if (atLeastOneEqualTo20) {
-	variables().hachi_arriving=true;
-} else {
-	variables().hachi_arriving=false;
-}
+  if (Array.isArray(valuesArray)) {
+  	let atLeastOneEqualTo20 = valuesArray.some(value =&gt; parseInt(value) &lt; 20);
+    if (atLeastOneEqualTo20) {
+        variables().hachi_arriving=true;
+    } else {
+        variables().hachi_arriving=false;
+    }
+  } else {
+      console.error(&quot;hachi_checkpoint_dist is not an array or is undefined.&quot;);
+      variables().hachi_arriving = false;
+  }
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="avatar_act2_transition" tags="" position="2475,1175" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set variables().avatar_checkpoint_dist to $avatar_checkpoint_dist&gt;&gt;
 &lt;&lt;set $avatar_comment to &quot;&quot;&gt;&gt;
 &lt;&lt;set $avatar_passage to &quot;avatar_act2_transition/&quot;&gt;&gt;
-&lt;&lt;set $passage to &quot;avatar_act2_transition/e&quot;&gt;
+&lt;&lt;set $passage to &quot;avatar_act2_transition&quot;&gt;&gt;
 
 
 &lt;&lt;liveblock&gt;&gt;
