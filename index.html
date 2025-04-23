@@ -593,7 +593,8 @@
 				function receiveData(data) {
 					let values = data.split(",");
 					//console.log(values);
-					tagID = values.pop(); // Remove and store the last element as tagID.
+					//tagID = values.pop(); // Remove and store the last element as tagID.
+					tagID = parseInt(values.pop(), 10);
 					readTag();
 					if (values.length === numPotentiometers) { // Check if the length of values is 8
 						for (let i = 0; i < values.length; i++) {
