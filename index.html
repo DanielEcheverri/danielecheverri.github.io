@@ -1320,7 +1320,7 @@
 			let previousCheckpoint = null; // Define previousCheckpoint as a global variable
 
 			async function checkCheckpoints() {
-				const radius = 10; // 10 meters radius
+				const radius = 4; // 4 meters radius
 				let checkpointsKey = deviceName === "hachi_BT" ? "hachi_checkpoints" : "avatar_checkpoints";
 
 				const locations = await fetchJSONFile(checkpointsSource, cachedCheckpoints);
@@ -1360,7 +1360,7 @@
 								previousChkPointDistance = JSON.parse(JSON.stringify(chkPointDistance));
 							}
 						} else {
-							console.log("No more checkpoint sets to check.");
+							//console.log("No more checkpoint sets to check.");
 						}
 					}
 				}
