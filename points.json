@@ -77,66 +77,66 @@
 		"avatar_checkpoints": {
 			"checkpoint_1": [
 				{
-					"latitude": 49.21018,
-					"longitude": 16.5991,
+					"latitude": 49.198242,
+					"longitude": 16.605350,
 					"text": "avatar_tobacco"
 				},
 				{
-					"latitude": 49.21027,
-					"longitude": 16.59936,
+					"latitude": 49.19797,
+					"longitude": 16.60508,
 					"text": "avatar_bakery"
 				},
 				{
-					"latitude": 49.20994,
-					"longitude": 16.5995,
+					"latitude": 49.19760,
+					"longitude": 16.60425,
 					"text": "avatar_church"
 				}
 			],
 			"checkpoint_2": [
 				{
-					"latitude": 49.21018,
-					"longitude": 16.5991,
+					"latitude": 49.198242,
+					"longitude": 16.605350,
 					"text": "avatar_tobacco"
 				},
 				{
-					"latitude": 49.21027,
-					"longitude": 16.59936,
+					"latitude": 49.19797,
+					"longitude": 16.60508,
 					"text": "avatar_bakery"
 				},
 				{
-					"latitude": 49.20994,
-					"longitude": 16.5995,
+					"latitude": 49.19760,
+					"longitude": 16.60425,
 					"text": "avatar_church"
 				}
 			],
 			"checkpoint_3": [
 				{
-					"latitude": 49.21018,
-					"longitude": 16.5991,
+					"latitude": 49.198242,
+					"longitude": 16.605350,
 					"text": "avatar_tobacco"
 				},
 				{
-					"latitude": 49.21027,
-					"longitude": 16.59936,
+					"latitude": 49.19797,
+					"longitude": 16.60508,
 					"text": "avatar_bakery"
 				},
 				{
-					"latitude": 49.20994,
-					"longitude": 16.5995,
+					"latitude": 49.19760,
+					"longitude": 16.60425,
 					"text": "avatar_church"
 				}
 			],
 			"checkpoint_4": [
 				{
-					"latitude": 49.21008,
-					"longitude": 16.59858,
+					"latitude": 49.19793,
+					"longitude": 16.60662,
 					"text": "avatar_bank"
 				}
 			],
 			"checkpoint_5": [
 				{
 					"latitude": 49.20946,
-					"longitude": 16.59855,
+					"longitude": 16.59852,
 					"text": "avatar_garden"
 				}
 			]
