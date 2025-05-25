@@ -1661,6 +1661,7 @@
 					};
 				}
 			});
+
 			document.addEventListener('DOMContentLoaded', () => {
 				const sniffButton = document.getElementById('sniff_btn');
 
@@ -1675,7 +1676,62 @@
 					};
 				}
 			});
+			document.addEventListener('DOMContentLoaded', () => {
+				const grabButton = document.getElementById('grab_btn');
 
+				if (grabButton) {
+					grabButton.onclick = () => {
+						movementBuffer = [
+						{ "partMoving": "front leg", "directionMoving": "up" },
+						{ "partMoving": "front leg", "directionMoving": "down" },
+						{ "partMoving": "head", "directionMoving": "up" }
+						];
+						trackMovementSequences(); // Call the function to check the buffer
+					};
+				}
+			});
+			document.addEventListener('DOMContentLoaded', () => {
+				const jumpButton = document.getElementById('jump_btn');
+
+				if (jumpButton) {
+					jumpButton.onclick = () => {
+						movementBuffer = [
+						{ "partMoving": "front leg", "directionMoving": "up" },
+						{ "partMoving": "front leg", "directionMoving": "down" },
+						{ "partMoving": "head", "directionMoving": "up" }
+						];
+						trackMovementSequences(); // Call the function to check the buffer
+					};
+				}
+			});
+			document.addEventListener('DOMContentLoaded', () => {
+				const backButton = document.getElementById('back_btn');
+
+				if (backButton) {
+					backButton.onclick = () => {
+						movementBuffer = [
+						{ "partMoving": "front leg", "directionMoving": "up" },
+						{ "partMoving": "front leg", "directionMoving": "down" },
+						{ "partMoving": "front leg", "directionMoving": "up" }
+						];
+						trackMovementSequences(); // Call the function to check the buffer
+					};
+				}
+			});
+			document.addEventListener('DOMContentLoaded', () => {
+				const frontButton = document.getElementById('front_btn');
+
+				if (frontButton) {
+					frontButton.onclick = () => {
+						movementBuffer = [
+						{ "partMoving": "back leg", "directionMoving": "up" },
+						{ "partMoving": "back leg", "directionMoving": "down" },
+						{ "partMoving": "back leg", "directionMoving": "up" }
+						];
+						trackMovementSequences(); // Call the function to check the buffer
+					};
+				}
+			});
 		</script>
 	</body>
 </html>
