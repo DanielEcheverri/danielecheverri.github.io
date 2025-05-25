@@ -265,12 +265,7 @@
 					sentenceSource = 'hachi_sentences.json';
 					tagSource = 'tags.json';
 					initializeSounds();
-					const hachiCheckbox = document.getElementById("hachiCheckbox");
-					if (hachiCheckbox) {
-						hachiCheckbox.click();
-					} else {
-						console.warn("hachiCheckbox element not found.");
-					}
+
 					characterName = "Hachi";
 					if (window[characterName + "_Sound"]) {
 						window[characterName + "_Sound"].play();
