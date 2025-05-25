@@ -280,3 +280,40 @@ input:checked + .slider:before {
     width: 100vh; /* Make it take 100% of the width of its parent (avatarCanvas) */
     height: auto; /* Maintain aspect ratio */
 }
+
+.control-button {
+	position: absolute;
+	padding: 10px 15px;
+	border: 1px solid #ccc;
+	background-color: #f0f0f0;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+/* Position the buttons relative to the avatarCanvas using percentages */
+#bark_btn {
+	top: 10%;
+	left: 10%;
+}
+
+#sniff_btn {
+	top: 10%;
+	right: 10%;
+}
+
+#jump_btn {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#back_btn {
+	bottom: 15%;
+	left: 20%;
+}
+
+#front_btn {
+	bottom: 15%;
+	right: 20%;
+}
