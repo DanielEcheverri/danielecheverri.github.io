@@ -1657,12 +1657,24 @@
 							{ "partMoving": "head", "directionMoving": "down" },
 							{ "partMoving": "head", "directionMoving": "up" }
 						];
-						console.log("Manual buffer set for Barking:", movementBuffer);
 						trackMovementSequences(); // Call the function to check the buffer
 					};
 				}
 			});
+			document.addEventListener('DOMContentLoaded', () => {
+				const sniffButton = document.getElementById('sniff_btn');
 
+				if (sniffButton) {
+					sniffButton.onclick = () => {
+						movementBuffer = [
+							{ "partMoving": "head", "directionMoving": "down" },
+							{ "partMoving": "head", "directionMoving": "up" },
+							{ "partMoving": "head", "directionMoving": "down" }
+						];
+						trackMovementSequences(); // Call the function to check the buffer
+					};
+				}
+			});
 
 		</script>
 	</body>
