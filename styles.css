@@ -273,3 +273,10 @@ input:checked + .slider:before {
 	height: 100%; /* Ensure the wrapper takes up full height */
 	padding-bottom: 20vh;
 }
+
+/* Target the hachi.svg image */
+#avatarCanvas img.hachi_control {
+    display: block; /* Ensure it behaves as a block-level element */
+    width: 100%; /* Make it take 100% of the width of its parent (avatarCanvas) */
+    height: auto; /* Maintain aspect ratio */
+}
