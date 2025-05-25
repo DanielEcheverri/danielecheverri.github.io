@@ -513,9 +513,10 @@
 				let tagID = 0;
 
 				function setup() {
-
+					//Do not load the regularP5 canvas
 					const shouldLoadAvatar = false;
 					if (!shouldLoadAvatar) {
+						noCanvas();
 						return; // Exit the function early
 					}
 
