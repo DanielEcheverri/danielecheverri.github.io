@@ -1661,5 +1661,25 @@
 				console.log('End of session');
 			});
 		</script>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const barkButton = document.getElementById('bark_btn');
+
+				if (barkButton) {
+					barkButton.onclick = () => {
+						// Manually create the desired sequence for "Barking"
+						movementBuffer = [
+							{ "partMoving": "head", "directionMoving": "up" },
+							{ "partMoving": "head", "directionMoving": "down" },
+							{ "partMoving": "head", "directionMoving": "up" }
+						];
+						trackMovementSequences(); // Call the function to check the buffer
+					};
+				}
+			});
+
+
+		</script>
 	</body>
 </html>
