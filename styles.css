@@ -285,21 +285,23 @@ input:checked + .slider:before {
 	position: absolute;
 	padding: 10px 15px;
 	border: 1px solid #ccc;
-	background-color: #f0f0f0;
+	background-color: white;
 	cursor: pointer;
-	border-radius: 5px;
+	border-radius: 20px;
 	font-size: 14px;
+	font-weight: bold;
+	color: black;
 }
 
 /* Position the buttons relative to the avatarCanvas using percentages */
 #bark_btn {
-	top: 38%;
-	left: 29%;
+	top: 49%;
+	left: 31%;
 }
 
 #sniff_btn {
 	top: 41%;
-	right: 85%;
+	right: 75%;
 }
 
 #jump_btn {
@@ -309,16 +311,16 @@ input:checked + .slider:before {
 }
 
 #back_btn {
-	bottom: 22%;
-	left: 73%;
+	bottom: 14%;
+	left: 61%;
 }
 
 #grab_btn {
-	bottom: 22%;
-	left: 73%;
+	bottom: 28%;
+	left: 4%;
 }
 
 #front_btn {
-	bottom: 15%;
-	right: 20%;
+	bottom: 14%;
+	right: 59%;
 }
