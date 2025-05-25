@@ -88,6 +88,7 @@
 		<div id="currentLocation"></div>
 		<!-- Message>-->
 		<div id="messageDisplayDiv"></div>
+		
 		<script>
 			//Script for pairing with Avatar_BT
 			let characteristic;
@@ -301,7 +302,7 @@
 					listenClient = false;
 					startDetectMovement = true;
 					blueToothStatus = "Online";
-
+					currentLocation.style.display = 'none';
 				} catch (error) {
 					console.error("Error during simulated connection: " + error);
 				}
