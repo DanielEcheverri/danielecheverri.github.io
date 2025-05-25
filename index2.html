@@ -751,23 +751,6 @@
 				async function trackMovementSequences() {
 					console.log("trackMovementSequences called with buffer:", movementBuffer); // <--- ADD THIS LINE
 					try {
-						const currentSequence = { partMoving, directionMoving };
-
-						// Check if the current sequence is different from the previous one
-						if (
-							movementBuffer.length > 0 &&
-							movementBuffer[movementBuffer.length - 1].partMoving === partMoving &&
-							movementBuffer[movementBuffer.length - 1].directionMoving === directionMoving
-						) {
-							return; // Exit early if the sequence is the same as the previous one
-						}
-
-						movementBuffer.push(currentSequence);
-
-						// Limit the buffer to store only the last 5 variations
-						if (movementBuffer.length > 5) {
-							movementBuffer.shift(); // Remove the oldest variation
-						}
 
 						const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
 						console.log("Loaded patterns:", patterns); // <--- ADD THIS LINE
