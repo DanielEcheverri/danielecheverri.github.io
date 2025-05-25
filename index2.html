@@ -215,6 +215,60 @@
 				generateSessionId();
 			});
 
+			document.addEventListener('DOMContentLoaded', () => {
+				const avatarCanvas = document.getElementById('avatarCanvas');
+				const hachiSVG = avatarCanvas.querySelector('img.hachi_control');
+				const buttons = [
+					{ id: 'bark_btn', offsetX: 0.1, offsetY: 0.1 }, // Relative offset factors
+					{ id: 'sniff_btn', offsetX: 0.9, offsetY: 0.1 },
+					{ id: 'jump_btn', offsetX: 0.5, offsetY: 0.5 },
+					{ id: 'back_btn', offsetX: 0.2, offsetY: 0.85 },
+					{ id: 'front_btn', offsetX: 0.8, offsetY: 0.85 },
+				];
+
+				function positionButtonsRelativeToSVG() {
+					if (!avatarCanvas || !hachiSVG) {
+						return;
+					}
+
+					const canvasRect = avatarCanvas.getBoundingClientRect();
+					const svgRect = hachiSVG.getBoundingClientRect();
+
+					// Calculate the top and left offset of the SVG within the canvas
+					const svgOffsetX = svgRect.left - canvasRect.left;
+					const svgOffsetY = svgRect.top - canvasRect.top;
+					const svgWidth = svgRect.width;
+					const svgHeight = svgRect.height;
+
+					buttons.forEach(buttonData => {
+						const button = document.getElementById(buttonData.id);
+						if (button) {
+							const buttonX = canvasRect.left + svgOffsetX + svgWidth * buttonData.offsetX - button.offsetWidth / 2;
+							const buttonY = canvasRect.top + svgOffsetY + svgHeight * buttonData.offsetY - button.offsetHeight / 2;
+
+							button.style.left = `${buttonX}px`;
+							button.style.top = `${buttonY}px`;
+
+							button.onclick = () => {
+								document.getElementById('log').textContent = `${button.textContent} activated at SVG-relative (${buttonData.offsetX * 100}%, ${buttonData.offsetY * 100}%)`;
+								// Call your specific functions here
+								switch (buttonData.id) {
+									case 'bark_btn': yourBarkFunction(); break;
+									case 'sniff_btn': yourSniffFunction(); break;
+									case 'jump_btn': yourJumpFunction(); break;
+									case 'back_btn': yourBackLegFunction(); break;
+									case 'front_btn': yourFrontLegFunction(); break;
+								}
+							};
+						}
+					});
+				}
+
+				// Call the function initially and on window resize to handle responsiveness
+				positionButtonsRelativeToSVG();
+				window.addEventListener('resize', positionButtonsRelativeToSVG);
+			});
+
 			function toggleDeviceName() {
 				var checkbox = document.getElementById("hachiCheckbox");
 				if (checkbox.checked) {
