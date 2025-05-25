@@ -158,7 +158,6 @@
 				// Check if latitude, longitude, and weatherDescription are not null
 				if (latitude !== null && longitude !== null) {
 					connectButton.disabled = false;
-					//initializeSounds();
 				} else {
 					// If any variable is still null, wait for a short delay and check again
 					setTimeout(checkVariables, 1000);
@@ -291,6 +290,7 @@
 					// Update UI to reflect a "connected" state (even though it's simulated)
 					document.getElementById("connectButton").innerHTML = '<span class="material-icons" style="vertical-align: middle;">bluetooth_connected</span> Disconnect Hachi (Simulated)';
 					isConnected = true;
+					listenClient = false;
 					startDetectMovement = true;
 					blueToothStatus = "Online";
 
