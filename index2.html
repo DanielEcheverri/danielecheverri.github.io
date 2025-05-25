@@ -1542,7 +1542,7 @@
 
 			function toggleDeviceName2() {
 				var checkbox = document.getElementById("hachiCheckbox");
-				const databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
+				const databaseName = (deviceName === 'hachi_BT') ? 'hachi_data' : 'hachi_data';
 				if (checkbox.checked) {
 					off(ref(database, databaseName));
 					readFromDatabase(deviceName); // Read data after writing
