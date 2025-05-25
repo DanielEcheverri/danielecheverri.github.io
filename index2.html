@@ -256,7 +256,6 @@
 				try {
 					// Directly set deviceName to "hachi_BT" to skip BLE connection
 					deviceName = "hachi_BT";
-					let databaseName;
 
 					console.log("Skipping BLE connection and directly loading settings for Hachi_BT");
 					interactionMode = "_int";
@@ -266,13 +265,12 @@
 					sentenceSource = 'hachi_sentences.json';
 					tagSource = 'tags.json';
 					initializeSounds();
-
-					// Integrate toggleDeviceName2 logic directly
-					databaseName = (deviceName === 'hachi_BT') ? 'avatar_data' : 'hachi_data';
-					off(ref(database, databaseName));
-					readFromDatabase(deviceName); // Read data after writing
-					console.log("Reading from: " + databaseName);
-
+					const hachiCheckbox = document.getElementById("hachiCheckbox");
+					if (hachiCheckbox) {
+						hachiCheckbox.click();
+					} else {
+						console.warn("hachiCheckbox element not found.");
+					}
 					characterName = "Hachi";
 					if (window[characterName + "_Sound"]) {
 						window[characterName + "_Sound"].play();
@@ -294,13 +292,12 @@
 					document.getElementById("connectButton").innerHTML = '<span class="material-icons" style="vertical-align: middle;">bluetooth_connected</span> Disconnect Hachi (Simulated)';
 					isConnected = true;
 					startDetectMovement = true;
-					blueToothStatus = "Simulated Online";
+					blueToothStatus = "Online";
 
 				} catch (error) {
 					console.error("Error during simulated connection: " + error);
 				}
 			}
-
 			// Attach click event listener to button.
 			//document.getElementById("connectButton").addEventListener("click", connectToDevice);
 
