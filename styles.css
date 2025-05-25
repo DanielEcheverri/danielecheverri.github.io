@@ -293,24 +293,29 @@ input:checked + .slider:before {
 
 /* Position the buttons relative to the avatarCanvas using percentages */
 #bark_btn {
-	top: 10%;
-	left: 10%;
+	top: 38%;
+	left: 32%;
 }
 
 #sniff_btn {
-	top: 10%;
-	right: 10%;
+	top: 41%;
+	right: 85%;
 }
 
 #jump_btn {
-	top: 50%;
-	left: 50%;
+	top: 73%;
+	left: 52%;
 	transform: translate(-50%, -50%);
 }
 
 #back_btn {
-	bottom: 15%;
-	left: 20%;
+	bottom: 22%;
+	left: 73%;
+}
+
+#grab_btn {
+	bottom: 22%;
+	left: 73%;
 }
 
 #front_btn {
