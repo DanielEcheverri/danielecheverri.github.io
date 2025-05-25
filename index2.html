@@ -749,6 +749,7 @@
 
 				// Function to track movement sequences and compare them against patterns
 				async function trackMovementSequences() {
+					console.log("trackMovementSequences called with buffer:", movementBuffer); // <--- ADD THIS LINE
 					try {
 						const currentSequence = { partMoving, directionMoving };
 
@@ -769,6 +770,7 @@
 						}
 
 						const patterns = await fetchJSONFile(movePatterns, cachedMovePatterns);
+						console.log("Loaded patterns:", patterns); // <--- ADD THIS LINE
 						for (const pattern of patterns) {
 							if (checkPatternInBuffer(pattern.pattern)) {
 								window.complete_Sound.play();
@@ -800,6 +802,8 @@
 
 				// Function to check if a pattern exists in the movement buffer
 				function checkPatternInBuffer(pattern) {
+					console.log("Comparing buffer:", movementBuffer);
+   					console.log("Against pattern:", pattern);
 					const bufferLength = movementBuffer.length;
 					if (bufferLength < pattern.length) {
 						return false; // Not enough movements in the buffer for pattern matching
