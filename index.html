@@ -133,7 +133,14 @@
 									src: [sounds[key].src],
 									volume: 0.4,
 									onload: soundLoaded, // Call soundLoaded() when sound is loaded successfully.
-									onloaderror: function(error) { console.error('Error loading audio resources:', error); }
+									onloaderror: function(error) {
+										console.error('Error loading audio resources:', error);
+									},
+									onstop: function(id) {
+										console.log(`Sound with key '${key}' and ID ${id} stopped.`);
+										console.log('Playback position:', this.seek());
+										console.trace(); // To see where the stop() was called from
+									}								
 								});
 							}
 						}
